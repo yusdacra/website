@@ -1,0 +1,18 @@
+image: alpine:edge
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+before_script:
+  - apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing zola
+
+pages:
+  stage: deploy
+  script:
+  - zola build
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+

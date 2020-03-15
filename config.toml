@@ -1,0 +1,30 @@
+# The URL the site will be built for
+base_url = "https://yusdacra.gitlab.io"
+title = "yusdacra's stuff"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+generate_rss = false
+
+check_external_links = true
+
+taxonomies = [
+    {name = "tags", rss = true}
+]
+
+theme = "sam"
+
+[extra]
+# Put all your custom variables here
+sam_menu = [
+    { text = "posts", link = "/posts" },
+    { text = "about", link = "/about" },
+    { text = "projects",   link = "/projects" }
+]
