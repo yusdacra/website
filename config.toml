@@ -10,21 +10,22 @@ compile_sass = true
 highlight_code = true
 
 # Whether to build a search index to be used later on by a JavaScript library
-build_search_index = false
-generate_rss = false
+build_search_index = true
+generate_rss = true
 
 check_external_links = true
 
 taxonomies = [
-    {name = "tags", rss = true}
+    {name = "categories", rss = true},
+    {name = "tags", rss = true},
 ]
 
-theme = "sam"
+theme = "after-dark"
 
 [extra]
 # Put all your custom variables here
-sam_menu = [
-    { text = "posts", link = "/posts" },
-    { text = "about", link = "/about" },
-    { text = "projects",   link = "/projects" }
+after_dark_menu = [
+    { name = "posts",    url = "$BASE_URL" },
+    { name = "about me", url = "$BASE_URL/info/about" },
+    { name = "projects", url = "$BASE_URL/info/projects" },
 ]
