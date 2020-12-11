@@ -3,6 +3,10 @@ title = "projects"
 +++
 
 ## Projects I maintain
+- [Icy Matrix](https://gitlab.com/yusdacra/icy_matrix)
+  - A Matrix chat client built with Rust.
+  - Uses `iced` for GUI.
+
 - [Hakkero OS](https://gitlab.com/hakkero-os/hakkero)
   - Learning project to create a micro-kernel that runs on x86, arm and risc-v.
   - Current goal is to support webassembly and be able to run everything in ring 0, thanks to it's sandboxing features.
