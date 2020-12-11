@@ -2,12 +2,11 @@
 title = "about me"
 +++
 
-Hello. This is where I post about my stuff.
-Feel free to send me an e-mail or DM on Discord / Matrix (i prefer Matrix) if you have anything to ask.
+Hello. This is where I post about stuff.
+Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
 
 + Contact:
-  - Matrix: @yusdacra:matrix.org
-  - Discord: arcadsuy#7447
+  - Matrix: @yusdacra:matrix.tchncs.de
   - E-Mail: y.bera003.06@pm.me
   - GitLab: <https://gitlab.com/yusdacra>
   - GitHub: <https://github.com/yusdacra>
@@ -17,11 +16,9 @@ I mainly work with Rust and Dart (with Flutter). My main areas of interest are
 embedded, operating systems and game development, although I'm open to
 anything else as well. I also work with C++ (mostly for Arduino), 
 GDScript (for Godot Engine), Kotlin (for my application's native Android
-needs that Flutter can't satisfy). I have worked with C# and Unity
+needs that Flutter can't satisfy, mostly services stuff). I have worked with C# and Unity
 for about 5 years.
 
 + I mainly use a NixOS system, you can find all my configurations here:
   - [My personal configuration files.](https://gitlab.com/yusdacra/nixos-config)
   - [Repo where I keep reusable configuration and packages.](https://gitlab.com/yusdacra/nix-exprs)
-
-I also use Fedora from time to time.
