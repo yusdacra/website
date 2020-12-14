@@ -6,7 +6,7 @@ Hello. This is where I post about stuff.
 Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
 
 + Contact:
-  - Matrix: @yusdacra:matrix.tchncs.de
+  - Matrix: @yusdacra:tchncs.de
   - E-Mail: y.bera003.06@pm.me
   - GitLab: <https://gitlab.com/yusdacra>
   - GitHub: <https://github.com/yusdacra>
