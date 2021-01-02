@@ -7,7 +7,10 @@ title = "projects"
   - A Matrix chat client built with Rust.
   - Uses `iced` for GUI.
 
-- [Hakkero OS](https://gitlab.com/hakkero-os/hakkero)
+- [Harmony Rust SDK](https://github.com/harmony-development/harmony_rust_sdk)
+  - Rust library that implements the Harmony protocol, and builds a client API on top of it.
+
+- [Hakkero Kernel](https://gitlab.com/hakkero-os/hakkero)
   - Learning project to create a micro-kernel that runs on x86, arm and risc-v.
   - Current goal is to support webassembly and be able to run everything in ring 0, thanks to it's sandboxing features.
   
@@ -32,13 +35,16 @@ title = "projects"
 - [Veloren](https://gitlab.com/veloren/veloren) and it's [Book](https://gitlab.com/veloren/book)
   - Veloren is a multiplayer voxel RPG written in Rust.
   - My main contributions are for rendering and UI. Also maintaining build files for the Nix package manager and the Turkish translation. And added some guides to the book.
-  
+ 
+- [Harmony Protocol](https://github.com/harmony-development)
+  - Various contributions to the reference server impl and the protocol itself.
+
 - [iced](https://github.com/hecrj/iced)
   - A cross-platform GUI library for Rust, inspired by Elm.
   
 - [nixpkgs](https://github.com/NixOS/nixpkgs)
   - The Nix Packages collection for the [Nix package manager](https://github.com/NixOS/nix).
-  - Packaging contributions.
+  - Package maintainer.
   
 - [Nihonoari](https://github.com/aeri/Nihonoari-App)
   - A little and minimalist Flutter application for Japanese Kana training. 
