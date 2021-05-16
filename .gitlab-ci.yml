@@ -5,6 +5,7 @@ pages:
   script:
     - nix build -L --show-trace
     - mkdir public && cp -r result/* public
+    - touch public/.gitkeep
     - ls public
   artifacts:
     paths:
