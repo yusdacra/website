@@ -1,6 +1,4 @@
-+++
-title = "about me"
-+++
+# # About
 
 Hello. This is where I post about stuff.
 Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
@@ -12,11 +10,11 @@ Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
   - GitLab: <https://gitlab.com/yusdacra>
   - GitHub: <https://github.com/yusdacra>
 
-## Bio
+## ## Bio
 
-I mainly work with Rust and Dart (with Flutter). My main areas of interest are
+I mainly work with Rust and Nix. My main areas of interest are
 embedded, operating systems and game development, although I'm open to
-anything else as well. I also work with C++ (mostly for Arduino), 
+anything else as well. I also work with Flutter, C++ (mostly for Arduino), 
 GDScript (for Godot Engine), Kotlin (for my application's native Android
 needs that Flutter can't satisfy, mostly backend). I have worked with C# and Unity
 for about 5 years.

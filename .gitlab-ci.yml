@@ -1,15 +1,17 @@
-image: yusdacra/website:latest
+image: yusdacra/nix-flake:latest
 
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
+before_script:
+  - . /bin/pre-build.sh
 
 pages:
   stage: deploy
   script:
-  - zola build
+  - nix build -L --show-trace
   artifacts:
     paths:
-    - public
+    - result
   only:
   - master
 
+after_script:
+  - ./bin/post-build.sh

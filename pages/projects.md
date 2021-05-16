@@ -1,8 +1,6 @@
-+++
-title = "projects"
-+++
+# # Projects
 
-## Projects I contribute(d) to
+## ## Projects I contribute(d) to
 
 - [Veloren](https://gitlab.com/veloren/veloren) and it's [Book](https://gitlab.com/veloren/book)
   - Veloren is a multiplayer voxel RPG written in Rust.
@@ -21,7 +19,7 @@ title = "projects"
 
 ----
 
-## Projects I maintain
+## ## Projects I maintain
 
 - [rust-nix-templater](https://github.com/yusdacra/rust-nix-templater) and [nix-cargo-integration](https://github.com/yusdacra/nix-cargo-integration)
   - `nix-cargo-integration` allows easy and convenient integration of Cargo projects with Nix.
