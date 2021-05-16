@@ -4,9 +4,7 @@ pages:
   stage: deploy
   script:
     - nix build -L --show-trace
-    - mkdir public && cp -r result/* public
-    - touch public/.gitkeep
-    - ls public
+    - mkdir public && cp -Hr result/* public
   artifacts:
     paths:
     - public
