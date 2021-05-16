@@ -1,8 +1,5 @@
 image: yusdacra/nix-flake:latest
 
-before_script:
-  - . /bin/pre-build.sh
-
 pages:
   stage: deploy
   script:
@@ -12,6 +9,3 @@ pages:
     - result
   only:
   - master
-
-after_script:
-  - ./bin/post-build.sh
