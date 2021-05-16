@@ -3,9 +3,10 @@ image: yusdacra/nix-flake:latest
 pages:
   stage: deploy
   script:
-  - nix build -L --show-trace
+    - nix build -L --show-trace
+    - mkdir public && cp -r result/* public 
   artifacts:
     paths:
-    - result
+    - public
   only:
   - master
