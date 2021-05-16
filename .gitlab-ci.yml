@@ -4,7 +4,8 @@ pages:
   stage: deploy
   script:
     - nix build -L --show-trace
-    - mkdir public && cp -r result/* public 
+    - mkdir public && cp -r result/* public
+    - ls public
   artifacts:
     paths:
     - public
