@@ -1,5 +1,11 @@
 image: yusdacra/nix-flake:latest
 
+variables:
+  CACHIX_NAME: yusdacra-website
+
+before_script:
+  - . /bin/pre-build.sh
+
 pages:
   stage: deploy
   script:
@@ -10,3 +16,6 @@ pages:
     - public
   only:
   - master
+
+after_script:
+  - . /bin/post-build.sh
