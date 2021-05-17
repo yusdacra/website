@@ -34,7 +34,7 @@
                 };
               };
               header = with lib.tags; div { class = "botheader"; }
-                (a { href = "https://github.com/yusdacra/html.nix"; } "made with Nix in html.nix");
+                (a { href = "https://github.com/yusdacra/html.nix"; } "❄ made with Nix in html.nix");
             in
             (
               mapAttrsRecursive
