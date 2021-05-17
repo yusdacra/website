@@ -5,6 +5,7 @@ pages:
   script:
     - nix build -L --show-trace
     - mkdir public && cp -Hr result/* public
+    - tree public
   artifacts:
     paths:
     - public

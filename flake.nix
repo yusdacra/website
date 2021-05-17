@@ -14,7 +14,7 @@
     eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        inherit (pkgs.lib) mapAttrsRecursive hasSuffix last;
+        inherit (pkgs.lib) mapAttrsRecursive hasSuffix last pipe;
 
         lib = htmlNix.lib.${system};
         ownTemplater = context: context // {
@@ -34,7 +34,7 @@
                 };
               };
               header = with lib.tags; div { class = "botheader"; }
-                (a { class = "botheader"; href = "https://github.com/yusdacra/html.nix"; } "made with Nix in html.nix");
+                (a { href = "https://github.com/yusdacra/html.nix"; } "made with Nix in html.nix");
             in
             (
               mapAttrsRecursive
@@ -43,7 +43,7 @@
                 context.site
             ) // { "site.css" = "${context.site."site.css"}\n${headerStyle}"; };
         };
-        site = local: lib.pkgsLib.mkSiteFrom { inherit local; src = ./.; templater = context: ownTemplater (lib.templaters.basic context); };
+        site = local: lib.pkgsLib.mkSiteFrom { inherit local; src = ./.; templater = context: pipe context [ lib.templaters.basic ownTemplater ]; };
       in
       rec {
         apps = {
