@@ -4,8 +4,7 @@ pages:
   stage: deploy
   script:
     - nix build -L --show-trace
-    - mkdir public && cp -Hr result/* public
-    - nix-shell -p tree --run "tree public"
+    - nix-shell -p rsync --run "rsync -Lkr result/* public"
   artifacts:
     paths:
     - public
