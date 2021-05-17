@@ -1,4 +1,4 @@
-# # About
+# About
 
 Hello. This is where I post about stuff.
 Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
@@ -10,7 +10,7 @@ Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
   - GitLab: <https://gitlab.com/yusdacra>
   - GitHub: <https://github.com/yusdacra>
 
-## ## Bio
+## Bio
 
 I mainly work with Rust and Nix. My main areas of interest are
 embedded, operating systems and game development, although I'm open to
