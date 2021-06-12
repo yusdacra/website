@@ -6,7 +6,6 @@ Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
 + Contact:
   - Matrix: @yusdacra:tchncs.de
   - E-Mail: y.bera003.06@pm.me
-  - Discord: arcadsuy#7447
   - GitLab: <https://gitlab.com/yusdacra>
   - GitHub: <https://github.com/yusdacra>
 
