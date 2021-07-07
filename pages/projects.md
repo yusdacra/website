@@ -2,13 +2,13 @@
 
 ## Projects I contribute(d) to
 
-- [Veloren](https://gitlab.com/veloren/veloren) and it's [Book](https://gitlab.com/veloren/book)
-  - Veloren is a multiplayer voxel RPG written in Rust.
-  - My main contributions are for rendering and UI. Also maintaining build files for the Nix package manager and the Turkish translation. And added some guides to the book.
- 
 - [Harmony Protocol](https://github.com/harmony-development)
   - Various contributions to the reference server impl and the protocol itself.
   - Maintaining a server and client implementation, along with Rust ecosystem.
+
+- [Veloren](https://gitlab.com/veloren/veloren) and it's [Book](https://gitlab.com/veloren/book)
+  - Veloren is a multiplayer voxel RPG written in Rust.
+  - My main contributions are for rendering and UI. Also maintaining build files for the Nix package manager and the Turkish translation. And added some guides to the book.
 
 - [iced](https://github.com/hecrj/iced)
   - A cross-platform GUI library for Rust, inspired by Elm.
@@ -29,7 +29,7 @@
   - Rust library that implements the Harmony protocol, and builds a client API on top of it.
 
 - [scherzo](https://github.com/harmony-development/scherzo)
-  - Harmony server implementation written in Rust, using sled as database.
+  - Harmony server implementation written in Rust, using sled as database and warp as HTTP server.
 
 - [Crust](https://github.com/harmony-development/crust)
   - Harmony client written in Rust, using iced as GUI framework.
@@ -37,12 +37,16 @@
 - [hrpc-rs](https://github.com/harmony-development/hrpc-rs)
   - [hrpc](https://github.com/harmony-development/hrpc) implementation in Rust.
 
+- [linemd](https://github.com/yusdacra/linemd)
+  - A no dependency, no std, simple and lightweight markdown parser and renderer (to HTML and SVG).
+
+- [Icy Matrix](https://gitlab.com/yusdacra/icy_matrix)
+  - A Matrix chat client built with Rust.
+  - Uses `iced` for GUI.
+
 - [Hakkero Kernel](https://gitlab.com/hakkero-os/hakkero)
   - Learning project to create a micro-kernel that runs on x86, arm and risc-v.
   - Current goal is to support webassembly and be able to run everything in ring 0, thanks to it's sandboxing features.
-
-- [Neonment](https://gitlab.com/yusdacra/neonment)
-  - Neonment is a first person hero shooter. Name is subject to change.
 
 - [treeculler](https://gitlab.com/yusdacra/treeculler)
   - A Rust crate for working with frustum and occlusion culling.
@@ -56,6 +60,5 @@
 - [FlutterEnhancements](https://github.com/yusdacra/FlutterEnhancements)
   - Basic Flutter support for Sublime Text 3.
 
-- [Icy Matrix](https://gitlab.com/yusdacra/icy_matrix)
-  - A Matrix chat client built with Rust.
-  - Uses `iced` for GUI.
+- [Neonment](https://gitlab.com/yusdacra/neonment)
+  - Neonment is a first person hero shooter. Name is subject to change.
