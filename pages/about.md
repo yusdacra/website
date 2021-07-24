@@ -4,7 +4,7 @@ Hello. This is where I post about stuff.
 Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
 
 + Contact:
-  - Matrix: @yusdacra:tchncs.de
+  - Matrix: [@yusdacra:nixos.dev](https://matrix.to/#/@yusdacra:nixos.dev) or [@yusdacra:tchncs.de](https://matrix.to/#/@yusdacra:tchncs.de)
   - E-Mail: y.bera003.06@pm.me
   - GitLab: <https://gitlab.com/yusdacra>
   - GitHub: <https://github.com/yusdacra>
