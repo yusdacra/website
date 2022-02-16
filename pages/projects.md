@@ -40,6 +40,10 @@
 - [linemd](https://github.com/yusdacra/linemd)
   - A no dependency, no std, simple and lightweight markdown parser and renderer (to HTML and SVG).
 
+----
+
+## Projects I used to work on
+
 - [Icy Matrix](https://gitlab.com/yusdacra/icy_matrix)
   - A Matrix chat client built with Rust.
   - Uses `iced` for GUI.
