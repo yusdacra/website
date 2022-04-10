@@ -11,7 +11,7 @@ pages:
   script:
     - nix build -L --show-trace
     - ls -l
-    - nix-shell -p rsync --run "rsync -Lkr result/* public"
+    - nix-shell -p rsync --run "rsync -Lkr ./result/* public"
   artifacts:
     paths:
     - public
