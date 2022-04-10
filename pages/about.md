@@ -1,6 +1,6 @@
 # About
 
-Hello. This is where I post about stuff.
+Hi, i'm dusk! This is where I post about stuff.
 Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
 
 + Contact:
