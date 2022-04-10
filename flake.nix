@@ -5,7 +5,7 @@
       inputs.flakeUtils.follows = "flakeUtils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flakeUtils.url = "github:numtide/flake-utils";
   };
 
