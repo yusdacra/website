@@ -9,31 +9,45 @@
     flakeUtils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { htmlNix, flakeUtils, nixpkgs, ... }@inputs:
+  outputs = {
+    htmlNix,
+    flakeUtils,
+    nixpkgs,
+    ...
+  } @ inputs:
     with flakeUtils.lib;
-    eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-        inherit (pkgs.lib) mapAttrsRecursive hasSuffix last pipe;
+      eachDefaultSystem (system: let
+        pkgs = nixpkgs.legacyPackages.${system};
 
-        lib = htmlNix.lib.${system};
-        site = local: lib.pkgsLib.mkSiteFrom {
-          inherit local;
-          src = ./.;
-          templater = lib.templaters.basic;
-        };
-      in
-      rec {
+        inherit (builtins) readFile;
+        ssgLib = htmlNix.lib.${system}.pkgsLib;
+        htmlLib = htmlNix.lib;
+
+        site = local:
+          ssgLib.mkSiteFrom {
+            inherit local;
+            src = ./.;
+            templater = ctx:
+              htmlLib.templaters.basic
+              (
+                ctx
+                // {
+                  indexContent = builtins.readFile ./main-content.html;
+                  resources = {
+                    "gaze-office.webp" = ./resources/GazeOfficeIcon.webp;
+                  };
+                }
+              );
+          };
+      in rec {
         apps = {
           website = mkApp {
-            drv = lib.pkgsLib.mkServeFromSite (site true);
+            drv = ssgLib.mkServeFromSite (site true);
             name = "serve";
           };
         };
         packages = {
-          website = lib.pkgsLib.mkSitePath (site false);
+          website = ssgLib.mkSitePath (site false);
         };
-        defaultPackage = packages.website;
-        defaultApp = apps.website;
       });
 }
