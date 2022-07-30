@@ -2,17 +2,6 @@
 
 ## Projects I contribute(d) to
 
-- [Harmony Protocol](https://github.com/harmony-development)
-  - Various contributions to the reference server impl and the protocol itself.
-  - Maintaining a server and client implementation, along with Rust ecosystem.
-
-- [Veloren](https://gitlab.com/veloren/veloren) and it's [Book](https://gitlab.com/veloren/book)
-  - Veloren is a multiplayer voxel RPG written in Rust.
-  - My main contributions are for rendering and UI. Also maintaining build files for the Nix package manager and the Turkish translation. And added some guides to the book.
-
-- [iced](https://github.com/hecrj/iced)
-  - A cross-platform GUI library for Rust, inspired by Elm.
-
 - [nixpkgs](https://github.com/NixOS/nixpkgs)
   - The Nix Packages collection for the [Nix package manager](https://github.com/NixOS/nix).
   - Package maintainer.
@@ -24,6 +13,15 @@
 - [rust-nix-templater](https://github.com/yusdacra/rust-nix-templater) and [nix-cargo-integration](https://github.com/yusdacra/nix-cargo-integration)
   - `nix-cargo-integration` allows easy and convenient integration of Cargo projects with Nix.
   - `rust-nix-templater` is a utility to create / generate Rust projects with Nix files and CI set up.
+
+- [linemd](https://github.com/yusdacra/linemd)
+  - A no dependency, no std, simple and lightweight markdown parser and renderer (to HTML and SVG).
+
+- [dream2nix](https://github.com/nix-community/dream2nix)
+
+----
+
+## Projects I used to work on
 
 - [Harmony Rust SDK](https://github.com/harmony-development/harmony_rust_sdk)
   - Rust library that implements the Harmony protocol, and builds a client API on top of it.
@@ -37,12 +35,16 @@
 - [hrpc-rs](https://github.com/harmony-development/hrpc-rs)
   - [hrpc](https://github.com/harmony-development/hrpc) implementation in Rust.
 
-- [linemd](https://github.com/yusdacra/linemd)
-  - A no dependency, no std, simple and lightweight markdown parser and renderer (to HTML and SVG).
+- [Harmony Protocol](https://github.com/harmony-development)
+  - Various contributions to the reference server impl and the protocol itself.
+  - Maintaining a server and client implementation, along with Rust ecosystem.
 
-----
+- [Veloren](https://gitlab.com/veloren/veloren) and it's [Book](https://gitlab.com/veloren/book)
+  - Veloren is a multiplayer voxel RPG written in Rust.
+  - My main contributions are for rendering and UI. Also maintaining build files for the Nix package manager and the Turkish translation. And added some guides to the book.
 
-## Projects I used to work on
+- [iced](https://github.com/hecrj/iced)
+  - A cross-platform GUI library for Rust, inspired by Elm.
 
 - [Icy Matrix](https://gitlab.com/yusdacra/icy_matrix)
   - A Matrix chat client built with Rust.
