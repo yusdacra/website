@@ -25,17 +25,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1659180517,
-        "narHash": "sha256-JHgu5lnXDPjYDbxxbYTZtUMtg0HMF3j8ZmryEw1Iw+A=",
-        "owner": "yusdacra",
-        "repo": "html.nix",
-        "rev": "54b5c7f003c31a171da27f37c7ba1fbb0f38381d",
-        "type": "github"
+        "narHash": "sha256-lQtjjkKu6EOqkT6jJRvzCBBWmOdtLACL//ETRAAxRQI=",
+        "type": "tarball",
+        "url": "https://git.gaze.systems/dusk/html.nix/archive/master.zip"
       },
       "original": {
-        "owner": "yusdacra",
-        "repo": "html.nix",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.gaze.systems/dusk/html.nix/archive/master.zip"
       }
     },
     "nixpkgs": {
