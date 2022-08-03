@@ -23,7 +23,7 @@ can't satisfy). I have also worked with Unity and C# before.
 
 I work at [Platonic Systems](https://platonic.systems).
 
-+ I use a NixOS system, you can find my configuration [here](https://github.com/yusdacra/ark).
-+ This site's source is available [here](https://gitlab.com/yusdacra/yusdacra.gitlab.io).
++ I use a NixOS system, you can find my configuration [here](https://github.com/git.gaze.systems/dusk/ark).
++ This site's source is available [here](https://git.gaze.systems/dusk/website).
 
 [dream2nix]: https://github.com/nix-community/dream2nix "dream2nix"
