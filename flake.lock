@@ -25,13 +25,17 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-3PHw4aioOmhAPAL7PGbf/At0E+1rrENtRbLVkjLctxA=",
-        "type": "tarball",
-        "url": "https://git.gaze.systems/dusk/html.nix/archive/master.zip"
+        "lastModified": 1659251276,
+        "narHash": "sha256-rHhaPtyH1hBcZxd6nXxyg59wL6ilqJqsfuHh8Ebd+rA=",
+        "ref": "refs/heads/master",
+        "rev": "d30b07841100278a1d7901001ecec038c5448be2",
+        "revCount": 50,
+        "type": "git",
+        "url": "https://git.gaze.systems/dusk/html.nix.git"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://git.gaze.systems/dusk/html.nix/archive/master.zip"
+        "type": "git",
+        "url": "https://git.gaze.systems/dusk/html.nix.git"
       }
     },
     "nixpkgs": {

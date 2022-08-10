@@ -1,7 +1,7 @@
 {
   inputs = {
     htmlNix = {
-      url = "https://git.gaze.systems/dusk/html.nix/archive/master.zip";
+      url = "git+https://git.gaze.systems/dusk/html.nix.git";
       inputs.flakeUtils.follows = "flakeUtils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
