@@ -17,6 +17,8 @@
           path = ./.;
           pathString = ".";
         };
+        packages.default = self'.packages.blog;
+        apps.default = self'.apps.blog;
       };
     };
 }
