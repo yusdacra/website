@@ -2,3 +2,10 @@ page:
   siteTitle: gaze.systems
   siteName: gaze.systems
 
+template:
+  iconUrl: resources/GazeOfficeIcon.webp
+  theme: purple
+  urlStrategy: pretty
+  layout:
+    base:
+      bodyClass: bg-black
