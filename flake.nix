@@ -1,83 +1,22 @@
 {
+  nixConfig.extra-substituters = "https://cache.garnix.io";
+  nixConfig.extra-trusted-public-keys = "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=";
+
   inputs = {
-    htmlNix = {
-      url = "git+https://git.gaze.systems/dusk/html.nix.git";
-      inputs.flakeUtils.follows = "flakeUtils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flakeUtils.url = "github:numtide/flake-utils";
+    emanote.url = "github:srid/emanote";
+    nixpkgs.follows = "emanote/nixpkgs";
+    flake-parts.follows = "emanote/flake-parts";
   };
 
-  outputs = {
-    htmlNix,
-    flakeUtils,
-    nixpkgs,
-    ...
-  } @ inputs:
-    with flakeUtils.lib;
-      eachDefaultSystem (system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-
-        inherit (builtins) readFile;
-        ssgLib = htmlNix.lib.${system}.pkgsLib;
-        htmlLib = htmlNix.lib;
-
-        aboutContent =
-          builtins.readFile
-          (
-            ssgLib.parseMarkdown
-            "about.html"
-            (builtins.readFile ./about.md)
-          );
-
-        site = local:
-          ssgLib.mkSiteFrom {
-            inherit local;
-            src = ./.;
-            templater = ctx: let
-              out =
-                htmlLib.templaters.basic
-                (
-                  ctx
-                  // {
-                    indexContent = ''
-                      ${aboutContent}
-                      <img class="logo" src="resources/gaze-office.webp" style="position: fixed; left: 87%; top: 9%;">
-                    '';
-                  }
-                );
-            in
-              out
-              // {
-                site =
-                  out.site
-                  // {
-                    resources."gaze-office.webp" =
-                      ./resources/GazeOfficeIcon.webp;
-                    "site.css" = ''
-                      ${out.site."site.css"}
-                      ${
-                        htmlLib.css.media "max-width: 48em"
-                        {
-                          "img.logo" = {
-                            display = "none";
-                          };
-                        }
-                      }
-                    '';
-                  };
-              };
-          };
-      in rec {
-        apps = {
-          website = mkApp {
-            drv = ssgLib.mkServeFromSite (site true);
-            name = "serve";
-          };
+  outputs = inputs@{self, flake-parts, nixpkgs, ...}:
+    flake-parts.lib.mkFlake { inherit self; } {
+      systems = ["x86_64-linux"];
+      imports = [inputs.emanote.flakeModule];
+      perSystem = {self', ...}: {
+        emanote.sites."blog" = {
+          path = ./.;
+          pathString = ".";
         };
-        packages = {
-          website = ssgLib.mkSitePath (site false);
-        };
-      });
+      };
+    };
 }
