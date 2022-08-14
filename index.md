@@ -1,29 +1,20 @@
 # About
 
 Hi, I'm yusdacra! This is where I post about stuff.
-Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
+Feel free to send an e-mail or DM me on Matrix / Discord if you have anything to ask.
 
 + Contact:
   - Matrix: [@yusdacra:nixos.dev](https://matrix.to/#/@yusdacra:nixos.dev)
+  - Discord: dusk#7476
   - E-Mail: y.bera003.06@pm.me
-  - GitLab: <https://gitlab.com/yusdacra>
   - GitHub: <https://github.com/yusdacra>
 
 ## Bio
 
-I mainly work with Rust and Nix. My main areas of interest are
-embedded, operating systems and game development, although I'm open to
-anything else as well. I work on the Rust ecosystem of the Harmony protocol;
-working on a client, server and SDK. I also maintain and contribute to a few
-Nix related projects (most notably, [dream2nix]), and contribute to nixpkgs.
-
-I also sometimes work with Flutter, C++ (mostly for Arduino), GDScript (for
-Godot Engine), Kotlin (for my application's native Android needs that Flutter
-can't satisfy). I have also worked with Unity and C# before.
+I love using Nix / NixOS for any kind of purpose, but mainly for DevOps.
+I also use Rust for my hobby or other more serious projects.
 
 I work at [Platonic Systems](https://platonic.systems).
 
-+ I use a NixOS system, you can find my configuration [here](https://github.com/git.gaze.systems/dusk/ark).
++ I use a NixOS system, you can find my configuration [here](https://git.gaze.systems/dusk/ark).
 + This site's source is available [here](https://git.gaze.systems/dusk/website).
-
-[dream2nix]: https://github.com/nix-community/dream2nix "dream2nix"

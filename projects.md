@@ -6,8 +6,6 @@
   - The Nix Packages collection for the [Nix package manager](https://github.com/NixOS/nix).
   - Package maintainer.
 
-----
-
 ## Projects I maintain
 
 - [rust-nix-templater](https://github.com/yusdacra/rust-nix-templater) and [nix-cargo-integration](https://github.com/yusdacra/nix-cargo-integration)
@@ -18,8 +16,6 @@
   - A no dependency, no std, simple and lightweight markdown parser and renderer (to HTML and SVG).
 
 - [dream2nix](https://github.com/nix-community/dream2nix)
-
-----
 
 ## Projects I used to work on
 
