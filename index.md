@@ -5,7 +5,7 @@ Feel free to send an e-mail or DM me on Matrix / Discord if you have anything to
 
 + Contact:
   - Matrix: [@yusdacra:nixos.dev](https://matrix.to/#/@yusdacra:nixos.dev)
-  - Discord: dusk#7476
+  - Discord: dusk\#7476
   - E-Mail: y.bera003.06@pm.me
   - GitHub: <https://github.com/yusdacra>
 
