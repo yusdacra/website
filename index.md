@@ -1,13 +1,14 @@
 # About
 
-Hi, I'm yusdacra! This is where I post about stuff.
+Hi, I'm dusk (aka yusdacra)! This is where I post about stuff.
 Feel free to send an e-mail or DM me on Matrix / Discord if you have anything to ask.
 
 + Contact:
-  - Matrix: [@yusdacra:nixos.dev](https://matrix.to/#/@yusdacra:nixos.dev)
+  - Matrix: [@dusk:gaze.systems](https://matrix.to/#/@dusk:gaze.systems)
   - Discord: dusk\#7476
   - E-Mail: y.bera003.06@pm.me
   - GitHub: <https://github.com/yusdacra>
+  - Gitea: <https://git.gaze.systems/dusk>
 
 ## Bio
 
