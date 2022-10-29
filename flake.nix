@@ -14,8 +14,8 @@
       imports = [inputs.emanote.flakeModule];
       perSystem = {self', ...}: {
         emanote.sites."blog" = {
-          path = ./.;
-          pathString = ".";
+          layers = [./.];
+          layersString = ["."];
         };
         packages.default = self'.packages.blog;
         apps.default = self'.apps.blog;
