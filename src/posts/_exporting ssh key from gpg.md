@@ -1,7 +1,3 @@
----
-tags: [gpg,ssh]
----
-
 - gpg --export-secret-ssh-key doesn't work
 - gpg --export-ssh-key works to export public key
 

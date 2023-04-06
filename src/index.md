@@ -1,11 +1,10 @@
 # About
 
 Hi, I'm dusk (aka yusdacra)! This is where I post about stuff.
-Feel free to send an e-mail or DM me on Matrix / Discord if you have anything to ask.
+Feel free to send an e-mail or DM me on Matrix if you have anything to ask.
 
 + Contact:
   - Matrix: [@dusk:gaze.systems](https://matrix.to/#/@dusk:gaze.systems)
-  - Discord: dusk\#7476
   - E-Mail: y.bera003.06@pm.me
   - GitHub: <https://github.com/yusdacra>
   - Gitea: <https://git.gaze.systems/dusk>
@@ -13,7 +12,7 @@ Feel free to send an e-mail or DM me on Matrix / Discord if you have anything to
 ## Bio
 
 I love using Nix / NixOS for any kind of purpose, but mainly for DevOps.
-I also use Rust for my hobby or other more serious projects.
+I also use Rust and Zig for my hobby or other more serious projects.
 
 I work at [Platonic Systems](https://platonic.systems).
 

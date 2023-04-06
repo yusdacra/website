@@ -1,24 +1,44 @@
 {
-  nixConfig.extra-substituters = "https://cache.garnix.io";
-  nixConfig.extra-trusted-public-keys = "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=";
-
   inputs = {
-    emanote.url = "github:srid/emanote";
-    nixpkgs.follows = "emanote/nixpkgs";
-    flake-parts.follows = "emanote/flake-parts";
+    html-nix.url = "git+https://git.gaze.systems/dusk/html.nix.git";
+    nixpkgs.follows = "html-nix/nixpkgs";
+    parts.follows = "html-nix/parts";
   };
 
-  outputs = inputs@{self, flake-parts, nixpkgs, ...}:
-    flake-parts.lib.mkFlake { inherit self; } {
+  outputs = inputs @ {parts, ...}:
+    parts.lib.mkFlake {inherit inputs;} (topArgs: {
       systems = ["x86_64-linux"];
-      imports = [inputs.emanote.flakeModule];
-      perSystem = {self', ...}: {
-        emanote.sites."blog" = {
-          layers = [./.];
-          layersString = ["."];
-        };
-        packages.default = self'.packages.blog;
-        apps.default = self'.apps.blog;
+      imports = [inputs.html-nix.flakeModule];
+      perSystem = {
+        config,
+        lib,
+        ...
+      }: let
+        l = lib // builtins;
+        html-nix = config.html-nix.lib;
+        site = local:
+          html-nix.mkSiteFrom {
+            inherit local;
+            src = ./src;
+            config = {
+              baseurl = "https://gaze.systems";
+              title = "dusk's place";
+              iconPath = "resources/icon.png";
+              siteLang = "en";
+            };
+            templater = ctx:
+              l.pipe ctx [
+                topArgs.config.html-nix.lib.templaters.simple
+                (ctx:
+                  l.recursiveUpdate ctx {
+                    site."resources"."icon.png" = ./src/resources/icon.png;
+                  })
+              ];
+          };
+        dev = html-nix.mkServeFromSite (site true);
+      in {
+        packages.site = html-nix.mkSitePathFrom (site false);
+        apps.site.program = "${dev}/bin/serve";
       };
-    };
+    });
 }
