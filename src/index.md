@@ -16,5 +16,5 @@ I also use Rust and Zig for my hobby or other more serious projects.
 
 I work at [Platonic Systems](https://platonic.systems).
 
-+ I use a NixOS system, you can find my configuration [here](https://git.gaze.systems/dusk/ark).
-+ This site's source is available [here](https://git.gaze.systems/dusk/website).
++ I use a NixOS system, you can [find my configuration here](https://git.gaze.systems/dusk/ark).
++ [This site's source is available here](https://git.gaze.systems/dusk/website).

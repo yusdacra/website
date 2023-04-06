@@ -25,6 +25,12 @@
               title = "dusk's place";
               iconPath = "resources/icon.png";
               siteLang = "en";
+              descriptionsById = {
+                "404" = "Page not found.";
+                "index" = "Home page of dusk's place with information about the website.";
+                "posts" = "A listing of posts published on the website.";
+                "_exporting_ssh_key_from_gpg" = "Instructions explaining how to export SSH keys from GPG.";
+              };
             };
             templater = ctx:
               l.pipe ctx [
