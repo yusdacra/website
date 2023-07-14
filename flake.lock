@@ -6,11 +6,11 @@
         "parts": "parts"
       },
       "locked": {
-        "lastModified": 1680758443,
-        "narHash": "sha256-MDokBU3VJbCHRDkgU2OzyuVlJcsaeIjVo7UTlFIBfHw=",
+        "lastModified": 1689376761,
+        "narHash": "sha256-T3UBWQAqmMmsIpgNySzxlbel9UjREGQJPJDyGY8BUWQ=",
         "ref": "refs/heads/master",
-        "rev": "3df7d11df595477a496df07086da693714cd7ffc",
-        "revCount": 70,
+        "rev": "1f8450f6e4c42e2fd6204df95e513531001733b3",
+        "revCount": 71,
         "type": "git",
         "url": "https://git.gaze.systems/dusk/html.nix.git"
       },
