@@ -18,6 +18,7 @@ Feel free to send an e-mail or DM me on Matrix / Discord if you have anything to
 
 I love using Nix / NixOS for anything.
 I like developing with Rust and Zig for my hobby or work projects.
+My projects are on [my GitHub](https://github.com/yusdacra) and [my Gitea](https://git.gaze.systems/dusk).
 
 I love playing (and making) video games. Also a massive Splatoon nerd.
 You can find any game I develop [here on my itch.io page](https://yusdacra.itch.io/).
