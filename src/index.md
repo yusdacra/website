@@ -20,5 +20,6 @@ I love using Nix / NixOS for anything.
 I like developing with Rust and Zig for my hobby or work projects.
 
 I love playing (and making) video games. Also a massive Splatoon nerd.
+You can find any game I develop [here on my itch.io page](https://yusdacra.itch.io/).
 
 ###### [This site's source is available here](https://git.gaze.systems/dusk/website).
