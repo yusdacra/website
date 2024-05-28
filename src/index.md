@@ -7,7 +7,7 @@ h6:before {
 # about
 
 hi, i'm dusk, a software engineer and aspiring game developer.
-feel free to send an e-mail or DM me on Matrix / Discord if you have anything to ask.
+feel free to send an e-mail or DM me on Discord if you have anything to ask.
 
 + contact:
   - discord: yusdacra
