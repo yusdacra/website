@@ -10,7 +10,6 @@ hi, i'm dusk, a software engineer and aspiring game developer.
 feel free to send an e-mail or DM me on Matrix / Discord if you have anything to ask.
 
 + contact:
-  - matrix: [@dusk:gaze.systems](https://matrix.to/#/@dusk:gaze.systems)
   - discord: yusdacra
   - e-mail: y.bera003.06@pm.me
 + others:
