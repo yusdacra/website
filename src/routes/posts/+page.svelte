@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PostData } from './+page.js';
+	import type { PostData } from './+page.ts';
 
 	export let data;
 

@@ -2,6 +2,7 @@
 title: Hello World
 author: Jeff
 date: 2022-05-27
+layout: blogpost
 excerpt: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget massa sit amet arcu varius lacinia nec quis lacus.
 ---
 

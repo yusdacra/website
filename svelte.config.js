@@ -18,7 +18,10 @@ const config = {
 				rehypeAutolinkHeadings,
 			],
 			smartypants: { dashes: 'oldschool' },
-			layout: './src/routes/+layout.svelte',
+			layout: {
+				_: './src/routes/+layout.svelte',
+				blogpost: './src/routes/posts/_layout.svelte',
+			},
 		}),
 	],
 
