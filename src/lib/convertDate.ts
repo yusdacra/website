@@ -16,7 +16,7 @@ const months = [
 const convertDate = (published: string) => {
     const date = published.substring(0, 10);
     const [year, month, day] = date.split('-');
-    return `${day}-${months[parseInt(month) - 1]}-${year}`;
+    return `${day} ${months[parseInt(month) - 1]} ${year}`;
 };
 
 export default convertDate;

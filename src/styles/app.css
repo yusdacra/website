@@ -1,0 +1,136 @@
+@import './prism-synthwave84.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        @apply font-sans-serif bg-ralsei-black text-ralsei-white;
+        @apply prose-code:font-monospace prose-headings:font-monospace;
+        cursor: url('/icons/gaze_closed.png'), default;
+    }
+
+    .prose h1::before {
+        content: '> ';
+    }
+
+    .prose h2::before {
+        content: '>> ';
+    }
+    
+    .prose h3::before {
+        content: '>>> ';
+    }
+    
+    .prose h4::before {
+        content: '>>>> ';
+    }
+
+    .prose a:hover {
+        @apply animate-pulse-fast;
+    }
+
+    h1,h2,h3,h4,h5,h6 {
+        text-shadow: 0 0 3px theme(colors.ralsei.black), 0 0 6px theme(colors.ralsei.pink.neon), 0 0 10px #fff3;
+    }
+
+    li,p {
+        text-shadow: 0 0 1px theme(colors.ralsei.black), 0 0 5px theme(colors.ralsei.white);
+    }
+
+    li::marker {
+        text-shadow: 0 0 4px theme(colors.ralsei.pink.regular), 0 0 6px #fff9;
+    }
+
+    code {
+        text-shadow: 0 0 4px theme(colors.ralsei.pink.regular);
+    }
+
+    a {
+        text-shadow: 0 0 2px theme(colors.ralsei.black), 0 0 5px theme(colors.ralsei.green.light);
+        cursor: url('/icons/gaze.png'), pointer;
+    }
+
+    @font-face {
+        font-family: 'Comic Shanns';
+        font-display: swap;
+        src: url('/fonts/ComicMono-Condensed.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'Comic Sans';
+        font-style: normal;
+        font-display: swap;
+        src: url('/fonts/comic.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'Comic Sans';
+        font-style: normal;
+        font-weight: bold;
+        font-display: swap;
+        src: url('/fonts/comicbd.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'Comic Sans';
+        font-style: italic;
+        font-display: swap;
+        src: url('/fonts/comici.woff2') format('woff2');
+    }
+}
+
+@layer utilities {
+    .border-groove {
+        border-style: groove;
+    }
+
+    .border-ridge {
+        border-style: ridge;
+    }
+
+    .app-grid-background-anim {
+        animation: 4s linear app-grid-move-first-layer infinite;
+    }
+    
+    .app-grid-background-second-layer-anim {
+        animation: 12s linear app-grid-move-second-layer infinite;
+    }
+
+    @keyframes app-grid-move-first-layer {
+        0% {
+            background-position: 0px 0px;
+        }
+        100% {
+            background-position: 126px 84px;
+        }
+    }
+    
+    @keyframes app-grid-move-second-layer {
+        0% {
+            background-position: 96px 120px;
+        }
+        100% {
+            background-position: 0px 0px;
+        }
+    }
+}
+
+a.app-selected-route {
+    text-shadow: 0 0 2px theme(colors.ralsei.black), 0 0 5px theme(colors.ralsei.pink.regular);
+}
+
+.app-grid-background {
+    background-image: 
+        linear-gradient(theme(colors.ralsei.green.light / 0.4), transparent 2px),
+        linear-gradient(to right, theme(colors.ralsei.green.light / 0.4), transparent 2px);
+    background-size: 100% 42px, 42px 100%;
+}
+
+.app-grid-background-second-layer {
+    background-image: 
+        linear-gradient(theme(colors.ralsei.pink.neon / 0.4), transparent 1px),
+        linear-gradient(to right, theme(colors.ralsei.pink.neon / 0.4), transparent 1px);
+    background-size: 100% 24px, 24px 100%;
+}
