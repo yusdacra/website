@@ -3,8 +3,13 @@
     import "../../styles/app.css";
 
     export let title;
-    export let date;
+    export let excerpt;
 </script>
+
+<svelte:head>
+    <meta property="og:description" content={excerpt} />
+    <meta property="og:type" content="article" />
+</svelte:head>
 
 <div class="lg:mb-[8vh]">
     <Window {title} iconUri='/icons/entry.png'>

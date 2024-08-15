@@ -46,7 +46,6 @@
 	<meta property="og:title" content={title} />
 	<meta property="og:site_name" content="gaze.systems"/>
 	<meta property="og:url" content="https://gaze.systems/"/>
-	<meta property="og:type" content="website" />
 	<meta property="og:image" content="https://gaze.systems/icons/gaze_website.png" />
 </svelte:head>
 
