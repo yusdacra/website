@@ -18,7 +18,7 @@
 	];
 
 	const routeComponents = data.route.split('/');
-	const doAddPostItem = routeComponents.length > 2 && routeComponents[1] === 'entries';
+	const doAddPostItem = routeComponents.length > 3 && routeComponents[1] === 'entries';
 	const isRoute = (_route: string) => {
 		if (doAddPostItem) {
 			if (_route === 'entries') {
@@ -27,13 +27,13 @@
 				return true;
 			}
 		}
-		return _route === routeComponents[routeComponents.length - 1];
+		return _route === routeComponents[1];
 	};
 
 	if (doAddPostItem) {
 		menuItems.splice(2, 0, {
 			href: data.route.slice(1),
-			name: routeComponents[2] + 'aaaaaaaa.md',
+			name: routeComponents[2],
 			iconUri: '/icons/entry.png'
 		});
 	}
