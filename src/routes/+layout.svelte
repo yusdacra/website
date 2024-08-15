@@ -34,7 +34,7 @@
 		menuItems.splice(2, 0, {
 			href: data.route.slice(1),
 			name: routeComponents[2] + 'aaaaaaaa.md',
-			iconUri: '/favicon.png'
+			iconUri: '/icons/entry.png'
 		});
 	}
 
