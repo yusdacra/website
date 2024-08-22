@@ -5,6 +5,7 @@ val LogbackVersion = "1.5.6"
 val MunitCatsEffectVersion = "2.0.0"
 
 lazy val root = (project in file("."))
+  .enablePlugins(GraalVMNativeImagePlugin)
   .settings(
     organization := "systems.gaze",
     name := "guestbook",
