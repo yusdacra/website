@@ -35,8 +35,12 @@
         text-shadow: 0 0 3px theme(colors.ralsei.black), 0 0 6px theme(colors.ralsei.pink.neon), 0 0 10px #fff3;
     }
 
-    li,p {
+    li,p,summary,.text-shadow-white {
         text-shadow: 0 0 1px theme(colors.ralsei.black), 0 0 5px theme(colors.ralsei.white);
+    }
+
+    .text-shadow-red {
+        text-shadow: 0 0 1px theme(colors.ralsei.black), 0 0 5px theme(colors.red.600);
     }
 
     li::marker {
@@ -47,7 +51,7 @@
         text-shadow: 0 0 4px theme(colors.ralsei.pink.regular);
     }
 
-    a {
+    a,button,input[type=submit] {
         text-shadow: 0 0 2px theme(colors.ralsei.black), 0 0 5px theme(colors.ralsei.green.light);
         cursor: url('/icons/gaze.png'), pointer;
     }
@@ -82,6 +86,10 @@
 }
 
 @layer utilities {
+    .text-error {
+		@apply text-xl text-red-600 text-shadow-red;
+	}
+
     .border-groove {
         border-style: groove;
     }

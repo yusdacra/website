@@ -22,3 +22,10 @@ vite.config.ts.timestamp-*
 
 # nix
 /result
+
+# scala
+target
+.metals
+.bloop
+guestbook/entries
+guestbook/entries_size

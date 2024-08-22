@@ -14,7 +14,8 @@
 	let menuItems: MenuItem[] = [
 		{ href: '', name: 'home', iconUri: '/icons/home.png' },
 		{ href: 'entries', name: 'entries', iconUri: '/icons/entries.png' },
-		{ href: 'about', name: 'about', iconUri: '/icons/about.png' }
+		{ href: 'guestbook', name: 'guestbook', iconUri: '/icons/guestbook.png' },
+		{ href: 'about', name: 'about', iconUri: '/icons/about.png' },
 	];
 
 	const routeComponents = data.route.split('/');
