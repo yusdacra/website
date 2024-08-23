@@ -18,8 +18,9 @@ export const actions = {
             cookies.set("sendError", err.toString(), { path: "/guestbook" })
             redirect(303, `${PUBLIC_BASE_URL}/guestbook/`)
         }
-        const ratelimited = respRaw.status === 429
-        cookies.set("sendRatelimited", ratelimited.toString(), { path: "/guestbook" })
+        if (respRaw.status === 429) {
+            cookies.set("sendRatelimited", "true", { path: "/guestbook" })
+        }
         redirect(303, `${PUBLIC_BASE_URL}/guestbook/`)
     }
 }
