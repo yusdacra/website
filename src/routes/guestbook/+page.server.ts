@@ -1,6 +1,6 @@
-import { GUESTBOOK_URL } from '$env/static/private'
-import { redirect } from '@sveltejs/kit';
-import {spawnSync} from 'node:child_process'
+import { GUESTBOOK_BASE_URL } from '$env/static/private'
+import { PUBLIC_BASE_URL } from '$env/static/public'
+import { redirect } from '@sveltejs/kit'
 
 interface Entry {
     author: String,
@@ -8,51 +8,56 @@ interface Entry {
     timestamp: number,
 }
 
-interface FetchResult {
-    location: string,
-    status: number,
-    body: any,
-}
-
-function fetchBlocking(url: string): FetchResult | string {
-    const spawnResult = spawnSync("bun", ["src/lib/fetchHack.mjs", url]);
-    const out = spawnResult.stdout.toString();
-    try {
-        return JSON.parse(out)
-    } catch(err: any) {
-        return spawnResult.stderr.toString()
+export const actions = {
+    default: async ({ request, cookies }) => {
+        const body = await request.text()
+        let respRaw: Response
+        try {
+            respRaw = await fetch(`${GUESTBOOK_BASE_URL}`, { method: 'POST', body })
+        } catch (err: any) {
+            cookies.set("sendError", err.toString(), { path: "/guestbook" })
+            redirect(303, `${PUBLIC_BASE_URL}/guestbook/`)
+        }
+        const ratelimited = respRaw.status === 429
+        cookies.set("sendRatelimited", ratelimited.toString(), { path: "/guestbook" })
+        redirect(303, `${PUBLIC_BASE_URL}/guestbook/`)
     }
 }
 
-export function load({ url }) {
+export async function load({ url, fetch, cookies }) {
     var data = {
         entries: [] as [number, Entry][],
-        guestbook_url: GUESTBOOK_URL,
-        ratelimitedFeat: url.searchParams.get('ratelimited') as string || "",
-        page: parseInt(url.searchParams.get('page') || "1") || 1,
+        page: parseInt(url.searchParams.get('page') || "1"),
         hasNext: false,
-        fetchError: "",
+        sendError: cookies.get("sendError") || "",
+        getError: "",
+        sendRatelimited: cookies.get('sendRatelimited') || "",
+        getRatelimited: false,
     }
+    // delete the cookies after we get em since we dont really need these more than once
+    cookies.delete("sendError", { path: "/guestbook" })
+    cookies.delete("sendRatelimited", { path: "/guestbook" })
     // handle cases where the page query might be a string so we just return back page 1 instead
     data.page = isNaN(data.page) ? 1 : data.page
     data.page = Math.max(data.page, 1)
-    if (data.ratelimitedFeat === "get") {
+    let respRaw: Response
+    try {
+        respRaw = await fetch(GUESTBOOK_BASE_URL + "/" + data.page)
+    } catch (err: any) {
+        data.getError = err.toString()
         return data
     }
-    const entriesResp = fetchBlocking(GUESTBOOK_URL + "/" + data.page)
-    if (typeof entriesResp === "string") {
-        data.fetchError = entriesResp
-        return data
+    data.getRatelimited = respRaw.status === 429
+    if (!data.getRatelimited) {
+        let body: any
+        try {
+            body = await respRaw.json()
+        } catch (err: any) {
+            data.getError = err.toString()
+            return data
+        }
+        data.entries = body.entries
+        data.hasNext = body.hasNext
     }
-    const locationRaw = entriesResp.status === 303 ? entriesResp.location : null
-    if (locationRaw !== null && locationRaw.length > 0) {
-        const location = new URL(locationRaw)
-        data.ratelimitedFeat = location.searchParams.get('ratelimited') as string || ""
-    }
-    if (data.ratelimitedFeat === "get") {
-        return data
-    }
-    data.entries = entriesResp.body.entries
-    data.hasNext = entriesResp.body.hasNext
     return data
 }

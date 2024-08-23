@@ -2,7 +2,6 @@
 	import Window from '../../components/window.svelte';
 
 	export let data;
-
 	const hasPreviousPage = data.page > 1;
 	const hasNextPage = data.hasNext;
 </script>
@@ -10,11 +9,10 @@
 <div class="flex flex-row flex-wrap">
 	<div class="fixed">
 		<Window title="guestbook">
-			{@const ratelimited = data.ratelimitedFeat === 'send'}
 			<div class="flex flex-col gap-4 w-[60ch]">
 				<p>hia, here is the guestbook if you wanna post anything :)</p>
 				<p>just be a good human bean pretty please</p>
-				<form action={data.guestbook_url} method="post">
+				<form method="post">
 					<div class="entry">
 						<div class="flex flex-row">
 							<p class="place-self-start grow text-2xl font-monospace">###</p>
@@ -42,10 +40,17 @@
 							value="post"
 							class="text-xl text-ralsei-green-light leading-5 motion-safe:hover:animate-bounce w-fit border-double border-4 p-1 pb-2"
 						/>
-						{#if ratelimited}
+						{#if data.sendRatelimited}
 							<p class="text-error self-center">you are ratelimited, try again in 30 seconds</p>
 						{/if}
 					</div>
+					{#if data.sendError}
+						<p class="text-error">got error trying to send post, pls tell me about this</p>
+						<details>
+							<summary>error</summary>
+							<p>{data.sendError}</p>
+						</details>
+					{/if}
 				</form>
 			</div>
 		</Window>
@@ -53,15 +58,15 @@
 	<div class="grow" />
 	<Window title="entries">
 		<div class="flex flex-col gap-4 w-[60ch] max-w-[60ch]">
-			{#if data.ratelimitedFeat === 'get'}
+			{#if data.getRatelimited}
 				<p class="text-error">
 					woops, looks like you are being ratelimited, try again in like half a minute :3
 				</p>
-			{:else if data.fetchError}
+			{:else if data.getError}
 				<p class="text-error">got error trying to fetch entries, pls tell me about this</p>
 				<details>
 					<summary>error</summary>
-					<p>{data.fetchError}</p>
+					<p>{data.getError}</p>
 				</details>
 			{:else}
 				{#each data.entries as [entry_id, entry] (entry_id)}

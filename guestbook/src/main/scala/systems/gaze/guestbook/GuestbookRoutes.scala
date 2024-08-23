@@ -14,38 +14,26 @@ import cats.effect.unsafe.implicits.global
 import scala.concurrent.duration.FiniteDuration
 import org.http4s.Uri
 
-class GuestbookRoutes(var guestbookConfig: Guestbook.Config, var websiteUri: Uri):
+class GuestbookRoutes(
+    var guestbookConfig: Guestbook.Config,
+    var websiteUri: Uri
+):
   val dsl = new Http4sDsl[IO] {}
   import dsl.*
 
   def throttle(
-      ratelimited: String,
       amount: Int,
       per: FiniteDuration
   )(routes: HttpRoutes[IO]): HttpRoutes[IO] =
     Throttle
       .httpRoutes[IO](amount, per)(routes)
       .unsafeRunSync()
-      .map((resp) =>
-        // respond with SeeOther and put ratelimited query param
-        if (resp.status == TooManyRequests)
-          resp
-            .withStatus(SeeOther)
-            .withHeaders(
-              Location(
-                (websiteUri / "guestbook")
-                  .withQueryParam("ratelimited", ratelimited)
-              )
-            )
-        else
-          resp
-      )
 
   def routes(
       G: Guestbook[IO]
   ): HttpRoutes[IO] =
-    val putEntry = HttpRoutes.of[IO] {
-      case req @ POST -> Root => for {
+    val putEntry = HttpRoutes.of[IO] { case req @ POST -> Root =>
+      for {
         entry <- req.as[UrlForm].map { form =>
           val author = form.getFirstOrElse("author", "error")
           val content = form.getFirstOrElse("content", "error")
@@ -56,11 +44,11 @@ class GuestbookRoutes(var guestbookConfig: Guestbook.Config, var websiteUri: Uri
         resp <- SeeOther(Location(websiteUri / "guestbook"))
       } yield resp
     }
-    val getEntries = HttpRoutes.of[IO] {
-      case GET -> Root / IntVar(page) => for {
+    val getEntries = HttpRoutes.of[IO] { case GET -> Root / IntVar(page) =>
+      for {
         entries <- G.read(guestbookConfig, (page - 1).max(0) * 5, 5)
         resp <- Ok(entries)
       } yield resp
     }
-    throttle("get", 10, 2.seconds)(getEntries)
-      <+> throttle("send", 5, 10.seconds)(putEntry)
+    throttle(30, 2.seconds)(getEntries)
+      <+> throttle(5, 10.seconds)(putEntry)
