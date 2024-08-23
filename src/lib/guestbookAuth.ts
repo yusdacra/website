@@ -1,13 +1,13 @@
 import { dev } from "$app/environment";
-import { DISCORD_CLIENT_ID, GITHUB_CLIENT_ID } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { PUBLIC_BASE_URL } from "$env/static/public";
 import type { Cookies } from "@sveltejs/kit";
 import { Discord, generateState, GitHub } from "arctic";
 
 export const callbackUrl = `${PUBLIC_BASE_URL}/guestbook/`
 
-export const discord = new Discord(DISCORD_CLIENT_ID, "", callbackUrl)
-export const github = new GitHub(GITHUB_CLIENT_ID, "", callbackUrl)
+export const discord = new Discord(env.DISCORD_CLIENT_ID, "", callbackUrl)
+export const github = new GitHub(env.GITHUB_CLIENT_ID, "", callbackUrl)
 
 export const createAuthUrl = (authCb: (state: string) => URL, cookies: Cookies) => {
     const state = generateState()
@@ -24,9 +24,9 @@ export const createAuthUrl = (authCb: (state: string) => URL, cookies: Cookies) 
 export const extractCode = (url: URL, cookies: Cookies) => {
     const code = url.searchParams.get("code");
     const state = url.searchParams.get("state");
-    
+
     const storedState = cookies.get("state");
-    
+
     if (code === null || state === null) {
         return null
     }
