@@ -50,6 +50,9 @@ const config = {
 	],
 
 	kit: {
+		csrf: {
+			checkOrigin: false,
+		},
 		prerender: {
 			handleHttpError: 'warn',
 		},
