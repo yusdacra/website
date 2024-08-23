@@ -50,7 +50,9 @@ export const actions = {
     post_github: postAction(auth.github, []),
 }
 
-export async function load({ url, fetch, cookies }) {
+export async function load({ url, fetch, cookies, setHeaders }) {
+    // hack????
+    setHeaders({'X-Accel-Buffering': 'no'})
     const scopedCookies = scopeCookies(cookies)
     var data = {
         entries: [] as [number, Entry][],
