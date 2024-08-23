@@ -37,7 +37,7 @@
 
           src = ./.;
           
-          outputHash = "sha256-yZRtcXr+yYiuq9bIDwx/C/7T22VCaJ/d3Lv4kdOjHnk=";
+          outputHash = "sha256-eGqIA5ZzrajqT0xGuBYR0OJwWwbu18R51fHPofIf/iA=";
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
 
@@ -59,7 +59,8 @@
           nativeBuildInputs = [pkgs.makeBinaryWrapper];
           buildInputs = [pkgs.bun];
 
-          PUBLIC_BASEURL="localhost:5173";
+          PUBLIC_BASE_URL="http://localhost:5173";
+          GUESTBOOK_BASE_URL="http://localhost:8080";
 
           configurePhase = ''
             runHook preConfigure
