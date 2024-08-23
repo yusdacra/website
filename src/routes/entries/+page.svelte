@@ -7,7 +7,7 @@
 	let posts: PostData[] = data.posts as PostData[];
 </script>
 
-<div class="flex flex-wrap gap-y-4 lg:mx-3 lg:my-4">
+<div class="flex flex-col lg:flex-row gap-y-4 lg:mx-3 lg:my-4">
 	{#each posts as post, index}
 		{@const x = index % 2 === 0 ? 'lg:ml-16' : 'lg:ml-36'}
 		{@const y = index % 2 === 0 ? 'lg:mt-6' : 'lg:mt-10'}

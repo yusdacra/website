@@ -6,10 +6,10 @@
 	const hasNextPage = data.hasNext;
 </script>
 
-<div class="flex flex-row flex-wrap">
-	<div class="fixed">
+<div class="flex flex-col md:flex-row gap-2 md:gap-4">
+	<div>
 		<Window title="guestbook">
-			<div class="flex flex-col gap-4 w-[60ch]">
+			<div class="flex flex-col gap-4 2xl:w-[60ch]">
 				<p>hia, here is the guestbook if you wanna post anything :)</p>
 				<p>just be a good human bean pretty please</p>
 				<form method="post">
@@ -56,52 +56,54 @@
 		</Window>
 	</div>
 	<div class="grow" />
-	<Window title="entries">
-		<div class="flex flex-col gap-4 w-[60ch] max-w-[60ch]">
-			{#if data.getRatelimited}
-				<p class="text-error">
-					woops, looks like you are being ratelimited, try again in like half a minute :3
-				</p>
-			{:else if data.getError}
-				<p class="text-error">got error trying to fetch entries, pls tell me about this</p>
-				<details>
-					<summary>error</summary>
-					<p>{data.getError}</p>
-				</details>
-			{:else}
-				{#each data.entries as [entry_id, entry] (entry_id)}
-					{@const date = new Date(entry.timestamp * 1e3).toLocaleString()}
-					<div class="entry">
-						<div class="flex flex-row">
-							<p class="place-self-start grow text-2xl font-monospace">
-								#{entry_id}
-							</p>
-							<p class="justify-end self-center text-sm font-monospace">{date}</p>
-						</div>
-						<p class="text-lg ml-0.5">{entry.content}</p>
-						<p class="place-self-end text-sm font-monospace">--- posted by {entry.author}</p>
-					</div>
+	<div class="mb-[7vh] 2xl:mb-0">
+		<Window title="entries">
+			<div class="flex flex-col gap-2 md:gap-4 2xl:w-[60ch]">
+				{#if data.getRatelimited}
+					<p class="text-error">
+						woops, looks like you are being ratelimited, try again in like half a minute :3
+					</p>
+				{:else if data.getError}
+					<p class="text-error">got error trying to fetch entries, pls tell me about this</p>
+					<details>
+						<summary>error</summary>
+						<p>{data.getError}</p>
+					</details>
 				{:else}
-					<p>looks like there are no entries :(</p>
-				{/each}
-			{/if}
-			{#if hasPreviousPage || hasNextPage}
-				<div class="flex flex-row w-full justify-center items-center font-monospace">
-					{#if hasPreviousPage}
-						<a href="/guestbook/?page={data.entries.length < 0 ? data.page - 1 : 1}"
-							>&lt;&lt; previous</a
-						>
-					{/if}
-					{#if hasNextPage && hasPreviousPage}
-						<div class="w-1/12" />
-					{/if}
-					{#if hasNextPage}
-						<a href="/guestbook/?page={data.page + 1}">next &gt;&gt;</a>
-					{/if}
-				</div>
-			{/if}
-		</div>
-	</Window>
+					{#each data.entries as [entry_id, entry] (entry_id)}
+						{@const date = new Date(entry.timestamp * 1e3).toLocaleString()}
+						<div class="entry">
+							<div class="flex flex-row">
+								<p class="place-self-start grow text-2xl font-monospace">
+									#{entry_id}
+								</p>
+								<p class="justify-end self-center text-sm font-monospace">{date}</p>
+							</div>
+							<p class="text-lg ml-0.5">{entry.content}</p>
+							<p class="place-self-end text-sm font-monospace">--- posted by {entry.author}</p>
+						</div>
+					{:else}
+						<p>looks like there are no entries :(</p>
+					{/each}
+				{/if}
+				{#if hasPreviousPage || hasNextPage}
+					<div class="flex flex-row w-full justify-center items-center font-monospace">
+						{#if hasPreviousPage}
+							<a href="/guestbook/?page={data.entries.length < 0 ? data.page - 1 : 1}"
+								>&lt;&lt; previous</a
+							>
+						{/if}
+						{#if hasNextPage && hasPreviousPage}
+							<div class="w-1/12" />
+						{/if}
+						{#if hasNextPage}
+							<a href="/guestbook/?page={data.page + 1}">next &gt;&gt;</a>
+						{/if}
+					</div>
+				{/if}
+			</div>
+		</Window>
+	</div>
 </div>
 
 <style lang="postcss">
