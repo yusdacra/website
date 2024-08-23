@@ -51,8 +51,6 @@ export const actions = {
 }
 
 export async function load({ url, fetch, cookies, setHeaders }) {
-    // hack????
-    setHeaders({'X-Accel-Buffering': 'no'})
     const scopedCookies = scopeCookies(cookies)
     var data = {
         entries: [] as [number, Entry][],
