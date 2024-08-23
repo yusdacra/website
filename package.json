@@ -39,6 +39,7 @@
   "type": "module",
   "dependencies": {
     "@std/toml": "npm:@jsr/std__toml",
+    "arctic": "^2.0.0-next.5",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0"
   },
