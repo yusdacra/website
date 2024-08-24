@@ -30,6 +30,7 @@
 						class="text-lg ml-0.5 bg-inherit resize-none text-shadow-white placeholder-shown:[text-shadow:none] [field-sizing:content]"
 						name="content"
 						placeholder="say meow!"
+						maxlength="512"
 						required
 					/>
 					<p class="place-self-end text-sm font-monospace">

@@ -26,7 +26,7 @@ const postAction = (client: any, scopes: string[]) => {
     return async ({ request, cookies }: { request: Request, cookies: Cookies }) => {
         const form = await request.formData()
         const author = form.get("author")?.toString().replace(/([^_a-z0-9]+)/gi, '')
-        const content = form.get("content")?.toString()
+        const content = form.get("content")?.toString().substring(0, 512)
         const scopedCookies = scopeCookies(cookies)
         if (author === undefined || content === undefined) {
             scopedCookies.set("sendError", "one of author or content fields are missing")
