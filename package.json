@@ -45,7 +45,6 @@
   },
   "trustedDependencies": [
     "@sveltejs/kit",
-    "deasync",
     "esbuild",
     "svelte-preprocess"
   ]
