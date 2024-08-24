@@ -81,7 +81,7 @@
 							{entry.content}
 						</p>
 						<p
-							class="place-self-end text-sm font-monospace overflow-hidden text-ellipsis text-nowrap"
+							class="max-w-[45ch] place-self-end text-sm font-monospace overflow-hidden text-ellipsis text-nowrap"
 							title={entry.author}
 						>
 							--- posted by {entry.author}
