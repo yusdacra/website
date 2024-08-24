@@ -2,7 +2,7 @@
 	import Window from '../components/window.svelte';
 </script>
 
-<div class="flex flex-none gap-y-4 lg:gap-y-0 flex-wrap md:flex-nowrap md:h-full">
+<div class="flex flex-col md:flex-row gap-y-4 lg:gap-y-0 md:h-full">
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
 		<Window title="readme?" iconUri='/icons/question.png'>
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
@@ -22,7 +22,7 @@
 			</div>
 		</Window>
 	</div>
-	<div class="grow" />
+	<div class="hidden md:block md:grow" />
 	<Window title="contacts!" iconUri='/icons/contact.png'>
 		<div class="prose prose-ralsei leading-6">
 			<ul>

@@ -73,7 +73,6 @@
 			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1" />
 			<feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
 		</filter>
-
 		<filter id="squiggly-2">
 			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2" />
 			<feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
@@ -82,7 +81,6 @@
 			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3" />
 			<feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
 		</filter>
-
 		<filter id="squiggly-4">
 			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4" />
 			<feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
@@ -90,16 +88,18 @@
 	</defs>
 </svg>
 
-<div class="h-[96vh] lg:px-[4vw] 2xl:px-[8vw] lg:py-[4vh]"><slot /></div>
+<div class="md:h-[96vh] pb-[7vh] lg:px-[4vw] 2xl:px-[8vw] lg:py-[4vh]">
+	<slot />
+</div>
 
-<nav class="w-full max-h-[4vh] z-10 fixed bottom-0 bg-ralsei-black">
+<nav class="w-full max-h-[6vh] fixed bottom-0 z-10 bg-ralsei-black">
 	<div
 		class="
-            max-w-full max-h-fit p-1 overflow-auto
-            grid grid-flow-col grid-rows-1 gap-2 justify-start
-            border-ralsei-white border-8
-            bg-gradient-to-r to-ralsei-pink-neon/30 from-ralsei-pink-regular/20 from-30%
-        "
+			max-w-full max-h-fit p-1 overflow-auto
+			grid grid-flow-col grid-rows-1 gap-2 justify-start
+			border-ralsei-white border-8
+			bg-gradient-to-r to-ralsei-pink-neon/30 from-ralsei-pink-regular/20 from-30%
+		"
 		style="border-style: ridge hidden hidden hidden;"
 	>
 		{#each menuItems as item}
