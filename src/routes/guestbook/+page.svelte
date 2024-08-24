@@ -94,7 +94,7 @@
 			{#if hasPreviousPage || hasNextPage}
 				<div class="flex flex-row w-full justify-center items-center font-monospace">
 					{#if hasPreviousPage}
-						<a href="/guestbook/?page={data.entries.length < 0 ? data.page - 1 : 1}"
+						<a href="/guestbook/?page={data.entries.length > 0 ? data.page - 1 : 1}"
 							>&lt;&lt; previous</a
 						>
 					{/if}

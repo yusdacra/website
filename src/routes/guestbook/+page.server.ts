@@ -115,7 +115,9 @@ export async function load({ url, fetch, cookies }) {
     data.page = Math.max(data.page, 1)
     let respRaw: Response
     try {
-        respRaw = await fetch(`${GUESTBOOK_BASE_URL}/${data.page}`)
+        const count = 5
+        const offset = (data.page - 1) * count
+        respRaw = await fetch(`${GUESTBOOK_BASE_URL}?offset=${offset}&count=${count}`)
     } catch (err: any) {
         data.getError = `${err.toString()} (is guestbook server running?)`
         return data
@@ -126,7 +128,7 @@ export async function load({ url, fetch, cookies }) {
         try {
             body = await respRaw.json()
         } catch (err: any) {
-            data.getError = err.toString()
+            data.getError = `invalid body? (${err.toString()})`
             return data
         }
         data.entries = body.entries

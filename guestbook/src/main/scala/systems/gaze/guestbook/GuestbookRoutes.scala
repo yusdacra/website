@@ -32,7 +32,8 @@ class GuestbookRoutes(
   def routes(
       G: Guestbook[IO]
   ): HttpRoutes[IO] =
-    val putEntry = HttpRoutes.of[IO] { case req @ POST -> Root =>
+    val putEntry = HttpRoutes.of[IO] {
+      case req @ POST -> Root =>
       for {
         entry <- req.as[UrlForm].map { form =>
           val author = form.getFirstOrElse("author", "error")
@@ -44,9 +45,12 @@ class GuestbookRoutes(
         resp <- SeeOther(Location(websiteUri / "guestbook"))
       } yield resp
     }
-    val getEntries = HttpRoutes.of[IO] { case GET -> Root / IntVar(page) =>
+    object OffsetParam extends QueryParamDecoderMatcher[Int]("offset")
+    object CountParam extends QueryParamDecoderMatcher[Int]("count")
+    val getEntries = HttpRoutes.of[IO] {
+      case GET -> Root :? OffsetParam(offset) +& CountParam(count) =>
       for {
-        entries <- G.read(guestbookConfig, (page - 1).max(0) * 5, 5)
+        entries <- G.read(guestbookConfig, offset, count)
         resp <- Ok(entries)
       } yield resp
     }
