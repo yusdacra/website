@@ -27,8 +27,13 @@
         content: '>>>> ';
     }
 
+    .prose a {
+        text-decoration: none;
+    }
+
     .prose a:hover {
-        @apply animate-pulse-fast;
+        @apply motion-safe:animate-squiggle;
+        text-decoration: underline;
     }
 
     h1,h2,h3,h4,h5,h6 {
@@ -83,6 +88,28 @@
         font-display: swap;
         src: url('/fonts/comici.woff2') format('woff2');
     }
+
+    .animate-squiggle {
+        animation: squigglevision 0.3s infinite;
+    }
+
+    @keyframes squigglevision {
+        0% {
+          filter: url("#squiggly-0");
+        }
+        25% {
+          filter: url("#squiggly-1");
+        }
+        50% {
+          filter: url("#squiggly-2");
+        }
+        75% {
+          filter: url("#squiggly-3");
+        }
+        100% {
+          filter: url("#squiggly-4");
+        }
+      }
 }
 
 @layer utilities {

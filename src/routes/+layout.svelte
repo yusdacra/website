@@ -15,7 +15,7 @@
 		{ href: '', name: 'home', iconUri: '/icons/home.png' },
 		{ href: 'entries', name: 'entries', iconUri: '/icons/entries.png' },
 		{ href: 'guestbook', name: 'guestbook', iconUri: '/icons/guestbook.png' },
-		{ href: 'about', name: 'about', iconUri: '/icons/about.png' },
+		{ href: 'about', name: 'about', iconUri: '/icons/about.png' }
 	];
 
 	const routeComponents = data.route.split('/');
@@ -43,10 +43,10 @@
 </script>
 
 <svelte:head>
-    <title>{title}</title>
+	<title>{title}</title>
 	<meta property="og:title" content={title} />
-	<meta property="og:site_name" content="gaze.systems"/>
-	<meta property="og:url" content="https://gaze.systems/"/>
+	<meta property="og:site_name" content="gaze.systems" />
+	<meta property="og:url" content="https://gaze.systems/" />
 	<meta property="og:image" content="https://gaze.systems/icons/gaze_website.png" />
 </svelte:head>
 
@@ -63,9 +63,36 @@
     "
 />
 
-<div class="lg:mx-[4vw] 2xl:mx-[8vw] lg:my-[4vh]"><slot /></div>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="hidden">
+	<defs>
+		<filter id="squiggly-0">
+			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0" />
+			<feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="2" />
+		</filter>
+		<filter id="squiggly-1">
+			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1" />
+			<feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+		</filter>
 
-<nav class="w-full z-10 fixed bottom-0 bg-ralsei-black">
+		<filter id="squiggly-2">
+			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2" />
+			<feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
+		</filter>
+		<filter id="squiggly-3">
+			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3" />
+			<feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+		</filter>
+
+		<filter id="squiggly-4">
+			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4" />
+			<feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
+		</filter>
+	</defs>
+</svg>
+
+<div class="h-[96vh] lg:px-[4vw] 2xl:px-[8vw] lg:py-[4vh]"><slot /></div>
+
+<nav class="w-full max-h-[4vh] z-10 fixed bottom-0 bg-ralsei-black">
 	<div
 		class="
             max-w-full max-h-fit p-1 overflow-auto

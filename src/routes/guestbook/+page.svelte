@@ -8,7 +8,7 @@
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
 	<div class="mb-[7vh] md:hidden" />
-	<Window title="guestbook">
+	<Window title="guestbook" iconUri="/icons/guestbook.png">
 		<div class="flex flex-col gap-4 2xl:w-[60ch]">
 			<p>
 				hia, here is the guestbook if you wanna post anything :)
@@ -52,7 +52,7 @@
 							type="submit"
 							value={platform}
 							formaction="?/post_{platform}"
-							class="text-lg text-ralsei-green-light leading-5 motion-safe:hover:animate-bounce w-fit p-0.5"
+							class="text-lg text-ralsei-green-light leading-5 hover:underline motion-safe:hover:animate-squiggle w-fit p-0.5"
 						/>
 					{/each}
 				</div>
@@ -70,7 +70,7 @@
 		</div>
 	</Window>
 	<div class="grow" />
-	<Window title="entries">
+	<Window title="entries" iconUri="/icons/entries.png">
 		<div class="flex flex-col gap-2 md:gap-4 2xl:w-[60ch]">
 			{#if data.getRatelimited}
 				<p class="text-error">
