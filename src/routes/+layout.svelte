@@ -63,7 +63,7 @@
     "
 />
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="hidden">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="absolute -z-50">
 	<defs>
 		<filter id="squiggly-0">
 			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0" />
