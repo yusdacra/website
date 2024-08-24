@@ -2,12 +2,32 @@ import { dev } from "$app/environment";
 import { env } from "$env/dynamic/private";
 import { PUBLIC_BASE_URL } from "$env/static/public";
 import type { Cookies } from "@sveltejs/kit";
-import { Discord, generateState, GitHub } from "arctic";
+import base64url from "base64url";
 
 export const callbackUrl = `${PUBLIC_BASE_URL}/guestbook/`
 
-export const discord = new Discord(env.DISCORD_CLIENT_ID, "", callbackUrl)
-export const github = new GitHub(env.GITHUB_CLIENT_ID, "", callbackUrl)
+export const discord = {
+    getAuthUrl: (state: string, scopes: string[] = []) => {
+        const client_id = env.DISCORD_CLIENT_ID
+        const redir_uri = encodeURIComponent(callbackUrl)
+        const scope = scopes.join("+")
+        return `https://discord.com/oauth2/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redir_uri}&scope=${scope}&state=${state}`
+    }
+}
+export const github = {
+    getAuthUrl: (state: string, scopes: string[] = []) => {
+        const client_id = env.GITHUB_CLIENT_ID
+        const redir_uri = encodeURIComponent(callbackUrl)
+        const scope = encodeURIComponent(scopes.join(" "))
+        return `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redir_uri}&scope=${scope}&state=${state}`
+    }
+}
+
+export const generateState = () => {
+    const randomValues = new Uint8Array(32)
+    crypto.getRandomValues(randomValues)
+    return base64url(Buffer.from(randomValues))
+}
 
 export const createAuthUrl = (authCb: (state: string) => URL, cookies: Cookies) => {
     const state = generateState()
