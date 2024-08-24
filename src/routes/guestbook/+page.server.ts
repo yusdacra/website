@@ -25,7 +25,7 @@ const scopeCookies = (cookies: Cookies) => {
 const postAction = (client: any, scopes: string[]) => {
     return async ({ request, cookies }: { request: Request, cookies: Cookies }) => {
         const form = await request.formData()
-        const author = form.get("author")?.toString().replace(/([^_a-z0-9]+)/gi, '')
+        const author = form.get("author")?.toString().substring(0, 32).replace(/([^_a-z0-9]+)/gi, '')
         const content = form.get("content")?.toString().substring(0, 512)
         const scopedCookies = scopeCookies(cookies)
         if (author === undefined || content === undefined) {
