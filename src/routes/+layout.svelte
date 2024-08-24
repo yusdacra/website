@@ -40,6 +40,14 @@
 	}
 
 	const title = getTitle(data.route);
+
+	const svgSquiggles = [
+		[2],
+		[3],
+		[2],
+		[3],
+		[1],
+	]
 </script>
 
 <svelte:head>
@@ -65,26 +73,12 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="absolute -z-50">
 	<defs>
-		<filter id="squiggly-0">
-			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0" />
-			<feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="2" />
+		{#each svgSquiggles as [scale], index}
+		<filter id="squiggly-{index}">
+			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed={index} />
+			<feDisplacementMap in="SourceGraphic" in2="noise" {scale} />
 		</filter>
-		<filter id="squiggly-1">
-			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1" />
-			<feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
-		</filter>
-		<filter id="squiggly-2">
-			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2" />
-			<feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
-		</filter>
-		<filter id="squiggly-3">
-			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3" />
-			<feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
-		</filter>
-		<filter id="squiggly-4">
-			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4" />
-			<feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
-		</filter>
+		{/each}
 	</defs>
 </svg>
 
@@ -92,7 +86,7 @@
 	<slot />
 </div>
 
-<nav class="w-full max-h-[6vh] fixed bottom-0 z-10 bg-ralsei-black">
+<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-10 bg-ralsei-black">
 	<div
 		class="
 			max-w-full max-h-fit p-1 overflow-auto
