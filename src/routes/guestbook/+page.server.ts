@@ -40,7 +40,7 @@ const postAction = (client: any, scopes: string[]) => {
         const params = new URLSearchParams({ author, content })
         scopedCookies.set("postData", params.toString())
         // get auth url to redirect user to
-        const authUrl = auth.createAuthUrl(client.getAuthUrl, cookies)
+        const authUrl = auth.createAuthUrl((state) => client.getAuthUrl(state, scopes), cookies)
         redirect(303, authUrl)
     }
 }
