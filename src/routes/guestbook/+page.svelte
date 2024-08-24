@@ -16,10 +16,6 @@
 				just fill the post in and click on your preferred auth method to post
 			</p>
 			<p>rules: be a good human bean pretty please</p>
-			<p>
-				(note: the author name must only include alphanumerical characters or underscore, and must
-				be less than 32 characters)
-			</p>
 			<form method="post">
 				<div class="entry entryflex">
 					<div class="flex flex-row">
@@ -34,15 +30,7 @@
 						required
 					/>
 					<p class="place-self-end text-sm font-monospace">
-						--- posted by <input
-							type="text"
-							name="author"
-							placeholder="author"
-							class="p-0 bg-inherit border-hidden max-w-[16ch] text-right text-sm text-shadow-white placeholder-shown:[text-shadow:none] [field-sizing:content]"
-							pattern="[_a-zA-Z0-9]+"
-							maxlength="32"
-							required
-						/>
+						--- posted by ...
 					</p>
 				</div>
 				<div class="entry flex flex-wrap gap-1.5 p-1">

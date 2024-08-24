@@ -24,20 +24,16 @@ const scopeCookies = (cookies: Cookies) => {
 
 const postAction = (client: any, scopes: string[]) => {
     return async ({ request, cookies }: { request: Request, cookies: Cookies }) => {
-        const form = await request.formData()
-        const author = form.get("author")?.toString().substring(0, 32).replace(/([^_a-z0-9]+)/gi, '')
-        const content = form.get("content")?.toString().substring(0, 512)
         const scopedCookies = scopeCookies(cookies)
-        if (author === undefined || content === undefined) {
-            scopedCookies.set("sendError", "one of author or content fields are missing")
-            redirect(303, auth.callbackUrl)
-        }
-        if (['dusk', 'yusdacra'].includes(author.trim())) {
-            scopedCookies.set("sendError", "author cannot be dusk or yusdacra (those are my names choose something else smh)")
+        scopedCookies.set("postAuth", client.name)
+        const form = await request.formData()
+        const content = form.get("content")?.toString().substring(0, 512)
+        if (content === undefined) {
+            scopedCookies.set("sendError", "content field is missing")
             redirect(303, auth.callbackUrl)
         }
         // save form content in a cookie
-        const params = new URLSearchParams({ author, content })
+        const params = new URLSearchParams({ content })
         scopedCookies.set("postData", params.toString())
         // get auth url to redirect user to
         const authUrl = auth.createAuthUrl((state) => client.getAuthUrl(state, scopes), cookies)
@@ -62,9 +58,11 @@ export async function load({ url, fetch, cookies }) {
         getRatelimited: false,
     }
     const rawPostData = scopedCookies.get("postData") || null
-    if (rawPostData !== null) {
+    const postAuth = scopedCookies.get("postAuth") || null
+    if (rawPostData !== null && postAuth !== null) {
         // delete the postData cookie after we got it cause we dont need it anymore
         scopedCookies.delete("postData")
+        scopedCookies.delete("postAuth")
         // check if we are landing from an auth from a post action
         let code: string | null = null
         // try to get the code, fails if invalid oauth request
@@ -73,12 +71,32 @@ export async function load({ url, fetch, cookies }) {
         } catch (err: any) {
             data.sendError = err.toString()
         }
-        // if we do have a code, then actually make the put request to guestbook server
-        if (code !== null) {
+        // if we do have a code, then make the access token request
+        const authClient = auth.getAuthClient(postAuth)
+        if (authClient !== null && code !== null) {
+            // get and validate access token, also get username
+            let author: string
+            try {
+                const tokenResp = await authClient.getToken(code)
+                author = await authClient.identifyToken(tokenResp)
+            } catch(err: any) {
+                scopedCookies.set("sendError", `oauth failed: ${err.toString()}`)
+                redirect(303, auth.callbackUrl)
+            }
             let respRaw: Response
             try {
                 const postData = new URLSearchParams(rawPostData)
-                respRaw = await fetch(`${GUESTBOOK_BASE_URL}`, { method: 'POST', body: postData })
+                // set author to the identified value we got
+                postData.set('author', author)
+                // return error if content was not set or if empty
+                const content = postData.get('content')
+                if (content === null || content.trim().length === 0) {
+                    scopedCookies.set("sendError", `content field was empty`)
+                    redirect(303, auth.callbackUrl)
+                }
+                // set content, make sure to trim it
+                postData.set('content', content.substring(0, 512).trim())
+                respRaw = await fetch(GUESTBOOK_BASE_URL, { method: 'POST', body: postData })
             } catch (err: any) {
                 scopedCookies.set("sendError", `${err.toString()} (is guestbook server running?)`)
                 redirect(303, auth.callbackUrl)
@@ -97,7 +115,7 @@ export async function load({ url, fetch, cookies }) {
     data.page = Math.max(data.page, 1)
     let respRaw: Response
     try {
-        respRaw = await fetch(GUESTBOOK_BASE_URL + "/" + data.page)
+        respRaw = await fetch(`${GUESTBOOK_BASE_URL}/${data.page}`)
     } catch (err: any) {
         data.getError = `${err.toString()} (is guestbook server running?)`
         return data
