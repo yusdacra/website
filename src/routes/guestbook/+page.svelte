@@ -29,9 +29,7 @@
 						maxlength="512"
 						required
 					/>
-					<p class="place-self-end text-sm font-monospace">
-						--- posted by ...
-					</p>
+					<p class="place-self-end text-sm font-monospace">--- posted by ...</p>
 				</div>
 				<div class="entry flex flex-wrap gap-1.5 p-1">
 					<p class="text-xl ms-2">auth via:</p>
@@ -58,7 +56,7 @@
 		</div>
 	</Window>
 	<div class="grow" />
-	<div class="mb-[7vh] md:mb-0">
+	<div class="md:mb-[7vh]">
 		<Window title="entries" iconUri="/icons/entries.png">
 			<div class="flex flex-col gap-2 md:gap-4 2xl:w-[60ch]">
 				{#if data.getRatelimited}
@@ -81,7 +79,9 @@
 								</p>
 								<p class="justify-end self-center text-sm font-monospace">{date}</p>
 							</div>
-							<p class="text-lg ml-0.5 max-w-[56ch]">{entry.content}</p>
+							<p class="text-lg text-wrap overflow-hidden text-ellipsis ml-0.5 max-w-[56ch]">
+								{entry.content}
+							</p>
 							<p
 								class="place-self-end text-sm font-monospace max-w-[16ch] md:max-w-[24ch] lg:max-w-[32ch] overflow-hidden text-ellipsis"
 								title={entry.author}
