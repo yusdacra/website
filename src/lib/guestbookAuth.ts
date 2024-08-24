@@ -61,7 +61,7 @@ export const github = {
         return `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redir_uri}&scope=${scope}&state=${state}`
     },
     getToken: async (code: string): Promise<TokenResponse> => {
-        const api = `https://discord.com/api/oauth2/token`
+        const api = `https://github.com/login/oauth/access_token`
         const body = new URLSearchParams({
             client_id: env.GITHUB_CLIENT_ID,
             client_secret: env.GITHUB_CLIENT_SECRET,
