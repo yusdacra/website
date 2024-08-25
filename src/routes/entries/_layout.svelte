@@ -11,7 +11,7 @@
     <meta property="og:type" content="article" />
 </svelte:head>
 
-<div class="mb-[8vh]">
+<div class="pb-[8vh]">
     <Window {title} iconUri='/icons/entry.png'>
         <div class="prose prose-ralsei max-w-[80ch]">
             <slot/>
