@@ -26,6 +26,7 @@
             nodejs-slim_latest bun
             nodePackages.svelte-language-server
             nodePackages.typescript-language-server
+            sbt
           ];
           shellHook = ''
             export PATH="$PATH:$PWD/node_modules/.bin"

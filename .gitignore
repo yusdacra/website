@@ -22,6 +22,7 @@ vite.config.ts.timestamp-*
 
 # nix
 /result
+/.direnv
 
 # scala
 target
