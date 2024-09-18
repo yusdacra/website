@@ -85,12 +85,12 @@
 			</filter>
 		{/each}
 		<filter id="pixelate" color-interpolation-filters="linearRGB" x="0" y="0">
-			<feFlood x="4" y="4" height="2" width="2"/>
-			<feComposite width="10" height="10"/>
-			<feTile result="a"/>
-			<feComposite in="SourceGraphic" in2="a" operator="in"/>
-			<feMorphology operator="dilate" radius="5"/>
-		  </filter>
+			<feFlood x="4" y="4" height="2" width="2" />
+			<feComposite width="10" height="10" />
+			<feTile result="a" />
+			<feComposite in="SourceGraphic" in2="a" operator="in" />
+			<feMorphology operator="dilate" radius="5" />
+		</filter>
 		<filter id="dither" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
 			<feImage
 				width="4"
@@ -105,7 +105,14 @@
 				<feFuncB type="discrete" tableValues="0 1" />
 			</feComponentTransfer>
 		</filter>
-		<filter id="dither-red" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+		<filter
+			id="dither-red"
+			color-interpolation-filters="sRGB"
+			x="0"
+			y="0"
+			width="100%"
+			height="100%"
+		>
 			<feFlood flood-color="#000000" flood-opacity="0.50" x="0%" y="0%" result="flood" />
 			<feBlend mode="normal" x="0%" y="0%" in="SourceGraphic" in2="flood" result="blend1" />
 			<feImage
@@ -137,16 +144,17 @@
 <nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-10 bg-ralsei-black">
 	<div
 		class="
-			max-w-full max-h-fit p-1 overflow-auto
-			grid grid-flow-col grid-rows-1 gap-2 justify-start
+			max-w-full max-h-fit p-1
 			border-ralsei-white border-8
 			bg-gradient-to-r to-ralsei-pink-neon/30 from-ralsei-pink-regular/20 from-30%
 		"
 		style="border-style: ridge hidden hidden hidden;"
 	>
-		{#each menuItems as item}
-			{@const highlight = isRoute(item.href)}
-			<NavButton {highlight} {...item} />
-		{/each}
+		<div class="bg-opacity-100 pixelate-bg flex flex-row flex-nowrap gap-2 justify-start overflow-auto">
+			{#each menuItems as item}
+				{@const highlight = isRoute(item.href)}
+				<NavButton {highlight} {...item} />
+			{/each}
+		</div>
 	</div>
 </nav>

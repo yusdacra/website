@@ -13,20 +13,30 @@
 >
 	<div
 		class="
-            flex
             p-1 border-ralsei-white border-8
-            bg-gradient-to-l from-ralsei-pink-neon to-75%
+            bg-gradient-to-l from-ralsei-pink-neon to-ralsei-black to-75%
         "
 		style="border-style: hidden hidden ridge hidden;"
 	>
-		<h1 class="font-monospace text-xl text-ralsei-pink-regular grow justify-self-start self-center">
-			{title}
-		</h1>
-		{#if iconUri !== ''}
-			<img class="justify-self-end self-center max-h-7" style="image-rendering: pixelated;" src={iconUri} alt={iconUri} />
-		{/if}
+		<div class="flex bg-opacity-100 pixelate-bg">
+			<h1
+				class="font-monospace text-xl text-ralsei-pink-regular grow justify-self-start self-center"
+			>
+				{title}
+			</h1>
+			{#if iconUri !== ''}
+				<img
+					class="justify-self-end self-center max-h-7"
+					style="image-rendering: pixelated;"
+					src={iconUri}
+					alt={iconUri}
+				/>
+			{/if}
+		</div>
 	</div>
 	<div class="p-2 bg-gradient-to-tl to-ralsei-pink-neon/15 from-ralsei-pink-regular/20">
-		<slot />
+		<div class="bg-opacity-100 pixelate-bg">
+			<slot />
+		</div>
 	</div>
 </div>
