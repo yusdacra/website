@@ -9,6 +9,8 @@
         @apply font-sans-serif bg-ralsei-black text-ralsei-white;
         @apply prose-code:font-monospace prose-headings:font-monospace;
         cursor: url('/icons/gaze_closed.png'), default;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
     }
 
     .prose h1::before {
@@ -109,7 +111,23 @@
         100% {
           filter: url("#squiggly-4");
         }
-      }
+    }
+
+    .pixelate {
+        filter: url("#pixelate");
+    }
+
+    .pixelate-bg {
+        backdrop-filter: url("#pixelate");
+    }
+
+    .dither {
+        filter: url("#dither");
+    }
+
+    .dither-bg {
+        backdrop-filter: url("#dither");
+    }
 }
 
 @layer utilities {
