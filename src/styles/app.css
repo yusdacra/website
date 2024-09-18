@@ -9,8 +9,7 @@
         @apply font-sans-serif bg-ralsei-black text-ralsei-white;
         @apply prose-code:font-monospace prose-headings:font-monospace;
         cursor: url('/icons/gaze_closed.png'), default;
-        image-rendering: crisp-edges;
-        image-rendering: pixelated;
+        image-rendering: optimizeQuality;
     }
 
     .prose h1::before {

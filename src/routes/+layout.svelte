@@ -150,7 +150,7 @@
 		"
 		style="border-style: ridge hidden hidden hidden;"
 	>
-		<div class="bg-opacity-100 pixelate-bg flex flex-row flex-nowrap gap-2 justify-start overflow-auto">
+		<div class="flex flex-row flex-nowrap gap-2 justify-start overflow-auto">
 			{#each menuItems as item}
 				{@const highlight = isRoute(item.href)}
 				<NavButton {highlight} {...item} />
