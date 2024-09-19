@@ -38,7 +38,7 @@
 
           src = ./.;
           
-          outputHash = "sha256-XRcH8KOtGsWzpaKIKUy/yTm6cCfzFjehNMTCh+m4PmI=";
+          outputHash = "sha256-M6Kircn1s9eMhvnB5u1fzYxVOalFUhE5KskIOs8BPP0=";
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
 
@@ -57,7 +57,7 @@
 
           src = ./.;
 
-          nativeBuildInputs = [pkgs.makeBinaryWrapper];
+          nativeBuildInputs = [pkgs.makeBinaryWrapper pkgs.rsync];
           buildInputs = [pkgs.bun];
 
           PUBLIC_BASE_URL="http://localhost:5173";
@@ -65,9 +65,10 @@
 
           configurePhase = ''
             runHook preConfigure
-            cp -R ${config.packages.gazesys-modules} node_modules
+            cp -R --no-preserve=ownership ${config.packages.gazesys-modules} node_modules
+            find node_modules -type d -exec chmod 755 {} \;
             substituteInPlace node_modules/.bin/vite \
-              --replace "/usr/bin/env node" "${pkgs.nodejs-slim_latest}/bin/node"
+              --replace-fail "/usr/bin/env node" "${pkgs.nodejs-slim_latest}/bin/node"
             runHook postConfigure
           '';
           buildPhase = ''
