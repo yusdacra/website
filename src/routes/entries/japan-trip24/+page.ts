@@ -1,6 +1,6 @@
 const images = import.meta.glob<any>(
     './images/*.webp',
-    { query: { enhanced: true }, eager: true }
+    { query: { enhanced: true, format: "webp" }, eager: true }
 );
 
 export function load() {
