@@ -15,7 +15,7 @@
 >
 	<a
 		class="
-            flex gap-1 items-center justify-center
+            flex gap-1 items-center justify-center align-middle max-h-full
             {highlight
 			? 'text-ralsei-pink-regular app-selected-route'
 			: 'text-ralsei-green-light hover:underline'}

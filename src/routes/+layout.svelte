@@ -1,5 +1,6 @@
 <script lang="ts">
-	import getTitle from '$lib/getTitle';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
+import getTitle from '$lib/getTitle';
 	import NavButton from '../components/navButton.svelte';
 	import '../styles/app.css';
 
@@ -150,11 +151,15 @@
 		"
 		style="border-style: ridge hidden hidden hidden;"
 	>
-		<div class="flex flex-row flex-nowrap gap-2 justify-start overflow-auto">
+		<div class="flex flex-row flex-nowrap gap-2 justify-start overflow-x-auto">
 			{#each menuItems as item}
 				{@const highlight = isRoute(item.href)}
 				<NavButton {highlight} {...item} />
 			{/each}
+			<div class="hidden md:block grow"/>
+			<a class="align-middle" href="/entries/_rss">
+				<img class="min-w-fit" src="/valid-rss.png" alt="rss feed"/>
+			</a>
 		</div>
 	</div>
 </nav>
