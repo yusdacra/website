@@ -17,7 +17,7 @@ excerpt = "photos from my trip to japan"
 
 ## 1-16 / 09 / 2024
 
-some photos i took while on a japan trip
+photos i took while on a japan trip
 
 <p>
 these are *not* sorted, have fun trying to figure out the actual order
