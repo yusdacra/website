@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Window from '../../components/window.svelte';
-	import type { PostData } from './+page.ts';
+	import type { PostData } from './+layout';
 
 	export let data;
 
