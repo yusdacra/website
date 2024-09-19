@@ -35,8 +35,6 @@
 		</div>
 	</div>
 	<div class="p-2 bg-gradient-to-tl to-ralsei-pink-neon/15 from-ralsei-pink-regular/20">
-		<div class="bg-opacity-100 pixelate-bg">
-			<slot />
-		</div>
+		<slot />
 	</div>
 </div>
