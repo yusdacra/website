@@ -7,7 +7,7 @@ export const GET = async ({ }) => {
       return new Response(render(_allPosts), {
             headers: {
                   'content-type': 'application/xml',
-                  'cache-control': 'no-cache',
+                  'cache-control': 'no-store',
             }
       })
 };

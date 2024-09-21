@@ -4,6 +4,6 @@ export const prerender = false;
 export const trailingSlash = 'always';
 
 export async function load({ url, setHeaders }) {
-    setHeaders({'Cache-Control': 'no-cache'})
+    setHeaders({'Cache-Control': 'no-store'})
     return { route: url.pathname }
 }
