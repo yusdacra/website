@@ -2,6 +2,8 @@ import { GUESTBOOK_BASE_URL } from '$env/static/private'
 import { redirect, type Cookies } from '@sveltejs/kit'
 import auth from '$lib/guestbookAuth'
 
+export const prerender = false;
+
 interface Entry {
     author: string,
     content: string,

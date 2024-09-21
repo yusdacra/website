@@ -1,7 +1,5 @@
 import convertDate from "$lib/convertDate";
 
-export const prerender = true;
-
 export interface PostData {
 	path: string,
 	published: string,
