@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { PUBLIC_BASE_URL } from '$env/static/public';
-import getTitle from '$lib/getTitle';
+	import getTitle from '$lib/getTitle';
 	import NavButton from '../components/navButton.svelte';
 	import '../styles/app.css';
 
@@ -12,16 +11,16 @@ import getTitle from '$lib/getTitle';
 		iconUri: string;
 	}
 
-	let menuItems: MenuItem[] = [
+	const menuItems: MenuItem[] = [
 		{ href: '', name: 'home', iconUri: '/icons/home.png' },
 		{ href: 'entries', name: 'entries', iconUri: '/icons/entries.png' },
 		{ href: 'guestbook', name: 'guestbook', iconUri: '/icons/guestbook.png' },
 		{ href: 'about', name: 'about', iconUri: '/icons/about.png' }
 	];
 
-	const routeComponents = data.route.split('/');
-	const doAddPostItem = routeComponents.length > 3 && routeComponents[1] === 'entries';
-	const isRoute = (_route: string) => {
+	$: routeComponents = data.route.split('/');
+	$: doAddPostItem = routeComponents.length > 3 && routeComponents[1] === 'entries';
+	$: isRoute = (_route: string) => {
 		if (doAddPostItem) {
 			if (_route === 'entries') {
 				return false;
@@ -32,22 +31,13 @@ import getTitle from '$lib/getTitle';
 		return _route === routeComponents[1];
 	};
 
-	if (doAddPostItem) {
-		menuItems.splice(2, 0, {
-			href: data.route.slice(1),
-			name: routeComponents[2],
-			iconUri: '/icons/entry.png'
-		});
-	}
-
-	const title = getTitle(data.route);
+	$: title = getTitle(data.route);
 
 	const svgSquiggles = [[2], [3], [2], [3], [1]];
 </script>
 
 <svelte:head>
 	<title>{title}</title>
-	<meta property="og:title" content={title} />
 	<meta property="og:site_name" content="gaze.systems" />
 	<meta property="og:url" content="https://gaze.systems/" />
 	<meta property="og:image" content="https://gaze.systems/icons/gaze_website.png" />
@@ -152,18 +142,23 @@ import getTitle from '$lib/getTitle';
 		style="border-style: ridge hidden hidden hidden;"
 	>
 		<div class="flex flex-row flex-nowrap gap-2 justify-start overflow-x-auto">
-			{#each menuItems as item}
+			{#each menuItems as item, menuIdx}
 				{@const highlight = isRoute(item.href)}
 				<NavButton {highlight} {...item} />
+				{#if doAddPostItem && menuIdx == 1}
+					<NavButton highlight name={routeComponents[2]} href={data.route.slice(1)} iconUri='/icons/entry.png'/>
+				{/if}
 			{/each}
-			<div class="hidden md:block grow"/>
-			<div class="flex gap-3 px-1.5 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-groove border-4">
+			<div class="hidden md:block grow" />
+			<div
+				class="flex gap-3 px-1.5 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-groove border-4"
+			>
 				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">IndieWeb Webring</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
 			<a class="align-middle" href="/entries/_rss">
-				<img class="min-w-fit hover:opacity-60" src="/valid-rss.png" alt="rss feed"/>
+				<img class="min-w-fit hover:opacity-60" src="/valid-rss.png" alt="rss feed" />
 			</a>
 		</div>
 	</div>

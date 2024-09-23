@@ -189,3 +189,55 @@ a.app-selected-route {
         linear-gradient(to right, theme(colors.ralsei.pink.neon / 0.4), transparent 1px);
     background-size: 100% 24px, 24px 100%;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+    .animate-window-open {
+        animation: 0.5s ease-out window-open-scale forwards;
+    }
+    
+    .animate-window-open-vertical {
+        animation: 0.5s ease-out window-open-scale-vertical forwards;
+        transform-origin: bottom;
+    }
+    
+    .animate-window-open-horizontal {
+        animation: 0.5s ease-out window-open-scale-horizontal forwards;
+        transform-origin: left;
+    }
+    
+    @keyframes window-open-scale {
+        0% {
+            transform: scale(0.0);
+        }
+        30% {
+            transform: scale(0.0);
+        }
+        100% {
+            transform: scale(1.0);
+        }
+    }
+    
+    @keyframes window-open-scale-vertical {
+        0% {
+            transform: scale(1.0, 0.0);
+        }
+        30% {
+            transform: scale(1.0, 0.0);
+        }
+        100% {
+            transform: scale(1.0, 1.0);
+        }
+    }
+    
+    @keyframes window-open-scale-horizontal {
+        0% {
+            transform: scale(0.0, 1.0);
+        }
+        30% {
+            transform: scale(0.0, 1.0);
+        }
+        100% {
+            transform: scale(1.0, 1.0);
+        }
+    }
+}

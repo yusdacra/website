@@ -1,6 +1,9 @@
 <script lang="ts">
 	export let title: string;
 	export let iconUri: string = '';
+
+	const scaleKeyframes = ["window-open", "window-open-vertical", "window-open-horizontal"];
+	const chosenKeyframe = scaleKeyframes.at(Math.floor(Math.random() * 3))
 </script>
 
 <div
@@ -9,6 +12,7 @@
         max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl min-w-[30ch] lg:min-w-[40ch] w-full md:w-fit h-fit
         border-ralsei-white border-ridge border-8 border-t-[12px]
         bg-ralsei-black
+		animate-{chosenKeyframe}
     "
 >
 	<div

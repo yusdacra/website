@@ -9,6 +9,7 @@
 <svelte:head>
     <meta property="og:description" content={excerpt} />
     <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
 </svelte:head>
 
 <div class="pb-[8vh]">
