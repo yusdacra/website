@@ -22,7 +22,7 @@ class OauthConfig {
     joinScopes: (scopes: string[]) => string = (scopes) => scopes.join("+");
     getAuthParams: (params: Record<string, string>, config: OauthConfig) => Record<string, string> = (params) => { return params };
     getTokenParams: (params: Record<string, string>, config: OauthConfig) => Record<string, string> = (params) => { return params };
-    extractTokenResponse: (tokenResp: any) => TokenResponse = (tokenResp) => {
+    extractTokenResponse: (tokenResp: any) => any = (tokenResp) => {
         return {
             accessToken: tokenResp.access_token,
             tokenType: tokenResp.token_type,
@@ -150,6 +150,25 @@ export const github = {
     }
 }
 
+export const indielogin = {
+    name: 'indielogin',
+    ...genericOauthClient(
+        new OauthConfig(
+            PUBLIC_BASE_URL,
+            '',
+            'https://indielogin.com/auth',
+            'https://indielogin.com/auth',
+        )
+            .withTokenRequestHeaders({ 'Accept': 'application/json' })
+            .withExtractTokenResponse((rawResp) => {return {me: rawResp.me}})
+    ),
+    identifyToken: async (tokenResp: any): Promise<string> => {
+        let me: string = tokenResp.me
+        me = me.replace('https://', '').replace('http://', '')
+        return me
+    }
+}
+
 export const generateState = () => {
     const randomValues = new Uint8Array(32)
     crypto.getRandomValues(randomValues)
@@ -185,22 +204,18 @@ export const extractCode = (url: URL, cookies: Cookies) => {
 }
 
 export const getAuthClient = (name: string) => {
-    switch (name) {
-        case "discord":
-            return discord
-
-        case "github":
-            return github
-
-        default:
-            return null
-    }
+    return clientsMap[name]
 }
+
+const clients = {
+    discord, github, indielogin
+}
+const clientsMap: Record<string, any> = clients
 
 export default {
     callbackUrl,
-    discord, github,
     createAuthUrl,
     extractCode,
     getAuthClient,
+    ...clients
 }

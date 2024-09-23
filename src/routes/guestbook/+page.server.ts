@@ -44,6 +44,7 @@ const postAction = (client: any, scopes: string[]) => {
 }
 
 export const actions = {
+    post_indielogin: postAction(auth.indielogin, []),
     post_discord: postAction(auth.discord, ["identify"]),
     post_github: postAction(auth.github, []),
 }

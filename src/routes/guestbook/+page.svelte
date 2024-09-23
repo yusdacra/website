@@ -2,8 +2,8 @@
 	import Window from '../../components/window.svelte';
 
 	export let data;
-	const hasPreviousPage = data.page > 1;
-	const hasNextPage = data.hasNext;
+	$: hasPreviousPage = data.page > 1;
+	$: hasNextPage = data.hasNext;
 </script>
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
@@ -32,7 +32,7 @@
 				</div>
 				<div class="entry flex flex-wrap gap-1.5 p-1">
 					<p class="text-xl ms-2">auth via:</p>
-					{#each ['discord', 'github'] as platform}
+					{#each ['indielogin', 'discord', 'github'] as platform}
 						<input
 							type="submit"
 							value={platform}
