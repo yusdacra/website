@@ -46,13 +46,13 @@
 <div
 	class="
         app-grid-background motion-safe:app-grid-background-anim
-        fixed -z-10 w-full h-full top-0 left-0
+        fixed -z-10 w-full [height:100%] top-0 left-0
     "
 />
 <div
 	class="
         app-grid-background-second-layer motion-safe:app-grid-background-second-layer-anim
-        fixed -z-20 w-full h-full top-0 left-0
+        fixed -z-20 w-full [height:100%] top-0 left-0
     "
 />
 

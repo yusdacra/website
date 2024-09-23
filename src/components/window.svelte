@@ -9,7 +9,7 @@
 <div
 	class="
         flex flex-col
-        max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl min-w-[30ch] lg:min-w-[40ch] w-full md:w-fit h-fit
+        max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl min-w-[30ch] lg:min-w-[40ch] w-full md:w-fit [height:fit-content]
         border-ralsei-white border-ridge border-8 border-t-[12px]
         bg-ralsei-black
 		animate-{chosenKeyframe}
