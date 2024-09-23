@@ -1,18 +1,19 @@
 <script>
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 	import Window from '../components/window.svelte';
 </script>
 
 <div class="flex flex-col md:flex-row gap-y-4 lg:gap-y-0 md:h-full">
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
 		<Window title="readme?" iconUri="/icons/question.png">
-			<div class="prose prose-ralsei prose-img:m-0 leading-6">
+			<div class="prose prose-ralsei prose-img:m-0 leading-6 h-card">
 				<p>
 					hi there <img
 						class="relative inline h-6 animate-squiggle pb-1 pr-1"
 						src="/wavey.gif"
 						alt="wavey"
 						title="hi :33"
-					/><i>i'm <span class="text-ralsei-pink-regular text-shadow-none">dusk</span>!</i>
+					/><i>i'm <a class="p-name" href={PUBLIC_BASE_URL}>dusk</a>!</i>
 				</p>
 				<p>
 					and this is my personal spot where i plan to put everything that i do on (<i
