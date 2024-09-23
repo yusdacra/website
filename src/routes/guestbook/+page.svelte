@@ -32,7 +32,7 @@
 				</div>
 				<div class="entry flex flex-wrap gap-1.5 p-1">
 					<p class="text-xl ms-2">auth via:</p>
-					{#each ['indielogin', 'discord', 'github'] as platform}
+					{#each ['discord', 'github'] as platform}
 						<input
 							type="submit"
 							value={platform}
