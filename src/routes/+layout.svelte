@@ -157,8 +157,13 @@ import getTitle from '$lib/getTitle';
 				<NavButton {highlight} {...item} />
 			{/each}
 			<div class="hidden md:block grow"/>
+			<div class="flex gap-3 px-1.5 align-middle items-center text-center place-content-center border-ralsei-white border-groove border-4">
+				<a class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
+				<a class="hover:underline" href="https://xn--sr8hvo.ws">IndieWeb Webring</a>
+				<a class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
+			</div>
 			<a class="align-middle" href="/entries/_rss">
-				<img class="min-w-fit" src="/valid-rss.png" alt="rss feed"/>
+				<img class="min-w-fit hover:opacity-60" src="/valid-rss.png" alt="rss feed"/>
 			</a>
 		</div>
 	</div>
