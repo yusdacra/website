@@ -3,25 +3,30 @@
 	import Window from '../components/window.svelte';
 </script>
 
-<div class="flex flex-col md:flex-row gap-y-4 lg:gap-y-0 md:h-full">
+<div class="flex flex-col md:flex-row gap-y-4 lg:gap-y-0 md:h-full h-card">
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
 		<Window title="readme?" iconUri="/icons/question.png">
-			<div class="prose prose-ralsei prose-img:m-0 leading-6 h-card">
+			<div class="prose prose-ralsei prose-img:m-0 leading-6">
 				<p>
-					hi there <img
+					hi there
+					<img
 						class="relative inline h-6 animate-squiggle pb-1 pr-1"
 						src="/wavey.gif"
 						alt="wavey"
 						title="hi :33"
-					/><i>i'm <a class="p-name" href={PUBLIC_BASE_URL}>dusk</a>!</i>
+					/>
+					<i>i'm <a class="p-name u-url u-uid" href={PUBLIC_BASE_URL}>dusk</a>!</i>
 				</p>
+				<ul class="marker:[content:'->'] leading-none">
+					<li class="p-note">trying to do stuff</li>
+					<li><span class="p-category">software engineer</span>, <span class="p-category">indie game dev</span></li>
+					<li><span class="p-gender-identity">genderfluid</span></li>
+					<li>in <span class="p-country-name">turkey</span> <i class="text-[0.5rem] align-text-bottom">(get me out)</i></li>
+					<li>aka <span class="p-nickname">yusdacra</span></li>
+				</ul>
 				<p>
-					and this is my personal spot where i plan to put everything that i do on (<i
-						>if i don't forget to...</i
-					>)
+					...and this is my personal spot on the web where i plan to put everything that i do on (<i class="text-sm">if i don't forget to</i> 👍)
 				</p>
-				<p>not much else to say, hopefully will add more text here one day :></p>
-				<p>website very much in progress still !!!</p>
 			</div>
 		</Window>
 		<div class="grow" />
@@ -46,14 +51,14 @@
 				<li>discord: yusdacra</li>
 				<li>
 					e-mail:
-					<a href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
+					<a class="u-email" href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
 				</li>
 			</ul>
 			<h3>development</h3>
 			<ul>
 				<li>
 					github:
-					<a href="https://github.com/yusdacra" rel="me">@yusdacra</a>
+					<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
 				</li>
 				<li>
 					gitlab:
@@ -61,14 +66,14 @@
 				</li>
 				<li>
 					my gitea:
-					<a href="https://git.gaze.systems/dusk">@dusk</a>
+					<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
 				</li>
 			</ul>
 			<h3>socials</h3>
 			<ul>
 				<li>
 					bluesky:
-					<a href="https://bsky.app/profile/gaze.systems">@gaze.systems</a>
+					<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
 				</li>
 				<li>
 					misskey.art:

@@ -52,6 +52,10 @@
         text-shadow: none;
     }
 
+    .prose ul, ul {
+        list-style-type: '-- ';
+    }
+
     li::marker {
         text-shadow: 0 0 4px theme(colors.ralsei.pink.regular), 0 0 6px #fff9;
     }
@@ -240,4 +244,11 @@ a.app-selected-route {
             transform: scale(1.0, 1.0);
         }
     }
+}
+
+.genderfluid-gradient {
+    background: linear-gradient(to right, rgb(255, 120, 166), rgb(247, 196, 210), rgb(255, 255, 255) 23%, rgb(255, 255, 255), rgb(255, 255, 255) 28%, rgb(219, 148, 213), rgb(190, 20, 215), rgb(89, 22, 85), rgb(0, 0, 0) 73%, rgb(0, 0, 0), rgb(0, 0, 0) 78%, rgb(51, 36, 87), rgb(50, 60, 191));
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
 }
