@@ -29,14 +29,14 @@
 				<li>discord: yusdacra</li>
 				<li>
 					e-mail:
-					<a href="mailto:y.bera003.06@pm.me">y.bera003.06@pm.me</a>
+					<a href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
 				</li>
 			</ul>
 			<h3>development</h3>
 			<ul>
 				<li>
 					github:
-					<a href="https://github.com/yusdacra">@yusdacra</a>
+					<a href="https://github.com/yusdacra" rel="me">@yusdacra</a>
 				</li>
 				<li>
 					gitlab:
