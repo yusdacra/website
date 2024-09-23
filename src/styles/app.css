@@ -48,6 +48,10 @@
         text-shadow: 0 0 1px theme(colors.ralsei.black), 0 0 5px theme(colors.red.600);
     }
 
+    .text-shadow-none {
+        text-shadow: none;
+    }
+
     li::marker {
         text-shadow: 0 0 4px theme(colors.ralsei.pink.regular), 0 0 6px #fff9;
     }

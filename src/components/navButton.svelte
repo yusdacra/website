@@ -18,13 +18,13 @@
             flex gap-1 items-center justify-center align-middle text-center h-full
             {highlight
 			? 'text-ralsei-pink-regular app-selected-route'
-			: 'text-ralsei-green-light hover:underline'}
+			: 'text-ralsei-green-light'}
         "
 		title={name}
 		href="/{href}"
 		data-sveltekit-preload-data="hover"
 	>
 		<img class="max-w-4" style="image-rendering: pixelated;" src={iconUri} alt={name} />
-		<div class="font-monospace text-sm/3 overflow-hidden text-ellipsis text-nowrap">{name}</div>
+		<div class="font-monospace text-sm/3 overflow-hidden text-ellipsis text-nowrap {highlight ? '' : 'hover:underline'}">{name}</div>
 	</a>
 </div>

@@ -4,26 +4,42 @@
 
 <div class="flex flex-col md:flex-row gap-y-4 lg:gap-y-0 md:h-full">
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
-		<Window title="readme?" iconUri='/icons/question.png'>
+		<Window title="readme?" iconUri="/icons/question.png">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
-				<p>hi there <img class="inline h-6 animate-squiggle" src="/wavey.gif" alt="wavey" title="hi :33" /></p>
 				<p>
-					i'm dusk! and this is my personal spot where i plan to put everything that i do on (<i>if i don't forget to...</i>)
+					hi there <img
+						class="relative inline h-6 animate-squiggle pb-1 pr-1"
+						src="/wavey.gif"
+						alt="wavey"
+						title="hi :33"
+					/><i>i'm <span class="text-ralsei-pink-regular text-shadow-none">dusk</span>!</i>
+				</p>
+				<p>
+					and this is my personal spot where i plan to put everything that i do on (<i
+						>if i don't forget to...</i
+					>)
 				</p>
 				<p>not much else to say, hopefully will add more text here one day :></p>
 				<p>website very much in progress still !!!</p>
 			</div>
 		</Window>
-		<div class="grow"/>
+		<div class="grow" />
 		<Window title="latest stuff">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
-				<p>worked on a game for a jam!! check it out at <a href="https://manonox.itch.io/fish-well">it's itch.io page</a>!</p>
-				<img src="https://img.itch.zone/aW1hZ2UvMjkxNjQzOC8xNzQ2MDY2Mi5wbmc=/original/%2BIb5Vf.png" alt="fish well gameplay screenshot">
+				<p>
+					worked on a game for a jam!! check it out at <a href="https://manonox.itch.io/fish-well"
+						>it's itch.io page</a
+					>!
+				</p>
+				<img
+					src="https://img.itch.zone/aW1hZ2UvMjkxNjQzOC8xNzQ2MDY2Mi5wbmc=/original/%2BIb5Vf.png"
+					alt="fish well gameplay screenshot"
+				/>
 			</div>
 		</Window>
 	</div>
 	<div class="hidden md:block md:grow" />
-	<Window title="contacts!" iconUri='/icons/contact.png'>
+	<Window title="contacts!" iconUri="/icons/contact.png">
 		<div class="prose prose-ralsei leading-6">
 			<ul>
 				<li>discord: yusdacra</li>
@@ -63,9 +79,11 @@
 </div>
 
 <div class="hidden motion-reduce:md:block absolute max-w-[40ch] bottom-[10vh] right-[8vw]">
-	<Window title=":(" iconUri='/icons/warning.png'>
+	<Window title=":(" iconUri="/icons/warning.png">
 		<div class="prose prose-ralsei leading-6">
-			<p>you have <code>prefers-reduced-motion</code> enabled so i disabled (most of) the animations!</p>
+			<p>
+				you have <code>prefers-reduced-motion</code> enabled so i disabled (most of) the animations!
+			</p>
 			<p class="text-xs italic">they looked nice i think....</p>
 		</div>
 	</Window>

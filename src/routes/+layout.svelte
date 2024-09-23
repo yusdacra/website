@@ -158,9 +158,9 @@ import getTitle from '$lib/getTitle';
 			{/each}
 			<div class="hidden md:block grow"/>
 			<div class="flex gap-3 px-1.5 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-groove border-4">
-				<a class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
+				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">IndieWeb Webring</a>
-				<a class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
+				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
 			<a class="align-middle" href="/entries/_rss">
 				<img class="min-w-fit hover:opacity-60" src="/valid-rss.png" alt="rss feed"/>
