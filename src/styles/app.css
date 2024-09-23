@@ -212,36 +212,51 @@ a.app-selected-route {
     @keyframes window-open-scale {
         0% {
             transform: scale(0.0);
+            opacity: 0.0;
         }
         30% {
             transform: scale(0.0);
         }
+        60% {
+            opacity: 0.5;
+        }
         100% {
             transform: scale(1.0);
+            opacity: 1.0;
         }
     }
     
     @keyframes window-open-scale-vertical {
         0% {
             transform: scale(1.0, 0.0);
+            opacity: 0.0;
         }
         30% {
             transform: scale(1.0, 0.0);
         }
+        60% {
+            opacity: 0.5;
+        }
         100% {
             transform: scale(1.0, 1.0);
+            opacity: 1.0;
         }
     }
     
     @keyframes window-open-scale-horizontal {
         0% {
             transform: scale(0.0, 1.0);
+            opacity: 0.0;
         }
         30% {
             transform: scale(0.0, 1.0);
         }
+        60% {
+            opacity: 0.5;
+        }
         100% {
             transform: scale(1.0, 1.0);
+            opacity: 1.0;
         }
     }
 }
