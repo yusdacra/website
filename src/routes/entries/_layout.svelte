@@ -2,6 +2,7 @@
 	import { PUBLIC_BASE_URL } from '$env/static/public';
 	import Window from '../../components/window.svelte';
 	import '../../styles/app.css';
+    import { page } from "$app/stores";
 
 	export let title;
 	export let date;
@@ -23,8 +24,9 @@
 	<Window title="metadata">
 		<div class="prose prose-ralsei">
 			<ul>
-                <link rel="author" href={PUBLIC_BASE_URL}>
-				<li>published on: <time class="dt-published" datetime="2024-08-11 12:00:00">{date}</time></li>
+                <link class="u-url" href="{PUBLIC_BASE_URL}{$page.url.pathname}">
+                <link rel="author" class="p-author h-card" href="{PUBLIC_BASE_URL}">
+				<li>published on: <time class="dt-published" datetime="{date} 00:00:00">{date}</time></li>
 				<li class="max-w-80 text-wrap">excerpt: <div class="inline p-summary">{excerpt}</div></li>
 			</ul>
 		</div>
