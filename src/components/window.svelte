@@ -24,7 +24,7 @@
 	>
 		<div class="flex bg-opacity-100 pixelate-bg">
 			<h1
-				class="font-monospace text-xl text-ralsei-pink-regular grow justify-self-start self-center"
+				class="font-monospace text-xl text-ralsei-pink-regular grow justify-self-start self-center p-name"
 			>
 				{title}
 			</h1>
