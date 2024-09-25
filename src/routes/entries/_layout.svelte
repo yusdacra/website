@@ -25,7 +25,7 @@
 		<div class="prose prose-ralsei">
 			<ul>
                 <link class="u-url" href="{PUBLIC_BASE_URL}{$page.url.pathname}">
-                <link rel="author" class="p-author h-card" href="{PUBLIC_BASE_URL}">
+                <link rel="author" class="p-author" href="{PUBLIC_BASE_URL}">
 				<li>published on: <time class="dt-published" datetime="{date} 00:00:00">{date}</time></li>
 				<li class="max-w-80 text-wrap">excerpt: <div class="inline p-summary">{excerpt}</div></li>
 			</ul>
