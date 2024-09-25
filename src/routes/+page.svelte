@@ -8,7 +8,7 @@
 		<Window title="readme?" iconUri="/icons/question.png">
 			<div class="flex flex-col prose prose-ralsei prose-img:m-0 leading-none">
 				<div class="flex flex-grow">
-					<img class="mt-1 ml-1 w-36 h-36 u-photo" src="/pfp.png" alt="character from q.u.q." title="character from q.u.q. (good vn go read it NOW)"/>
+					<img class="mt-1 ml-1 w-36 [height:9rem] u-photo" src="/pfp.png" alt="character from q.u.q." title="character from q.u.q. (good vn go read it NOW)"/>
 					<ul class="place-self-center m-0 leading-none marker:[content:'->'] [list-style-type:'->']">
 						<li class="[list-style-type:'->'] p-note">trying to do stuff</li>
 						<li class="[list-style-type:'->']"><span class="p-category">software engineer</span>, <span class="p-category">indie game dev</span></li>
