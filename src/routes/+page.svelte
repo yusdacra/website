@@ -25,7 +25,7 @@
 						alt="wavey"
 						title="hi :33"
 					/>
-					<i>i'm <a class="m-0 p-0 p-name u-url u-uid" href={PUBLIC_BASE_URL}>dusk</a>!</i>
+					<i>i'm <a class="m-0 [padding:0px] p-name u-url u-uid" href={PUBLIC_BASE_URL}>dusk</a>!</i>
 				</p>
 			</div>
 		</Window>
