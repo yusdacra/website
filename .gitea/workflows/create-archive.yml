@@ -1,0 +1,20 @@
+name: create archive with lfs
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  tag:
+    runs-on: native
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        lfs: true
+    - uses: actions/gitea-release-action@v1
+      with:
+        files: |-
+          *
+          **/*
