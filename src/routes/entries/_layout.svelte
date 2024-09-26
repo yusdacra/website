@@ -17,14 +17,14 @@
 	<meta property="og:title" content={title} />
 </svelte:head>
 
-<article class="flex flex-wrap gap-4 h-entry">
+<article class="flex flex-wrap md:flex-nowrap gap-4 h-entry">
 	<Window {title} iconUri="/icons/entry.png">
 		<div class="prose prose-ralsei max-w-[80ch] e-content">
 			<slot />
 		</div>
 	</Window>
 	{#if showMetadata}
-		<Window title="metadata">
+		<Window title="metadata" sticky>
 			<div class="prose prose-ralsei">
 				<ul>
 					<link class="u-url" href="{PUBLIC_BASE_URL}{$page.url.pathname}" />
