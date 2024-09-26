@@ -21,9 +21,9 @@ jobs:
         git lfs install --local
         git lfs fetch origin refs/tags/${{ gitea.ref_name }}
         git lfs checkout
-    - run: XZ_OPT=-9 tar --exclude='./.git' -cvJf ../source.txz --directory=. .
-    - run: du -sh ../source.txz
+    - run: tar --exclude='./.git' -cvzf ../source.tgz --directory=. .
+    - run: du -sh ../source.tgz
     - uses: https://gitea.com/actions/gitea-release-action@v1
       with:
         files: |-
-          ../source.txz
+          ../source.tgz
