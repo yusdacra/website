@@ -1,8 +1,7 @@
 <script lang="ts">
-	import Layout from "../routes/+layout.svelte";
-
 	export let title: string;
 	export let iconUri: string = '';
+	export let id: string = '';
 
 	const scaleKeyframes = [
 		"window-open",
@@ -26,6 +25,7 @@
         bg-ralsei-black
 		animate-{chosenKeyframe}
     "
+	{id}
 >
 	<div
 		class="

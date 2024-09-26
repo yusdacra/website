@@ -4,6 +4,14 @@
 	export let data;
 	$: hasPreviousPage = data.page > 1;
 	$: hasNextPage = data.hasNext;
+
+	function resetEntriesAnimation() {
+		var el = document.getElementById('guestbookentries');
+		if (el === null) { return }
+		el.style.animation = 'none';
+		el.offsetHeight; /* trigger reflow */
+		el.style.animation = ''; 
+	}
 </script>
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
@@ -55,7 +63,7 @@
 		</div>
 	</Window>
 	<div class="grow" />
-	<Window title="entries" iconUri="/icons/entries.png">
+	<Window id='guestbookentries' title="entries" iconUri="/icons/entries.png">
 		<div class="flex flex-col gap-2 md:gap-4 2xl:w-[60ch]">
 			{#if data.getRatelimited}
 				<p class="text-error">
@@ -95,6 +103,7 @@
 				<div class="flex flex-row w-full justify-center items-center font-monospace">
 					{#if hasPreviousPage}
 						<a href="/guestbook/?page={data.entries.length > 0 ? data.page - 1 : 1}"
+							on:click={resetEntriesAnimation}
 							>&lt;&lt; previous</a
 						>
 					{/if}
@@ -102,7 +111,7 @@
 						<div class="w-1/12" />
 					{/if}
 					{#if hasNextPage}
-						<a href="/guestbook/?page={data.page + 1}">next &gt;&gt;</a>
+						<a href="/guestbook/?page={data.page + 1}" on:click={resetEntriesAnimation}>next &gt;&gt;</a>
 					{/if}
 				</div>
 			{/if}
