@@ -3,6 +3,7 @@
 	export let iconUri: string = '';
 	export let id: string = '';
 	export let sticky: boolean = false;
+	export let entry: boolean = false;
 
 	const scaleKeyframes = [
 		"window-open",
@@ -37,7 +38,7 @@
 	>
 		<div class="flex bg-opacity-100 pixelate-bg">
 			<h1
-				class="font-monospace text-xl text-ralsei-pink-regular grow justify-self-start self-center p-name"
+				class="font-monospace text-xl text-ralsei-pink-regular grow justify-self-start self-center {entry ? 'p-name' : ''}"
 			>
 				{title}
 			</h1>
