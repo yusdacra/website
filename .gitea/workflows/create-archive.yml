@@ -12,7 +12,14 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 1
-        lfs: true
+        lfs: false
+    - name: Checkout LFS
+      run: |
+        function EscapeForwardSlash() { echo "$1" | sed 's/\//\\\//g'; }
+        readonly ReplaceStr="EscapeForwardSlash ${{ gitea.repository }}.git/info/lfs/objects/batch"; sed -i "s/\(\[http\)\( \".*\)\"\]/\1\2`$ReplaceStr`\"]/" .git/config
+        git config --local lfs.transfer.maxretries 1
+        git lfs fetch origin refs/remotes/origin/${{ gitea.ref_name }}
+        git lfs checkout
     - uses: https://gitea.com/actions/gitea-release-action@v1
       with:
         files: |-
