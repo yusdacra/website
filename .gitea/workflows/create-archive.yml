@@ -13,7 +13,7 @@ jobs:
       with:
         fetch-depth: 1
         lfs: true
-    - uses: actions/gitea-release-action@v1
+    - uses: https://gitea.com/actions/gitea-release-action@v1
       with:
         files: |-
           *
