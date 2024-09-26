@@ -9,6 +9,7 @@
         @apply font-sans-serif bg-ralsei-black text-ralsei-white;
         @apply prose-code:font-monospace prose-headings:font-monospace;
         cursor: url('/icons/gaze_closed.png'), default;
+        scrollbar-color: theme(colors.ralsei.green.dark) transparent;
     }
 
     .prose h1::before {

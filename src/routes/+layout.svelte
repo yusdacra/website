@@ -128,7 +128,7 @@
 	</defs>
 </svg>
 
-<div class="md:h-[96vh] pb-[8vh] lg:px-[4vw] 2xl:px-[8vw] lg:py-[5.5vh] overflow-x-hidden">
+<div class="md:h-[96vh] pb-[8vh] lg:px-[4vw] 2xl:px-[8vw] lg:py-[5.5vh] overflow-x-hidden [scrollbar-gutter:stable]">
 	<slot />
 </div>
 
