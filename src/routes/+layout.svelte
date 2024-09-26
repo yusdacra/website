@@ -128,11 +128,11 @@
 	</defs>
 </svg>
 
-<div class="md:h-[96vh] pb-[7vh] lg:px-[4vw] 2xl:px-[8vw] lg:py-[4vh]">
+<div class="md:h-[96vh] pb-[8vh] lg:px-[4vw] 2xl:px-[8vw] lg:py-[5.5vh] overflow-x-hidden">
 	<slot />
 </div>
 
-<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-10 bg-ralsei-black">
+<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-10 bg-ralsei-black overflow-hidden">
 	<div
 		class="
 			max-w-full max-h-fit p-1

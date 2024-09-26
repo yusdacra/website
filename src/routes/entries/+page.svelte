@@ -20,7 +20,7 @@
 				>
 					<div class="flex flex-col gap-y-1 prose prose-ralsei">
 						<ul>
-							<li>published on: <time datetime="2024-08-11 12:00:00">{post.published}</time></li>
+							<li>published on: <time datetime="{post.metadata.date} 00:00:00">{post.published}</time></li>
 							<li class="max-w-80 text-wrap">excerpt: {post.metadata.excerpt}</li>
 						</ul>
 						<strong class="place-self-end text-ralsei-green-light"> read more... </strong>

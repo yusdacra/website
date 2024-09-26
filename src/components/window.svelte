@@ -1,9 +1,21 @@
 <script lang="ts">
+	import Layout from "../routes/+layout.svelte";
+
 	export let title: string;
 	export let iconUri: string = '';
 
-	const scaleKeyframes = ["window-open", "window-open-vertical", "window-open-horizontal"];
-	const chosenKeyframe = scaleKeyframes.at(Math.floor(Math.random() * 3))
+	const scaleKeyframes = [
+		"window-open",
+		"window-open-vertical",
+		"window-open-vertical",
+		"window-open-horizontal",
+		"window-open-horizontal",
+		"window-open-move-up",
+		"window-open-move-down",
+		"window-open-move-left",
+		"window-open-move-right",
+	];
+	$: chosenKeyframe = scaleKeyframes.at(Math.floor(Math.random() * scaleKeyframes.length))
 </script>
 
 <div

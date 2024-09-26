@@ -208,55 +208,152 @@ a.app-selected-route {
         animation: 0.5s ease-out window-open-scale-horizontal forwards;
         transform-origin: left;
     }
+
+    .animate-window-open-move-up {
+        animation: 0.5s ease-out window-open-move-up forwards;
+    }
+
+    .animate-window-open-move-down {
+        animation: 0.5s ease-out window-open-move-down forwards;
+    }
+
+    .animate-window-open-move-left {
+        animation: 0.5s ease-out window-open-move-left forwards;
+    }
+
+    .animate-window-open-move-right {
+        animation: 0.5s ease-out window-open-move-right forwards;
+    }
+
+    .animate-overflow-keep-hidden {
+        animation: 0.6s linear overflow-keep-hidden forwards;
+    }
     
     @keyframes window-open-scale {
         0% {
-            transform: scale(0.0);
+            scale: 0.0;
             opacity: 0.0;
         }
-        30% {
-            transform: scale(0.0);
+        20% {
+            scale: 0.0;
         }
         60% {
             opacity: 0.5;
         }
         100% {
-            transform: scale(1.0);
+            scale: 1.0;
             opacity: 1.0;
         }
     }
     
     @keyframes window-open-scale-vertical {
         0% {
-            transform: scale(1.0, 0.0);
+            scale: 1.0 0.0;
             opacity: 0.0;
         }
-        30% {
-            transform: scale(1.0, 0.0);
+        20% {
+            scale: 1.0 0.0;
         }
         60% {
             opacity: 0.5;
         }
         100% {
-            transform: scale(1.0, 1.0);
+            scale: 1.0 1.0;
             opacity: 1.0;
         }
     }
     
     @keyframes window-open-scale-horizontal {
         0% {
-            transform: scale(0.0, 1.0);
+            scale: 0.0 1.0;
             opacity: 0.0;
         }
-        30% {
-            transform: scale(0.0, 1.0);
+        20% {
+            scale: 0.0 1.0;
         }
         60% {
             opacity: 0.5;
         }
         100% {
-            transform: scale(1.0, 1.0);
+            scale: 1.0 1.0;
             opacity: 1.0;
+        }
+    }
+
+    @keyframes window-open-move-down {
+        0% {
+            translate: 0 10rem;
+            opacity: 0.0;
+        }
+        20% {
+            translate: 0 10rem;
+        }
+        60% {
+            opacity: 0.5;
+        }
+        100% {
+            translate: 0 0;
+            opacity: 1.0;
+        }
+    }
+
+    @keyframes window-open-move-up {
+        0% {
+            translate: 0 -10rem;
+            opacity: 0.0;
+        }
+        20% {
+            translate: 0 -10rem;
+        }
+        60% {
+            opacity: 0.5;
+        }
+        100% {
+            translate: 0 0;
+            opacity: 1.0;
+        }
+    }
+
+    @keyframes window-open-move-left {
+        0% {
+            translate: 10rem 0;
+            opacity: 0.0;
+        }
+        20% {
+            translate: 10rem 0;
+        }
+        60% {
+            opacity: 0.5;
+        }
+        100% {
+            translate: 0 0;
+            opacity: 1.0;
+        }
+    }
+
+    @keyframes window-open-move-right {
+        0% {
+            translate: -10rem 0;
+            opacity: 0.0;
+        }
+        20% {
+            translate: -10rem 0;
+        }
+        60% {
+            opacity: 0.5;
+        }
+        100% {
+            translate: 0 0;
+            opacity: 1.0;
+        }
+    }
+
+    @keyframes overflow-keep-hidden {
+        0% {
+            overflow: hidden;
+        }
+        100% {
+            overflow: auto;
         }
     }
 }
