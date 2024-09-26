@@ -23,7 +23,10 @@ jobs:
         git lfs checkout
     - run: |
         sourcepath="$(basename $(pwd))"
-        (cd .. && tar --exclude='./.git' -cvzf source.tgz $sourcepath)
+        cd ..
+        cp -r $sourcepath website && rm -rf website/.git
+        tar -cvzf source.tgz website
+        cd $sourcepath
     - run: du -sh ../source.tgz
     - uses: https://gitea.com/actions/gitea-release-action@v1
       with:
