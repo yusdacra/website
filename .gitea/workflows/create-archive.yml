@@ -20,8 +20,8 @@ jobs:
         git config --local lfs.transfer.maxretries 1
         git lfs fetch origin refs/tags/${{ gitea.ref_name }}
         git lfs checkout
+    - run: tar czf source.tar.gz --directory=. .
     - uses: https://gitea.com/actions/gitea-release-action@v1
       with:
         files: |-
-          *
-          **/*
+          source.tar.gz
