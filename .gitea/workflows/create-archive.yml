@@ -18,6 +18,7 @@ jobs:
         function EscapeForwardSlash() { echo "$1" | sed 's/\//\\\//g'; }
         readonly ReplaceStr="EscapeForwardSlash ${{ gitea.repository }}.git/info/lfs/objects/batch"; sed -i "s/\(\[http\)\( \".*\)\"\]/\1\2`$ReplaceStr`\"]/" .git/config
         git config --local lfs.transfer.maxretries 1
+        git lfs install --local
         git lfs fetch origin refs/tags/${{ gitea.ref_name }}
         git lfs checkout
     - run: tar czf source.tar.gz --directory=. .
