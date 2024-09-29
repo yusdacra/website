@@ -64,42 +64,55 @@
 	</div>
 	<div class="hidden md:block md:grow" />
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
-		<Window title="contacts!" iconUri="/icons/contact.png">
-			<div class="prose prose-ralsei leading-6">
-				<ul>
-					<li>discord: yusdacra</li>
-					<li>
-						e-mail:
-						<a class="u-email" href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
-					</li>
-				</ul>
-				<h3>development</h3>
-				<ul>
-					<li>
-						github:
-						<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
-					</li>
-					<li>
-						gitlab:
-						<a class="u-url" href="https://gitlab.com/yusdacra" rel="me">@yusdacra</a>
-					</li>
-					<li>
-						my gitea:
-						<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
-					</li>
-				</ul>
-				<h3>socials</h3>
-				<ul>
-					<li>
-						bluesky:
-						<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
-					</li>
-					<li>
-						misskey.art:
-						<a class="u-url" href="https://misskey.art/@yusdacra" rel="me">@yusdacra</a>
-					</li>
-				</ul>
-			</div>
-		</Window>
+		<div class="md:ml-auto">
+			<Window title="contacts!" iconUri="/icons/contact.png">
+				<div class="prose prose-ralsei leading-6">
+					<ul>
+						<li>discord: yusdacra</li>
+						<li>
+							e-mail:
+							<a class="u-email" href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
+						</li>
+					</ul>
+					<h3>development</h3>
+					<ul>
+						<li>
+							github:
+							<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
+						</li>
+						<li>
+							gitlab:
+							<a class="u-url" href="https://gitlab.com/yusdacra" rel="me">@yusdacra</a>
+						</li>
+						<li>
+							my gitea:
+							<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
+						</li>
+					</ul>
+					<h3>socials</h3>
+					<ul>
+						<li>
+							bluesky:
+							<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
+						</li>
+						<li>
+							misskey.art:
+							<a class="u-url" href="https://misskey.art/@yusdacra" rel="me">@yusdacra</a>
+						</li>
+					</ul>
+				</div>
+			</Window>
+		</div>
+		<div class="mt-auto">
+			<Window title="current" iconUri="/icons/entry.png">
+				<div class="prose prose-ralsei leading-6">
+					<ul>
+						<li>playing void stranger, ace combat 7, helldivers 2, warframe</li>
+						<li>working on this website (duh)</li>
+						<li>adding stuff to my godot boids addon</li>
+					</ul>
+				</div>
+			</Window>
+		</div>
 	</div>
 </div>

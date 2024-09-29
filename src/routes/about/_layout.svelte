@@ -7,7 +7,7 @@
 
 <article class="flex flex-wrap md:flex-nowrap gap-4 h-entry">
 	<Window {title}>
-		<div class="prose prose-ralsei leading-6 prose-ul:leading-none max-w-[80ch] e-content">
+		<div class="prose prose-ralsei leading-6 prose-ul:leading-5 max-w-[80ch] e-content">
 			<slot />
 		</div>
 	</Window>
@@ -19,6 +19,7 @@
 				<li>start playing killer7 and the silver case etc.</li>
 				<li>participate in yet another game jam</li>
 				<li>stream game dev stuff (...if i can stop being anxiety x1000)</li>
+				<li>mess around with kinect devkit, try to reimplement skeleton estimation?</li>
 				<li>fly more in VTOL VR with people</li>
 			</ul>
 		</div>
