@@ -175,6 +175,24 @@
             background-position: 0px 0px;
         }
     }
+
+    @media (prefers-reduced-motion: no-preference) {
+        @keyframes bounce-reverse {
+            0%, 100% {
+                transform: none;
+                animation-timing-function: cubic-bezier(0,0,0.2,1);
+            }
+            50% {
+                transform: translateY(-25%);
+                animation-timing-function: cubic-bezier(0.8,0,1,1);
+            }
+        }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        .animate-bounce-reverse:hover {
+            animation: bounce-reverse 1s infinite;
+        }
+    }
 }
 
 a.app-selected-route {
