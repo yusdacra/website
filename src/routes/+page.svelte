@@ -62,7 +62,7 @@
 				</li>
 				<li>
 					gitlab:
-					<a href="https://gitlab.com/yusdacra">@yusdacra</a>
+					<a class="u-url" href="https://gitlab.com/yusdacra" rel="me">@yusdacra</a>
 				</li>
 				<li>
 					my gitea:
@@ -77,14 +77,14 @@
 				</li>
 				<li>
 					misskey.art:
-					<a href="https://misskey.art/@yusdacra">@yusdacra</a>
+					<a class="u-url" href="https://misskey.art/@yusdacra" rel="me">@yusdacra</a>
 				</li>
 			</ul>
 		</div>
 	</Window>
 </div>
 
-<div class="hidden motion-reduce:md:block absolute max-w-[40ch] bottom-[10vh] right-[8vw]">
+<div class="hidden motion-reduce:block absolute max-w-[40ch] bottom-0 right-0 md:bottom-[10vh] md:right-[8vw]">
 	<Window title=":(" iconUri="/icons/warning.png">
 		<div class="prose prose-ralsei leading-6">
 			<p>
