@@ -44,6 +44,7 @@ const config = {
 				backticks: false,
 			},
 			layout: {
+				about: './src/routes/about/_layout.svelte',
 				blogpost: './src/routes/entries/_layout.svelte',
 			},
 		}),
