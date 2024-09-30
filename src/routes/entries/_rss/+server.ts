@@ -4,7 +4,9 @@ import { _allPosts, type PostData } from '../+layout.ts';
 const entriesUrl = `${PUBLIC_BASE_URL}/entries`;
 
 export const GET = async ({ }) => {
-      return new Response(render(_allPosts), {
+      return new Response(
+            render(_allPosts),
+            {
             headers: {
                   'content-type': 'application/xml',
                   'cache-control': 'no-store',
