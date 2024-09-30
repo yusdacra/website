@@ -65,8 +65,12 @@
         text-shadow: 0 0 4px theme(colors.ralsei.pink.regular);
     }
 
-    a,button,input[type=submit] {
+    .text-shadow-green {
         text-shadow: 0 0 2px theme(colors.ralsei.black), 0 0 5px theme(colors.ralsei.green.light);
+    }
+
+    a,button,input[type=submit] {
+        @apply text-shadow-green;
         cursor: url('/icons/gaze.png'), pointer;
     }
 

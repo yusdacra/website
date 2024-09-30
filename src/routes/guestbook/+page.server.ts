@@ -1,6 +1,7 @@
 import { GUESTBOOK_BASE_URL } from '$env/static/private'
 import { redirect, type Cookies } from '@sveltejs/kit'
 import auth from '$lib/guestbookAuth'
+import { scopeCookies as _scopeCookies } from '$lib';
 
 export const prerender = false;
 
@@ -11,17 +12,7 @@ interface Entry {
 }
 
 const scopeCookies = (cookies: Cookies) => {
-    return {
-        get: (key: string) => {
-            return cookies.get(key)
-        },
-        set: (key: string, value: string, props: import('cookie').CookieSerializeOptions = {}) => {
-            cookies.set(key, value, { ...props, path: "/guestbook/" })
-        },
-        delete: (key: string, props: import('cookie').CookieSerializeOptions = {}) => {
-            cookies.delete(key, { ...props, path: "/guestbook/" })
-        }
-    }
+    return _scopeCookies(cookies, '/guestbook')
 }
 
 const postAction = (client: any, scopes: string[]) => {

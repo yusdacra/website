@@ -150,16 +150,25 @@
 				{/if}
 			{/each}
 			<div class="hidden md:block grow" />
-			<div
-				class="flex gap-3 px-1.5 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-groove border-4"
-			>
+			<div class="navbox">
 				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">IndieWeb Webring</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
-			<a class="align-middle" href="/entries/_rss">
-				<img class="min-w-fit hover:opacity-60" src="/valid-rss.png" alt="rss feed" />
-			</a>
+			<div class="navbox">
+				<p><span class="text-ralsei-green-light text-shadow-green">{data.visitCount}</span> visit(s)</p>
+			</div>
+			<div class="navbox [gap:0.25rem_!important]">
+				<a class="align-middle hover:underline" href="/entries/_rss">rss</a>
+				/
+				<a class="align-middle hover:underline" href="/entries/_jsonfeed">jsonfeed</a>
+			</div>
 		</div>
 	</div>
 </nav>
+
+<style lang="postcss">
+	.navbox {
+		@apply flex gap-3 px-1.5 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-groove border-4;
+	}
+</style>
