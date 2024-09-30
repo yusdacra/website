@@ -9,8 +9,8 @@
 
 <div class="flex flex-col lg:flex-row gap-y-4 lg:mx-3 lg:my-4">
 	{#each posts as post, index}
-		{@const x = index % 2 === 0 ? 'lg:ml-16' : 'lg:ml-36'}
-		{@const y = index % 2 === 0 ? 'lg:mt-6' : 'lg:mt-10'}
+		{@const x = index % 2 === 0 ? 'lg:ml-8' : 'lg:ml-16'}
+		{@const y = index % 2 === 0 ? 'lg:mt-4' : 'lg:mt-10'}
 		<div class="{x} {y}">
 			<Window title={post.metadata.title} iconUri='/icons/entry.png'>
 				<a
