@@ -1,6 +1,6 @@
 import type { Cookies } from '@sveltejs/kit'
+import { WEBSITE_DATA_DIR } from '$env/static/private'
 import { existsSync, readFileSync } from 'fs'
-import { cwd } from 'process'
 import { writable } from 'svelte/store'
 
 export const scopeCookies = (cookies: Cookies, path: string) => {
@@ -17,5 +17,5 @@ export const scopeCookies = (cookies: Cookies, path: string) => {
     }
 }
 
-export const visitCountFile = `${cwd()}/visitcount`
+export const visitCountFile = `${WEBSITE_DATA_DIR}/visitcount`
 export const visitCount = writable(parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0'));
