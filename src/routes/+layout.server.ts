@@ -1,14 +1,11 @@
-import { scopeCookies } from '$lib';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { get, writable } from 'svelte/store';
+import { scopeCookies, visitCount, visitCountFile } from '$lib';
+import { writeFileSync } from 'fs';
+import { get } from 'svelte/store';
 
 export const csr = true;
 export const ssr = true;
 export const prerender = true;
 export const trailingSlash = 'always';
-
-const visitCountFile = 'visitcount'
-const visitCount = writable(parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0'));
 
 export async function load({ cookies, url, setHeaders }) {
     setHeaders({ 'Cache-Control': 'no-cache' })
