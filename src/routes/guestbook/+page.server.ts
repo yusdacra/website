@@ -1,4 +1,4 @@
-import { GUESTBOOK_BASE_URL } from '$env/static/private'
+import { env } from '$env/dynamic/private'
 import { redirect, type Cookies } from '@sveltejs/kit'
 import auth from '$lib/guestbookAuth'
 import { scopeCookies as _scopeCookies } from '$lib';
@@ -90,7 +90,7 @@ export async function load({ url, fetch, cookies }) {
                 }
                 // set content, make sure to trim it
                 postData.set('content', content.substring(0, 512).trim())
-                respRaw = await fetch(GUESTBOOK_BASE_URL, { method: 'POST', body: postData })
+                respRaw = await fetch(env.GUESTBOOK_BASE_URL, { method: 'POST', body: postData })
             } catch (err: any) {
                 scopedCookies.set("sendError", `${err.toString()} (is guestbook server running?)`)
                 redirect(303, auth.callbackUrl)
@@ -111,7 +111,7 @@ export async function load({ url, fetch, cookies }) {
     try {
         const count = 5
         const offset = (data.page - 1) * count
-        respRaw = await fetch(`${GUESTBOOK_BASE_URL}?offset=${offset}&count=${count}`)
+        respRaw = await fetch(`${env.GUESTBOOK_BASE_URL}?offset=${offset}&count=${count}`)
     } catch (err: any) {
         data.getError = `${err.toString()} (is guestbook server running?)`
         return data
