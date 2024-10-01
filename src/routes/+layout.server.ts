@@ -4,7 +4,7 @@ import { get } from 'svelte/store';
 
 export const csr = true;
 export const ssr = true;
-export const prerender = 'auto';
+export const prerender = false;
 export const trailingSlash = 'always';
 
 export async function load({ request, cookies, url, setHeaders }) {
