@@ -169,6 +169,7 @@
 
 <style lang="postcss">
 	.navbox {
-		@apply flex gap-3 px-1.5 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-groove border-4;
+		@apply flex gap-3 px-1.5 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-4;
+		border-style: groove;
 	}
 </style>
