@@ -8,5 +8,8 @@
     },
     "files.watcherExclude": {
         "**/target": true
-    }
+    },
+    "conventionalCommits.scopes": [
+        "nix"
+    ]
 }
