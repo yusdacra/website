@@ -50,6 +50,6 @@ you can also look at [my steam profile](https://steamdb.info/calculator/76561198
 
 what else, i like robots a lot, maybe too much. want to become one.
 i want to learn japanese (i'm failing hard).
-i like to listen to music (shocker), check my [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) i guess to see a bit of what i listen to.
+i like to listen to music (shocker), check my [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) and my [last.fm profile](https://www.last.fm/user/yusdacra) i guess to see a bit of what i listen to.
 
 idk if you wanna know more just hit me up and i'll gladly nerd out, or if you want to play anything i may be open to it...
