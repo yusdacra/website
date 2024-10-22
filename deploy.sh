@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-setopt +x
+set -x
 
 git commit -m "$1" && git push
 git tag -f latest && git push -f --tags
