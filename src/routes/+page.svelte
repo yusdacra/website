@@ -81,12 +81,16 @@
 							<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
 						</li>
 						<li>
+							my gitea:
+							<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
+						</li>
+						<li>
 							gitlab:
 							<a class="u-url" href="https://gitlab.com/yusdacra" rel="me">@yusdacra</a>
 						</li>
 						<li>
-							my gitea:
-							<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
+							itch.io:
+							<a class="u-url" href="https://yusdacra.itch.io" rel="me">@yusdacra</a>
 						</li>
 					</ul>
 					<h3>socials</h3>
@@ -107,9 +111,8 @@
 			<Window title="current" iconUri="/icons/entry.png">
 				<div class="prose prose-ralsei leading-6">
 					<ul>
-						<li>playing void stranger, ace combat 7, helldivers 2, warframe</li>
-						<li>working on this website (duh)</li>
-						<li>adding stuff to my godot boids addon</li>
+						<li>playing wynncraft, helldivers 2, warframe</li>
+						<li>working on adding a notes section to this website</li>
 					</ul>
 				</div>
 			</Window>
