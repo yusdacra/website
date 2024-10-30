@@ -1,8 +1,8 @@
 import { noteExists, readNote, readNotesList } from '$lib/notes'
 
-const notesPerPage: number = 5
+const notesPerPage: number = 8
 
-export const load = ({url}) => {
+export const load = ({ url }) => {
     // get the note id to search for and display the page it is in
     const noteId = url.searchParams.get("id")
     // get the page no if one is provided, otherwise default to 1
@@ -26,9 +26,11 @@ export const load = ({url}) => {
     page = Math.max(page, 1)
 
     // get the notes from the chosen page
-    const notes = notesList.slice((page - 1) * notesPerPage, page * notesPerPage).map(
-        (id) => {return {noteId: id, note: readNote(id)}}
-    )
+    const notes =
+        notesList.slice((page - 1) * notesPerPage, page * notesPerPage)
+            .map(
+                (id) => { return { noteId: id, note: readNote(id) } }
+            )
 
-    return {notes, highlightedNote: noteId, page}
+    return { notes, highlightedNote: noteId, page }
 }

@@ -1,9 +1,11 @@
 <script lang="ts">
-	export let title: string;
+	export let title: string | undefined = undefined;
 	export let iconUri: string = '';
 	export let id: string = '';
 	export let sticky: boolean = false;
 	export let entry: boolean = false;
+	export let removePadding: boolean = false;
+	export let center: boolean = false;
 
 	const scaleKeyframes = [
 		"window-open",
@@ -21,38 +23,45 @@
 
 <div
 	class="
-        flex flex-col {sticky ? 'md:sticky md:-top-9' : ''}
+        flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
         max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl min-w-[30ch] lg:min-w-[40ch] w-full md:w-fit [height:fit-content]
-        border-ralsei-white border-ridge border-8 border-t-[12px]
-        bg-ralsei-black
+		bg-ralsei-black border-ralsei-white border-ridge border-8 border-t-[12px]
 		animate-{chosenKeyframe}
     "
 	{id}
 >
-	<div
-		class="
-            p-1 border-ralsei-white border-8
-            bg-gradient-to-l from-ralsei-pink-neon to-ralsei-black to-75%
-        "
-		style="border-style: hidden hidden ridge hidden;"
-	>
-		<div class="flex bg-opacity-100 pixelate-bg">
-			<h1
-				class="font-monospace text-xl text-ralsei-pink-regular grow justify-self-start self-center {entry ? 'p-name' : ''}"
-			>
-				{title}
-			</h1>
-			{#if iconUri !== ''}
-				<img
-					class="justify-self-end self-center max-h-7"
-					style="image-rendering: pixelated;"
-					src={iconUri}
-					alt={iconUri}
-				/>
-			{/if}
+	{#if title !== undefined}
+		<div
+			class="
+				p-1 border-ralsei-white border-8
+				bg-gradient-to-l from-ralsei-pink-neon to-ralsei-black to-75%
+			"
+			style="border-style: hidden hidden ridge hidden;"
+		>
+			<div class="flex bg-opacity-100 pixelate-bg">
+				<h1
+					class="
+						font-monospace text-xl text-ralsei-pink-regular
+						grow justify-self-start self-center {entry ? 'p-name' : ''}
+					"
+				>
+					{title}
+				</h1>
+				{#if iconUri !== ''}
+					<img
+						class="justify-self-end self-center max-h-7"
+						style="image-rendering: pixelated;"
+						src={iconUri}
+						alt={iconUri}
+					/>
+				{/if}
+			</div>
 		</div>
-	</div>
-	<div class="p-2 bg-gradient-to-tl to-ralsei-pink-neon/15 from-ralsei-pink-regular/20">
+	{/if}
+	<div class="
+		{removePadding ? "" : "p-2"} bg-gradient-to-tl
+		to-ralsei-pink-neon/15 from-ralsei-pink-regular/20
+	">
 		<slot />
 	</div>
 </div>

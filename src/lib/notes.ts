@@ -4,18 +4,19 @@ import { env } from '$env/dynamic/private'
 
 export interface Note {
     content: string,
-    published: Date,
+    published: number,
 }
 type NoteId = string
 
 export const notesFolder = `${env.WEBSITE_DATA_DIR}/note`
 export const notesListFile = `${env.WEBSITE_DATA_DIR}/notes`
+export const noteIdLength = 8;
 
 export const getNotePath = (id: NoteId) => { return `${notesFolder}/${id}` }
 export const genNoteId = () => {
-    let id = nanoid(8)
+    let id = nanoid(noteIdLength)
     while (existsSync(getNotePath(id))) {
-        id = nanoid(8)
+        id = nanoid(noteIdLength)
     }
     return id
 }
