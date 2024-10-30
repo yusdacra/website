@@ -7,6 +7,8 @@ use serenity::model::prelude::*;
 use serenity::prelude::*;
 use shuttle_runtime::SecretStore;
 
+const ADMIN_USER_ID: u64 = 853064602904166430;
+
 struct Handler {
     http: reqwest::Client,
     secrets: SecretStore,
@@ -14,7 +16,11 @@ struct Handler {
 
 #[async_trait]
 impl EventHandler for Handler {
-    async fn message(&self, _: Context, msg: Message) {
+    async fn message(&self, ctx: Context, msg: Message) {
+        if msg.author.id != UserId::new(ADMIN_USER_ID) {
+            return;
+        }
+
         if msg.content.starts_with("do ") {
             return;
         }
@@ -37,9 +43,19 @@ impl EventHandler for Handler {
             .await
             .and_then(|resp| resp.error_for_status());
         
-        if let Err(why) = resp {
-            tracing::error!("could not create note: {why}");
-        }
+        let resp = match resp {
+            Ok(r) => r,
+            Err(why) => {
+                tracing::error!("could not create note: {why}");
+                return;
+            }
+        };
+
+        let note_resp = resp.json::<serenity::json::JsonMap>().await.unwrap();
+        let created_note_id = note_resp["noteId"].to_string();
+        tracing::info!("succesfully created note with id {created_note_id}");
+
+        let _ = msg.reply(ctx, format!("created log at https://gaze.systems/log?id={created_note_id}")).await;
     }
 
     async fn ready(&self, ctx: Context, ready: Ready) {
