@@ -65,13 +65,17 @@
 	<div class="hidden md:block md:grow" />
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
 		<div class="md:ml-auto">
-			<Window title="contacts!" iconUri="/icons/contact.png">
-				<div class="prose prose-ralsei leading-6">
+			<Window title="links!" iconUri="/icons/contact.png">
+				<div class="prose prose-ralsei prose-ul:leading-[1.4rem] prose-headings:leading-none">
 					<ul>
 						<li>discord: yusdacra</li>
 						<li>
 							e-mail:
 							<a class="u-email" href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
+						</li>
+						<li>
+							bluesky:
+							<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
 						</li>
 					</ul>
 					<h3>development</h3>
@@ -83,6 +87,7 @@
 						<li>
 							my gitea:
 							<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
+							(<a href="https://git.gaze.systems/gazesys/website">website repo</a>)
 						</li>
 						<li>
 							gitlab:
@@ -93,15 +98,14 @@
 							<a class="u-url" href="https://yusdacra.itch.io" rel="me">@yusdacra</a>
 						</li>
 					</ul>
-					<h3>socials</h3>
+					<h3>services</h3>
 					<ul>
 						<li>
-							bluesky:
-							<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
+							<a href="https://limbus.gaze.systems">random project moon art</a>
 						</li>
 						<li>
-							misskey.art:
-							<a class="u-url" href="https://misskey.art/@yusdacra" rel="me">@yusdacra</a>
+							<a href="https://git.gaze.systems">gitea</a>
+							<span class="text-sm">(if i like you ask me for an acc ;3)</span>
 						</li>
 					</ul>
 				</div>
@@ -112,7 +116,7 @@
 				<div class="prose prose-ralsei leading-6">
 					<ul>
 						<li>playing wynncraft, helldivers 2, warframe</li>
-						<li>working on adding a notes section to this website</li>
+						<li>idk bother me to do stuff</li>
 					</ul>
 				</div>
 			</Window>
