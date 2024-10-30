@@ -29,8 +29,13 @@ export const writeNote = (id: NoteId, note: Note) => {
     // only append to note list if its not in it yet
     let noteList = readNotesList()
     if (noteList.indexOf(id) === -1) {
-        writeNotesList(noteList.concat([id]))
+        writeNotesList([id].concat(noteList))
     }
+}
+export const createNote = (note: Note) => {
+    const id = genNoteId()
+    writeNote(id, note)
+    return id
 }
 
 export const readNotesList = (): NoteId[] => {

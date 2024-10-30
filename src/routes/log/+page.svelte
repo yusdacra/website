@@ -25,9 +25,9 @@
     "
 >
 <pre class="language-bash"><code class="language-bash"><nobr>
-<Token v="[" punct/>gazesystems <Token v="/notes/" keywd/><Token v="]$" punct/> <Token v="source" funct/> note.nu
+<Token v="[" punct/>gazesystems <Token v="/log/" keywd/><Token v="]$" punct/> <Token v="source" funct/> log.nu
 <br>
-<Token v="[" punct/>gazesystems <Token v="/notes/" keywd/><Token v="]$" punct/> <Token v="ls" funct/> notes <Token v="|" punct/> <Token v="each" funct/> <Token v="&#123;" punct/><Token v="|" punct/>file<Token v="|" punct/> <Token v="render" funct/> <Token v="(" punct/><Token v="open" funct/> $file.name<Token v=")" punct/><Token v="&#125;" punct/>
+<Token v="[" punct/>gazesystems <Token v="/log/" keywd/><Token v="]$" punct/> <Token v="ls" funct/> log <Token v="|" punct/> <Token v="each" funct/> <Token v="&#123;" punct/><Token v="|" punct/>file<Token v="|" punct/> <Token v="render" funct/> <Token v="(" punct/><Token v="open" funct/> $file.name<Token v=")" punct/><Token v="&#125;" punct/>
 <br>
 <br>
 {#each data.notes as { noteId, note }, index}

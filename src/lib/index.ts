@@ -2,6 +2,7 @@ import type { Cookies } from '@sveltejs/kit'
 import { env } from '$env/dynamic/private'
 import { writable } from 'svelte/store'
 import { existsSync, readFileSync } from 'fs'
+import { Agent, CredentialSession } from '@atproto/api'
 
 export const scopeCookies = (cookies: Cookies, path: string) => {
     return {
@@ -19,3 +20,10 @@ export const scopeCookies = (cookies: Cookies, path: string) => {
 
 export const visitCountFile = `${env.WEBSITE_DATA_DIR}/visitcount`
 export const visitCount = writable(parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0'));
+
+const loginToBsky = () => {
+    const creds = new CredentialSession(new URL("https://bsky.social"))
+    creds.login({identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })
+    return new Agent(creds)
+}
+export const bskyClient = loginToBsky()
