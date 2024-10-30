@@ -14,6 +14,7 @@
 	const menuItems: MenuItem[] = [
 		{ href: '', name: 'home', iconUri: '/icons/home.png' },
 		{ href: 'entries', name: 'entries', iconUri: '/icons/entries.png' },
+		{ href: 'log', name: 'log', iconUri: '/icons/entry.png' },
 		{ href: 'guestbook', name: 'guestbook', iconUri: '/icons/guestbook.png' },
 		{ href: 'about', name: 'about', iconUri: '/icons/about.png' }
 	];
