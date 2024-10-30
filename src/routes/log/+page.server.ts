@@ -26,11 +26,12 @@ export const load = ({ url }) => {
     page = Math.max(page, 1)
 
     // get the notes from the chosen page
-    const notes =
+    const notes = new Map(
         notesList.slice((page - 1) * notesPerPage, page * notesPerPage)
             .map(
-                (id) => { return { noteId: id, note: readNote(id) } }
+                (id) => { return [id, readNote(id)] }
             )
+    )
 
     return { notes, highlightedNote: noteId, page }
 }

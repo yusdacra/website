@@ -13,7 +13,16 @@
             minute: "2-digit",
         })
     }
+
+    const highlightedNote = data.notes.get(data.highlightedNote ?? '') ?? null
 </script>
+
+<svelte:head>
+    {#if highlightedNote !== null}
+        <meta property="og:description" content={highlightedNote.content} />
+        <meta property="og:title" content="log #{data.highlightedNote}" />
+    {/if}
+</svelte:head>
 
 <div class="pl-16 pt-16">
 <Window title="terminal" removePadding>
@@ -30,11 +39,11 @@
 <Token v="[" punct/>gazesystems <Token v="/log/" keywd/><Token v="]$" punct/> <Token v="ls" funct/> log <Token v="|" punct/> <Token v="each" funct/> <Token v="&#123;" punct/><Token v="|" punct/>file<Token v="|" punct/> <Token v="render" funct/> <Token v="(" punct/><Token v="open" funct/> $file.name<Token v=")" punct/><Token v="&#125;" punct/>
 <br>
 <br>
-{#each data.notes as { noteId, note }, index}
+{#each data.notes as [noteId, note], index}
 <div class="text-wrap break-words max-w-[70ch] leading-none">
 <Token v={renderDate(note.published)} small/> <Token v={noteId} keywd small/><Token v="#" punct/>&nbsp;&nbsp;<Token v={note.content} str/>
 </div>
-{#if index < data.notes.length - 1}
+{#if index < data.notes.size - 1}
 <div class="mt-3"/>
 {/if}
 {/each}
