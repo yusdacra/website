@@ -9,5 +9,4 @@ sleep 15s
 
 cd $HOME/ark
 nix flake update blog
-nix run .#nh -- os build -H wolumonde .
-nix run .#apps.nixinate.wolumonde -L --show-trace
+nix run .#nh -- os build -H wolumonde . && nix run .#apps.nixinate.wolumonde -L --show-trace
