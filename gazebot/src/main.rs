@@ -22,12 +22,12 @@ impl EventHandler for Handler {
         let mut note_content = msg.content.clone();
         
         const BSKY_TAG: &str = ".nobsky";
-        let post_to_bsky = !note_content.contains(BSKY_TAG);
-        if post_to_bsky {
+        let no_bsky_posse = note_content.contains(BSKY_TAG);
+        if no_bsky_posse {
             note_content = note_content.replace(BSKY_TAG, "");
         }
 
-        let note_data = json!({"content": note_content.trim(), "bskyPosse": post_to_bsky});
+        let note_data = json!({"content": note_content.trim(), "bskyPosse": !no_bsky_posse});
         let resp = self
             .http
             .post("https://gaze.systems/log/create")

@@ -4,6 +4,10 @@ import { bskyClient, loginToBsky } from '$lib';
 import { createNote } from '$lib/notes.js';
 import { get } from 'svelte/store';
 
+interface NoteData {
+    content: string,
+    bskyPosse: boolean,
+}
 
 export const POST = async ({ request }) => {
     const token = request.headers.get('authorization')
@@ -11,16 +15,13 @@ export const POST = async ({ request }) => {
         return new Response("rizz failed", { status: 403 })
     }
     // get note data
-    const noteData = await request.json()
+    const noteData: NoteData = await request.json()
     console.log("want to create note with data: ", noteData)
-    if (noteData.content ?? null === null) {
-        return new Response("no rizz :(", { status: 400 })
-    }
     // create note
     const published = Date.now()
     const noteId = createNote({ content: noteData.content, published })
     // bridge to bsky if want to bridge
-    if (noteData.bskyPosse ?? false) {
+    if (noteData.bskyPosse) {
         let client = get(bskyClient)
         if (client === null) {
             client = await loginToBsky()
