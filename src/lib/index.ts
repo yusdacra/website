@@ -26,4 +26,4 @@ const loginToBsky = () => {
     creds.login({identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })
     return new Agent(creds)
 }
-export const bskyClient = loginToBsky()
+export const bskyClient = writable(loginToBsky())
