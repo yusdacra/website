@@ -12,6 +12,7 @@ export const POST = async ({ request }) => {
     }
     // get note data
     const noteData = await request.json()
+    console.log("want to create note with data: ", noteData)
     if (noteData.content ?? null === null) {
         return new Response("no rizz :(", { status: 400 })
     }
