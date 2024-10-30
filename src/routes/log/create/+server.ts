@@ -19,7 +19,7 @@ export const POST = async ({ request }) => {
     const published = Date.now()
     const noteId = createNote({ content: noteData.content, published })
     // bridge to bsky if want to bridge
-    if (noteData.bskyPosse ?? null !== null) {
+    if (noteData.bskyPosse ?? false) {
         let client = get(bskyClient)
         if (client === null) {
             client = await loginToBsky()
