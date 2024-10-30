@@ -21,9 +21,9 @@ export const scopeCookies = (cookies: Cookies, path: string) => {
 export const visitCountFile = `${env.WEBSITE_DATA_DIR}/visitcount`
 export const visitCount = writable(parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0'));
 
-const loginToBsky = () => {
+export const loginToBsky = async () => {
     const creds = new CredentialSession(new URL("https://bsky.social"))
-    creds.login({identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })
+    await creds.login({identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })
     return new Agent(creds)
 }
-export const bskyClient = writable(loginToBsky())
+export const bskyClient = writable<null | Agent>(null)

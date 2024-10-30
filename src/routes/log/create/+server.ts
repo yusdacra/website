@@ -1,6 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { bskyClient } from '$lib';
+import { bskyClient, loginToBsky } from '$lib';
 import { createNote } from '$lib/notes.js';
 import { get } from 'svelte/store';
 
@@ -20,7 +20,12 @@ export const POST = async ({ request }) => {
     const noteId = createNote({ content: noteData.content, published })
     // bridge to bsky if want to bridge
     if (noteData.bskyPosse ?? null !== null) {
-        await get(bskyClient).post({text: `${noteData.content} (${PUBLIC_BASE_URL}/log?id=${noteId})`})
+        let client = get(bskyClient)
+        if (client === null) {
+            client = await loginToBsky()
+            bskyClient.set(client)
+        }
+        await client.post({text: `${noteData.content} (${PUBLIC_BASE_URL}/log?id=${noteId})`})
     }
     // send back created note id
     return new Response(JSON.stringify({ noteId }), {
