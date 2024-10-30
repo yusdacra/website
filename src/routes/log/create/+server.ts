@@ -2,6 +2,7 @@ import { env } from '$env/dynamic/private';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { bskyClient, loginToBsky } from '$lib';
 import { createNote } from '$lib/notes.js';
+import { RichText } from '@atproto/api';
 import { get } from 'svelte/store';
 
 interface NoteData {
@@ -27,7 +28,14 @@ export const POST = async ({ request }) => {
             client = await loginToBsky()
             bskyClient.set(client)
         }
-        await client.post({text: `${noteData.content} (${PUBLIC_BASE_URL}/log?id=${noteId})`})
+        const rt = new RichText({
+            text: `${noteData.content} (${PUBLIC_BASE_URL}/log?id=${noteId})`,
+        })
+        await rt.detectFacets(client)
+        await client.post({
+            text: rt.text,
+            facets: rt.facets,
+        })
     }
     // send back created note id
     return new Response(JSON.stringify({ noteId }), {
