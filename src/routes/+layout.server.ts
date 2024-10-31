@@ -26,7 +26,8 @@ export async function load({ request, cookies, url, setHeaders, fetch }) {
     }).then(async (resp) => {
         if (resp !== null) {
             const msg = await resp.json()
-            console.log(`sent visitor analytic to dark visitors: ${resp.statusText}; ${msg.message}`)
+            const host = `(${request.headers.get('host')} ${request.headers.get('x-real-ip')})`
+            console.log(`sent visitor analytic to dark visitors: ${resp.statusText}; ${msg.message ?? ''}${host}`)
         }
     })
 
