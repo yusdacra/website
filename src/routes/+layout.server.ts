@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private';
 import { scopeCookies, visitCount, visitCountFile } from '$lib';
 import { writeFileSync } from 'fs';
 import { get } from 'svelte/store';
@@ -7,8 +8,22 @@ export const ssr = true;
 export const prerender = false;
 export const trailingSlash = 'always';
 
-export async function load({ request, cookies, url, setHeaders }) {
-    setHeaders({ 'Cache-Control': 'no-cache' })
+export async function load({ request, cookies, url, setHeaders, fetch }) {
+    fetch('https://api.darkvisitors.com/visits', {
+        method: 'POST',
+        headers: {
+            authorization: `Bearer ${env.DARK_VISITORS_TOKEN}`,
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            request_path: url.pathname,
+            request_method: request.method,
+            request_headers: request.headers,
+        })
+    }).catch((why) => {
+        console.log("failed sending dark visitors analytics: ", why)
+    })
+
     let currentVisitCount = get(visitCount)
     // check whether the request is from a bot or not (this doesnt need to be accurate we just want to filter out honest bots)
     const ua = request.headers.get('user-agent')
@@ -30,6 +45,9 @@ export async function load({ request, cookies, url, setHeaders }) {
             writeFileSync(visitCountFile, currentVisitCount.toString())
         }
     }
+
+    setHeaders({ 'Cache-Control': 'no-cache' })
+
     return {
         route: url.pathname,
         visitCount: currentVisitCount,
