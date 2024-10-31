@@ -21,7 +21,13 @@ export async function load({ request, cookies, url, setHeaders, fetch }) {
             request_headers: request.headers,
         })
     }).catch((why) => {
-        console.log("failed sending dark visitors analytics: ", why)
+        console.log("failed sending dark visitors analytics:", why)
+        return null
+    }).then(async (resp) => {
+        if (resp !== null) {
+            const msg = await resp.json()
+            console.log(`sent visitor analytic to dark visitors: ${resp.statusText}; ${msg.message}`)
+        }
     })
 
     let currentVisitCount = get(visitCount)
