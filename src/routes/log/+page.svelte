@@ -24,7 +24,6 @@
     {/if}
 </svelte:head>
 
-<div class="pl-16 pt-16">
 <Window title="terminal" removePadding>
 <div
     class="
@@ -50,4 +49,3 @@
 </nobr></code></pre>
 </div>
 </Window>
-</div>
