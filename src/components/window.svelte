@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { highestZIndex } from '$lib/window.ts';
+	import { highestZIndex, isMobile } from '$lib/window.ts';
 	import { draggable } from '@neodrag/svelte';
 
 	export let title: string | undefined = undefined;
@@ -22,16 +22,20 @@
 		"window-open-move-right",
 	];
 	$: chosenKeyframe = scaleKeyframes.at(Math.floor(Math.random() * scaleKeyframes.length))
+
+	const isOnMobile = isMobile()
+	const _draggable = isOnMobile ? () => {} : draggable;
 </script>
 
 <div
-	use:draggable={{
+	use:_draggable={{
+		disabled: isOnMobile,
 		applyUserSelectHack: true,
 		handle: '.window-titlebar',
 		onDragStart: (data) => {
 			$highestZIndex += 1
 			data.currentNode.style.zIndex = $highestZIndex.toString()
-		}
+		},
 	}}
 	class="
         relative flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
@@ -46,7 +50,7 @@
 			class="
 				window-titlebar p-1 border-ralsei-white border-8
 				bg-gradient-to-l from-ralsei-pink-neon to-ralsei-black to-75%
-				cursor-move
+				{!isOnMobile ? "cursor-move" : ""}
 			"
 			style="border-style: hidden hidden ridge hidden;"
 		>

@@ -23,7 +23,7 @@ export const visitCount = writable(parseInt(existsSync(visitCountFile) ? readFil
 
 export const loginToBsky = async () => {
     const creds = new CredentialSession(new URL("https://bsky.social"))
-    await creds.login({identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })
+    await creds.login({ identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })
     return new Agent(creds)
 }
 export const bskyClient = writable<null | Agent>(null)
