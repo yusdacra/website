@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { highestZIndex } from '$lib/window.ts';
 	import { draggable } from '@neodrag/svelte';
 
 	export let title: string | undefined = undefined;
@@ -24,9 +25,16 @@
 </script>
 
 <div
-	use:draggable={{applyUserSelectHack: true, handle: '.window-titlebar'}}
+	use:draggable={{
+		applyUserSelectHack: true,
+		handle: '.window-titlebar',
+		onDragStart: (data) => {
+			$highestZIndex += 1
+			data.currentNode.style.zIndex = $highestZIndex.toString()
+		}
+	}}
 	class="
-        flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
+        relative flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
         max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl min-w-[30ch] lg:min-w-[40ch] w-full md:w-fit [height:fit-content]
 		bg-ralsei-black border-ralsei-white border-ridge border-8 border-t-[12px]
 		animate-{chosenKeyframe}
