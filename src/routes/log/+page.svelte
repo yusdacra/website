@@ -39,8 +39,9 @@
 <br>
 <br>
 {#each data.notes as [noteId, note], index}
+{@const isHighlighted = noteId === data.highlightedNote}
 <div class="text-wrap break-words max-w-[70ch] leading-none">
-<Token v={renderDate(note.published)} small/> <Token v={noteId} keywd small/><Token v="#" punct/>&nbsp;&nbsp;<Token v={note.content} str/>
+<Token v={renderDate(note.published)} small={!isHighlighted}/> <Token v={noteId} keywd small={!isHighlighted}/><Token v="#" punct/>&nbsp;&nbsp;<Token v={note.content} str/>
 </div>
 {#if index < data.notes.size - 1}
 <div class="mt-3"/>
