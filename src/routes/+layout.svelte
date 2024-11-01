@@ -159,7 +159,7 @@
 			<div class="navbox">
 				<p><span class="text-ralsei-green-light text-shadow-green">{data.visitCount}</span> visit(s)</p>
 			</div>
-			<div class="navbox [gap:0.25rem_!important]">
+			<div class="navbox !gap-1">
 				<a class="align-middle hover:underline" href="/entries/_rss">rss</a>
 				/
 				<a class="align-middle hover:underline" href="/entries/_jsonfeed">jsonfeed</a>
