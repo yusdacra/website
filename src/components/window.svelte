@@ -25,18 +25,23 @@
 
 	const isOnMobile = isMobile()
 	const _draggable = isOnMobile ? () => {} : draggable;
+
+	const focusWindow = (node: HTMLElement) => {
+		$highestZIndex += 1
+		node.style.zIndex = $highestZIndex.toString()
+	}
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
 	use:_draggable={{
 		disabled: isOnMobile,
 		applyUserSelectHack: true,
 		handle: '.window-titlebar',
-		onDragStart: (data) => {
-			$highestZIndex += 1
-			data.currentNode.style.zIndex = $highestZIndex.toString()
-		},
+		onDragStart: (data) => {focusWindow(data.currentNode)},
 	}}
+	on:click={(data) => {focusWindow(data.currentTarget)}}
 	class="
         relative flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
         max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl min-w-[30ch] lg:min-w-[40ch] w-full md:w-fit [height:fit-content]
