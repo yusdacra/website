@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { draggable } from '@neodrag/svelte';
+
 	export let title: string | undefined = undefined;
 	export let iconUri: string = '';
 	export let id: string = '';
@@ -22,6 +24,7 @@
 </script>
 
 <div
+	use:draggable={{applyUserSelectHack: true, handle: '.window-titlebar'}}
 	class="
         flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
         max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl min-w-[30ch] lg:min-w-[40ch] w-full md:w-fit [height:fit-content]
@@ -33,8 +36,9 @@
 	{#if title !== undefined}
 		<div
 			class="
-				p-1 border-ralsei-white border-8
+				window-titlebar p-1 border-ralsei-white border-8
 				bg-gradient-to-l from-ralsei-pink-neon to-ralsei-black to-75%
+				cursor-move
 			"
 			style="border-style: hidden hidden ridge hidden;"
 		>
