@@ -52,7 +52,7 @@ impl EventHandler for Handler {
         };
 
         let note_resp = resp.json::<serenity::json::JsonMap>().await.unwrap();
-        let created_note_id = note_resp["noteId"].to_string();
+        let created_note_id = note_resp["noteId"].as_str().expect("note id must be a string");
         tracing::info!("succesfully created note with id {created_note_id}");
 
         let _ = msg.reply(ctx, format!("created log at https://gaze.systems/log?id={created_note_id}")).await;
