@@ -1,6 +1,6 @@
 import { noteExists, readNote, readNotesList } from '$lib/notes'
 
-const notesPerPage: number = 8
+const notesPerPage: number = 12
 
 export const load = ({ url }) => {
     // get the note id to search for and display the page it is in
