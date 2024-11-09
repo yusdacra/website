@@ -36,7 +36,11 @@
 						maxlength="512"
 						required
 					/>
-					<p class="place-self-end text-sm font-monospace">--- posted by ...</p>
+					<div class="flex flex-row gap-2 items-center justify-center">
+						<input type="checkbox" id="anon" name="anon" checked/>
+						<label for="anon" class="text-sm font-monospace grow text-shadow-white">post anonymously</label>
+						<p class="text-sm font-monospace">--- posted by ...</p>
+					</div>
 				</div>
 				<div class="entry flex flex-wrap gap-1.5 p-1">
 					<p class="text-xl ms-2">auth via:</p>

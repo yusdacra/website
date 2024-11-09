@@ -21,12 +21,13 @@ const postAction = (client: any, scopes: string[]) => {
         scopedCookies.set("postAuth", client.name)
         const form = await request.formData()
         const content = form.get("content")?.toString().substring(0, 512)
+        const anon = !(form.get("anon") === null)
         if (content === undefined) {
             scopedCookies.set("sendError", "content field is missing")
             redirect(303, auth.callbackUrl)
         }
         // save form content in a cookie
-        const params = new URLSearchParams({ content })
+        const params = new URLSearchParams({ content, anon: anon ? "1" : "" })
         scopedCookies.set("postData", params.toString())
         // get auth url to redirect user to
         const authUrl = auth.createAuthUrl((state) => client.getAuthUrl(state, scopes), cookies)
@@ -80,8 +81,9 @@ export async function load({ url, fetch, cookies }) {
             let respRaw: Response
             try {
                 const postData = new URLSearchParams(rawPostData)
-                // set author to the identified value we got
-                postData.set('author', author)
+                const anon = (postData.get('anon') ?? "1").length > 0
+                // set author to the identified value we got if not anonymous
+                postData.set('author', anon ? "[REDACTED]" : author)
                 // return error if content was not set or if empty
                 const content = postData.get('content')
                 if (content === null || content.trim().length === 0) {
