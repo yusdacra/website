@@ -55,4 +55,4 @@ class GuestbookRoutes(
       } yield resp
     }
     throttle(30, 2.seconds)(getEntries)
-      <+> throttle(5, 10.seconds)(putEntry)
+      <+> throttle(5, 30.seconds)(putEntry)
