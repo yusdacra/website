@@ -32,17 +32,30 @@
 						<li class="[list-style-type:'->']">aka <span class="p-nickname">yusdacra</span></li>
 					</ul>
 				</div>
-				<p class="leading-none m-0 mt-3 text-sm">
-					hi there
-					<img
-						class="relative inline h-5 animate-squiggle pb-1 pr-1"
-						src="/wavey.gif"
-						alt="wavey"
-						title="hi :33"
-					/>
-					<i>i'm <a class="m-0 [padding:0px] p-name u-url u-uid" href={PUBLIC_BASE_URL}>dusk</a>!</i
+				<div class="flex flex-row">
+					<p class="leading-none m-0 mt-3 text-sm">
+						hi there
+						<img
+							class="relative inline h-5 animate-squiggle pb-1"
+							src="/wavey.gif"
+							alt="wavey"
+							title="hi :33"
+						/>
+						<i
+							>i'm <a class="m-0 [padding:0px] p-name u-url u-uid" href={PUBLIC_BASE_URL}
+								><span>dusk</span></a
+							></i
+						>
+					</p>
+					<div class="grow" />
+					<a
+						class="
+							place-self-end [font-family:'Doll_Mono'] text-ralsei-pink-neon text-shadow-none hover:text-shadow-pink
+							hover:!animate-none hover:!no-underline opacity-20 hover:opacity-100 transition-opacity [transition-duration:300ms]
+						"
+						href="https://dollcode.v01dlabs.sh/">▌▖▌▖‍▌▌▘▌‍▌▌▘▖‍▌▘▘▘‍</a
 					>
-				</p>
+				</div>
 			</div>
 		</Window>
 		<div class="mt-auto">
@@ -75,7 +88,9 @@
 						</li>
 						<li>
 							bluesky:
-							<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
+							<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me"
+								>@gaze.systems</a
+							>
 						</li>
 					</ul>
 					<h3>development</h3>
