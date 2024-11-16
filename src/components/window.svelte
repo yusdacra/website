@@ -9,6 +9,8 @@
 	export let entry: boolean = false;
 	export let removePadding: boolean = false;
 	export let center: boolean = false;
+	export let layered: boolean = false;
+	export let style: string = "";
 
 	const scaleKeyframes = [
 		"window-open",
@@ -43,10 +45,11 @@
 	}}
 	on:click={(data) => {focusWindow(data.currentTarget)}}
 	class="
-        relative flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
+        relative {layered ? "col-[1] row-[1]" : ""} flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
         max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl min-w-[30ch] lg:min-w-[40ch] w-full md:w-fit [height:fit-content]
 		bg-ralsei-black border-ralsei-white border-ridge border-8 border-t-[12px]
-		animate-{chosenKeyframe}
+		animate-{chosenKeyframe} drop-shadow-[35px_35px_35px_rgba(1,1,1,0.5)]
+		{style}
     "
 	{id}
 >

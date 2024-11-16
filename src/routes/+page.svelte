@@ -3,7 +3,7 @@
 	import Window from '../components/window.svelte';
 </script>
 
-<div class="flex flex-col md:flex-row gap-y-4 lg:gap-y-0 md:h-full h-card">
+<div class="flex flex-col md:flex-row gap-y-2 lg:gap-y-0 md:h-full h-card">
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
 		<Window title="readme?" iconUri="/icons/question.png">
 			<div class="flex flex-col prose prose-ralsei prose-img:m-0 leading-none">
@@ -58,83 +58,75 @@
 				</div>
 			</div>
 		</Window>
-		<div class="mt-auto">
-			<Window title="latest stuff">
-				<div class="prose prose-ralsei prose-img:m-0 leading-6">
-					<p>
-						worked on a game for a jam!! check it out at <a href="https://manonox.itch.io/fish-well"
-							>it's itch.io page</a
-						>!
-					</p>
-					<img
-						class="md:max-w-[35rem]"
-						src="https://img.itch.zone/aW1hZ2UvMjkxNjQzOC8xNzQ2MDY2Mi5wbmc=/original/%2BIb5Vf.png"
-						alt="fish well gameplay screenshot"
-					/>
-				</div>
-			</Window>
-		</div>
+		<Window title="latest stuff" style="mt-auto">
+			<div class="prose prose-ralsei prose-img:m-0 leading-6">
+				<p>
+					worked on a game for a jam!! check it out at <a href="https://manonox.itch.io/fish-well"
+						>it's itch.io page</a
+					>!
+				</p>
+				<img
+					class="md:max-w-[35rem]"
+					src="https://img.itch.zone/aW1hZ2UvMjkxNjQzOC8xNzQ2MDY2Mi5wbmc=/original/%2BIb5Vf.png"
+					alt="fish well gameplay screenshot"
+				/>
+			</div>
+		</Window>
 	</div>
 	<div class="hidden md:block md:grow" />
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
-		<div class="md:ml-auto">
-			<Window title="links!" iconUri="/icons/contact.png">
-				<div class="prose prose-ralsei prose-ul:leading-[1.4rem] prose-headings:leading-none">
-					<ul>
-						<li>discord: yusdacra</li>
-						<li>
-							e-mail:
-							<a class="u-email" href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
-						</li>
-						<li>
-							bluesky:
-							<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me"
-								>@gaze.systems</a
-							>
-						</li>
-					</ul>
-					<h3>development</h3>
-					<ul>
-						<li>
-							github:
-							<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
-						</li>
-						<li>
-							my gitea:
-							<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
-							(<a href="https://git.gaze.systems/gazesys/website">website repo</a>)
-						</li>
-						<li>
-							gitlab:
-							<a class="u-url" href="https://gitlab.com/yusdacra" rel="me">@yusdacra</a>
-						</li>
-						<li>
-							itch.io:
-							<a class="u-url" href="https://yusdacra.itch.io" rel="me">@yusdacra</a>
-						</li>
-					</ul>
-					<h3>services</h3>
-					<ul>
-						<li>
-							<a href="https://limbus.gaze.systems">random project moon art</a>
-						</li>
-						<li>
-							<a href="https://git.gaze.systems">gitea</a>
-							<span class="text-sm">(if i like you ask me for an acc ;3)</span>
-						</li>
-					</ul>
-				</div>
-			</Window>
-		</div>
-		<div class="mt-auto">
-			<Window title="current" iconUri="/icons/entry.png">
-				<div class="prose prose-ralsei leading-6">
-					<ul>
-						<li>playing wynncraft, helldivers 2, warframe</li>
-						<li>idk bother me to do stuff</li>
-					</ul>
-				</div>
-			</Window>
-		</div>
+		<Window title="links!" iconUri="/icons/contact.png" style="md:ml-auto">
+			<div class="prose prose-ralsei prose-ul:leading-[1.4rem] prose-headings:leading-none">
+				<ul>
+					<li>discord: yusdacra</li>
+					<li>
+						e-mail:
+						<a class="u-email" href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
+					</li>
+					<li>
+						bluesky:
+						<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
+					</li>
+				</ul>
+				<h3>development</h3>
+				<ul>
+					<li>
+						github:
+						<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
+					</li>
+					<li>
+						my gitea:
+						<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
+						(<a href="https://git.gaze.systems/gazesys/website">website repo</a>)
+					</li>
+					<li>
+						gitlab:
+						<a class="u-url" href="https://gitlab.com/yusdacra" rel="me">@yusdacra</a>
+					</li>
+					<li>
+						itch.io:
+						<a class="u-url" href="https://yusdacra.itch.io" rel="me">@yusdacra</a>
+					</li>
+				</ul>
+				<h3>services</h3>
+				<ul>
+					<li>
+						<a href="https://limbus.gaze.systems">random project moon art</a>
+					</li>
+					<li>
+						<a href="https://git.gaze.systems">gitea</a>
+						<span class="text-sm">(if i like you ask me for an acc ;3)</span>
+					</li>
+				</ul>
+			</div>
+		</Window>
+		<Window title="current" iconUri="/icons/entry.png" style="mt-auto">
+			<div class="prose prose-ralsei leading-6">
+				<ul>
+					<li>playing wynncraft, helldivers 2, warframe</li>
+					<li>idk bother me to do stuff</li>
+				</ul>
+			</div>
+		</Window>
 	</div>
 </div>

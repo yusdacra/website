@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
 	import NavButton from '../components/navButton.svelte';
 	import '../styles/app.css';
@@ -133,10 +134,10 @@
 	<slot />
 </div>
 
-<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-10 bg-ralsei-black overflow-hidden">
+<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-hidden">
 	<div
 		class="
-			max-w-full max-h-fit p-1
+			max-w-full max-h-fit p-1 z-[999]
 			border-ralsei-white border-8
 			bg-gradient-to-r to-ralsei-pink-neon/30 from-ralsei-pink-regular/20 from-30%
 		"
