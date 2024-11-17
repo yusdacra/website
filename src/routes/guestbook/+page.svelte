@@ -23,6 +23,7 @@
 				just fill the post in and click on your preferred auth method to post
 			</p>
 			<p>rules: be a good human bean pretty please</p>
+			<p>don't be shy!!!</p>
 			<form method="post">
 				<div class="entry entryflex">
 					<div class="flex flex-row">
