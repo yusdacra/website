@@ -160,11 +160,13 @@
 			<div class="navbox">
 				<p><span class="text-ralsei-green-light text-shadow-green">{data.visitCount}</span> visit(s)</p>
 			</div>
+			{#if isRoute("entries")}
 			<div class="navbox !gap-1">
 				<a class="align-middle hover:underline" href="/entries/_rss">rss</a>
 				/
 				<a class="align-middle hover:underline" href="/entries/_jsonfeed">jsonfeed</a>
 			</div>
+			{/if}
 		</div>
 	</div>
 </nav>
