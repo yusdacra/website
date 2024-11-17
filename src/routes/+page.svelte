@@ -61,14 +61,16 @@
 		<Window title="latest stuff" style="mt-auto">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
 				<p>
-					worked on a game for a jam!! check it out at <a href="https://manonox.itch.io/fish-well"
-						>it's itch.io page</a
+					new game prototype thingy <a href="https://yusdacra.itch.io/lightfelt"
+						>at itch.io page</a
 					>!
+					spent a lot of time learning and designing the environment and scene stuff :3
+					trenchbroom and func_godot were used mainly!
 				</p>
 				<img
-					class="md:max-w-[35rem]"
-					src="https://img.itch.zone/aW1hZ2UvMjkxNjQzOC8xNzQ2MDY2Mi5wbmc=/original/%2BIb5Vf.png"
-					alt="fish well gameplay screenshot"
+					class="md:max-w-[39.5rem]"
+					src="https://img.itch.zone/aW1hZ2UvMzExNTU5My8xODYyMjUwOS5qcGVn/original/%2BSrxFo.jpeg"
+					alt="lightfelt screenshot"
 				/>
 			</div>
 		</Window>
