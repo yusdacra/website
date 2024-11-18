@@ -1,6 +1,8 @@
 <script>
 	import { PUBLIC_BASE_URL } from '$env/static/public';
 	import Window from '../components/window.svelte';
+
+	export let data;
 </script>
 
 <div class="flex flex-col md:flex-row gap-y-2 lg:gap-y-0 md:h-full h-card">
@@ -61,10 +63,8 @@
 		<Window title="latest stuff" style="mt-auto">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
 				<p>
-					new game prototype thingy <a href="https://yusdacra.itch.io/lightfelt"
-						>at itch.io page</a
-					>!
-					spent a lot of time learning and designing the environment and scene stuff :3
+					new game prototype thingy <a href="https://yusdacra.itch.io/lightfelt">at itch.io page</a
+					>! spent a lot of time learning and designing the environment and scene stuff :3
 					trenchbroom and func_godot were used mainly!
 				</p>
 				<img
@@ -122,13 +122,77 @@
 				</ul>
 			</div>
 		</Window>
-		<Window title="current" iconUri="/icons/entry.png" style="mt-auto">
-			<div class="prose prose-ralsei leading-6">
-				<ul>
-					<li>playing wynncraft, helldivers 2, warframe</li>
-					<li>idk bother me to do stuff</li>
-				</ul>
-			</div>
+		<Window title="now happening" style="mt-auto" removePadding>
+			{#if data.lastTrack}
+				<div class="flex flex-row m-2 border-4 border-double">
+					<!-- svelte-ignore a11y-missing-attribute -->
+					{#if data.lastTrack.image}
+						<img
+							class="border-4 w-16 h-16"
+							style="border-style: none double none none;"
+							width="64"
+							height="64"
+							src={data.lastTrack.image}
+						/>
+					{:else}
+						<img
+							class="border-4 w-16 h-16 p-2"
+							style="border-style: none double none none; image-rendering: pixelated;"
+							src="/icons/cd_audio.png"
+						/>
+					{/if}
+					<div class="flex flex-col max-w-[40ch] p-2 overflow-hidden">
+						<p
+							class="text-shadow-green text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						>
+							<span class="text-sm text-shadow-white text-ralsei-white">listening to</span>
+							<a
+								title={data.lastTrack.name}
+								href="https://www.last.fm/user/yusdacra"
+								class="hover:underline">{data.lastTrack.name}</a
+							>
+						</p>
+						<p
+							class="text-shadow-pink text-ralsei-pink-regular text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						>
+							<span class="text-shadow-white text-ralsei-white">by</span>
+							<span title={data.lastTrack.artist}>{data.lastTrack.artist}</span>
+						</p>
+					</div>
+				</div>
+			{/if}
+			{#if data.lastGame}
+				<div class="flex flex-row m-2 border-4 border-double">
+					<!-- svelte-ignore a11y-missing-attribute -->
+					<img
+						class="border-4 w-16 h-16"
+						style="border-style: none double none none;"
+						width="64"
+						height="64"
+						src={data.lastGame.icon}
+					/>
+					<div class="flex flex-col max-w-[40ch] p-2 gap-1 overflow-hidden">
+						<p
+							class="text-shadow-green text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						>
+							<span class="text-sm text-shadow-white text-ralsei-white">playing</span>
+							<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
+								>{data.lastGame.name}</a
+							>
+						</p>
+						<!-- svelte-ignore a11y-missing-attribute -->
+						<a
+							href="https://steamcommunity.com/id/yusdacra"
+							class="text-xs hover:underline text-shadow-green text-ralsei-green-light"
+							><img class="inline w-4" src={data.lastGame.pfp} />
+							<span class="align-middle">steam profile</span></a
+						>
+					</div>
+				</div>
+			{/if}
+			{#if !data.lastGame && !data.lastTrack}
+				<p class="text-xl m-2">nothing, apparently.</p>
+			{/if}
 		</Window>
 	</div>
 </div>

@@ -46,7 +46,9 @@
     "nanoid": "^5.0.8",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
-    "typescript-svelte-plugin": "^0.3.42"
+    "steamgriddb": "^2.2.0",
+    "typescript-svelte-plugin": "^0.3.42",
+    "xml-js": "^1.6.11"
   },
   "trustedDependencies": [
     "@sveltejs/kit",
