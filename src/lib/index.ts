@@ -59,10 +59,15 @@ export const lastFmGetNowPlaying: () => Promise<LastTrack | null> = async () => 
     }
 }
 
-const steamgriddbClient = new SGDB(env.STEAMGRIDDB_API_KEY);
+const steamgriddbClient = writable<SGDB | null>(null);
 const cachedLastGame = writable<{game: LastGame | null, since: number}>({game: null, since: 0})
 export type LastGame = {name: string, link: string, icon: string, pfp: string}
 export const steamGetNowPlaying: () => Promise<LastGame | null> = async () => {
+    var griddbClient = get(steamgriddbClient)
+    if (griddbClient === null) {
+        griddbClient = new SGDB(env.STEAMGRIDDB_API_KEY)
+        steamgriddbClient.set(griddbClient)
+    }
     var cached = get(cachedLastGame)
     if (Date.now() - cached.since < 10 * 1000) {
         return cached.game
@@ -73,7 +78,7 @@ export const steamGetNowPlaying: () => Promise<LastGame | null> = async () => {
         if (!profile.gameid) {
             throw "no game is being played"
         }
-        var icons = await steamgriddbClient.getIconsBySteamAppId(profile.gameid, ['official'])
+        var icons = await griddbClient.getIconsBySteamAppId(profile.gameid, ['official'])
         console.log(icons)
         var game = {
             name: profile.gameextrainfo,
