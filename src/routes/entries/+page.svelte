@@ -16,7 +16,7 @@
 				<a
 					href="/entries/{post.path}"
 					title="cd /entries/{post.path}"
-					data-sveltekit-preload-data="hover"
+					data-sveltekit-preload-data="off"
 				>
 					<div class="flex flex-col gap-y-1 prose prose-ralsei">
 						<ul>
