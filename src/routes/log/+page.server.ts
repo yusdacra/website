@@ -1,8 +1,12 @@
 import { noteExists, readNote, readNotesList } from '$lib/notes'
 
-const notesPerPage: number = 12
+const notesPerPage: number = 15
 
 export const load = ({ url }) => {
+    return _load({ url })
+}
+
+export const _load = ({ url }: { url: URL }) => {
     // get the note id to search for and display the page it is in
     const noteId = url.searchParams.get("id")
     // get the page no if one is provided, otherwise default to 1

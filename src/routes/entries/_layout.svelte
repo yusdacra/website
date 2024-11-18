@@ -17,7 +17,7 @@
 	<meta property="og:title" content={title} />
 </svelte:head>
 
-<article class="flex flex-wrap md:flex-nowrap gap-4 h-entry">
+<article class="mx-auto max-w-fit flex flex-wrap lg:flex-nowrap gap-4 h-entry">
 	<Window {title} iconUri="/icons/entry.png" entry>
 		<div class="prose prose-ralsei max-w-[80ch] e-content">
 			<slot />

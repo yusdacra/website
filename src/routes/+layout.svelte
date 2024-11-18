@@ -15,7 +15,6 @@
 	const menuItems: MenuItem[] = [
 		{ href: '', name: 'home', iconUri: '/icons/home.png' },
 		{ href: 'entries', name: 'entries', iconUri: '/icons/entries.png' },
-		{ href: 'log', name: 'log', iconUri: '/icons/entry.png' },
 		{ href: 'guestbook', name: 'guestbook', iconUri: '/icons/guestbook.png' },
 		{ href: 'about', name: 'about', iconUri: '/icons/about.png' }
 	];
@@ -154,7 +153,7 @@
 			<div class="hidden md:block grow" />
 			<div class="navbox">
 				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
-				<a class="hover:underline" href="https://xn--sr8hvo.ws">IndieWeb Webring</a>
+				<a class="hover:underline" href="https://xn--sr8hvo.ws">IndieWeb 🕸💍</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
 			<div class="navbox">
