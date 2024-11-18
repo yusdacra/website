@@ -113,7 +113,7 @@
 				<h3>services</h3>
 				<ul>
 					<li>
-						<a href="https://limbus.gaze.systems">random project moon art</a>
+						<a href="https://pmart.gaze.systems">random project moon art</a>
 					</li>
 					<li>
 						<a href="https://git.gaze.systems">gitea</a>
