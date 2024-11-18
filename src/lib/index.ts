@@ -3,7 +3,6 @@ import { env } from '$env/dynamic/private'
 import { get, writable } from 'svelte/store'
 import { existsSync, readFileSync } from 'fs'
 import { Agent, CredentialSession } from '@atproto/api'
-import { xml2json } from 'xml-js'
 import SGDB from 'steamgriddb'
 
 export const scopeCookies = (cookies: Cookies, path: string) => {
