@@ -1,4 +1,4 @@
-import { lastFmGetNowPlaying } from "$lib"
+import { lastFmGetNowPlaying } from "$lib/lastfm"
 import { steamGetNowPlaying } from "$lib/steam"
 
 export const load = async ({}) => {
