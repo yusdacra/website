@@ -1,6 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { bskyClient, loginToBsky } from '$lib';
+import { getBskyClient } from '$lib/bluesky.ts';
 import { createNote } from '$lib/notes.js';
 import { RichText } from '@atproto/api';
 import { get } from 'svelte/store';
@@ -23,11 +23,7 @@ export const POST = async ({ request }) => {
     const noteId = createNote({ content: noteData.content, published })
     // bridge to bsky if want to bridge
     if (noteData.bskyPosse) {
-        let client = get(bskyClient)
-        if (client === null) {
-            client = await loginToBsky()
-            bskyClient.set(client)
-        }
+        let client = await getBskyClient()
         const rt = new RichText({
             text: `${noteData.content} (${PUBLIC_BASE_URL}/log?id=${noteId})`,
         })
