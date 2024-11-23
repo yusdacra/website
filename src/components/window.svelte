@@ -11,6 +11,7 @@
 	export let center: boolean = false;
 	export let layered: boolean = false;
 	export let style: string = "";
+	export let tooltip: boolean = false;
 
 	const scaleKeyframes = [
 		"window-open",
@@ -46,9 +47,9 @@
 	on:click={(data) => {focusWindow(data.currentTarget)}}
 	class="
         relative {layered ? "col-[1] row-[1]" : ""} flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
-        max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl min-w-[30ch] lg:min-w-[40ch] w-full md:w-fit [height:fit-content]
-		bg-ralsei-black border-ralsei-white border-ridge border-8 border-t-[12px]
-		animate-{chosenKeyframe} drop-shadow-[35px_35px_35px_rgba(1,1,1,0.5)]
+        max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl {tooltip ? "min-w-fit" : "min-w-[30ch] lg:min-w-[40ch]"} w-full md:w-fit [height:fit-content]
+		bg-ralsei-black border-ralsei-white border-ridge {tooltip ? "border-[6px] border-t-[9px]" : "border-8 border-t-[12px]"}
+		animate-{chosenKeyframe} drop-shadow-[24px_24px_24px_rgba(1,1,1,0.8)]
 		{style}
     "
 	{id}
@@ -83,7 +84,7 @@
 		</div>
 	{/if}
 	<div class="
-		{removePadding ? "" : "p-2"} bg-gradient-to-tl
+		{removePadding ? "" : tooltip ? "p-1" : "p-2"} bg-gradient-to-tl
 		to-ralsei-pink-neon/15 from-ralsei-pink-regular/20
 	">
 		<slot />

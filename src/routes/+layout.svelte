@@ -158,8 +158,8 @@
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
 			<div class="group navbox">
-				<div class="absolute transition-all opacity-0 group-hover:opacity-100 translate-y-2/3 -translate-x-1/3 group-hover:-translate-y-2/3 transform-gpu">
-					<Window style="!min-w-fit">
+				<div class="absolute transition-all opacity-0 group-hover:opacity-100 translate-y-full -translate-x-1/3 group-hover:-translate-y-2/3 transform-gpu">
+					<Window tooltip>
 						<img class="min-w-64" style="image-rendering: crisp-edges pixelated;" alt="visits" src="https://count.getloli.com/@yusdacrawebsite?name=yusdacrawebsitetest&theme=booru-lewd&padding=5&offset=0&align=center&scale=1&pixelated=1&darkmode=0&num={data.visitCount}"/>
 					</Window>
 				</div>
