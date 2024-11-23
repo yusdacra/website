@@ -17,11 +17,11 @@ export const postToBsky = async (text: string) => {
     let client = await getBskyClient()
     const rt = new RichText({ text })
     await rt.detectFacets(client)
-    const {uri} = await client.post({
+    const {cid} = await client.post({
         text: rt.text,
         facets: rt.facets,
     })
-    return uri
+    return `https://bsky.gaze.systems/post/${cid}`
 }
 
 const loginToBsky = async () => {
