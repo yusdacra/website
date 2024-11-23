@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
 	import NavButton from '../components/navButton.svelte';
+	import Window from '../components/window.svelte';
 	import '../styles/app.css';
 
 	export let data;
@@ -133,7 +134,7 @@
 	<slot />
 </div>
 
-<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-hidden">
+<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
 	<div
 		class="
 			max-w-full max-h-fit p-1 z-[999]
@@ -156,7 +157,12 @@
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">IndieWeb 🕸💍</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
-			<div class="navbox">
+			<div class="group navbox">
+				<div class="absolute transition-all opacity-0 group-hover:opacity-100 translate-y-2/3 -translate-x-1/3 group-hover:-translate-y-2/3 transform-gpu">
+					<Window style="!min-w-fit">
+						<img class="min-w-64" style="image-rendering: crisp-edges pixelated;" alt="visits" src="https://count.getloli.com/@yusdacrawebsite?name=yusdacrawebsitetest&theme=booru-lewd&padding=5&offset=0&align=center&scale=1&pixelated=1&darkmode=0&num={data.visitCount}"/>
+					</Window>
+				</div>
 				<p><span class="text-ralsei-green-light text-shadow-green">{data.visitCount}</span> visit(s)</p>
 			</div>
 			{#if isRoute("entries")}
