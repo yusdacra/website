@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Window from '../../components/window.svelte';
+	import Tooltip from '../../components/tooltip.svelte';
+import Window from '../../components/window.svelte';
 
 	export let data;
 	$: hasPreviousPage = data.page > 1;
@@ -43,15 +44,18 @@
 						<p class="text-sm font-monospace">--- posted by ...</p>
 					</div>
 				</div>
-				<div class="entry flex flex-wrap gap-1.5 p-1">
-					<p class="text-xl ms-2">auth via:</p>
+				<div class="entry flex flex-wrap gap-1.5 p-1 items-center">
+					<p class="text-xl ms-2 align-middle">auth via:</p>
 					{#each ['discord', 'github'] as platform}
+					<Tooltip x="" y="translate-y-[70%]" targetY="" targetX="">
+						<svelte:fragment slot="tooltipContent">post with {platform}</svelte:fragment>
 						<input
 							type="submit"
 							value={platform}
 							formaction="?/post_{platform}"
 							class="text-lg text-ralsei-green-light leading-5 hover:underline motion-safe:hover:animate-squiggle w-fit p-0.5"
 						/>
+					</Tooltip>
 					{/each}
 				</div>
 				{#if data.sendRatelimited}

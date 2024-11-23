@@ -1,5 +1,6 @@
 <script>
 	import { PUBLIC_BASE_URL } from '$env/static/public';
+	import Tooltip from '../components/tooltip.svelte';
 	import Window from '../components/window.svelte';
 
 	export let data;
@@ -10,12 +11,14 @@
 		<Window title="readme?" iconUri="/icons/question.png">
 			<div class="flex flex-col prose prose-ralsei prose-img:m-0 leading-none">
 				<div class="flex flex-grow">
-					<img
-						class="mt-1 ml-1 w-36 [height:9rem] u-photo"
-						src="/pfp.png"
-						alt="character from q.u.q."
-						title="character from q.u.q. (good vn go read it NOW)"
-					/>
+					<Tooltip x="-translate-x-[40%]" targetX="group-hover:-translate-x-[10%]">
+						<svelte:fragment slot="tooltipContent">character from q.u.q. (good vn go read it NOW)</svelte:fragment>
+						<img
+							class="mt-1 ml-1 w-36 [height:9rem] u-photo"
+							src="/pfp.png"
+							alt="character from q.u.q."
+						/>
+					</Tooltip>
 					<ul
 						class="place-self-center m-0 leading-none marker:[content:'->'] [list-style-type:'->']"
 					>

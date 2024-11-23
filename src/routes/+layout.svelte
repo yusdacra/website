@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
 	import NavButton from '../components/navButton.svelte';
+	import Tooltip from '../components/tooltip.svelte';
 	import Window from '../components/window.svelte';
 	import '../styles/app.css';
 
@@ -157,14 +158,12 @@
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">IndieWeb 🕸💍</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
-			<div class="group navbox">
-				<div class="absolute transition-all opacity-0 group-hover:opacity-100 translate-y-full -translate-x-1/3 group-hover:-translate-y-2/3 transform-gpu">
-					<Window tooltip>
-						<img class="min-w-64" style="image-rendering: crisp-edges pixelated;" alt="visits" src="https://count.getloli.com/@yusdacrawebsite?name=yusdacrawebsitetest&theme=booru-lewd&padding=5&offset=0&align=center&scale=1&pixelated=1&darkmode=0&num={data.visitCount}"/>
-					</Window>
-				</div>
-				<p><span class="text-ralsei-green-light text-shadow-green">{data.visitCount}</span> visit(s)</p>
-			</div>
+			<Tooltip>
+				<svelte:fragment slot="tooltipContent">
+					<img class="min-w-64" style="image-rendering: crisp-edges pixelated;" alt="visits" src="https://count.getloli.com/@yusdacrawebsite?name=yusdacrawebsitetest&theme=booru-lewd&padding=5&offset=0&align=center&scale=1&pixelated=1&darkmode=0&num={data.visitCount}"/>
+				</svelte:fragment>
+				<div class="navbox"><p><span class="text-ralsei-green-light text-shadow-green">{data.visitCount}</span> visit(s)</p></div>
+			</Tooltip>
 			{#if isRoute("entries")}
 			<div class="navbox !gap-1">
 				<a class="align-middle hover:underline" href="/entries/_rss">rss</a>
