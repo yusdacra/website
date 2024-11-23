@@ -55,7 +55,17 @@ impl EventHandler for Handler {
         let created_note_id = note_resp["noteId"].as_str().expect("note id must be a string");
         tracing::info!("succesfully created note with id {created_note_id}");
 
-        let _ = msg.reply(ctx, format!("created log at https://gaze.systems/log?id={created_note_id}")).await;
+        let mut reply_content = format!("created log at https://gaze.systems/log?id={created_note_id}");
+        let errors = note_resp["errors"].as_array().expect("must be array");
+        if !errors.is_empty() {
+            reply_content.push_str("\n\nerrors:");
+            for error in errors {
+                reply_content.push_str("\n--> ");
+                reply_content.push_str(error.as_str().expect("must be str"));
+            }
+        }
+
+        let _ = msg.reply(ctx, reply_content).await;
     }
 
     async fn ready(&self, ctx: Context, ready: Ready) {
