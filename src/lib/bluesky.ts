@@ -1,5 +1,5 @@
 import { env } from '$env/dynamic/private'
-import { Agent, CredentialSession } from '@atproto/api'
+import { Agent, CredentialSession, RichText } from '@atproto/api'
 import { get, writable } from 'svelte/store'
 
 const bskyClient = writable<null | Agent>(null)
@@ -11,6 +11,17 @@ export const getBskyClient = async () => {
         bskyClient.set(client)
     }
     return client
+}
+
+export const postToBsky = async (text: string) => {
+    let client = await getBskyClient()
+    const rt = new RichText({ text })
+    await rt.detectFacets(client)
+    const {uri} = await client.post({
+        text: rt.text,
+        facets: rt.facets,
+    })
+    return uri
 }
 
 const loginToBsky = async () => {

@@ -2,9 +2,15 @@ import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { nanoid } from 'nanoid'
 import { env } from '$env/dynamic/private'
 
+export interface OutgoingLinkData {
+    name: string,
+    link: string,
+}
+
 export interface Note {
     content: string,
     published: number,
+    outgoingLinks?: OutgoingLinkData[],
 }
 type NoteId = string
 
@@ -32,8 +38,7 @@ export const writeNote = (id: NoteId, note: Note) => {
         writeNotesList([id].concat(noteList))
     }
 }
-export const createNote = (note: Note) => {
-    const id = genNoteId()
+export const createNote = (id: NoteId, note: Note) => {
     writeNote(id, note)
     return id
 }

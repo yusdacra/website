@@ -15,6 +15,14 @@
     }
 
     const highlightedNote = data.notes.get(data.highlightedNote ?? '') ?? null
+
+    // this is ASS this should be a tailwind class
+    const getTextShadowStyle = (color: string) => {
+        return `text-shadow: 0 0 1px theme(colors.ralsei.black), 0 0 5px ${color};`
+    }
+    const outgoingLinkColors: Record<string, string> = {
+        bsky: "rgb(0, 133, 255)",
+    }
 </script>
 
 <svelte:head>
@@ -33,15 +41,19 @@
     "
 >
 <pre class="language-bash"><code class="language-bash"><nobr>
-<Token v="[" punct/>gazesystems <Token v="/log/" keywd/><Token v="]$" punct/> <Token v="source" funct/> log.nu
+<Token v="[" punct/>gazesystems <Token v="/" keywd/><Token v="]$" punct/> <Token v="source" funct/> <Token v="scripts/log.nu" />
 <br>
-<Token v="[" punct/>gazesystems <Token v="/log/" keywd/><Token v="]$" punct/> <Token v="ls" funct/> log <Token v="|" punct/> <Token v="each" funct/> <Token v="&#123;" punct/><Token v="|" punct/>file<Token v="|" punct/> <Token v="render" funct/> <Token v="(" punct/><Token v="open" funct/> $file.name<Token v=")" punct/><Token v="&#125;" punct/>
+<Token v="[" punct/>gazesystems <Token v="/" keywd/><Token v="]$" punct/> <Token v="ls" funct/> <Token v="log" /> <Token v="|" punct/> <Token v="each" funct/> <Token v="&#123;" punct/><Token v="|" punct/><Token v="file"/><Token v="|" punct/> <Token v="render" funct/> <Token v="(" punct/><Token v="open" funct/> <Token v="$file.name" /><Token v=")" punct/><Token v="&#125;" punct/>
 <br>
 <br>
 {#each data.notes as [noteId, note], index}
 {@const isHighlighted = noteId === data.highlightedNote}
 <div class="text-wrap break-words max-w-[70ch] leading-none">
 <Token v={renderDate(note.published)} small={!isHighlighted}/> <Token v={noteId} keywd small={!isHighlighted}/><Token v="#" punct/>&nbsp;&nbsp;<Token v={note.content} str/>
+{#each note.outgoingLinks ?? [] as {name, link}}
+{@const color = outgoingLinkColors[name]}
+<span class="text-sm"><Token v="(" punct/><a style="color: {color};{getTextShadowStyle(color)}" href={link}>{name}</a><Token v=")" punct/></span>
+{/each}
 </div>
 {#if index < data.notes.size - 1}
 <div class="mt-3"/>

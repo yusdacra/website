@@ -1,9 +1,7 @@
 import { env } from '$env/dynamic/private';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getBskyClient } from '$lib/bluesky.ts';
-import { createNote } from '$lib/notes.js';
-import { RichText } from '@atproto/api';
-import { get } from 'svelte/store';
+import { postToBsky } from '$lib/bluesky';
+import { createNote, genNoteId, type Note } from '$lib/notes';
 
 interface NoteData {
     content: string,
@@ -15,26 +13,33 @@ export const POST = async ({ request }) => {
     if (token !== env.GAZEBOT_TOKEN) {
         return new Response("rizz failed", { status: 403 })
     }
+    // get id
+    const noteId = genNoteId()
     // get note data
     const noteData: NoteData = await request.json()
-    console.log("want to create note with data: ", noteData)
-    // create note
-    const published = Date.now()
-    const noteId = createNote({ content: noteData.content, published })
+    console.log(`want to create note #${noteId} with data: `, noteData)
+    // get a date before we start publishing to other platforms
+    let note: Note = {
+        content: noteData.content,
+        published: Date.now(),
+        outgoingLinks: [],
+    }
+    let errors: string[] = []
     // bridge to bsky if want to bridge
     if (noteData.bskyPosse) {
-        let client = await getBskyClient()
-        const rt = new RichText({
-            text: `${noteData.content} (${PUBLIC_BASE_URL}/log?id=${noteId})`,
-        })
-        await rt.detectFacets(client)
-        await client.post({
-            text: rt.text,
-            facets: rt.facets,
-        })
+        const postContent = `${noteData.content} (${PUBLIC_BASE_URL}/log?id=${noteId})`
+        try {
+            const bskyUrl = await postToBsky(postContent)
+            note.outgoingLinks?.push({name: "bsky", link: bskyUrl})
+        } catch(why) {
+            console.log(`failed to post note #${noteId} to bsky: `, why)
+            errors.push(`error while posting to bsky: ${why}`)
+        }
     }
-    // send back created note id
-    return new Response(JSON.stringify({ noteId }), {
+    // create note (this should never fail otherwise it would defeat the whole purpose lol)
+    createNote(noteId, note)
+    // send back created note id and any errors that occurred
+    return new Response(JSON.stringify({ noteId, errors }), {
         headers: {
             'content-type': 'application/json',
             'cache-control': 'no-store',
