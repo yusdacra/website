@@ -3,9 +3,9 @@ import { incrementVisitCount, notifyDarkVisitors } from '$lib/visits.js';
 export const csr = true;
 export const ssr = true;
 export const prerender = false;
-export const trailingSlash = 'always';
+export const trailingSlash = 'always'; 
 
-export async function load({ request, cookies, url, setHeaders, fetch }) {
+export async function load({ request, cookies, url, setHeaders }) {
     notifyDarkVisitors(url, request) // no await so it doesnt block load
 
     setHeaders({ 'Cache-Control': 'no-cache' })

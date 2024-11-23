@@ -3,10 +3,15 @@ import SGDB from "steamgriddb";
 import { get, writable } from "svelte/store";
 
 const STEAM_ID = "76561198106829949"
+const GET_PLAYER_SUMMARY_ENDPOINT = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${env.STEAM_API_KEY}&steamids=${STEAM_ID}&format=json`
+const CACHE_EXPIRY_SECONDS = 10
+
+type LastGame = {name: string, link: string, icon: string, pfp: string}
+type CachedLastGame = {game: LastGame | null, since: number}
 
 const steamgriddbClient = writable<SGDB | null>(null);
-const cachedLastGame = writable<{game: LastGame | null, since: number}>({game: null, since: 0})
-type LastGame = {name: string, link: string, icon: string, pfp: string}
+const cachedLastGame = writable<CachedLastGame>({game: null, since: 0})
+
 export const steamGetNowPlaying: () => Promise<LastGame | null> = async () => {
     var griddbClient = get(steamgriddbClient)
     if (griddbClient === null) {
@@ -14,12 +19,11 @@ export const steamGetNowPlaying: () => Promise<LastGame | null> = async () => {
         steamgriddbClient.set(griddbClient)
     }
     var cached = get(cachedLastGame)
-    if (Date.now() - cached.since < 10 * 1000) {
+    if (Date.now() - cached.since < CACHE_EXPIRY_SECONDS * 1000) {
         return cached.game
     }
     try {
-        const API_URL = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${env.STEAM_API_KEY}&steamids=${STEAM_ID}&format=json`
-        var profile = (await (await fetch(API_URL)).json()).response.players[0]
+        var profile = (await (await fetch(GET_PLAYER_SUMMARY_ENDPOINT)).json()).response.players[0]
         if (!profile.gameid) {
             throw "no game is being played"
         }
