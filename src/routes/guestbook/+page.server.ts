@@ -1,9 +1,15 @@
 import { env } from '$env/dynamic/private'
-import { redirect, type Cookies } from '@sveltejs/kit'
+import { redirect, type Cookies, type RequestEvent } from '@sveltejs/kit'
 import auth from '$lib/guestbookAuth'
 import { scopeCookies as _scopeCookies } from '$lib';
+import { RetryAfterRateLimiter } from 'sveltekit-rate-limiter/server';
 
 export const prerender = false;
+
+const createPostRatelimiter = new RetryAfterRateLimiter({
+    IP: [10, 'd'],
+    IPUA: [5, 'h'],
+})
 
 interface Entry {
     author: string,
@@ -16,9 +22,15 @@ const scopeCookies = (cookies: Cookies) => {
 }
 
 const postAction = (client: any, scopes: string[]) => {
-    return async ({ request, cookies }: { request: Request, cookies: Cookies }) => {
+    return async (event: RequestEvent) => {
+        const { request, cookies } = event
         const scopedCookies = scopeCookies(cookies)
         scopedCookies.set("postAuth", client.name)
+        const rateStatus = await createPostRatelimiter.check(event)
+        if (rateStatus.limited) {
+            scopedCookies.set("sendError", `you are being ratelimited sowwy :c, try again after ${rateStatus.retryAfter} seconds`)
+            redirect(303, auth.callbackUrl)
+        }
         const form = await request.formData()
         const content = form.get("content")?.toString().substring(0, 512)
         const anon = !(form.get("anon") === null)
