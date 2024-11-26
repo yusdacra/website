@@ -15,7 +15,7 @@ export const lastFmGetNowPlaying: () => Promise<LastTrack | null> = async () => 
     try {
         var resp = await (await fetch(GET_RECENT_TRACKS_ENDPOINT)).json()
         var track = resp.recenttracks.track[0] ?? null
-        if (!(track['@attr'].nowplaying ?? null)) {
+        if (!((track['@attr'] ?? {}).nowplaying ?? null)) {
             throw "no nowplaying track found"
         }
         var data = {
