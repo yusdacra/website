@@ -135,7 +135,7 @@
 	<slot />
 </div>
 
-<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
+<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible uppercase">
 	<div
 		class="
 			max-w-full max-h-fit p-1 z-[999]
