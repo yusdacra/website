@@ -1,6 +1,8 @@
 <script lang="ts">
-	import Window from '../../components/window.svelte';
-	import '../../styles/app.css';
+	import Window from '../../components/window.svelte'
+	import Itches from './itches.md'
+	import Stuff from './stuff.md'
+	import '../../styles/app.css'
 
 	export let title;
 </script>
@@ -11,17 +13,8 @@
 			<slot />
 		</div>
 	</Window>
-	<Window title="itches" sticky>
-		<div class="prose prose-ralsei pr-2 leading-6">
-			<ul>
-				<li>website / social presence todos on <a href="https://indieweb.org/User:Gaze.systems">the indieweb wiki</a></li>
-				<li>want to start reading chaos;head and chaos;child</li>
-				<li>start playing killer7 and the silver case etc.</li>
-				<li>participate in yet another game jam</li>
-				<li>stream game dev stuff (...if i can stop being anxiety x1000)</li>
-				<li>mess around with kinect devkit, try to reimplement skeleton estimation?</li>
-				<li>fly more in VTOL VR with people</li>
-			</ul>
-		</div>
-	</Window>
+	<div class="sticky flex flex-col gap-4 !leading-6 prose-ul:!leading-5">
+		<Stuff/>
+		<Itches/>
+	</div>
 </article>

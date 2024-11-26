@@ -46,6 +46,7 @@ const config = {
 			layout: {
 				about: './src/routes/about/_layout.svelte',
 				blogpost: './src/routes/entries/_layout.svelte',
+				simple: './src/components/_window_layout.svelte',
 			},
 		}),
 	],
