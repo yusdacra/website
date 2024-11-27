@@ -8,7 +8,7 @@
 </script>
 
 <div class="group">
-    <div class="absolute scale-0 transition-all [transition-duration:300ms] opacity-0 group-hover:scale-100 group-hover:opacity-100 {y} {x} {targetY} {targetX} transform-gpu">
+    <div class="absolute scale-0 transition-all [transition-timing-function:cubic-bezier(0.4,0,0.2,1.6)] [transition-duration:300ms] opacity-0 group-hover:scale-100 group-hover:opacity-100 {y} {x} {targetY} {targetX}">
         <Window tooltip>
             <slot name="tooltipContent">Hello world!</slot>
         </Window>
