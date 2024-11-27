@@ -29,7 +29,7 @@
     }
 
     .prose h1::after,.prose h2::after,.prose h3::after,.prose h4::after {
-        @apply animate-blink;
+        @apply motion-safe:animate-blink;
         content: '_';
     }
 
