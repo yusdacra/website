@@ -70,7 +70,7 @@
 			<filter id="squiggly-{index}">
 				<feTurbulence
 					id="turbulence"
-					baseFrequency="0.02"
+					baseFrequency=0.03
 					numOctaves="3"
 					result="noise"
 					seed={index}
