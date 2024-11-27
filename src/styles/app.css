@@ -28,6 +28,11 @@
         content: '>>>> ';
     }
 
+    .prose h1::after,.prose h2::after,.prose h3::after,.prose h4::after {
+        @apply animate-blink;
+        content: '_';
+    }
+
     .prose a {
         text-decoration: none;
     }
@@ -138,6 +143,18 @@
 
     .dither-bg {
         backdrop-filter: url("#dither");
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 1.0;
+        }
+        50% {
+            opacity: 0.0;
+        }
+        100% {
+            opacity: 1.0;
+        }
     }
 }
 

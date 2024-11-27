@@ -62,9 +62,8 @@ import Window from '../../components/window.svelte';
 					<p class="text-error">you are ratelimited, try again in 30 seconds</p>
 				{/if}
 				{#if data.sendError}
-					<p class="text-error">got error trying to send post</p>
-					<details>
-						<summary>error</summary>
+					<details class="w-[50ch]">
+						<summary class="text-error">got error trying to send post</summary>
 						<p>{data.sendError}</p>
 					</details>
 				{/if}
@@ -79,9 +78,8 @@ import Window from '../../components/window.svelte';
 					woops, looks like you are being ratelimited, try again in like half a minute :3
 				</p>
 			{:else if data.getError}
-				<p class="text-error">got error trying to fetch entries, pls tell me about this</p>
-				<details>
-					<summary>error</summary>
+				<details class="w-[50ch]">
+					<summary class="text-error">got error trying to fetch entries</summary>
 					<p>{data.getError}</p>
 				</details>
 			{:else}
