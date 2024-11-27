@@ -2,6 +2,7 @@
 	import { PUBLIC_BASE_URL } from '$env/static/public';
 	import Tooltip from '../components/tooltip.svelte';
 	import Window from '../components/window.svelte';
+	import LatestStuff from './lateststuff.md';
 
 	export let data;
 </script>
@@ -65,16 +66,7 @@
 		</Window>
 		<Window title="latest stuff" style="mt-auto">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
-				<p>
-					new game prototype thingy <a href="https://yusdacra.itch.io/lightfelt">at itch.io page</a
-					>! spent a lot of time learning and designing the environment and scene stuff :3
-					trenchbroom and func_godot were used mainly!
-				</p>
-				<img
-					class="md:max-w-[39.5rem]"
-					src="https://img.itch.zone/aW1hZ2UvMzExNTU5My8xODYyMjUwOS5qcGVn/original/%2BSrxFo.jpeg"
-					alt="lightfelt screenshot"
-				/>
+				<LatestStuff/>
 			</div>
 		</Window>
 	</div>
