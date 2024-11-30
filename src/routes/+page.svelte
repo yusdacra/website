@@ -24,12 +24,10 @@
 						class="place-self-center m-0 leading-none marker:[content:'->'] [list-style-type:'->']"
 					>
 						<li class="[list-style-type:'->'] p-note">trying to do stuff</li>
+						<li class="[list-style-type:'->'] p-note">is a thing</li>
 						<li class="[list-style-type:'->']">
 							<span class="p-category">software engineer</span>,
 							<span class="p-category">indie game dev</span>
-						</li>
-						<li class="[list-style-type:'->']">
-							<span class="p-gender-identity">genderfluid</span>
 						</li>
 						<li class="[list-style-type:'->']">
 							in <span class="p-country-name">turkey</span>
