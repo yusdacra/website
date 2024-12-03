@@ -18,7 +18,7 @@
 					{/each}
 				</div>
 				<div class="flex flex-grow">
-					<div class="w-36 [height:9rem] bg-ralsei-black bg-opacity-40 place-content-center">
+					<div class="w-36 [height:9rem] [padding:8px] bg-ralsei-black bg-opacity-30 place-content-center">
 						<Tooltip x="-translate-x-[40%]" targetX="group-hover:-translate-x-[10%]">
 							<svelte:fragment slot="tooltipContent">character from q.u.q. (good vn go read it NOW)</svelte:fragment>
 							<img
