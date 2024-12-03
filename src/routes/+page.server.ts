@@ -4,5 +4,10 @@ import { steamGetNowPlaying } from "$lib/steam"
 export const load = async ({}) => {
     const lastTrack = await lastFmGetNowPlaying()
     const lastGame = await steamGetNowPlaying()
-    return {lastTrack, lastGame}
+    const banners = [getBannerNo(), getBannerNo(), getBannerNo()]
+    return {banners, lastTrack, lastGame}
 }
+
+const getBannerNo = () => {
+    return Math.floor(Math.random() * 18) + 1;
+};

@@ -11,6 +11,11 @@
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
 		<Window title="readme?" iconUri="/icons/question.png">
 			<div class="flex flex-col prose prose-ralsei prose-img:m-0 leading-none">
+				<div class="flex flex-row gap-2 mb-2 mx-auto overflow-x-scroll">
+					{#each data.banners as bannerNo}
+						<img width=150 height=20 alt="banner" class="w-[150px] h-[20px] [image-rendering:pixelated_!important]" src="/banners/{bannerNo}.gif">
+					{/each}
+				</div>
 				<div class="flex flex-grow">
 					<Tooltip x="-translate-x-[40%]" targetX="group-hover:-translate-x-[10%]">
 						<svelte:fragment slot="tooltipContent">character from q.u.q. (good vn go read it NOW)</svelte:fragment>
