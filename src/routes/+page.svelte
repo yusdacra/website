@@ -11,25 +11,28 @@
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
 		<Window title="readme?" iconUri="/icons/question.png">
 			<div class="flex flex-col prose prose-ralsei prose-img:m-0 leading-none">
-				<div class="flex flex-row gap-2 mb-2 mx-auto overflow-x-scroll">
-					{#each data.banners as bannerNo}
-						<img width=150 height=20 alt="banner" class="w-[150px] h-[20px] [image-rendering:pixelated_!important]" src="/banners/{bannerNo}.gif">
+				<div class="flex flex-row gap-2 mb-2 mx-auto overflow-hidden">
+					{#each data.banners as bannerNo, index}
+					{@const hideIfMobile = index === data.banners.length - 1}
+						<img width=150 height=20 alt="banner" class="{hideIfMobile ? "hidden" : ""} sm:inline w-[150px] [height:20px] [image-rendering:pixelated_!important]" src="/banners/{bannerNo}.gif">
 					{/each}
 				</div>
 				<div class="flex flex-grow">
-					<Tooltip x="-translate-x-[40%]" targetX="group-hover:-translate-x-[10%]">
-						<svelte:fragment slot="tooltipContent">character from q.u.q. (good vn go read it NOW)</svelte:fragment>
-						<img
-							class="mt-1 ml-1 w-36 [height:9rem] u-photo"
-							src="/pfp.png"
-							alt="character from q.u.q."
-						/>
-					</Tooltip>
+					<div class="w-36 [height:9rem] bg-ralsei-black bg-opacity-40 place-content-center">
+						<Tooltip x="-translate-x-[40%]" targetX="group-hover:-translate-x-[10%]">
+							<svelte:fragment slot="tooltipContent">character from q.u.q. (good vn go read it NOW)</svelte:fragment>
+							<img
+								class="w-36 u-photo"
+								src="/pfp.png"
+								alt="character from q.u.q."
+							/>
+						</Tooltip>
+					</div>
 					<ul
 						class="place-self-center m-0 leading-none marker:[content:'->'] [list-style-type:'->']"
 					>
 						<li class="[list-style-type:'->'] p-note">trying to do stuff</li>
-						<li class="[list-style-type:'->'] p-note">is a thing</li>
+						<li class="[list-style-type:'->'] p-note">is a thing that exists</li>
 						<li class="[list-style-type:'->']">
 							<span class="p-category">software engineer</span>,
 							<span class="p-category">indie game dev</span>
