@@ -9,43 +9,58 @@
 
 <div class="flex flex-col md:flex-row gap-y-2 lg:gap-y-0 md:h-full h-card">
 	<div class="flex flex-col gap-y-2 lg:gap-y-0">
-		<Window title="readme?" iconUri="/icons/question.png">
-			<div class="flex flex-col prose prose-ralsei prose-img:m-0 leading-none">
-				<div class="flex flex-row gap-2 mb-2 mx-auto overflow-hidden">
+		<Window title="readme?" iconUri="/icons/question.png" removePadding>
+			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
+				<div
+					class="flex flex-row gap-2 bg-ralsei-black bg-opacity-30 overflow-hidden"
+				>
 					{#each data.banners as bannerNo, index}
-					{@const hideIfMobile = index === data.banners.length - 1}
-						<img width=150 height=20 alt="banner" class="{hideIfMobile ? "hidden" : ""} sm:inline w-[150px] [height:20px] [image-rendering:pixelated_!important]" src="/banners/{bannerNo}.gif">
+						{@const hideIfMobile = index === data.banners.length - 1}
+						<img
+							width="150"
+							height="20"
+							alt="banner"
+							class="
+								{hideIfMobile ? 'hidden' : ''} sm:inline w-[150px] [height:20px]
+								[image-rendering:pixelated_!important] shadow-ralsei-black shadow-[0px_4px_2px_0_rgb(0_0_0_/_0.05)]
+							"
+							src="/banners/{bannerNo}.gif"
+						/>
 					{/each}
 				</div>
 				<div class="flex flex-grow">
-					<div class="w-36 [height:9rem] [padding:8px] bg-ralsei-black bg-opacity-30 place-content-center">
+					<div
+						class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black bg-opacity-30"
+					>
 						<Tooltip x="-translate-x-[40%]" targetX="group-hover:-translate-x-[10%]">
-							<svelte:fragment slot="tooltipContent">character from q.u.q. (good vn go read it NOW)</svelte:fragment>
-							<img
-								class="w-36 u-photo"
-								src="/pfp.png"
-								alt="character from q.u.q."
-							/>
+							<svelte:fragment slot="tooltipContent"
+								>character from q.u.q. (good vn go read it NOW)</svelte:fragment
+							>
+							<img class="w-36 u-photo" src="/pfp.png" alt="character from q.u.q." />
 						</Tooltip>
 					</div>
-					<ul
-						class="place-self-center m-0 leading-none marker:[content:'->'] [list-style-type:'->']"
+					<div
+						class="flex flex-row flex-grow place-content-center ml-1.5 [padding:8px] bg-ralsei-black bg-opacity-30"
 					>
-						<li class="[list-style-type:'->'] p-note">trying to do stuff</li>
-						<li class="[list-style-type:'->'] p-note">is a thing that exists</li>
-						<li class="[list-style-type:'->']">
-							<span class="p-category">software engineer</span>,
-							<span class="p-category">indie game dev</span>
-						</li>
-						<li class="[list-style-type:'->']">
-							in <span class="p-country-name">turkey</span>
-							<i class="text-[0.5rem]">(get me out)</i>
-						</li>
-						<li class="[list-style-type:'->']">aka <span class="p-nickname">yusdacra</span></li>
-					</ul>
+						<ul
+							class="place-self-center m-0 mr-4 [padding-left:1em] sm:[padding-left:0.5em] leading-none marker:[content:'->'] [list-style-type:'->']"
+						>
+							<li class="[list-style-type:'->'] p-note">trying to do stuff</li>
+							<li class="[list-style-type:'->'] p-note">is a thing that exists</li>
+							<li class="[list-style-type:'->']">
+								<span class="p-category">software engineer</span>,
+								<span class="p-category">indie game dev</span>
+							</li>
+							<li class="[list-style-type:'->']">
+								in <span class="p-country-name">turkey</span>
+								<i class="text-[0.5rem]">(get me out)</i>
+							</li>
+							<li class="[list-style-type:'->']">aka <span class="p-nickname">yusdacra</span></li>
+						</ul>
+					</div>
 				</div>
-				<div class="flex flex-row">
-					<p class="leading-none m-0 mt-3 text-sm">
+				<div class="flex flex-row [padding:8px] bg-ralsei-black bg-opacity-30">
+					<p class="leading-none m-0 text-sm">
 						hi there
 						<img
 							class="relative inline h-5 animate-squiggle pb-1"
@@ -72,7 +87,7 @@
 		</Window>
 		<Window title="latest stuff" style="mt-auto">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
-				<LatestStuff/>
+				<LatestStuff />
 			</div>
 		</Window>
 	</div>
