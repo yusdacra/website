@@ -131,7 +131,7 @@
 	</defs>
 </svg>
 
-<div class="md:h-[96vh] pb-[8vh] lg:px-[4vw] 2xl:px-[8vw] lg:pb-[5vh] lg:pt-[3.5vh] overflow-x-hidden [scrollbar-gutter:stable]">
+<div class="md:h-[96vh] pb-[8vh] lg:px-[1vw] 2xl:px-[2vw] lg:pb-[3vh] lg:pt-[1vh] overflow-x-hidden [scrollbar-gutter:stable]">
 	<slot />
 </div>
 
