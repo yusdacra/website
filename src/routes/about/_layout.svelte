@@ -7,14 +7,14 @@
 	export let title;
 </script>
 
-<article class="flex flex-wrap md:flex-nowrap gap-4 h-entry">
-	<Window {title}>
-		<div class="prose prose-ralsei leading-6 prose-ul:leading-5 max-w-[80ch] e-content">
+<div class="flex flex-wrap md:flex-nowrap gap-4 md:gap-8">
+	<Window {title} style="ml-auto">
+		<div class="prose prose-ralsei leading-6 prose-ul:leading-5 max-w-[80ch]">
 			<slot />
 		</div>
 	</Window>
-	<div class="sticky flex flex-col gap-4 !leading-6 prose-ul:!leading-5">
+	<div class="sticky flex flex-col mr-auto gap-4 md:gap-8 !leading-6 prose-ul:!leading-5">
 		<Stuff/>
 		<Itches/>
 	</div>
-</article>
+</div>
