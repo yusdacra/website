@@ -17,7 +17,7 @@ import Window from '../../components/window.svelte';
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
 	<Window title="guestbook" style="mx-auto" iconUri="/icons/guestbook.png">
-		<div class="flex flex-col gap-4 2xl:w-[60ch]">
+		<div class="flex flex-col gap-4 2xl:w-[60ch] leading-6">
 			<p>
 				hia, here is the guestbook if you wanna post anything :)
 				<br />
@@ -41,11 +41,11 @@ import Window from '../../components/window.svelte';
 					<div class="flex flex-row gap-2 items-center justify-center">
 						<input type="checkbox" id="anon" name="anon" checked/>
 						<label for="anon" class="text-sm font-monospace grow text-shadow-white">post anonymously</label>
-						<p class="text-sm font-monospace">--- posted by ...</p>
+						<p class="text-sm font-monospace">--- posted by you</p>
 					</div>
 				</div>
-				<div class="entry flex flex-wrap gap-1.5 p-1 items-center">
-					<p class="text-xl ms-2 align-middle">auth via:</p>
+				<div class="entry flex flex-wrap gap-1.5 p-1 items-baseline">
+					<p class="text-xl ms-2">auth via:</p>
 					{#each ['discord', 'github'] as platform}
 					<Tooltip x="" y="translate-y-[70%]" targetY="" targetX="">
 						<svelte:fragment slot="tooltipContent">post with {platform}</svelte:fragment>
@@ -53,7 +53,7 @@ import Window from '../../components/window.svelte';
 							type="submit"
 							value={platform}
 							formaction="?/post_{platform}"
-							class="text-lg text-ralsei-green-light leading-5 hover:underline motion-safe:hover:animate-squiggle w-fit p-0.5"
+							class="text-lg text-ralsei-green-light leading-none hover:underline motion-safe:hover:animate-squiggle w-fit py-1 px-0.5"
 						/>
 					</Tooltip>
 					{/each}
