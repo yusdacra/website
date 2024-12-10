@@ -12,7 +12,7 @@
 		<Window title="readme?" iconUri="/icons/question.png" removePadding>
 			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
 				<div
-					class="flex flex-row gap-2 bg-ralsei-black bg-opacity-30 overflow-hidden"
+					class="flex flex-row gap-3 mx-auto bg-ralsei-black bg-opacity-30 overflow-hidden"
 				>
 					{#each data.banners as bannerNo, index}
 						{@const hideIfMobile = index === data.banners.length - 1}
