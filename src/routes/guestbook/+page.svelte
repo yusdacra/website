@@ -16,7 +16,7 @@ import Window from '../../components/window.svelte';
 </script>
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
-	<Window title="guestbook" iconUri="/icons/guestbook.png">
+	<Window title="guestbook" style="mx-auto" iconUri="/icons/guestbook.png">
 		<div class="flex flex-col gap-4 2xl:w-[60ch]">
 			<p>
 				hia, here is the guestbook if you wanna post anything :)
@@ -70,8 +70,7 @@ import Window from '../../components/window.svelte';
 			</form>
 		</div>
 	</Window>
-	<div class="grow" />
-	<Window id='guestbookentries' title="entries" iconUri="/icons/entries.png">
+	<Window id='guestbookentries' style="mx-auto" title="entries" iconUri="/icons/entries.png">
 		<div class="flex flex-col gap-2 md:gap-4 2xl:w-[60ch]">
 			{#if data.getRatelimited}
 				<p class="text-error">
