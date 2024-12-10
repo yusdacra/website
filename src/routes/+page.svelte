@@ -8,7 +8,7 @@
 </script>
 
 <div class="flex flex-col md:flex-row gap-y-2 lg:gap-y-0 md:h-full h-card">
-	<div class="flex flex-col gap-y-2 lg:gap-y-0">
+	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto">
 		<Window title="readme?" iconUri="/icons/question.png" removePadding>
 			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
 				<div
@@ -91,9 +91,8 @@
 			</div>
 		</Window>
 	</div>
-	<div class="hidden md:block md:grow" />
-	<div class="flex flex-col gap-y-2 lg:gap-y-0">
-		<Window title="links!" iconUri="/icons/contact.png" style="md:ml-auto">
+	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto w-full md:w-fit place-items-end">
+		<Window title="links!" iconUri="/icons/contact.png">
 			<div class="prose prose-ralsei prose-ul:leading-[1.4rem] prose-headings:leading-none">
 				<ul>
 					<li>discord: yusdacra</li>
