@@ -11,6 +11,7 @@ export interface Note {
     content: string,
     published: number,
     outgoingLinks?: OutgoingLinkData[],
+    replyTo?: NoteId,
 }
 type NoteId = string
 
@@ -29,6 +30,21 @@ export const genNoteId = () => {
 export const noteExists = (id: NoteId) => { return existsSync(getNotePath(id)) }
 export const readNote = (id: NoteId): Note => {
     return JSON.parse(readFileSync(getNotePath(id)).toString())
+}
+export const findReplyRoot = (id: NoteId): {rootNote: Note, rootNoteId: NoteId} => {
+    let currentNoteId: string | null = id
+    let currentNote: Note | null = null
+    while (currentNoteId !== null) {
+        currentNote = readNote(currentNoteId)
+        currentNoteId = currentNote.replyTo ?? null
+    }
+    if (currentNote === null || currentNoteId === null) {
+        throw "no note with id found"
+    }
+    return {
+        rootNote: currentNote,
+        rootNoteId: currentNoteId,
+    }
 }
 export const writeNote = (id: NoteId, note: Note) => {
     writeFileSync(getNotePath(id), JSON.stringify(note))

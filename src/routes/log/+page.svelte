@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Window from '../../components/window.svelte';
     import Token from '../../components/token.svelte';
+	import { parseAtUri } from '$lib/bluesky.js';
 
 	export let data;
 
@@ -16,6 +17,12 @@
 
     const highlightedNote = data.notes.get(data.highlightedNote ?? '') ?? null
 
+    const getOutgoingLink = (name: string, link: string) => {
+        if (name === "bsky") {
+            return parseAtUri(link)
+        }
+        return link
+    }
     // this is ASS this should be a tailwind class
     const getTextShadowStyle = (color: string) => {
         return `text-shadow: 0 0 1px theme(colors.ralsei.black), 0 0 5px ${color};`
@@ -52,7 +59,7 @@
 <Token v={renderDate(note.published)} small={!isHighlighted}/> <Token v={noteId} keywd small={!isHighlighted}/><Token v="#" punct/>&nbsp;&nbsp;<Token v={note.content} str/>
 {#each note.outgoingLinks ?? [] as {name, link}}
 {@const color = outgoingLinkColors[name]}
-<span class="text-sm"><Token v="(" punct/><a style="color: {color};{getTextShadowStyle(color)}" href={link}>{name}</a><Token v=")" punct/></span>
+<span class="text-sm"><Token v="(" punct/><a style="color: {color};{getTextShadowStyle(color)}" href={getOutgoingLink(name, link)}>{name}</a><Token v=")" punct/></span>
 {/each}
 </div>
 {#if index < data.notes.size - 1}

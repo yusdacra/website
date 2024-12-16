@@ -1,8 +1,8 @@
 import { env } from '$env/dynamic/private'
-import { Agent, CredentialSession, RichText } from '@atproto/api'
+import { Bot } from "@skyware/bot";
 import { get, writable } from 'svelte/store'
 
-const bskyClient = writable<null | Agent>(null)
+const bskyClient = writable<null | Bot>(null)
 
 export const getBskyClient = async () => {
     let client = get(bskyClient)
@@ -13,19 +13,15 @@ export const getBskyClient = async () => {
     return client
 }
 
-export const postToBsky = async (text: string) => {
-    let client = await getBskyClient()
-    const rt = new RichText({ text })
-    await rt.detectFacets(client)
-    const {uri} = await client.post({
-        text: rt.text,
-        facets: rt.facets,
-    })
+export const parseAtUri = (uri: string) => {
+    if (uri.startsWith("https://bsky.gaze.systems")) {
+        return uri
+    }
     return `https://bsky.gaze.systems/post/${uri.split('/').pop()}`
 }
 
 const loginToBsky = async () => {
-    const creds = new CredentialSession(new URL("https://bsky.social"))
-    await creds.login({ identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })
-    return new Agent(creds)
+    const bot = new Bot({ service: "https://bsky.social" })
+    await bot.login({ identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })
+    return bot
 }
