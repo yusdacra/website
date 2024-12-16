@@ -2,7 +2,7 @@ import { env } from '$env/dynamic/private';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { getBskyClient } from '$lib/bluesky.js';
 import { createNote, findReplyRoot, genNoteId, readNote, type Note } from '$lib/notes';
-import type { Post, ReplyRef } from '@skyware/bot';
+import type { Post, PostPayload, PostReference, ReplyRef } from '@skyware/bot';
 
 interface NoteData {
     content: string,
@@ -38,33 +38,25 @@ export const POST = async ({ request }) => {
         const postContent = `${noteData.content} (${PUBLIC_BASE_URL}/log?id=${noteId})`
         try {
             const bot = await getBskyClient()
+            let postPayload: PostPayload = {
+                text: postContent,
+                createdAt: new Date(note.published),
+                external: noteData.embedUri,
+            }
+            let postRef: PostReference
             // find parent and reply posts
             let replyRef: ReplyRef | null = null
             if (noteData.replyTo !== undefined && repliedNote !== null) {
                 const getBskyUri = (note: Note) => { return note.outgoingLinks?.find((v) => {return v.name === "bsky"})?.link }
                 const parentUri = getBskyUri(repliedNote)
-                let parentPost: Post | null = null
                 if (parentUri !== undefined) {
-                    parentPost = await bot.getPost(parentUri)
+                    const parentPost = await bot.getPost(parentUri)
+                    postRef = await parentPost.reply(postPayload)
                 }
-                const rootUri = getBskyUri(findReplyRoot(noteData.replyTo).rootNote)
-                let rootPost: Post | null = null
-                if (rootUri !== undefined) {
-                    rootPost = await bot.getPost(rootUri)
-                }
-                if (parentPost !== null && rootPost !== null) {
-                    replyRef = {
-                        parent: parentPost,
-                        root: rootPost,
-                    }
-                }
+                throw "a reply was requested but no reply is found"
+            } else {
+                postRef = await bot.post(postPayload)
             }
-            const postRef = await bot.post({
-                text: postContent,
-                createdAt: new Date(note.published),
-                replyRef: replyRef ?? undefined,
-                external: noteData.embedUri,
-            })
             note.outgoingLinks?.push({name: "bsky", link: postRef.uri})
         } catch(why) {
             console.log(`failed to post note #${noteId} to bsky: `, why)
