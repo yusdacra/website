@@ -52,8 +52,9 @@ export const POST = async ({ request }) => {
                 if (parentUri !== undefined) {
                     const parentPost = await bot.getPost(parentUri)
                     postRef = await parentPost.reply(postPayload)
+                } else {
+                    throw "a reply was requested but no reply is found"
                 }
-                throw "a reply was requested but no reply is found"
             } else {
                 postRef = await bot.post(postPayload)
             }
