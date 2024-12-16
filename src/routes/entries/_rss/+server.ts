@@ -18,9 +18,9 @@ const render = (posts: PostData[]) => `<?xml version="1.0" encoding="UTF-8" ?>
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
   <atom:link href="${entriesUrl}/_rss" rel="self" type="application/rss+xml" />
-  <title>gaze.systems</title>
-  <link>${PUBLIC_BASE_URL}</link>
-  <description>dusk's personal website</description>
+  <title>dusk's posts (@gaze.systems)</title>
+  <link>${entriesUrl}</link>
+  <description>posts from my website</description>
   ${posts.map((post) => `<item>
   <guid>${entriesUrl}/${post.path}</guid>
   <title>${post.metadata.title}</title>
