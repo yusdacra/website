@@ -38,7 +38,7 @@
 
           src = ./.;
           
-          outputHash = "sha256-ZbkI9mn+gszt8BHSfc33N2Ge3o1pEnGfWOUJfiQUg28=";
+          outputHash = "sha256-P6H//Q95XZJKzjOX+FcCk4fViyUyqbahK3K1KbIQR88=";
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
 
