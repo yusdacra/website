@@ -166,9 +166,10 @@
 			</Tooltip>
 			{#if isRoute("entries")}
 			<div class="navbox !gap-1">
-				<a class="align-middle hover:underline" href="/entries/_rss">rss</a>
+				rss:
+				<a class="align-middle hover:underline" href="/entries/_rss">posts</a>
 				/
-				<a class="align-middle hover:underline" href="/entries/_jsonfeed">jsonfeed</a>
+				<a class="align-middle hover:underline" href="/log/_rss">log</a>
 			</div>
 			{/if}
 		</div>
