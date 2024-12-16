@@ -32,18 +32,19 @@ export const readNote = (id: NoteId): Note => {
     return JSON.parse(readFileSync(getNotePath(id)).toString())
 }
 export const findReplyRoot = (id: NoteId): {rootNote: Note, rootNoteId: NoteId} => {
-    let currentNoteId: string | null = id
-    let currentNote: Note | null = null
-    while (currentNoteId !== null) {
-        currentNote = readNote(currentNoteId)
-        currentNoteId = currentNote.replyTo ?? null
+    let noteId: string | null = id
+    let current: {rootNote?: Note, rootNoteId?: NoteId} = {}
+    while (noteId !== null) {
+        current.rootNote = readNote(noteId)
+        current.rootNoteId = noteId
+        noteId = current.rootNote.replyTo ?? null
     }
-    if (currentNote === null || currentNoteId === null) {
+    if (current.rootNote === undefined || current.rootNoteId === undefined) {
         throw "no note with id found"
     }
     return {
-        rootNote: currentNote,
-        rootNoteId: currentNoteId,
+        rootNote: current.rootNote,
+        rootNoteId: current.rootNoteId,
     }
 }
 export const writeNote = (id: NoteId, note: Note) => {
