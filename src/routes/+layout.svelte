@@ -164,7 +164,7 @@
 				</svelte:fragment>
 				<div class="navbox"><p><span class="text-ralsei-green-light text-shadow-green">{data.visitCount}</span> visit(s)</p></div>
 			</Tooltip>
-			{#if isRoute("entries")}
+			{#if isRoute("entries") || isRoute("log")}
 			<div class="navbox !gap-1">
 				rss:
 				<a class="align-middle hover:underline" href="/entries/_rss">posts</a>
