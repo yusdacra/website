@@ -13,13 +13,6 @@ export const getBskyClient = async () => {
     return client
 }
 
-export const parseAtUri = (uri: string) => {
-    if (uri.startsWith("https://bsky.gaze.systems")) {
-        return uri
-    }
-    return `https://bsky.gaze.systems/post/${uri.split('/').pop()}`
-}
-
 const loginToBsky = async () => {
     const bot = new Bot({ service: "https://bsky.social" })
     await bot.login({ identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })

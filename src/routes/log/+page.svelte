@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Window from '../../components/window.svelte';
     import Token from '../../components/token.svelte';
-	import { parseAtUri } from '$lib/bluesky.js';
 
 	export let data;
 
@@ -19,7 +18,10 @@
 
     const getOutgoingLink = (name: string, link: string) => {
         if (name === "bsky") {
-            return parseAtUri(link)
+            if (link.startsWith("https://bsky.gaze.systems")) {
+                return link
+            }
+            return `https://bsky.gaze.systems/post/${link.split('/').pop()}`
         }
         return link
     }
