@@ -7,6 +7,7 @@ import type { Post, ReplyRef } from '@skyware/bot';
 interface NoteData {
     content: string,
     replyTo?: string,
+    embedUri?: string,
     bskyPosse: boolean,
 }
 
@@ -61,7 +62,8 @@ export const POST = async ({ request }) => {
             const postRef = await bot.post({
                 text: postContent,
                 createdAt: new Date(note.published),
-                replyRef: replyRef ?? undefined
+                replyRef: replyRef ?? undefined,
+                external: noteData.embedUri,
             })
             note.outgoingLinks?.push({name: "bsky", link: postRef.uri})
         } catch(why) {

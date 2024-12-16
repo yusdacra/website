@@ -1,4 +1,6 @@
-use reqwest::header::AUTHORIZATION;
+use std::str::FromStr;
+
+use reqwest::{header::AUTHORIZATION, Url};
 use scc::HashMap as ConcurrentHashMap;
 use serenity::{
     all::ActivityData,
@@ -51,6 +53,13 @@ impl EventHandler for Handler {
             {
                 note_data.insert("replyTo".to_string(), JsonValue::String(reply_note_id));
             }
+        }
+        // add embed uri
+        if let Some(uri) = note_content
+            .split(&[' ', '(', ')'][..])
+            .find_map(|s| Url::from_str(s).ok())
+        {
+            note_data.insert("embedUri".to_string(), JsonValue::String(uri.to_string()));
         }
         let resp = self
             .http
