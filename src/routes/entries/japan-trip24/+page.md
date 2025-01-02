@@ -6,7 +6,8 @@ excerpt = "photos from my trip to japan"
 +++
 
 <script lang="ts">
-    export let data;
+    import images from './images.json'
+    import { CldImage } from 'svelte-cloudinary'
 </script>
 
 <style>
@@ -19,13 +20,14 @@ excerpt = "photos from my trip to japan"
 
 photos i took while on a japan trip
 
-<p>
-these are *not* sorted, have fun trying to figure out the actual order
-<span class="text-xs italic">(i accidentally stripped the exif data and im too lazy to find the images again)</span>
-</p>
+~~these are *not* sorted, have fun trying to figure out the actual order (i accidentally stripped the exif data and im too lazy to find the images again)~~
+fixed!!!! i also added a few images because im dumb and forgot
+
+*(you can click on an image to see original!)*
 
 <div class="grid gap-0.5 auto-rows-min md:grid-cols-4">
-{#each data.images as src}
-<enhanced:img class="w-full h-full object-cover [transition:transform_.4s] md:hover:[transform:scale(2.5)]" {src}/>
+{#each images as image}
+{@const ogimage = `https://res.cloudinary.com/dgtwf7mar/image/upload/${image}`}
+<a class="!animate-none" href={ogimage}><CldImage width={480} height={480} src={image} class="w-full h-full object-cover [image-rendering:high-quality_!important]"/></a>
 {/each}
 </div>
