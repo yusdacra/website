@@ -5,6 +5,11 @@
 	import Tooltip from '../components/tooltip.svelte';
 	import Window from '../components/window.svelte';
 	import '../styles/app.css';
+	import { configureCloudinary } from 'svelte-cloudinary';
+
+	configureCloudinary({
+		cloudName: 'dgtwf7mar',
+	});
 
 	export let data;
 
