@@ -171,8 +171,8 @@
 			<Tooltip>
 				<svelte:fragment slot="tooltipContent">
 					<p class="font-monospace">
-						<nobr>total visits = <span class="text-ralsei-green-light text-shadow-green">{data.visitCount.toString().padStart(10, "0")}</span></nobr>
-						<nobr>unique recent visits = <span class="text-ralsei-green-light text-shadow-green">{data.lastVisitors.size.toString().padStart(2, "0")}</span></nobr>
+						<nobr>total visits = <span class="text-ralsei-green-light text-shadow-green">{data.visitCount.toString().padStart(9, "0")}</span></nobr>
+						<nobr>uniq recent visits = <span class="text-ralsei-green-light text-shadow-green">{data.lastVisitors.size.toString().padStart(3, "0")}</span></nobr>
 					</p>
 				</svelte:fragment>
 				<div class="navbox"><p><span class="text-ralsei-green-light text-shadow-green">{recentVisitCount}</span> recent clicks</p></div>
