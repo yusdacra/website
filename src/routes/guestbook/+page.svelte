@@ -23,7 +23,6 @@ import Window from '../../components/window.svelte';
 			</p>
 			<p>
 				just fill the post in and click on your preferred auth method to post
-				(auth is there because i don't want to deal with any bots, sorry -.-)
 			</p>
 			<p>rules: be a good human bean pretty please (and don't be shy!!!)</p>
 			<form method="post">
