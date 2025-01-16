@@ -20,11 +20,12 @@ import Window from '../../components/window.svelte';
 		<div class="flex flex-col gap-4 2xl:w-[60ch] leading-6">
 			<p>
 				hia, here is the guestbook if you wanna post anything :)
-				<br />
-				just fill the post in and click on your preferred auth method to post
 			</p>
-			<p>rules: be a good human bean pretty please</p>
-			<p>don't be shy!!!</p>
+			<p>
+				just fill the post in and click on your preferred auth method to post
+				(auth is there because i don't want to deal with any bots, sorry -.-)
+			</p>
+			<p>rules: be a good human bean pretty please (and don't be shy!!!)</p>
 			<form method="post">
 				<div class="entry entryflex">
 					<div class="flex flex-row">
