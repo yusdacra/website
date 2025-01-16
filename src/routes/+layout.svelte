@@ -42,10 +42,6 @@
 
 	$: title = getTitle(data.route);
 
-	$: recentVisitCount = data.lastVisitors.values().reduce(
-		(total, visitor) => { return total + visitor.visits.length; }, 0
-	)
-
 	const svgSquiggles = [[2], [3], [2], [3], [1]];
 </script>
 
@@ -175,7 +171,7 @@
 						<nobr>uniq recent visits = <span class="text-ralsei-green-light text-shadow-green">{data.lastVisitors.size.toString().padStart(3, ".")}</span></nobr>
 					</p>
 				</svelte:fragment>
-				<div class="navbox"><p><span class="text-ralsei-green-light text-shadow-green">{recentVisitCount}</span> recent clicks</p></div>
+				<div class="navbox"><p><span class="text-ralsei-green-light text-shadow-green">{data.recentVisitCount}</span> recent clicks</p></div>
 			</Tooltip>
 			{#if isRoute("entries") || isRoute("log")}
 			<div class="navbox !gap-1">

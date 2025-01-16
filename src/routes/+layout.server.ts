@@ -15,9 +15,16 @@ export async function load({ request, cookies, url }) {
         throw error(403, "get a better user agent silly")
     }
 
+    const lastVisitors = addLastVisitor(request, cookies)
+    let recentVisitCount = 0
+    for (const [_, visitor] of lastVisitors) {
+        recentVisitCount += visitor.visits.length
+    }
+
     return {
         route: url.pathname,
         visitCount: incrementVisitCount(request, cookies),
-        lastVisitors: addLastVisitor(request, cookies),
+        lastVisitors,
+        recentVisitCount,
     }
 }
