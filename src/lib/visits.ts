@@ -48,10 +48,12 @@ const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cooki
     visitors.forEach((visitor, id, map) => {
         if (currentTime - visitor.visits[0] > 1000 * VISITOR_EXPIRY_SECONDS)
             map.delete(id)
-        else
+        else {
             visitor.visits = visitor.visits.filter((since) => {
                 return currentTime - since < 1000 * VISITOR_EXPIRY_SECONDS
             })
+            map.set(id, visitor)
+        }
     })
     // check whether the request is from a bot or not (this doesnt need to be accurate we just want to filter out honest bots)
     if (isBot(request)) { return visitors }
