@@ -59,7 +59,7 @@
 			class="
 				window-titlebar p-1 border-ralsei-white border-8
 				bg-gradient-to-l from-ralsei-pink-neon to-ralsei-black to-75%
-				{!isOnMobile ? "cursor-move" : ""} uppercase
+				{!isOnMobile ? "cursor-move" : ""}
 			"
 			style="border-style: hidden hidden ridge hidden;"
 		>

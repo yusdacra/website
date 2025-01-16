@@ -1,5 +1,5 @@
 import { testUa } from '$lib/robots.js';
-import { incrementVisitCount, notifyDarkVisitors } from '$lib/visits.js';
+import { addLastVisitor, incrementVisitCount, notifyDarkVisitors } from '$lib/visits.js';
 import { error } from '@sveltejs/kit';
 
 export const csr = true;
@@ -18,5 +18,6 @@ export async function load({ request, cookies, url }) {
     return {
         route: url.pathname,
         visitCount: incrementVisitCount(request, cookies),
+        lastVisitors: addLastVisitor(request, cookies),
     }
 }

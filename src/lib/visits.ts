@@ -2,15 +2,15 @@ import { env } from "$env/dynamic/private";
 import { scopeCookies } from "$lib";
 import type { Cookies } from "@sveltejs/kit";
 import { existsSync, readFileSync, writeFileSync } from "fs";
+import { nanoid } from "nanoid";
 import { get, writable } from "svelte/store";
 
 const visitCountFile = `${env.WEBSITE_DATA_DIR}/visitcount`
-const visitCount = writable(parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0'));
+const visitCount = writable(parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0'))
 
-type Visitor = { since: number }
-const lastVisitors = writable<Visitor[]>([]);
-const MAX_VISITORS = 10
-const VISITOR_EXPIRY_SECONDS = 60 * 30 // half an hour is reasonable
+type Visitor = { count: number, since: number }
+const lastVisitors = writable<Map<string, Visitor>>(new Map())
+const VISITOR_EXPIRY_SECONDS = 60 * 60 * 1
 
 export const incrementVisitCount = (request: Request, cookies: Cookies) => {
     let currentVisitCount = get(visitCount)
@@ -35,31 +35,45 @@ export const incrementVisitCount = (request: Request, cookies: Cookies) => {
 }
 
 export const addLastVisitor = (request: Request, cookies: Cookies) => {
+    let visitors = get(lastVisitors)
+    console.log(visitors)
+    visitors = _addLastVisitor(visitors, request, cookies)
+    lastVisitors.set(visitors)
+    return visitors
+}
+
+// why not use this for incrementVisitCount? cuz i wanna have separate visit counts (one per hour and one per day, per hour being recent visitors)
+const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cookies: Cookies) => {
     const currentTime = Date.now()
-    let visitors = get(lastVisitors).filter(
-        (value) => { return currentTime - value.since > 1000 * VISITOR_EXPIRY_SECONDS }
+    // filter out old entries
+    visitors = new Map(
+        visitors.entries().filter(
+            ([_, value]) =>
+                { return currentTime - value.since < 1000 * VISITOR_EXPIRY_SECONDS }
+        )
     )
     // check whether the request is from a bot or not (this doesnt need to be accurate we just want to filter out honest bots)
     if (isBot(request)) { return visitors }
     const scopedCookies = scopeCookies(cookies, '/')
     // parse the last visit timestamp from cookies if it exists
-    const visitorTimestamp = parseInt(scopedCookies.get('visitorTimestamp') || "0")
-    // get unix timestamp
-    const timeSinceVisit = currentTime - visitorTimestamp
-    // check if this is the first time a client is visiting or if an hour has passed since they last visited
-    if (visitorTimestamp === 0 || timeSinceVisit > 1000 * VISITOR_EXPIRY_SECONDS) {
-        visitors.push({ since: currentTime })
-        if (visitors.length > MAX_VISITORS) { visitors.shift() }
-        // update the cookie with the current timestamp
-        scopedCookies.set('visitorTimestamp', currentTime.toString())
+    let visitorId = scopedCookies.get('visitorId') || ""
+    // if no such id exists, create one and assign it to the client
+    if (! visitors.has(visitorId)) {
+        visitorId = nanoid()
+        scopedCookies.set('visitorId', visitorId)
+        console.log(`new client id ${visitorId}`)
     }
+    // update the entry
+    let visitorEntry = visitors.get(visitorId) || {count: 0, since: 0}
+    visitorEntry.count += 1
+    visitorEntry.since = currentTime
+    visitors.set(visitorId, visitorEntry);
     return visitors
 }
 
 const isBot = (request: Request) => {
     const ua = request.headers.get('user-agent')
     return ua ? ua.toLowerCase().match(/(bot|crawl|spider|walk|fetch|scrap|proxy|image)/) !== null : true
-
 }
 
 export const notifyDarkVisitors = (url: URL, request: Request) => {

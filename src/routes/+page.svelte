@@ -19,6 +19,7 @@
 						<img
 							width="150"
 							height="20"
+							title="banners from https://blinkies.cafe/"
 							alt="banner"
 							class="
 								{hideIfMobile ? 'hidden' : ''} sm:inline w-[150px] [height:20px]

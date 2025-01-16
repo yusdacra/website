@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
+	import type { Visitor } from 'svelte/types/compiler/interfaces';
 	import NavButton from '../components/navButton.svelte';
 	import Tooltip from '../components/tooltip.svelte';
 	import Window from '../components/window.svelte';
@@ -40,6 +41,10 @@
 	};
 
 	$: title = getTitle(data.route);
+
+	$: recentVisitCount = data.lastVisitors.values().reduce(
+		(total, visitor) => { return total + visitor.count; }, 0
+	)
 
 	const svgSquiggles = [[2], [3], [2], [3], [1]];
 </script>
@@ -140,7 +145,7 @@
 	<slot />
 </div>
 
-<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible uppercase">
+<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
 	<div
 		class="
 			max-w-full max-h-fit p-1 z-[999]
@@ -160,14 +165,17 @@
 			<div class="hidden md:block grow" />
 			<div class="navbox">
 				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
-				<a class="hover:underline" href="https://xn--sr8hvo.ws">IndieWeb 🕸💍</a>
+				<a class="hover:underline" href="https://xn--sr8hvo.ws">indieweb 🕸💍</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
 			<Tooltip>
 				<svelte:fragment slot="tooltipContent">
-					<img class="min-w-64" style="image-rendering: crisp-edges pixelated;" alt="visits" src="https://count.getloli.com/@yusdacrawebsite?name=yusdacrawebsitetest&theme=booru-lewd&padding=5&offset=0&align=center&scale=1&pixelated=1&darkmode=0&num={data.visitCount}"/>
+					<p class="font-monospace">
+						<nobr>total visits = <span class="text-ralsei-green-light text-shadow-green">{data.visitCount.toString().padStart(10, "0")}</span></nobr>
+						<nobr>unique recent visits = <span class="text-ralsei-green-light text-shadow-green">{data.lastVisitors.size.toString().padStart(2, "0")}</span></nobr>
+					</p>
 				</svelte:fragment>
-				<div class="navbox"><p><span class="text-ralsei-green-light text-shadow-green">{data.visitCount}</span> visit(s)</p></div>
+				<div class="navbox"><p><span class="text-ralsei-green-light text-shadow-green">{recentVisitCount}</span> recent clicks</p></div>
 			</Tooltip>
 			{#if isRoute("entries") || isRoute("log")}
 			<div class="navbox !gap-1">
