@@ -44,6 +44,7 @@ export const getRobotsTxt = async () => {
 }
 
 export const testUa = async (url: string, ua: string) => {
+    if (ua.length === 0) return false
     let parsedRobots = get(cachedParsedRobots)
     if (parsedRobots === null) {
         parsedRobots = robotsParser(`${PUBLIC_BASE_URL}/robots.txt`, await getRobotsTxt())
