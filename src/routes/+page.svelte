@@ -35,9 +35,9 @@
 					>
 						<Tooltip x="-translate-x-[40%]" targetX="group-hover:-translate-x-[10%]">
 							<svelte:fragment slot="tooltipContent"
-								>character from q.u.q. (good vn go read it NOW)</svelte:fragment
+								>character from unorthodox kitten</svelte:fragment
 							>
-							<img class="w-36 u-photo" src="/pfp.png" alt="character from q.u.q." />
+							<img class="w-36 u-photo" src="/pfp.webp" alt="character from unorthodox kitten" />
 						</Tooltip>
 					</div>
 					<div
