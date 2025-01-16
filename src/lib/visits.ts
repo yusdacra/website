@@ -45,19 +45,14 @@ export const addLastVisitor = (request: Request, cookies: Cookies) => {
 const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cookies: Cookies) => {
     const currentTime = Date.now()
     // filter out old entries
-    visitors = new Map(
-        visitors.entries().filter(
-            ([_, visitor]) =>
-                { return currentTime - visitor.visits[0] < 1000 * VISITOR_EXPIRY_SECONDS }
-        ).map(
-            ([id, visitor]) => {
-                visitor.visits = visitor.visits.filter((since) => {
-                    return currentTime - since < 1000 * VISITOR_EXPIRY_SECONDS
-                })
-                return [id, visitor]
-            }
-        )
-    )
+    visitors.forEach((visitor, id, map) => {
+        if (currentTime - visitor.visits[0] > 1000 * VISITOR_EXPIRY_SECONDS)
+            map.delete(id)
+        else
+            visitor.visits = visitor.visits.filter((since) => {
+                return currentTime - since < 1000 * VISITOR_EXPIRY_SECONDS
+            })
+    })
     // check whether the request is from a bot or not (this doesnt need to be accurate we just want to filter out honest bots)
     if (isBot(request)) { return visitors }
     const scopedCookies = scopeCookies(cookies, '/')
