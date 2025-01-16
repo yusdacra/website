@@ -85,7 +85,7 @@
 
             makeBinaryWrapper ${pkgs.bun}/bin/bun $out/bin/${packageJson.name} \
               --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.bun ]} \
-              --add-flags "run --prefer-offline --no-install --cwd $out start"
+              --add-flags "run --bun --prefer-offline --no-install --cwd $out start"
 
             runHook postInstall
           '';
