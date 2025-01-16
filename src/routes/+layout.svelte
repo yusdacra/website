@@ -43,7 +43,7 @@
 	$: title = getTitle(data.route);
 
 	$: recentVisitCount = data.lastVisitors.values().reduce(
-		(total, visitor) => { return total + visitor.count; }, 0
+		(total, visitor) => { return total + visitor.visits.length; }, 0
 	)
 
 	const svgSquiggles = [[2], [3], [2], [3], [1]];

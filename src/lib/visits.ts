@@ -8,7 +8,7 @@ import { get, writable } from "svelte/store";
 const visitCountFile = `${env.WEBSITE_DATA_DIR}/visitcount`
 const visitCount = writable(parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0'))
 
-type Visitor = { count: number, since: number }
+type Visitor = { visits: number[] }
 const lastVisitors = writable<Map<string, Visitor>>(new Map())
 const VISITOR_EXPIRY_SECONDS = 60 * 60 * 1
 
@@ -47,8 +47,15 @@ const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cooki
     // filter out old entries
     visitors = new Map(
         visitors.entries().filter(
-            ([_, value]) =>
-                { return currentTime - value.since < 1000 * VISITOR_EXPIRY_SECONDS }
+            ([_, visitor]) =>
+                { return currentTime - visitor.visits[0] < 1000 * VISITOR_EXPIRY_SECONDS }
+        ).map(
+            ([id, visitor]) => {
+                visitor.visits = visitor.visits.filter((since) => {
+                    return currentTime - since < 1000 * VISITOR_EXPIRY_SECONDS
+                })
+                return [id, visitor]
+            }
         )
     )
     // check whether the request is from a bot or not (this doesnt need to be accurate we just want to filter out honest bots)
@@ -63,9 +70,9 @@ const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cooki
         console.log(`new client visitor id ${visitorId}`)
     }
     // update the entry
-    let visitorEntry = visitors.get(visitorId) || {count: 0, since: 0}
-    visitorEntry.count += 1
-    visitorEntry.since = currentTime
+    let visitorEntry = visitors.get(visitorId) || {visits: []}
+    // put new visit in the front
+    visitorEntry.visits = [currentTime].concat(visitorEntry.visits)
     visitors.set(visitorId, visitorEntry);
     return visitors
 }
