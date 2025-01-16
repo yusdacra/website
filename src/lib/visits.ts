@@ -10,7 +10,7 @@ const visitCount = writable(parseInt(existsSync(visitCountFile) ? readFileSync(v
 
 type Visitor = { visits: number[] }
 const lastVisitors = writable<Map<string, Visitor>>(new Map())
-const VISITOR_EXPIRY_SECONDS = 60 * 60 * 1
+const VISITOR_EXPIRY_SECONDS = 60 * 30 // half an hour seems reasonable
 
 export const incrementVisitCount = (request: Request, cookies: Cookies) => {
     let currentVisitCount = get(visitCount)
