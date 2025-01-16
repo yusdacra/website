@@ -1,10 +1,21 @@
-<script>
+<script lang="ts">
 	import { PUBLIC_BASE_URL } from '$env/static/public';
+	import Note from '../components/note.svelte';
 	import Tooltip from '../components/tooltip.svelte';
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
 
 	export let data;
+
+    const renderDate = (timestamp: number) => {
+        return (new Date(timestamp)).toLocaleString("en-GB", {
+            year: "2-digit",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+        })
+    }
 </script>
 
 <div class="flex flex-col md:flex-row gap-y-2 lg:gap-y-0 md:h-full h-card">
@@ -131,83 +142,88 @@
 					<li>
 						<a href="https://pmart.gaze.systems">random project moon art</a>
 					</li>
-					<li>
-						<a href="https://git.gaze.systems">gitea</a>
-						<span class="text-sm">(if i like you ask me for an acc ;3)</span>
-					</li>
 				</ul>
 			</div>
 		</Window>
-		<Window title="now happening" style="mt-auto" removePadding>
-			{#if data.lastTrack}
-				<div class="flex flex-row m-2 border-4 border-double">
-					<!-- svelte-ignore a11y-missing-attribute -->
-					{#if data.lastTrack.image}
-						<img
-							class="border-4 w-16 h-16"
-							style="border-style: none double none none;"
-							width="64"
-							height="64"
-							src={data.lastTrack.image}
-						/>
-					{:else}
-						<img
-							class="border-4 w-16 h-16 p-2"
-							style="border-style: none double none none; image-rendering: pixelated;"
-							src="/icons/cd_audio.png"
-						/>
-					{/if}
-					<div class="flex flex-col max-w-[40ch] p-2 overflow-hidden">
-						<p
-							class="text-shadow-green text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-						>
-							<span class="text-sm text-shadow-white text-ralsei-white">listening to</span>
-							<a
-								title={data.lastTrack.name}
-								href="https://www.last.fm/user/yusdacra"
-								class="hover:underline">{data.lastTrack.name}</a
-							>
-						</p>
-						<p
-							class="text-shadow-pink text-ralsei-pink-regular text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-						>
-							<span class="text-shadow-white text-ralsei-white">by</span>
-							<span title={data.lastTrack.artist}>{data.lastTrack.artist}</span>
-						</p>
-					</div>
+		<Window title="status" style="mt-auto" removePadding>
+			<div class="m-1.5 flex flex-col font-monospace">
+				<div
+					class="prose prose-ralsei items-center p-1 border-4 text-sm font-bold bg-ralsei-black"
+					style="border-style: double double none double;"
+				>
+					<a href="/entries">last log</a>
+					<span class="border-4 pl-[1ch]" style="border-style: none none none double;">published on {renderDate(data.lastNote.published)}</span>
 				</div>
-			{/if}
-			{#if data.lastGame}
-				<div class="flex flex-row m-2 border-4 border-double">
-					<!-- svelte-ignore a11y-missing-attribute -->
+				<div class="mt-0 p-1 border-4 border-double bg-ralsei-black min-w-full max-w-[40ch]">
+					<Note id={data.lastNoteId} note={data.lastNote} onlyContent/>
+				</div>
+			</div>
+			{#if data.lastTrack}
+			<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
+				<!-- svelte-ignore a11y-missing-attribute -->
+				{#if data.lastTrack.image}
 					<img
 						class="border-4 w-16 h-16"
 						style="border-style: none double none none;"
 						width="64"
 						height="64"
-						src={data.lastGame.icon}
+						src={data.lastTrack.image}
 					/>
-					<div class="flex flex-col max-w-[40ch] p-2 gap-1 overflow-hidden">
-						<p
-							class="text-shadow-green text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-						>
-							<span class="text-sm text-shadow-white text-ralsei-white">playing</span>
-							<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
-								>{data.lastGame.name}</a
-							>
-						</p>
-						<!-- svelte-ignore a11y-missing-attribute -->
+				{:else}
+					<img
+						class="border-4 w-16 h-16 p-2"
+						style="border-style: none double none none; image-rendering: pixelated;"
+						src="/icons/cd_audio.png"
+					/>
+				{/if}
+				<div class="flex flex-col max-w-[40ch] p-2 overflow-hidden">
+					<p
+						class="text-shadow-green text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+					>
+						<span class="text-sm text-shadow-white text-ralsei-white">listening to</span>
 						<a
-							href="https://steamcommunity.com/id/yusdacra"
-							class="text-xs hover:underline text-shadow-green text-ralsei-green-light"
-							><img class="inline w-4" src={data.lastGame.pfp} />
-							<span class="align-middle">steam profile</span></a
+							title={data.lastTrack.name}
+							href="https://www.last.fm/user/yusdacra"
+							class="hover:underline">{data.lastTrack.name}</a
 						>
-					</div>
+					</p>
+					<p
+						class="text-shadow-pink text-ralsei-pink-regular text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+					>
+						<span class="text-shadow-white text-ralsei-white">by</span>
+						<span title={data.lastTrack.artist}>{data.lastTrack.artist}</span>
+					</p>
 				</div>
+			</div>
 			{/if}
-			{#if !data.lastGame && !data.lastTrack}
-				<p class="text-xl m-2">nothing, apparently.</p>
+			{#if data.lastGame}
+			<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
+				<!-- svelte-ignore a11y-missing-attribute -->
+				<img
+					class="border-4 w-16 h-16"
+					style="border-style: none double none none;"
+					width="64"
+					height="64"
+					src={data.lastGame.icon}
+				/>
+				<div class="flex flex-col max-w-[40ch] p-2 gap-1 overflow-hidden">
+					<p
+						class="text-shadow-green text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+					>
+						<span class="text-sm text-shadow-white text-ralsei-white">playing</span>
+						<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
+							>{data.lastGame.name}</a
+						>
+					</p>
+					<!-- svelte-ignore a11y-missing-attribute -->
+					<a
+						href="https://steamcommunity.com/id/yusdacra"
+						class="text-xs hover:underline text-shadow-green text-ralsei-green-light"
+						><img class="inline w-4" src={data.lastGame.pfp} />
+						<span class="align-middle">steam profile</span></a
+					>
+				</div>
+			</div>
 			{/if}
 		</Window>
 	</div>

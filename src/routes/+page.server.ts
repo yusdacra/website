@@ -1,4 +1,5 @@
 import { lastFmGetNowPlaying } from "$lib/lastfm"
+import { readNote, readNotesList } from "$lib/notes.js"
 import { steamGetNowPlaying } from "$lib/steam"
 
 export const load = async ({}) => {
@@ -9,7 +10,9 @@ export const load = async ({}) => {
         const no = getBannerNo(banners)
         banners.push(no)
     }
-    return {banners, lastTrack, lastGame}
+    const lastNoteId = readNotesList()[0]
+    const lastNote = readNote(lastNoteId)
+    return {banners, lastTrack, lastGame, lastNote, lastNoteId}
 }
 
 const getBannerNo = (others: number[]) => {
