@@ -36,7 +36,6 @@ export const incrementVisitCount = (request: Request, cookies: Cookies) => {
 
 export const addLastVisitor = (request: Request, cookies: Cookies) => {
     let visitors = get(lastVisitors)
-    console.log(visitors)
     visitors = _addLastVisitor(visitors, request, cookies)
     lastVisitors.set(visitors)
     return visitors
@@ -61,7 +60,7 @@ const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cooki
     if (! visitors.has(visitorId)) {
         visitorId = nanoid()
         scopedCookies.set('visitorId', visitorId)
-        console.log(`new client id ${visitorId}`)
+        console.log(`new client visitor id ${visitorId}`)
     }
     // update the entry
     let visitorEntry = visitors.get(visitorId) || {count: 0, since: 0}
