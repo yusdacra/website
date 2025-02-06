@@ -178,7 +178,7 @@
 				rss:
 				<a class="align-middle hover:underline" href="/entries/_rss">posts</a>
 				/
-				<a class="align-middle hover:underline" href="/log/_rss">log</a>
+				<a class="align-middle hover:underline" href="https://bsky.app/profile/did:plc:dfl62fgb7wtjj3fcbb72naae/rss">log</a>
 			</div>
 			{/if}
 		</div>
