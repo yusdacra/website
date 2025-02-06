@@ -1,18 +1,18 @@
+import { getUserPosts } from "$lib/bluesky.js"
 import { lastFmGetNowPlaying } from "$lib/lastfm"
-import { readNote, readNotesList } from "$lib/notes.js"
 import { steamGetNowPlaying } from "$lib/steam"
+import { noteFromBskyPost } from "../components/note.svelte"
 
 export const load = async ({}) => {
     const lastTrack = await lastFmGetNowPlaying()
     const lastGame = await steamGetNowPlaying()
+    const lastNote = noteFromBskyPost((await getUserPosts("did:plc:dfl62fgb7wtjj3fcbb72naae", false, 1))[0])
     let banners: number[] = []
     while (banners.length < 3) {
         const no = getBannerNo(banners)
         banners.push(no)
     }
-    const lastNoteId = readNotesList()[0]
-    const lastNote = readNote(lastNoteId)
-    return {banners, lastTrack, lastGame, lastNote, lastNoteId}
+    return {banners, lastTrack, lastGame, lastNote}
 }
 
 const getBannerNo = (others: number[]) => {

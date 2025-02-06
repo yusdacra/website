@@ -155,7 +155,7 @@
 					<span class="border-4 pl-[1ch]" style="border-style: none none none double;">published on {renderDate(data.lastNote.published)}</span>
 				</div>
 				<div class="mt-0 p-1 border-4 border-double bg-ralsei-black min-w-full max-w-[40ch]">
-					<Note id={data.lastNoteId} note={data.lastNote} onlyContent/>
+					<Note note={data.lastNote} onlyContent/>
 				</div>
 			</div>
 			{#if data.lastTrack}

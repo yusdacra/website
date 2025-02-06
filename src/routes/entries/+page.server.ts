@@ -10,6 +10,6 @@ export const load = (params) => {
     if (log_page !== null) {
         url.searchParams.append("page", log_page)
     }
-    var logs_result = load_logs({url})
+    var logs_result = load_logs()
     return logs_result
 }

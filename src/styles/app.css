@@ -1,5 +1,9 @@
 @import './prism-synthwave84.css';
 
+@import 'bluesky-profile-feed-embed/style.css';
+@import 'bluesky-profile-feed-embed/themes/light.css' (prefers-color-scheme: light);
+@import 'bluesky-profile-feed-embed/themes/dim.css' (prefers-color-scheme: dark);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

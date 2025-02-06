@@ -1,41 +1,12 @@
-import { noteExists, readNote, readNotesList } from '$lib/notes'
+import { getUserPosts } from '$lib/bluesky.js';
+import { noteFromBskyPost } from '../../components/note.svelte';
 
-const notesPerPage: number = 15
-
-export const load = ({ url }) => {
-    return _load({ url })
+export const load = async ({ }) => {
+    return _load()
 }
 
-export const _load = ({ url }: { url: URL }) => {
-    // get the note id to search for and display the page it is in
-    const noteId = url.searchParams.get("id")
-    // get the page no if one is provided, otherwise default to 1
-    let page = parseInt(url.searchParams.get("page") || "1")
-    if (isNaN(page)) { page = 1 }
-
-    // calculate page count
-    const notesList = readNotesList()
-    const pageCount = Math.ceil(notesList.length / notesPerPage)
-
-    // find what page the note id if supplied is from
-    if (noteId !== null && noteExists(noteId)) {
-        const noteIndex = notesList.lastIndexOf(noteId)
-        if (noteIndex > -1) {
-            page = Math.floor(noteIndex / notesPerPage) + 1
-        }
+export const _load = async () => {
+    return {
+        feedPosts: (await getUserPosts("did:plc:dfl62fgb7wtjj3fcbb72naae", false, 13)).map(noteFromBskyPost),
     }
-
-    // clamp page between our min and max
-    page = Math.min(page, pageCount)
-    page = Math.max(page, 1)
-
-    // get the notes from the chosen page
-    const notes = new Map(
-        notesList.slice((page - 1) * notesPerPage, page * notesPerPage)
-            .map(
-                (id) => { return [id, readNote(id)] }
-            )
-    )
-
-    return { notes, highlightedNote: noteId, page }
 }
