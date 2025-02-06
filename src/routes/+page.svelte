@@ -146,6 +146,7 @@
 			</div>
 		</Window>
 		<Window title="status" style="mt-auto" removePadding>
+			{#if data.lastNote}
 			<div class="m-1.5 flex flex-col font-monospace">
 				<div
 					class="prose prose-ralsei items-center p-1 border-4 text-sm font-bold bg-ralsei-black"
@@ -158,6 +159,7 @@
 					<Note note={data.lastNote} onlyContent/>
 				</div>
 			</div>
+			{/if}
 			{#if data.lastTrack}
 			<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
 				<!-- svelte-ignore a11y-missing-attribute -->

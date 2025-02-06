@@ -33,3 +33,12 @@ export const getUserPosts = async (did: string, includeReposts: boolean = false,
     }
     return posts
 }
+
+const lastPosts = writable<Post[]>([])
+
+export const updateLastPosts = async () => {
+    const posts = await getUserPosts("did:plc:dfl62fgb7wtjj3fcbb72naae", false, 13)
+    lastPosts.set(posts)
+}
+
+export const getLastPosts = () => { return get(lastPosts) }
