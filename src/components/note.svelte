@@ -61,6 +61,6 @@
 {#if note.hasQuote}<Token v="-contains quote-" keywd small/>{/if}
 {#each note.outgoingLinks ?? [] as {name, link}}
 {@const color = outgoingLinkColors[name]}
-<span class="text-sm"><Token v="(" punct/><a style="color: {color};{getTextShadowStyle(color)}" href={getOutgoingLink(name, link)}>{name}</a><Token v=")" punct/></span>
+<span class="text-sm"><Token v="(" punct/><a class="hover:motion-safe:animate-squiggle hover:underline" style="color: {color};{getTextShadowStyle(color)}" href={getOutgoingLink(name, link)}>{name}</a><Token v=")" punct/></span>
 {/each}
 </div>
