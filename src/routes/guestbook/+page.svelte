@@ -25,7 +25,7 @@
 			<form method="post">
 				<div class="entry entryflex">
 					<textarea
-						class="text-lg ml-0.5 bg-inherit resize-none text-shadow-white placeholder-shown:[text-shadow:none] [field-sizing:content]"
+						class="text-lg p-1 m-0 ml-0.5 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] [field-sizing:content] border-none"
 						name="content"
 						placeholder="say meow!"
 						maxlength="300"
