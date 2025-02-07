@@ -48,7 +48,7 @@
 							<svelte:fragment slot="tooltipContent"
 								>character from unorthodox kitten</svelte:fragment
 							>
-							<img class="w-36 u-photo" src="/pfp.webp" alt="character from unorthodox kitten" />
+							<img class="w-36 u-photo" src="/pfp.png" alt="character from unorthodox kitten" />
 						</Tooltip>
 					</div>
 					<div
