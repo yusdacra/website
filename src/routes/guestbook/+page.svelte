@@ -99,7 +99,8 @@
 
 <style lang="postcss">
 	.entry {
-		@apply bg-ralsei-green-dark/70 border-ralsei-green-light/30 border-x-[3px] border-y-4;
+		@apply bg-ralsei-green-dark/70 border-ralsei-green-light/30 border-x-[4px] border-y-[5px];
+		border-style: ridge;
 	}
 	.entryflex {
 		@apply flex flex-col p-1;
