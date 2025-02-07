@@ -69,6 +69,7 @@ export async function load({ url, cookies }) {
             scopedCookies.set("sendError", "invalid post token! this is either a bug or you should stop doing silly stuff")
             redirect(303, callbackUrl)
         }
+        postTokens.update((set) => { set.delete(postAuth); return set })
         // post entry
         try {
             // return error if content was not set or if empty
