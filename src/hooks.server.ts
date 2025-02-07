@@ -13,5 +13,9 @@ if (UPDATE_LAST_JOB_NAME in scheduledJobs) {
 console.log(`starting ${UPDATE_LAST_JOB_NAME} job...`);
 scheduleJob(UPDATE_LAST_JOB_NAME, "*/1 * * * *", async () => {
     console.log(`running ${UPDATE_LAST_JOB_NAME} job...`)
-    await Promise.all([steamUpdateNowPlaying(), lastFmUpdateNowPlaying(), updateLastPosts()])
+    try {
+        await Promise.all([steamUpdateNowPlaying(), lastFmUpdateNowPlaying(), updateLastPosts()])
+    } catch (err) {
+        console.log(`error while running ${UPDATE_LAST_JOB_NAME} job: ${err}`)
+    }
 }).invoke() // invoke once immediately

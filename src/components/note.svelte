@@ -29,6 +29,7 @@
     export let note: NoteData;
     export let isHighlighted = false;
     export let onlyContent = false;
+    export let showOutgoing = true;
     
     const renderDate = (timestamp: number) => {
         return (new Date(timestamp)).toLocaleString("en-GB", {
@@ -59,8 +60,10 @@
 {#if !onlyContent}<Token v={renderDate(note.published)} small={!isHighlighted}/> {/if}<Token v={note.content} str/>
 {#if note.hasMedia}<Token v="-contains media-" keywd small/>{/if}
 {#if note.hasQuote}<Token v="-contains quote-" keywd small/>{/if}
+{#if showOutgoing}
 {#each note.outgoingLinks ?? [] as {name, link}}
 {@const color = outgoingLinkColors[name]}
 <span class="text-sm"><Token v="(" punct/><a class="hover:motion-safe:animate-squiggle hover:underline" style="color: {color};{getTextShadowStyle(color)}" href={getOutgoingLink(name, link)}>{name}</a><Token v=")" punct/></span>
 {/each}
+{/if}
 </div>

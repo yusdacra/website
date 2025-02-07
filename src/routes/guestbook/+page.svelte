@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Tooltip from '../../components/tooltip.svelte';
-import Window from '../../components/window.svelte';
+	import Note from '../../components/note.svelte';
+	import Token from '../../components/token.svelte';
+	import Window from '../../components/window.svelte';
 
 	export let data;
-	$: hasPreviousPage = data.page > 1;
-	$: hasNextPage = data.hasNext;
 
 	function resetEntriesAnimation() {
 		var el = document.getElementById('guestbookentries');
@@ -16,47 +15,35 @@ import Window from '../../components/window.svelte';
 </script>
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
-	<Window title="guestbook" style="mx-auto" iconUri="/icons/guestbook.png">
-		<div class="flex flex-col gap-4 2xl:w-[60ch] leading-6">
-			<p>
-				hia, here is the guestbook if you wanna post anything :)
-			</p>
-			<p>
-				just fill the post in and click on your preferred auth method to post
-			</p>
-			<p>rules: be a good human bean pretty please (and don't be shy!!!)</p>
+	<Window title="guestbook" style="ml-auto" iconUri="/icons/guestbook.png">
+		<div class="flex flex-col gap-1 max-w-[50ch] leading-6">
+			<div class="prose prose-ralsei leading-6 entry p-2">
+				<p>hia, here is the guestbook if you wanna post anything :)</p>
+				<p>be a good human bean pretty please (and don't be shy!!!)</p>
+				<p class="text-sm italic">(to see all the entries, look <a href="https://bsky.app/profile/guestbook.gaze.systems">here</a>)</p>
+			</div>
 			<form method="post">
 				<div class="entry entryflex">
-					<div class="flex flex-row">
-						<p class="place-self-start grow text-2xl font-monospace">###</p>
-						<p class="justify-end self-center text-sm font-monospace">...</p>
-					</div>
 					<textarea
 						class="text-lg ml-0.5 bg-inherit resize-none text-shadow-white placeholder-shown:[text-shadow:none] [field-sizing:content]"
 						name="content"
 						placeholder="say meow!"
-						maxlength="512"
+						maxlength="300"
 						required
 					/>
-					<div class="flex flex-row gap-2 items-center justify-center">
-						<input type="checkbox" id="anon" name="anon" checked/>
-						<label for="anon" class="text-sm font-monospace grow text-shadow-white">post anonymously</label>
-						<p class="text-sm font-monospace">--- posted by you</p>
-					</div>
 				</div>
-				<div class="entry flex flex-wrap gap-1.5 p-1 items-baseline">
-					<p class="text-xl ms-2">auth via:</p>
-					{#each ['discord', 'github'] as platform}
-					<Tooltip x="" y="translate-y-[70%]" targetY="" targetX="">
-						<svelte:fragment slot="tooltipContent">post with {platform}</svelte:fragment>
-						<input
-							type="submit"
-							value={platform}
-							formaction="?/post_{platform}"
-							class="text-lg text-ralsei-green-light leading-none hover:underline motion-safe:hover:animate-squiggle w-fit py-1 px-0.5"
-						/>
-					</Tooltip>
-					{/each}
+				<div class="flex flex-row gap-1 mt-1">
+					<input
+						type="submit"
+						value="click to post"
+						formaction="?/post"
+						class="entry text-ralsei-green-light leading-none hover:underline motion-safe:hover:animate-squiggle p-1 z-50"
+					/>
+					<div class="marquee-wrapper entry text-ralsei-white/50">
+						<div class="marquee font-monospace">
+							<p class="text-shadow-none">{data.fillText}</p><p class="text-shadow-none">{data.fillText}</p>
+						</div>
+					</div>
 				</div>
 				{#if data.sendRatelimited}
 					<p class="text-error">you are ratelimited, try again in 30 seconds</p>
@@ -70,7 +57,7 @@ import Window from '../../components/window.svelte';
 			</form>
 		</div>
 	</Window>
-	<Window id='guestbookentries' style="mx-auto" title="entries" iconUri="/icons/entries.png">
+	<Window id='guestbookentries' style="mr-auto" title="entries" iconUri="/icons/entries.png" removePadding>
 		<div class="flex flex-col gap-2 md:gap-4 2xl:w-[60ch]">
 			{#if data.getRatelimited}
 				<p class="text-error">
@@ -82,43 +69,28 @@ import Window from '../../components/window.svelte';
 					<p>{data.getError}</p>
 				</details>
 			{:else}
-				{#each data.entries as [entry_id, entry] (entry_id)}
-					{@const date = new Date(entry.timestamp * 1e3).toLocaleString()}
-					<div class="entry entryflex">
-						<div class="flex flex-row">
-							<p class="place-self-start grow text-2xl font-monospace">
-								#{entry_id}
-							</p>
-							<p class="justify-end self-center text-sm font-monospace">{date}</p>
-						</div>
-						<p class="text-lg text-wrap overflow-hidden text-ellipsis ml-0.5 max-w-[56ch]">
-							{entry.content}
-						</p>
-						<p
-							class="max-w-[45ch] place-self-end text-sm font-monospace overflow-hidden text-ellipsis text-nowrap"
-							title={entry.author}
-						>
-							--- posted by {entry.author}
-						</p>
-					</div>
-				{:else}
-					<p>looks like there are no entries :(</p>
+				<div
+					class="
+						prose prose-ralsei
+						prose-pre:rounded-none prose-pre:!m-0 prose-pre:!p-2
+						prose-pre:!bg-ralsei-black prose-code:!bg-ralsei-black
+					"
+				>
+				<pre class="language-bash"><code class="language-bash"><nobr>
+				<Token v="[" punct/>gazesystems <Token v="/" keywd/><Token v="]$" punct/> <Token v="source" funct/> <Token v="scripts/log.nu" />
+				<br>
+				<Token v="[" punct/>gazesystems <Token v="/" keywd/><Token v="]$" punct/> <Token v="let" funct/> <Token v="entries"/> <Token v="=" punct/> <Token v="(" punct/><Token v="ls" funct/> <Token v="guestbook" /> <Token v="|" punct/> <Token v="reverse" funct/> <Token v="|" punct/> <Token v="take" funct/> <Token v="16"/><Token v=")" punct/>
+				<br>
+				<Token v="[" punct/>gazesystems <Token v="/" keywd/><Token v="]$" punct/> <Token v="$entries" /> <Token v="|" punct/> <Token v="each" funct/> <Token v="&#123;" punct/><Token v="|" punct/><Token v="file"/><Token v="|" punct/> <Token v="render" funct/> <Token v="(" punct/><Token v="open" funct/> <Token v="$file.name" /><Token v=")" punct/><Token v="&#125;" punct/>
+				<br>
+				<br>
+				{#each data.entries as note, index}
+				<Note showOutgoing={false} {note}/>
+				{#if index < data.entries.length - 1}
+				<div class="mt-3"/>
+				{/if}
 				{/each}
-			{/if}
-			{#if hasPreviousPage || hasNextPage}
-				<div class="flex flex-row w-full justify-center items-center font-monospace">
-					{#if hasPreviousPage}
-						<a href="/guestbook/?page={data.entries.length > 0 ? data.page - 1 : 1}"
-							on:click={resetEntriesAnimation}
-							>&lt;&lt; previous</a
-						>
-					{/if}
-					{#if hasNextPage && hasPreviousPage}
-						<div class="w-1/12" />
-					{/if}
-					{#if hasNextPage}
-						<a href="/guestbook/?page={data.page + 1}" on:click={resetEntriesAnimation}>next &gt;&gt;</a>
-					{/if}
+				</nobr></code></pre>
 				</div>
 			{/if}
 		</div>
@@ -130,6 +102,32 @@ import Window from '../../components/window.svelte';
 		@apply bg-ralsei-green-dark/70 border-ralsei-green-light/30 border-x-[3px] border-y-4;
 	}
 	.entryflex {
-		@apply flex flex-col gap-3 py-2 px-3;
+		@apply flex flex-col p-1;
+	}
+
+	.marquee-wrapper {
+		max-width: 100%;
+		overflow: hidden;
+	}
+
+	.marquee {
+		white-space: nowrap;
+		overflow: hidden;
+		display: inline-block;
+		animation: marquee 10s linear infinite;
+	}
+
+	.marquee p {
+		transform: translateY(15%);
+		display: inline-block;
+	}
+
+	@keyframes marquee {
+		0% {
+			transform: translate3d(0, 0, 0);
+		}
+		100% {
+			transform: translate3d(-50%, 0, 0);
+		}
 	}
 </style>

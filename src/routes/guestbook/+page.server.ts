@@ -1,68 +1,62 @@
-import { env } from '$env/dynamic/private'
 import { redirect, type Cookies, type RequestEvent } from '@sveltejs/kit'
-import auth from '$lib/guestbookAuth'
-import { scopeCookies as _scopeCookies } from '$lib';
+import { scopeCookies as _scopeCookies, fancyText } from '$lib';
 import { RetryAfterRateLimiter } from 'sveltekit-rate-limiter/server';
+import { PUBLIC_BASE_URL } from '$env/static/public';
+import { getBskyClient, getUserPosts } from '$lib/bluesky.js';
+import { getVisitorId } from '$lib/visits';
+import { nanoid } from 'nanoid';
+import { noteFromBskyPost, type NoteData } from '../../components/note.svelte';
+import { get, writable } from 'svelte/store';
 
 export const prerender = false;
+
+const callbackUrl = `${PUBLIC_BASE_URL}/guestbook/`
 
 const createPostRatelimiter = new RetryAfterRateLimiter({
     IP: [10, 'd'],
     IPUA: [5, 'h'],
 })
 
-interface Entry {
-    author: string,
-    content: string,
-    timestamp: number,
-}
-
 const scopeCookies = (cookies: Cookies) => {
     return _scopeCookies(cookies, '/guestbook')
 }
 
-const postAction = (client: any, scopes: string[]) => {
-    return async (event: RequestEvent) => {
+const postTokens = writable<Set<string>>(new Set());
+
+export const actions = {
+    post: async (event: RequestEvent) => {
         const { request, cookies } = event
         const scopedCookies = scopeCookies(cookies)
-        scopedCookies.set("postAuth", client.name)
         const rateStatus = await createPostRatelimiter.check(event)
         if (rateStatus.limited) {
             scopedCookies.set("sendError", `you are being ratelimited sowwy :c, try again after ${rateStatus.retryAfter} seconds`)
-            redirect(303, auth.callbackUrl)
+            redirect(303, callbackUrl)
         }
         const form = await request.formData()
-        const content = form.get("content")?.toString().substring(0, 512)
-        const anon = !(form.get("anon") === null)
+        const content = form.get("content")?.toString().substring(0, 300)
         if (content === undefined) {
             scopedCookies.set("sendError", "content field is missing")
-            redirect(303, auth.callbackUrl)
+            redirect(303, callbackUrl)
         }
         // save form content in a cookie
-        const params = new URLSearchParams({ content, anon: anon ? "1" : "" })
-        scopedCookies.set("postData", params.toString())
-        // get auth url to redirect user to
-        const authUrl = auth.createAuthUrl((state) => client.getAuthUrl(state, scopes), cookies)
-        redirect(303, authUrl)
+        scopedCookies.set("postData", content)
+        // create a token we will use to validate
+        const token = nanoid()
+        postTokens.update((set) => set.add(token))
+        scopedCookies.set("postAuth", token)
+        redirect(303, callbackUrl)
     }
 }
 
-export const actions = {
-    post_indielogin: postAction(auth.indielogin, []),
-    post_discord: postAction(auth.discord, ["identify"]),
-    post_github: postAction(auth.github, []),
-}
-
-export async function load({ url, fetch, cookies }) {
+export async function load({ url, cookies }) {
     const scopedCookies = scopeCookies(cookies)
     var data = {
-        entries: [] as [number, Entry][],
-        page: parseInt(url.searchParams.get('page') || "1"),
-        hasNext: false,
+        entries: [] as NoteData[],
         sendError: scopedCookies.get("sendError") || "",
         getError: "",
         sendRatelimited: scopedCookies.get('sendRatelimited') || "",
         getRatelimited: false,
+        fillText: fancyText(getVisitorId(cookies) ?? nanoid()),
     }
     const rawPostData = scopedCookies.get("postData") || null
     const postAuth = scopedCookies.get("postAuth") || null
@@ -70,77 +64,37 @@ export async function load({ url, fetch, cookies }) {
         // delete the postData cookie after we got it cause we dont need it anymore
         scopedCookies.delete("postData")
         scopedCookies.delete("postAuth")
-        // check if we are landing from an auth from a post action
-        let code: string | null = null
-        // try to get the code, fails if invalid oauth request
+        // get and validate token
+        if (!get(postTokens).has(postAuth)) {
+            scopedCookies.set("sendError", "invalid post token! this is either a bug or you should stop doing silly stuff")
+            redirect(303, callbackUrl)
+        }
+        // post entry
         try {
-            code = auth.extractCode(url, cookies)
+            // return error if content was not set or if empty
+            const content = rawPostData.substring(0, 300).trim()
+            if (content.length === 0) {
+                scopedCookies.set("sendError", `content field was empty`)
+                redirect(303, callbackUrl)
+            }
+            // post to guestbook account 
+            await (await getBskyClient()).post({text: content, threadgate: { allowMentioned: false, allowFollowing: false }});
         } catch (err: any) {
-            data.sendError = err.toString()
+            scopedCookies.set("sendError", err.toString())
+            redirect(303, callbackUrl)
         }
-        // if we do have a code, then make the access token request
-        const authClient = auth.getAuthClient(postAuth)
-        if (authClient !== null && code !== null) {
-            // get and validate access token, also get username
-            let author: string
-            try {
-                const tokenResp = await authClient.getToken(code)
-                author = await authClient.identifyToken(tokenResp)
-            } catch(err: any) {
-                scopedCookies.set("sendError", `oauth failed: ${err.toString()}`)
-                redirect(303, auth.callbackUrl)
-            }
-            let respRaw: Response
-            try {
-                const postData = new URLSearchParams(rawPostData)
-                const anon = (postData.get('anon') ?? "1").length > 0
-                // set author to the identified value we got if not anonymous
-                postData.set('author', anon ? "[REDACTED]" : author)
-                // return error if content was not set or if empty
-                const content = postData.get('content')
-                if (content === null || content.trim().length === 0) {
-                    scopedCookies.set("sendError", `content field was empty`)
-                    redirect(303, auth.callbackUrl)
-                }
-                // set content, make sure to trim it
-                postData.set('content', content.substring(0, 512).trim())
-                respRaw = await fetch(env.GUESTBOOK_BASE_URL, { method: 'POST', body: postData })
-            } catch (err: any) {
-                scopedCookies.set("sendError", `${err.toString()} (is guestbook server running?)`)
-                redirect(303, auth.callbackUrl)
-            }
-            if (respRaw.status === 429) {
-                scopedCookies.set("sendRatelimited", "true")
-            }
-            redirect(303, auth.callbackUrl)
-        }
+        redirect(303, callbackUrl)
     }
     // delete the cookies after we get em since we dont really need these more than once
     scopedCookies.delete("sendError")
     scopedCookies.delete("sendRatelimited")
-    // handle cases where the page query might be a string so we just return back page 1 instead
-    data.page = isNaN(data.page) ? 1 : data.page
-    data.page = Math.max(data.page, 1)
-    let respRaw: Response
+    // actually get posts
     try {
-        const count = 5
-        const offset = (data.page - 1) * count
-        respRaw = await fetch(`${env.GUESTBOOK_BASE_URL}?offset=${offset}&count=${count}`)
+        const { posts } = await getUserPosts("did:web:guestbook.gaze.systems", 16)
+        data.entries = posts.map(noteFromBskyPost)
     } catch (err: any) {
-        data.getError = `${err.toString()} (is guestbook server running?)`
-        return data
+        data.getError = err.toString()
     }
-    data.getRatelimited = respRaw.status === 429
-    if (!data.getRatelimited) {
-        let body: any
-        try {
-            body = await respRaw.json()
-        } catch (err: any) {
-            data.getError = `invalid body? (${err.toString()})`
-            return data
-        }
-        data.entries = body.entries
-        data.hasNext = body.hasNext
-    }
+
     return data
 }

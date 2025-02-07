@@ -14,30 +14,30 @@ export const getBskyClient = async () => {
 }
 
 const loginToBsky = async () => {
-    const bot = new Bot({ service: "https://bsky.social" })
-    await bot.login({ identifier: 'gaze.systems', password: env.BSKY_PASSWORD ?? "" })
+    const bot = new Bot({ service: "https://gaze.systems" })
+    await bot.login({ identifier: 'guestbook.gaze.systems', password: env.BSKY_PASSWORD ?? "" })
     return bot
 }
 
-export const getUserPosts = async (did: string, includeReposts: boolean = false, count: number = 10) => {
+export const getUserPosts = async (did: string, count: number = 10, cursor: string | null = null) => {
     const client = await getBskyClient()
-    let feedCursor = undefined;
+    let feedCursor: string | null | undefined = cursor;
     let posts: Post[] = []
     // fetch requested amount of posts
-    while (posts.length < count || feedCursor === undefined) {
+    while (posts.length < count - 1 && (typeof feedCursor === "string" || feedCursor === null)) {
         let feedData = await client.getUserPosts(
-            did, { limit: count, filter: 'posts_no_replies', cursor: feedCursor }
+            did, { limit: count, filter: 'posts_no_replies', cursor: feedCursor === null ? undefined : feedCursor }
         )
-        posts.push(...feedData.posts.filter((post) => !includeReposts && post.author.did === did))
+        posts.push(...feedData.posts.filter((post) => post.author.did === did))
         feedCursor = feedData.cursor
     }
-    return posts
+    return { posts, cursor: feedCursor === null ? undefined : feedCursor }
 }
 
 const lastPosts = writable<Post[]>([])
 
 export const updateLastPosts = async () => {
-    const posts = await getUserPosts("did:plc:dfl62fgb7wtjj3fcbb72naae", false, 13)
+    const { posts } = await getUserPosts("did:plc:dfl62fgb7wtjj3fcbb72naae", 13)
     lastPosts.set(posts)
 }
 

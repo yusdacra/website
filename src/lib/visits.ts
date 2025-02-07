@@ -41,6 +41,12 @@ export const addLastVisitor = (request: Request, cookies: Cookies) => {
     return visitors
 }
 
+export const getVisitorId = (cookies: Cookies) => {
+    const scopedCookies = scopeCookies(cookies, '/')
+    // parse the last visit timestamp from cookies if it exists
+    return scopedCookies.get('visitorId')
+}
+
 // why not use this for incrementVisitCount? cuz i wanna have separate visit counts (one per hour and one per day, per hour being recent visitors)
 const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cookies: Cookies) => {
     const currentTime = Date.now()
