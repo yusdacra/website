@@ -2,8 +2,8 @@
 layout = false
 +++
 
-new game prototype thingy at [itch.io page](https://yusdacra.itch.io/lightfelt)!
-spent a lot of time learning and designing the environment and scene stuff :3
-[trenchbroom](https://trenchbroom.github.io/) and [func_godot](https://func-godot.github.io/func_godot_docs/FuncGodot%20Manual/FuncGodot%20Manual.html) were used mainly!
+*last updated on: 19-02-2025*
 
-![lightfelt screenshot](https://img.itch.zone/aW1hZ2UvMzExNTU5My8xODYyMjUwOS5qcGVn/original/%2BSrxFo.jpeg)
+currently working on a game under the name `packet.runner`, read some very WIP stuff about it [here](https://doc.gaze.systems/LsE08EU7QOSKm7xps_treA).
+
+![WIP character model screenshot](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:dfl62fgb7wtjj3fcbb72naae/bafkreig2rk5tbwp4ncsbuw67u66pv5tvimfv47pusubnkcnao6fowbltlu@jpeg)
