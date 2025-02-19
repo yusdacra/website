@@ -44,12 +44,7 @@
 					<div
 						class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black bg-opacity-30"
 					>
-						<Tooltip x="-translate-x-[40%]" targetX="group-hover:-translate-x-[10%]">
-							<svelte:fragment slot="tooltipContent"
-								>character from unorthodox kitten</svelte:fragment
-							>
-							<img class="w-36 u-photo" src="/pfp.png" alt="character from unorthodox kitten" />
-						</Tooltip>
+					<img class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]" src="/pfp.png" alt="my character" title="hi ;)"/>
 					</div>
 					<div
 						class="flex flex-row flex-grow place-content-center ml-1.5 [padding:8px] bg-ralsei-black bg-opacity-30"
@@ -105,7 +100,7 @@
 	</div>
 	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto w-full md:w-fit place-items-end">
 		<Window title="links!" iconUri="/icons/contact.png">
-			<div class="prose prose-ralsei prose-ul:leading-[1.4rem] prose-headings:leading-none">
+			<div class="prose prose-ralsei prose-ul:leading-[1.1rem] prose-headings:leading-none">
 				<ul>
 					<li>discord: yusdacra</li>
 					<li>
@@ -117,7 +112,7 @@
 						<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
 					</li>
 				</ul>
-				<h3>development</h3>
+				<h4>development</h4>
 				<ul>
 					<li>
 						github:
@@ -137,12 +132,18 @@
 						<a class="u-url" href="https://yusdacra.itch.io" rel="me">@yusdacra</a>
 					</li>
 				</ul>
-				<h3>services</h3>
+				<h4>services</h4>
 				<ul>
 					<li>
 						<a href="https://pmart.gaze.systems">random project moon art</a>
 					</li>
 				</ul>
+				<h4>88x31</h4>
+				<div class="flex flex-row flex-wrap gap-1 prose-img:m-0">
+					<img src="/88x31.gif" alt="88x31 banner" title="midnight AND sunrise! woaw"/>
+					<img src="/88x31_midnight.gif" alt="88x31 banner (midnight only)" title="it's midnight!"/>
+					<img src="/88x31_sunrise.gif" alt="88x31 banner (sunrise only)" title="it's sunrise!"/>
+				</div>
 			</div>
 		</Window>
 		<Window title="status" style="mt-auto" removePadding>
