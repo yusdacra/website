@@ -44,7 +44,7 @@
 					<div
 						class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black bg-opacity-30"
 					>
-					<img class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]" src="/pfp.png" alt="my character" title="hi ;)"/>
+					<img class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]" src="/pfp-iojkqpwerojnasduijf.png" alt="my character" title="hi ;)"/>
 					</div>
 					<div
 						class="flex flex-row flex-grow place-content-center ml-1.5 [padding:8px] bg-ralsei-black bg-opacity-30"
