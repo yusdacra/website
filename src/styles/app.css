@@ -332,7 +332,7 @@ a.app-selected-route {
             opacity: 0.5;
         }
         100% {
-            translate: 0 0;
+            translate: normal;
             opacity: 1.0;
         }
     }
@@ -349,7 +349,7 @@ a.app-selected-route {
             opacity: 0.5;
         }
         100% {
-            translate: 0 0;
+            translate: normal;
             opacity: 1.0;
         }
     }
@@ -366,7 +366,7 @@ a.app-selected-route {
             opacity: 0.5;
         }
         100% {
-            translate: 0 0;
+            translate: normal;
             opacity: 1.0;
         }
     }
@@ -383,7 +383,7 @@ a.app-selected-route {
             opacity: 0.5;
         }
         100% {
-            translate: 0 0;
+            translate: normal;
             opacity: 1.0;
         }
     }
