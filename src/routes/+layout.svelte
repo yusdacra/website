@@ -1,16 +1,8 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
-	import type { Visitor } from 'svelte/types/compiler/interfaces';
 	import NavButton from '../components/navButton.svelte';
 	import Tooltip from '../components/tooltip.svelte';
-	import Window from '../components/window.svelte';
 	import '../styles/app.css';
-	import { configureCloudinary } from 'svelte-cloudinary';
-
-	configureCloudinary({
-		cloudName: 'dgtwf7mar',
-	});
 
 	export let data;
 
