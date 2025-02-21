@@ -6,8 +6,9 @@ excerpt = "photos from my trip to japan"
 +++
 
 <script lang="ts">
-    import images from './images.json'
     import { CldImage } from 'svelte-cloudinary'
+
+    export let data
 </script>
 
 <style>
@@ -26,8 +27,7 @@ fixed!!!! i also added a few images because im dumb and forgot
 *(you can click on an image to see original!)*
 
 <div class="grid gap-0.5 auto-rows-min md:grid-cols-4">
-{#each images as image}
-{@const ogimage = `https://res.cloudinary.com/dgtwf7mar/image/upload/${image}`}
-<a class="!animate-none" href={ogimage}><CldImage width={480} height={480} src={image} class="w-full h-full object-cover [image-rendering:high-quality_!important]"/></a>
+{#each data.images as image}
+<a class="!animate-none" href={image.og}><CldImage width={480} height={480} src={image.id} class="w-full h-full object-cover [image-rendering:high-quality_!important]"/></a>
 {/each}
 </div>
