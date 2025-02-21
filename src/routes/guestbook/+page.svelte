@@ -15,7 +15,7 @@
 </script>
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
-	<Window title="guestbook" style="ml-auto" iconUri="/icons/guestbook.png">
+	<Window title="guestbook" style="ml-auto" iconUri="/icons/guestbook.webp">
 		<div class="flex flex-col gap-1 max-w-[50ch] leading-6">
 			<div class="prose prose-ralsei leading-6 entry p-2">
 				<p>hia, here is the guestbook if you wanna post anything :)</p>
@@ -57,7 +57,7 @@
 			</form>
 		</div>
 	</Window>
-	<Window id='guestbookentries' style="mr-auto" title="entries" iconUri="/icons/entries.png" removePadding>
+	<Window id='guestbookentries' style="mr-auto" title="entries" iconUri="/icons/entries.webp" removePadding>
 		<div class="flex flex-col gap-2 md:gap-4 2xl:w-[60ch]">
 			{#if data.getRatelimited}
 				<p class="text-error">

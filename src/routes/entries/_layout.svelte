@@ -18,7 +18,7 @@
 </svelte:head>
 
 <article class="mx-auto max-w-fit flex flex-wrap lg:flex-nowrap gap-4 h-entry">
-	<Window {title} iconUri="/icons/entry.png" entry>
+	<Window {title} iconUri="/icons/entry.webp" entry>
 		<div class="prose prose-ralsei max-w-[80ch] e-content">
 			<slot />
 		</div>

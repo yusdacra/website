@@ -20,7 +20,7 @@
 
 <div class="flex flex-col md:flex-row gap-y-2 lg:gap-y-0 md:h-full h-card">
 	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto">
-		<Window title="readme?" iconUri="/icons/question.png" removePadding>
+		<Window title="readme?" iconUri="/icons/question.webp" removePadding>
 			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
 				<div
 					class="flex flex-row gap-3 mx-auto bg-ralsei-black bg-opacity-30 overflow-hidden"
@@ -44,7 +44,7 @@
 					<div
 						class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black bg-opacity-30"
 					>
-					<img class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]" src="/pfp-iojkqpwerojnasduijf.png" alt="my character" title="hi ;)"/>
+					<img class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]" src="/pfp-iojkqpwerojnasduijf.webp" alt="my character" title="hi ;)"/>
 					</div>
 					<div
 						class="flex flex-row flex-grow place-content-center ml-1.5 [padding:8px] bg-ralsei-black bg-opacity-30"
@@ -99,7 +99,7 @@
 		</Window>
 	</div>
 	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto w-full md:w-fit place-items-end">
-		<Window title="links!" iconUri="/icons/contact.png">
+		<Window title="links!" iconUri="/icons/contact.webp">
 			<div class="prose prose-ralsei prose-ul:leading-[1.1rem] prose-headings:leading-none">
 				<ul>
 					<li>discord: yusdacra</li>
@@ -176,7 +176,7 @@
 					<img
 						class="border-4 w-16 h-16 p-2"
 						style="border-style: none double none none; image-rendering: pixelated;"
-						src="/icons/cd_audio.png"
+						src="/icons/cd_audio.webp"
 					/>
 				{/if}
 				<div class="flex flex-col max-w-[40ch] p-2 overflow-hidden">

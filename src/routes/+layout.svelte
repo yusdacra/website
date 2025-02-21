@@ -21,10 +21,10 @@
 	}
 
 	const menuItems: MenuItem[] = [
-		{ href: '', name: 'home', iconUri: '/icons/home.png' },
-		{ href: 'entries', name: 'entries', iconUri: '/icons/entries.png' },
-		{ href: 'guestbook', name: 'guestbook', iconUri: '/icons/guestbook.png' },
-		{ href: 'about', name: 'about', iconUri: '/icons/about.png' }
+		{ href: '', name: 'home', iconUri: '/icons/home.webp' },
+		{ href: 'entries', name: 'entries', iconUri: '/icons/entries.webp' },
+		{ href: 'guestbook', name: 'guestbook', iconUri: '/icons/guestbook.webp' },
+		{ href: 'about', name: 'about', iconUri: '/icons/about.webp' }
 	];
 
 	$: routeComponents = data.route.split('/');
@@ -49,7 +49,7 @@
 	<title>{title}</title>
 	<meta property="og:site_name" content="gaze.systems" />
 	<meta property="og:url" content="https://gaze.systems/" />
-	<meta property="og:image" content="https://gaze.systems/icons/gaze_website.png" />
+	<meta property="og:image" content="https://gaze.systems/icons/gaze_website.webp" />
 </svelte:head>
 
 <div
@@ -155,7 +155,7 @@
 				{@const highlight = isRoute(item.href)}
 				<NavButton {highlight} {...item} />
 				{#if doAddPostItem && menuIdx == 1}
-					<NavButton highlight name={routeComponents[2]} href={data.route.slice(1)} iconUri='/icons/entry.png'/>
+					<NavButton highlight name={routeComponents[2]} href={data.route.slice(1)} iconUri='/icons/entry.webp'/>
 				{/if}
 			{/each}
 			<div class="hidden md:block grow" />

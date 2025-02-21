@@ -1,5 +1,5 @@
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { _allPosts, type PostData } from '../+layout.ts';
+import { _allPosts, type PostData } from '../+layout.server.ts';
 
 const entriesUrl = `${PUBLIC_BASE_URL}/entries`;
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Window from '../../components/window.svelte';
-	import type { PostData } from './+layout';
+	import type { PostData } from './+layout.server.js';
 	import LogPage from '../log/+page.svelte';
 
 	export let data;
@@ -11,7 +11,7 @@
 <div class="mx-auto md:max-w-fit flex flex-col-reverse md:flex-row gap-y-4 gap-x-16">
 	<div class="flex flex-col gap-y-4">
 		{#each posts as post}
-		<Window title={post.metadata.title} iconUri='/icons/entry.png'>
+		<Window title={post.metadata.title} iconUri='/icons/entry.webp'>
 			<a
 				href="/entries/{post.path}"
 				title="cd /entries/{post.path}"
