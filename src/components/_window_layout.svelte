@@ -2,13 +2,23 @@
 	import Window from './window.svelte'
 	import '../styles/app.css'
 
-	export let title
-    export let sticky
-    export let prose = true
+    interface Props {
+        title: any;
+        sticky: any;
+        prose?: boolean;
+        children?: import('svelte').Snippet;
+    }
+
+    let {
+        title,
+        sticky,
+        prose = true,
+        children
+    }: Props = $props();
 </script>
 
 <Window {title} {sticky}>
     <div class="{prose ? "prose prose-ralsei leading-6 prose-ul:leading-5" : ""}">
-        <slot />
+        {@render children?.()}
     </div>
 </Window>

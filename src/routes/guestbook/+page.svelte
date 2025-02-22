@@ -3,7 +3,11 @@
 	import Token from '../../components/token.svelte';
 	import Window from '../../components/window.svelte';
 
-	export let data;
+	interface Props {
+		data: any;
+	}
+
+	let { data }: Props = $props();
 
 	function resetEntriesAnimation() {
 		var el = document.getElementById('guestbookentries');
@@ -30,7 +34,7 @@
 						placeholder="say meow!"
 						maxlength="300"
 						required
-					/>
+					></textarea>
 				</div>
 				<div class="flex flex-row gap-1 mt-1">
 					<input
@@ -87,7 +91,7 @@
 				{#each data.entries as note, index}
 				<Note showOutgoing={false} {note}/>
 				{#if index < data.entries.length - 1}
-				<div class="mt-3"/>
+				<div class="mt-3"></div>
 				{/if}
 				{/each}
 				</nobr></code></pre>

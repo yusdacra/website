@@ -1,17 +1,30 @@
 <script lang="ts">
     import Window from "./window.svelte";
 
-    export let x: string = "translate-x-none"
-    export let y: string = "translate-y-full"
-    export let targetY: string = "group-hover:-translate-y-[105%]"
-    export let targetX: string = "group-hover:-translate-x-2/3"
+    interface Props {
+        x?: string;
+        y?: string;
+        targetY?: string;
+        targetX?: string;
+        tooltipContent?: import('svelte').Snippet;
+        children?: import('svelte').Snippet;
+    }
+
+    let {
+        x = "translate-x-none",
+        y = "translate-y-full",
+        targetY = "group-hover:-translate-y-[105%]",
+        targetX = "group-hover:-translate-x-2/3",
+        tooltipContent,
+        children
+    }: Props = $props();
 </script>
 
 <div class="group">
     <div class="absolute scale-0 transition-all [transition-timing-function:cubic-bezier(0.4,0,0.2,1.6)] [transition-duration:300ms] opacity-0 group-hover:scale-100 group-hover:opacity-100 {y} {x} {targetY} {targetX}">
         <Window tooltip>
-            <slot name="tooltipContent">Hello world!</slot>
+            {#if tooltipContent}{@render tooltipContent()}{:else}Hello world!{/if}
         </Window>
     </div>
-    <slot/>
+    {@render children?.()}
 </div>

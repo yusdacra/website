@@ -2,16 +2,33 @@
 	import { highestZIndex, isMobile } from '$lib/window.ts';
 	import { draggable } from '@neodrag/svelte';
 
-	export let title: string | undefined = undefined;
-	export let iconUri: string = '';
-	export let id: string = '';
-	export let sticky: boolean = false;
-	export let entry: boolean = false;
-	export let removePadding: boolean = false;
-	export let center: boolean = false;
-	export let layered: boolean = false;
-	export let style: string = "";
-	export let tooltip: boolean = false;
+	interface Props {
+		title?: string | undefined;
+		iconUri?: string;
+		id?: string;
+		sticky?: boolean;
+		entry?: boolean;
+		removePadding?: boolean;
+		center?: boolean;
+		layered?: boolean;
+		style?: string;
+		tooltip?: boolean;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		title = undefined,
+		iconUri = '',
+		id = '',
+		sticky = false,
+		entry = false,
+		removePadding = false,
+		center = false,
+		layered = false,
+		style = "",
+		tooltip = false,
+		children
+	}: Props = $props();
 
 	const scaleKeyframes = [
 		"window-open",
@@ -24,7 +41,7 @@
 		"window-open-move-left",
 		"window-open-move-right",
 	];
-	$: chosenKeyframe = scaleKeyframes.at(Math.floor(Math.random() * scaleKeyframes.length))
+	let chosenKeyframe = $derived(scaleKeyframes.at(Math.floor(Math.random() * scaleKeyframes.length)))
 
 	const isOnMobile = isMobile()
 	const _draggable = isOnMobile ? () => {} : draggable;
@@ -35,8 +52,8 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_click_events_have_key_events -->
 <div
 	use:_draggable={{
 		disabled: isOnMobile,
@@ -44,7 +61,7 @@
 		handle: '.window-titlebar',
 		onDragStart: (data) => {focusWindow(data.currentNode)},
 	}}
-	on:click={(data) => {focusWindow(data.currentTarget)}}
+	onclick={(data) => {focusWindow(data.currentTarget)}}
 	class="
         relative {layered ? "col-[1] row-[1]" : ""} flex flex-col {sticky ? 'md:sticky md:-top-9' : ''} {center ? "mx-auto" : ""}
         max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl {tooltip ? "min-w-fit" : "min-w-[30ch] lg:min-w-[40ch]"} w-full md:w-fit [height:fit-content]
@@ -87,6 +104,6 @@
 		{removePadding ? "" : tooltip ? "p-1" : "p-2"} bg-gradient-to-tl
 		to-ralsei-pink-neon/15 from-ralsei-pink-regular/20
 	">
-		<slot />
+		{@render children?.()}
 	</div>
 </div>

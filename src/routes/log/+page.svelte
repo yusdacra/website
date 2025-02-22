@@ -3,7 +3,11 @@
     import Token from '../../components/token.svelte';
     import Note from '../../components/note.svelte';
 
-	export let data;
+    interface Props {
+        data: any;
+    }
+
+    let { data }: Props = $props();
 </script>
 
 <Window title="terminal" removePadding>
@@ -25,7 +29,7 @@
 {#each data.feedPosts as note, index}
 <Note {note}/>
 {#if index < data.feedPosts.length - 1}
-<div class="mt-3"/>
+<div class="mt-3"></div>
 {/if}
 {/each}
 </nobr></code></pre>

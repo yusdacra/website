@@ -1,12 +1,23 @@
 <script lang="ts">
-    export let punct: boolean = false;
-    export let keywd: boolean = false;
-    export let funct: boolean = false;
-    export let str: boolean = false;
 
-    export let small: boolean = false;
 
-    export let v: string;
+    interface Props {
+        punct?: boolean;
+        keywd?: boolean;
+        funct?: boolean;
+        str?: boolean;
+        small?: boolean;
+        v: string;
+    }
+
+    let {
+        punct = false,
+        keywd = false,
+        funct = false,
+        str = false,
+        small = false,
+        v
+    }: Props = $props();
 
     const ty =
         punct ? "punctuation"

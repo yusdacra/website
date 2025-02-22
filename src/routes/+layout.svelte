@@ -4,7 +4,12 @@
 	import Tooltip from '../components/tooltip.svelte';
 	import '../styles/app.css';
 
-	export let data;
+	interface Props {
+		data: any;
+		children?: import('svelte').Snippet;
+	}
+
+	let { data, children }: Props = $props();
 
 	interface MenuItem {
 		href: string;
@@ -19,9 +24,9 @@
 		{ href: 'about', name: 'about', iconUri: '/icons/about.webp' }
 	];
 
-	$: routeComponents = data.route.split('/');
-	$: doAddPostItem = routeComponents.length > 3 && routeComponents[1] === 'entries';
-	$: isRoute = (_route: string) => {
+	let routeComponents = $derived(data.route.split('/'));
+	let doAddPostItem = $derived(routeComponents.length > 3 && routeComponents[1] === 'entries');
+	let isRoute = $derived((_route: string) => {
 		if (doAddPostItem) {
 			if (_route === 'entries') {
 				return false;
@@ -30,9 +35,9 @@
 			}
 		}
 		return _route === routeComponents[1];
-	};
+	});
 
-	$: title = getTitle(data.route);
+	let title = $derived(getTitle(data.route));
 
 	const svgSquiggles = [[2], [3], [2], [3], [1]];
 </script>
@@ -49,13 +54,13 @@
         app-grid-background motion-safe:app-grid-background-anim
         fixed -z-10 w-full [height:100%] top-0 left-0
     "
-/>
+></div>
 <div
 	class="
         app-grid-background-second-layer motion-safe:app-grid-background-second-layer-anim
         fixed -z-20 w-full [height:100%] top-0 left-0
     "
-/>
+></div>
 
 <svg
 	xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +135,7 @@
 </svg>
 
 <div class="md:h-[96vh] pb-[8vh] lg:px-[1vw] 2xl:px-[2vw] lg:pb-[3vh] lg:pt-[1vh] overflow-x-hidden [scrollbar-gutter:stable]">
-	<slot />
+	{@render children?.()}
 </div>
 
 <nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
@@ -150,19 +155,21 @@
 					<NavButton highlight name={routeComponents[2]} href={data.route.slice(1)} iconUri='/icons/entry.webp'/>
 				{/if}
 			{/each}
-			<div class="hidden md:block grow" />
+			<div class="hidden md:block grow"></div>
 			<div class="navbox">
 				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">indieweb 🕸💍</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
 			<Tooltip>
-				<svelte:fragment slot="tooltipContent">
-					<p class="font-monospace">
-						<nobr>total visits = <span class="text-ralsei-green-light text-shadow-green">{data.visitCount.toString().padStart(9, ".")}</span></nobr>
-						<nobr>uniq recent visits = <span class="text-ralsei-green-light text-shadow-green">{data.lastVisitors.size.toString().padStart(3, ".")}</span></nobr>
-					</p>
-				</svelte:fragment>
+				{#snippet tooltipContent()}
+							
+						<p class="font-monospace">
+							<nobr>total visits = <span class="text-ralsei-green-light text-shadow-green">{data.visitCount.toString().padStart(9, ".")}</span></nobr>
+							<nobr>uniq recent visits = <span class="text-ralsei-green-light text-shadow-green">{data.lastVisitors.size.toString().padStart(3, ".")}</span></nobr>
+						</p>
+					
+							{/snippet}
 				<div class="navbox"><p><span class="text-ralsei-green-light text-shadow-green">{data.recentVisitCount}</span> recent clicks</p></div>
 			</Tooltip>
 			{#if isRoute("entries") || isRoute("log")}

@@ -3,7 +3,11 @@
 	import type { PostData } from './+layout.server.js';
 	import LogPage from '../log/+page.svelte';
 
-	export let data;
+	interface Props {
+		data: any;
+	}
+
+	let { data }: Props = $props();
 
 	let posts: PostData[] = data.posts as PostData[];
 </script>

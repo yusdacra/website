@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import type { Post } from "@skyware/bot";
 
     export interface OutgoingLink {
@@ -26,10 +26,19 @@
 <script lang="ts">
 	import Token from "./token.svelte";
 
-    export let note: NoteData;
-    export let isHighlighted = false;
-    export let onlyContent = false;
-    export let showOutgoing = true;
+    interface Props {
+        note: NoteData;
+        isHighlighted?: boolean;
+        onlyContent?: boolean;
+        showOutgoing?: boolean;
+    }
+
+    let {
+        note,
+        isHighlighted = false,
+        onlyContent = false,
+        showOutgoing = true
+    }: Props = $props();
     
     const renderDate = (timestamp: number) => {
         return (new Date(timestamp)).toLocaleString("en-GB", {

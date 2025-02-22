@@ -4,11 +4,21 @@
 	import '../../styles/app.css';
 	import { page } from '$app/stores';
 
-	export let title;
-	export let date;
-	export let excerpt;
+	interface Props {
+		title: any;
+		date: any;
+		excerpt: any;
+		children?: import('svelte').Snippet;
+	}
 
-	$: showMetadata = excerpt !== undefined && excerpt !== null;
+	let {
+		title,
+		date,
+		excerpt,
+		children
+	}: Props = $props();
+
+	let showMetadata = $derived(excerpt !== undefined && excerpt !== null);
 </script>
 
 <svelte:head>
@@ -20,7 +30,7 @@
 <article class="mx-auto max-w-fit flex flex-wrap lg:flex-nowrap gap-4 h-entry">
 	<Window {title} iconUri="/icons/entry.webp" entry>
 		<div class="prose prose-ralsei max-w-[80ch] e-content">
-			<slot />
+			{@render children?.()}
 		</div>
 	</Window>
 	{#if showMetadata}

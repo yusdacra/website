@@ -5,7 +5,11 @@
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
 
-	export let data;
+	interface Props {
+		data: any;
+	}
+
+	let { data }: Props = $props();
 
     const renderDate = (timestamp: number) => {
         return (new Date(timestamp)).toLocaleString("en-GB", {
@@ -81,7 +85,7 @@
 							></i
 						>
 					</p>
-					<div class="grow" />
+					<div class="grow"></div>
 					<a
 						class="
 							place-self-end [font-family:'Doll_Mono'] text-ralsei-pink-neon text-shadow-none hover:text-shadow-pink
@@ -163,7 +167,7 @@
 			{/if}
 			{#if data.lastTrack}
 			<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
-				<!-- svelte-ignore a11y-missing-attribute -->
+				<!-- svelte-ignore a11y_missing_attribute -->
 				{#if data.lastTrack.image}
 					<img
 						class="border-4 w-16 h-16"
@@ -201,7 +205,7 @@
 			{/if}
 			{#if data.lastGame}
 			<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
-				<!-- svelte-ignore a11y-missing-attribute -->
+				<!-- svelte-ignore a11y_missing_attribute -->
 				<img
 					class="border-4 w-16 h-16"
 					style="border-style: none double none none;"
@@ -218,7 +222,7 @@
 							>{data.lastGame.name}</a
 						>
 					</p>
-					<!-- svelte-ignore a11y-missing-attribute -->
+					<!-- svelte-ignore a11y_missing_attribute -->
 					<a
 						href="https://steamcommunity.com/id/yusdacra"
 						class="text-xs hover:underline text-shadow-green text-ralsei-green-light"

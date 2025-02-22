@@ -1,8 +1,17 @@
 <script lang="ts">
-	export let highlight: boolean = false;
-	export let name: string;
-	export let href: string;
-	export let iconUri: string;
+	interface Props {
+		highlight?: boolean;
+		name: string;
+		href: string;
+		iconUri: string;
+	}
+
+	let {
+		highlight = false,
+		name,
+		href,
+		iconUri
+	}: Props = $props();
 </script>
 
 <a
