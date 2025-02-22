@@ -66,7 +66,7 @@
 </script>
 
 <div class="text-wrap break-words max-w-[70ch] leading-none">
-{#if !onlyContent}<Token v={renderDate(note.published)} small={!isHighlighted}/> {/if}<Token v={note.content} str/>
+{#if !onlyContent}<Token v={renderDate(note.published)} small={!isHighlighted}/>{/if} <Token v={note.content} str/>
 {#if note.hasMedia}<Token v="-contains media-" keywd small/>{/if}
 {#if note.hasQuote}<Token v="-contains quote-" keywd small/>{/if}
 {#if showOutgoing}
