@@ -3,6 +3,7 @@
 	import Note from '../components/note.svelte';
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
+	import Time from "svelte-time";
 
 	interface Props {
 		data: any;
@@ -151,15 +152,15 @@
 		</Window>
 		<Window title="status" style="mt-auto" removePadding>
 			{#if data.lastNote}
-			<div class="m-1.5 flex flex-col font-monospace">
-				<div
-					class="prose prose-ralsei items-center p-1 border-4 text-sm font-bold bg-ralsei-black"
+			<div class="m-1.5 flex flex-col font-monospace text-sm">
+				<p
+					class="prose prose-ralsei p-1 border-4 text-sm bg-ralsei-black"
 					style="border-style: double double none double;"
 				>
-					<a href="/entries">last log</a>
-					<span class="border-4 pl-[1ch]" style="border-style: none none none double;">published on {renderDate(data.lastNote.published)}</span>
-				</div>
-				<div class="mt-0 p-1 border-4 border-double bg-ralsei-black min-w-full max-w-[40ch]">
+					<a href="/entries">last log was...</a>
+					published <Time relative format="dddd @ h:mm A · MMMM D, YYYY" timestamp={data.lastNote.published}/>!
+				</p>
+				<div class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[40ch]">
 					<Note note={data.lastNote} onlyContent/>
 				</div>
 			</div>
@@ -190,7 +191,7 @@
 						<a
 							title={data.lastTrack.name}
 							href="https://www.last.fm/user/yusdacra"
-							class="hover:underline">{data.lastTrack.name}</a
+							class="hover:underline motion-safe:hover:animate-squiggle">{data.lastTrack.name}</a
 						>
 					</p>
 					<p

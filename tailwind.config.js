@@ -50,7 +50,7 @@ export default {
     },
     fontFamily: {
       'sans-serif': ['"Comic Sans", sans-serif'],
-      monospace: ['"Comic Shanns", monospace'],
+      monospace: ['"Comic Mono", monospace'],
     }
   },
   plugins: [

@@ -70,6 +70,10 @@
         text-shadow: 0 0 4px theme(colors.ralsei.pink.regular);
     }
 
+    .prose code, .prose pre {
+        @apply text-sm;
+    }
+
     .text-shadow-green {
         text-shadow: 0 0 2px theme(colors.ralsei.black), 0 0 5px theme(colors.ralsei.green.light);
     }
@@ -80,14 +84,8 @@
     }
 
     @font-face {
-        font-family: 'Comic Shanns';
-        font-display: swap;
-        src: url('/fonts/ComicMono-Condensed.woff2') format('woff2');
-    }
-
-    @font-face {
         font-family: 'Comic Sans';
-        src: url('/fonts/subset-ComicSansMS-Italic.woff2') format('woff2');
+        src: local('Comic Sans MS'), url('/fonts/subset-ComicSansMS-Italic.woff2') format('woff2');
         font-weight: normal;
         font-style: italic;
         font-display: swap;
@@ -95,7 +93,7 @@
     
     @font-face {
         font-family: 'Comic Sans';
-        src: url('/fonts/subset-ComicSansMS.woff2') format('woff2');
+        src: local('Comic Sans MS'), url('/fonts/subset-ComicSansMS.woff2') format('woff2');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
@@ -103,13 +101,11 @@
     
     @font-face {
         font-family: 'Comic Sans';
-        src: url('/fonts/subset-ComicSansMS-Bold.woff2') format('woff2');
+        src: local('Comic Sans MS'), url('/fonts/subset-ComicSansMS-Bold.woff2') format('woff2');
         font-weight: bold;
         font-style: normal;
         font-display: swap;
     }
-    
-    
 
     .animate-squiggle {
         animation: squigglevision 0.3s infinite;
@@ -131,22 +127,6 @@
         100% {
           filter: url("#squiggly-4");
         }
-    }
-
-    .pixelate {
-        filter: url("#pixelate");
-    }
-
-    .pixelate-bg {
-        backdrop-filter: url("#pixelate");
-    }
-
-    .dither {
-        filter: url("#dither");
-    }
-
-    .dither-bg {
-        backdrop-filter: url("#dither");
     }
 
     @keyframes blink {
@@ -400,13 +380,6 @@ a.app-selected-route {
             overflow: auto;
         }
     }
-}
-
-.genderfluid-gradient {
-    background: linear-gradient(to right, rgb(255, 120, 166), rgb(247, 196, 210), rgb(255, 255, 255) 23%, rgb(255, 255, 255), rgb(255, 255, 255) 28%, rgb(219, 148, 213), rgb(190, 20, 215), rgb(89, 22, 85), rgb(0, 0, 0) 73%, rgb(0, 0, 0), rgb(0, 0, 0) 78%, rgb(51, 36, 87), rgb(50, 60, 191));
-    background-clip: text;
-    color: transparent;
-    text-shadow: none;
 }
 
 @font-face {
