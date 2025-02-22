@@ -27,7 +27,7 @@
 		<Window title="readme?" iconUri="/icons/question.webp" removePadding>
 			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
 				<div
-					class="flex flex-row gap-3 mx-auto bg-ralsei-black bg-opacity-30 overflow-hidden"
+					class="flex flex-row gap-3 mx-auto bg-ralsei-black/20 overflow-hidden"
 				>
 					{#each data.banners as bannerNo, index}
 						{@const hideIfMobile = index === data.banners.length - 1}
@@ -46,12 +46,12 @@
 				</div>
 				<div class="flex flex-grow">
 					<div
-						class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black bg-opacity-30"
+						class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black/20"
 					>
 					<img class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]" src="/pfp-iojkqpwerojnasduijf.webp" alt="my character" title="hi ;)"/>
 					</div>
 					<div
-						class="flex flex-row flex-grow place-content-center ml-1.5 [padding:8px] bg-ralsei-black bg-opacity-30"
+						class="flex flex-row flex-grow place-content-center ml-1.5 [padding:8px] bg-ralsei-black/20"
 					>
 						<ul
 							class="place-self-center m-0 mr-4 [padding-left:1em] sm:[padding-left:0.5em] leading-none marker:[content:'->'] [list-style-type:'->']"
@@ -70,7 +70,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="flex flex-row [padding:8px] bg-ralsei-black bg-opacity-30">
+				<div class="flex flex-row [padding:8px] bg-ralsei-black/20">
 					<p class="leading-none m-0 text-sm">
 						hi there
 						<img
@@ -91,6 +91,7 @@
 							place-self-end [font-family:'Doll_Mono'] text-ralsei-pink-neon text-shadow-none hover:text-shadow-pink
 							hover:!animate-none hover:!no-underline opacity-20 hover:opacity-100 transition-opacity [transition-duration:300ms]
 						"
+						title="dollcode? sure hope they do"
 						href="https://dollcode.v01dlabs.sh/">▌▖▌▖‍▌▌▘▌‍▌▌▘▖‍▌▘▘▘‍</a
 					>
 				</div>
@@ -104,7 +105,7 @@
 	</div>
 	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto w-full md:w-fit place-items-end">
 		<Window title="links!" iconUri="/icons/contact.webp">
-			<div class="prose prose-ralsei prose-ul:leading-[1.1rem] prose-headings:leading-none">
+			<div class="prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-[1.1rem] prose-headings:leading-none">
 				<ul>
 					<li>discord: yusdacra</li>
 					<li>
@@ -157,7 +158,7 @@
 					class="prose prose-ralsei p-1 border-4 text-sm bg-ralsei-black"
 					style="border-style: double double none double;"
 				>
-					<a href="/entries">last log was...</a>
+					<a href="/entries">last log was…</a>
 					published <Time relative format="dddd @ h:mm A · MMMM D, YYYY" timestamp={data.lastNote.published}/>!
 				</p>
 				<div class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[40ch]">

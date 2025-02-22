@@ -10,28 +10,43 @@
         @apply prose-code:font-monospace prose-headings:font-monospace;
         cursor: url('/icons/gaze_closed.webp'), default;
         scrollbar-color: theme(colors.ralsei.green.dark) transparent;
+        -webkit-font-smoothing: none !important;
+        font-smooth: never !important;
+        font-smoothing: none !important;
     }
 
     .prose h1::before {
-        content: '> ';
+        content: '[ ';
+    }
+    .prose h1::after {
+        content: ' ]';
     }
 
     .prose h2::before {
-        content: '>> ';
+        content: '[= ';
+    }
+    .prose h2::after {
+        content: ' =]';
     }
     
     .prose h3::before {
-        content: '>>> ';
+        content: '[== ';
+    }
+    .prose h3::after {
+        content: ' ==]';
     }
     
     .prose h4::before {
-        content: '>>>> ';
+        content: '[=== ';
+    }
+    .prose h4::after {
+        content: ' ===]';
     }
 
-    .prose h1::after,.prose h2::after,.prose h3::after,.prose h4::after {
+    /* .prose h1::after,.prose h2::after,.prose h3::after,.prose h4::after {
         @apply motion-safe:animate-blink;
         content: '_';
-    }
+    } */
 
     .prose a {
         text-decoration: none;
