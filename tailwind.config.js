@@ -49,8 +49,8 @@ export default {
       }
     },
     fontFamily: {
-      'sans-serif': ['"Comic Sans", sans-serif'],
-      monospace: ['"Comic Mono", monospace'],
+      'sans-serif': ['"Fusion Pixel 10px Proportional SC", sans-serif'],
+      monospace: ['"Fusion Pixel 10px Monospaced SC", monospace'],
     }
   },
   plugins: [

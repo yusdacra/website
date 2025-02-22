@@ -46,10 +46,6 @@
         text-shadow: 0 0 3px theme(colors.ralsei.black), 0 0 6px theme(colors.ralsei.pink.neon), 0 0 10px #fff3;
     }
 
-    li,p,summary,.text-shadow-white {
-        text-shadow: 0 0 1px theme(colors.ralsei.black), 0 0 5px theme(colors.ralsei.white);
-    }
-
     .text-shadow-red {
         text-shadow: 0 0 1px theme(colors.ralsei.black), 0 0 5px theme(colors.red.600);
     }
@@ -59,19 +55,7 @@
     }
 
     .prose ul, ul {
-        list-style-type: '-- ';
-    }
-
-    li::marker {
-        text-shadow: 0 0 4px theme(colors.ralsei.pink.regular), 0 0 6px #fff9;
-    }
-
-    code {
-        text-shadow: 0 0 4px theme(colors.ralsei.pink.regular);
-    }
-
-    .prose code, .prose pre {
-        @apply text-sm;
+        list-style-type: '>>';
     }
 
     .text-shadow-green {
@@ -81,30 +65,6 @@
     a,button,input[type=submit] {
         @apply text-shadow-green;
         cursor: url('/icons/gaze.webp'), pointer;
-    }
-
-    @font-face {
-        font-family: 'Comic Sans';
-        src: local('Comic Sans MS'), url('/fonts/subset-ComicSansMS-Italic.woff2') format('woff2');
-        font-weight: normal;
-        font-style: italic;
-        font-display: swap;
-    }
-    
-    @font-face {
-        font-family: 'Comic Sans';
-        src: local('Comic Sans MS'), url('/fonts/subset-ComicSansMS.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-    }
-    
-    @font-face {
-        font-family: 'Comic Sans';
-        src: local('Comic Sans MS'), url('/fonts/subset-ComicSansMS-Bold.woff2') format('woff2');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
     }
 
     .animate-squiggle {

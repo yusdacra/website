@@ -2,7 +2,8 @@
 	import getTitle from '$lib/getTitle';
 	import NavButton from '../components/navButton.svelte';
 	import Tooltip from '../components/tooltip.svelte';
-	import "@fontsource/comic-mono";
+	import '@fontsource/fusion-pixel-10px-monospaced-sc';
+	import '@fontsource/fusion-pixel-10px-proportional-sc';
 	import '../styles/app.css';
 
 	interface Props {

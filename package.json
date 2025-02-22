@@ -40,7 +40,8 @@
   },
   "type": "module",
   "dependencies": {
-    "@fontsource/comic-mono": "^5.1.0",
+    "@fontsource/fusion-pixel-10px-monospaced-sc": "^5.0.1",
+    "@fontsource/fusion-pixel-10px-proportional-sc": "^5.0.1",
     "@neodrag/svelte": "^2.3.1",
     "@skyware/bot": "^0.3.8",
     "@std/toml": "npm:@jsr/std__toml",
