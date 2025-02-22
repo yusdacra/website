@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { PUBLIC_BASE_URL } from '$env/static/public';
 	import Note from '../components/note.svelte';
-	import Tooltip from '../components/tooltip.svelte';
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
 

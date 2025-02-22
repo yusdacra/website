@@ -1,4 +1,4 @@
-import { getLastPosts, getUserPosts } from '$lib/bluesky.js';
+import { getLastPosts } from '$lib/bluesky.js';
 import { noteFromBskyPost } from '../../components/note.svelte';
 
 export const load = async ({ }) => {

@@ -2,7 +2,7 @@
 	import { PUBLIC_BASE_URL } from '$env/static/public';
 	import Window from '../../components/window.svelte';
 	import '../../styles/app.css';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	interface Props {
 		title: any;
@@ -37,7 +37,7 @@
 		<Window title="metadata" sticky>
 			<div class="prose prose-ralsei">
 				<ul>
-					<link class="u-url" href="{PUBLIC_BASE_URL}{$page.url.pathname}" />
+					<link class="u-url" href="{PUBLIC_BASE_URL}{page.url.pathname}" />
 					<li>author: <a rel="author" class="p-author h-card" href={PUBLIC_BASE_URL}>dusk</a></li>
 					<li>published on: <time class="dt-published" datetime="{date} 00:00:00">{date}</time></li>
 					<li class="max-w-80 text-wrap">

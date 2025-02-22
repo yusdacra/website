@@ -9,12 +9,6 @@ excerpt = "photos from my trip to japan"
     export let data
 </script>
 
-<style>
-    picture {
-        margin: 0 !important;
-    }
-</style>
-
 ## 1-16 / 09 / 2024
 
 photos i took while on a japan trip
@@ -26,6 +20,6 @@ fixed!!!! i also added a few images because im dumb and forgot
 
 <div class="grid gap-0.5 auto-rows-min md:grid-cols-4">
 {#each data.images as image}
-<a class="!animate-none" href={image.og}><img loading="lazy" width={480} height={480} src={image.thumb} class="w-full h-full object-cover [image-rendering:high-quality_!important]"/></a>
+<a class="!animate-none" href={image.og}><img loading="lazy" width={480} height={480} src={image.thumb} alt="from japan trip" class="w-full h-full object-cover [image-rendering:high-quality_!important]"/></a>
 {/each}
 </div>

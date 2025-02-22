@@ -1,5 +1,5 @@
 import { env } from '$env/dynamic/private'
-import { Bot, Post } from "@skyware/bot";
+import { Bot, type Post } from "@skyware/bot";
 import { get, writable } from 'svelte/store'
 
 const bskyClient = writable<null | Bot>(null)
