@@ -46,11 +46,8 @@
     "@types/node-schedule": "^2.1.7",
     "nanoid": "^5.1.0",
     "node-schedule": "^2.1.1",
-    "rehype-autolink-headings": "^7.1.0",
-    "rehype-slug": "^6.0.0",
     "robots-parser": "^3.0.1",
-    "steamgriddb": "^2.2.0",
-    "svelte-time": "^2.0.0"
+    "steamgriddb": "^2.2.0"
   },
   "trustedDependencies": [
     "@sveltejs/kit",

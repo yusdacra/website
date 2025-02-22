@@ -3,7 +3,6 @@
 	import Note from '../components/note.svelte';
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
-	import Time from "svelte-time";
 
 	interface Props {
 		data: any;
@@ -20,6 +19,21 @@
             minute: "2-digit",
         })
     }
+	const renderRelativeDate = (timestamp: number) => {
+		const elapsed = timestamp - (new Date()).getTime()
+		const units: Record<string, number> = {
+			year  : 24 * 60 * 60 * 1000 * 365,
+			month : 24 * 60 * 60 * 1000 * 365/12,
+			day   : 24 * 60 * 60 * 1000,
+			hour  : 60 * 60 * 1000,
+			minute: 60 * 1000,
+			second: 1000
+		}
+		const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
+		for (var unit in units)
+			if (Math.abs(elapsed) > units[unit] || unit == 'second')
+				return rtf.format(Math.round(elapsed / units[unit]), unit as Intl.RelativeTimeFormatUnit)
+	}
 </script>
 
 <div class="flex flex-col md:flex-row gap-y-2 lg:gap-y-0 md:h-full h-card">
@@ -157,9 +171,10 @@
 				<p
 					class="prose prose-ralsei p-1 border-4 text-sm bg-ralsei-black"
 					style="border-style: double double none double;"
+					title={renderDate(data.lastNote.published)}
 				>
 					<a href="/entries">last log was…</a>
-					published <Time relative format="dddd @ h:mm A · MMMM D, YYYY" timestamp={data.lastNote.published}/>!
+					published {renderRelativeDate(data.lastNote.published)}!
 				</p>
 				<div class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[40ch]">
 					<Note note={data.lastNote} onlyContent/>

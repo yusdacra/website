@@ -2,8 +2,6 @@ import adapter from 'svelte-adapter-bun';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 import { mdsvex } from 'mdsvex'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeSlug from 'rehype-slug'
 
 import * as toml from "@std/toml";
 
@@ -33,10 +31,6 @@ const config = {
 					}
 				},
 			},
-			rehypePlugins: [
-				rehypeSlug,
-				rehypeAutolinkHeadings,
-			],
 			smartypants: {
 				dashes: 'oldschool',
 				quotes: true,
