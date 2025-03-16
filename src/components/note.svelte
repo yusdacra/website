@@ -25,6 +25,7 @@
 </script>
 <script lang="ts">
 	import Token from "./token.svelte";
+    import {renderDate, renderRelativeDate} from '$lib/dateFmt';
 
     interface Props {
         note: NoteData;
@@ -39,16 +40,6 @@
         onlyContent = false,
         showOutgoing = true
     }: Props = $props();
-    
-    const renderDate = (timestamp: number) => {
-        return (new Date(timestamp)).toLocaleString("en-GB", {
-            year: "2-digit",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-        })
-    }
 
     const getOutgoingLink = (name: string, link: string) => {
         if (name === "bsky") {
@@ -65,8 +56,8 @@
     }
 </script>
 
-<div class="text-wrap break-words max-w-[70ch] leading-tight">
-{#if !onlyContent}<Token v={renderDate(note.published)} small={!isHighlighted}/>{/if} <Token v={note.content} str/>
+<p class="m-0 max-w-[70ch] text-wrap break-words leading-tight align-middle">
+{#if !onlyContent}<Token title={renderDate(note.published)} v={renderRelativeDate(note.published)} small={!isHighlighted}/>{/if} <Token v={note.content} str/>
 {#if note.hasMedia}<Token v="-contains media-" keywd small/>{/if}
 {#if note.hasQuote}<Token v="-contains quote-" keywd small/>{/if}
 {#if showOutgoing}
@@ -75,4 +66,4 @@
 <span class="text-sm"><Token v="(" punct/><a class="hover:motion-safe:animate-squiggle hover:underline" style="color: {color};{getTextShadowStyle(color)}" href={getOutgoingLink(name, link)}>{name}</a><Token v=")" punct/></span>
 {/each}
 {/if}
-</div>
+</p>

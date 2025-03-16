@@ -3,37 +3,13 @@
 	import Note from '../components/note.svelte';
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
+	import {renderDate, renderRelativeDate} from '$lib/dateFmt';
 
 	interface Props {
 		data: any;
 	}
 
 	let { data }: Props = $props();
-
-    const renderDate = (timestamp: number) => {
-        return (new Date(timestamp)).toLocaleString("en-GB", {
-            year: "2-digit",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-        })
-    }
-	const renderRelativeDate = (timestamp: number) => {
-		const elapsed = timestamp - (new Date()).getTime()
-		const units: Record<string, number> = {
-			year  : 24 * 60 * 60 * 1000 * 365,
-			month : 24 * 60 * 60 * 1000 * 365/12,
-			day   : 24 * 60 * 60 * 1000,
-			hour  : 60 * 60 * 1000,
-			minute: 60 * 1000,
-			second: 1000
-		}
-		const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
-		for (var unit in units)
-			if (Math.abs(elapsed) > units[unit] || unit == 'second')
-				return rtf.format(Math.round(elapsed / units[unit]), unit as Intl.RelativeTimeFormatUnit)
-	}
 </script>
 
 <div class="flex flex-col md:flex-row gap-y-2 lg:gap-y-0 md:h-full h-card">
@@ -182,26 +158,24 @@
 			</div>
 			{/if}
 			{#if data.lastTrack}
-			<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
+			<div class="flex flex-row gap-0.5 m-1.5 border-4 border-double bg-ralsei-black">
 				<!-- svelte-ignore a11y_missing_attribute -->
 				{#if data.lastTrack.image}
 					<img
-						class="border-4 w-16 h-16"
+						class="border-4 w-[4.5rem] h-[4.5rem]"
 						style="border-style: none double none none;"
-						width="64"
-						height="64"
 						src={data.lastTrack.image}
 					/>
 				{:else}
 					<img
-						class="border-4 w-16 h-16 p-2"
+						class="border-4 w-[4.5rem] h-[4.5rem] p-2"
 						style="border-style: none double none none; image-rendering: pixelated;"
 						src="/icons/cd_audio.webp"
 					/>
 				{/if}
-				<div class="flex flex-col max-w-[40ch] p-2 overflow-hidden">
+				<div class="flex flex-col max-w-[40ch] p-2">
 					<p
-						class="text-shadow-green text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
 					>
 						<span class="text-sm text-shadow-white text-ralsei-white">listening to</span>
 						<a
@@ -216,6 +190,11 @@
 						<span class="text-shadow-white text-ralsei-white">by</span>
 						<span title={data.lastTrack.artist}>{data.lastTrack.artist}</span>
 					</p>
+					<p
+						class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+					>
+						…{renderRelativeDate(data.lastTrack.when)}
+					</p>
 				</div>
 			</div>
 			{/if}
@@ -223,20 +202,25 @@
 			<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
 				<!-- svelte-ignore a11y_missing_attribute -->
 				<img
-					class="border-4 w-16 h-16"
+					class="border-4 w-[4.5rem] h-[4.5rem]"
 					style="border-style: none double none none;"
 					width="64"
 					height="64"
 					src={data.lastGame.icon}
 				/>
-				<div class="flex flex-col max-w-[40ch] p-2 gap-1 overflow-hidden">
+				<div class="flex flex-col max-w-[40ch] p-2 gap-0.5 overflow-hidden">
 					<p
-						class="text-shadow-green text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
 					>
 						<span class="text-sm text-shadow-white text-ralsei-white">playing</span>
 						<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
 							>{data.lastGame.name}</a
 						>
+					</p>
+					<p
+						class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+					>
+						…{renderRelativeDate(data.lastGame.when)}
 					</p>
 					<!-- svelte-ignore a11y_missing_attribute -->
 					<a

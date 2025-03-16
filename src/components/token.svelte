@@ -8,6 +8,7 @@
         str?: boolean;
         small?: boolean;
         v: string;
+        title?: string;
     }
 
     let {
@@ -16,6 +17,7 @@
         funct = false,
         str = false,
         small = false,
+        title,
         v
     }: Props = $props();
 
@@ -27,4 +29,4 @@
         : ""
 </script>
 
-<span class="align-middle token {ty} {small ? "text-sm" : ""}">{v}</span>
+<span {title} class="token {ty} {small ? "text-sm" : ""}">{v}</span>

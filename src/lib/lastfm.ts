@@ -2,7 +2,13 @@ import { get, writable } from "svelte/store"
 
 const GET_RECENT_TRACKS_ENDPOINT = "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=yusdacra&api_key=da1911d405b5b37383e200b8f36ee9ec&format=json&limit=1"
 
-type LastTrack = {name: string, artist: string, image: string | null, link: string}
+type LastTrack = {
+    name: string,
+    artist: string,
+    image: string | null,
+    link: string,
+    when: number,
+}
 const lastTrack = writable<LastTrack | null>(null)
 
 export const lastFmUpdateNowPlaying = async () => {
@@ -17,11 +23,11 @@ export const lastFmUpdateNowPlaying = async () => {
             artist: track.artist['#text'],
             image: track.image[2]['#text'] ?? null,
             link: track.url,
+            when: Date.now(),
         }
         lastTrack.set(data)
     } catch(why) {
         console.log("could not fetch last fm: ", why)
-        lastTrack.set(null)
     }
 }
 
