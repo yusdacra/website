@@ -11,6 +11,7 @@ type LastGame = {
     icon: string,
     pfp: string,
     when: number,
+    playing: boolean,
 }
 
 const steamgriddbClient = writable<SGDB | null>(null)
@@ -35,10 +36,12 @@ export const steamUpdateNowPlaying = async () => {
             icon: icons[0].thumb.toString(),
             pfp: profile.avatarmedium,
             when: Date.now(),
+            playing: true,
         }
         lastGame.set(game)
     } catch(why) {
         console.log("could not fetch steam: ", why)
+        lastGame.update((t) => { if (t !== null) { t.playing = false; } return t })
     }
 }
 

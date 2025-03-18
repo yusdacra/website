@@ -8,6 +8,7 @@ type LastTrack = {
     image: string | null,
     link: string,
     when: number,
+    playing: boolean,
 }
 const lastTrack = writable<LastTrack | null>(null)
 
@@ -24,10 +25,12 @@ export const lastFmUpdateNowPlaying = async () => {
             image: track.image[2]['#text'] ?? null,
             link: track.url,
             when: Date.now(),
+            playing: true,
         }
         lastTrack.set(data)
     } catch(why) {
         console.log("could not fetch last fm: ", why)
+        lastTrack.update((t) => { if (t !== null) { t.playing = false; } return t })
     }
 }
 

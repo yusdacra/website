@@ -37,8 +37,12 @@ export const getUserPosts = async (did: string, count: number = 10, cursor: stri
 const lastPosts = writable<Post[]>([])
 
 export const updateLastPosts = async () => {
-    const { posts } = await getUserPosts("did:plc:dfl62fgb7wtjj3fcbb72naae", 13)
-    lastPosts.set(posts)
+    try {
+        const { posts } = await getUserPosts("did:plc:dfl62fgb7wtjj3fcbb72naae", 13)
+        lastPosts.set(posts)
+    } catch (err) {
+        console.log(`can't update last posts ${err}`)
+    }
 }
 
 export const getLastPosts = () => { return get(lastPosts) }

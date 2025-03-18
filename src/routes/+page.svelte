@@ -177,7 +177,7 @@
 					<p
 						class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
 					>
-						<span class="text-sm text-shadow-white text-ralsei-white">listening to</span>
+						<span class="text-sm text-shadow-white text-ralsei-white">{data.lastTrack.playing ? "listening to" : "listened to"}</span>
 						<a
 							title={data.lastTrack.name}
 							href="https://www.last.fm/user/yusdacra"
@@ -212,7 +212,7 @@
 					<p
 						class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
 					>
-						<span class="text-sm text-shadow-white text-ralsei-white">playing</span>
+						<span class="text-sm text-shadow-white text-ralsei-white">{data.lastGame.playing ? "playing" : "played"}</span>
 						<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
 							>{data.lastGame.name}</a
 						>
