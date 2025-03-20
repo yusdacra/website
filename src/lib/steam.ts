@@ -28,7 +28,7 @@ export const steamUpdateNowPlaying = async () => {
         if (!profile.gameid) {
             throw "no game is being played"
         }
-        var icons = await griddbClient.getIconsBySteamAppId(profile.gameid, ['official'])
+        var icons = await griddbClient.getIconsBySteamAppId(profile.gameid, ['official', 'custom'])
         //console.log(icons)
         var game: LastGame = {
             name: profile.gameextrainfo,
