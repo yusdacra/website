@@ -14,8 +14,164 @@
 	let { data }: Props = $props();
 </script>
 
-<div class="flex flex-col md:flex-row gap-y-2 lg:gap-y-0 md:h-full h-card">
-	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto">
+<div class="flex flex-col md:flex-row gap-4 md:gap-8 md:h-full h-card">
+	<div class="flex flex-col gap-4 md:gap-8 ml-auto">
+		<Window title="latest stuff">
+			<div class="prose prose-ralsei prose-img:m-0 leading-6">
+				<LatestStuff />
+			</div>
+		</Window>
+		<Window style="md:ml-4" title="status" removePadding>
+			{#if data.lastNote}
+				<div class="m-1.5 flex flex-col font-monospace text-sm">
+					<p
+						class="prose prose-ralsei p-1 border-4 text-sm bg-ralsei-black"
+						style="border-style: double double none double;"
+						title={renderDate(data.lastNote.published)}
+					>
+						<a href="/entries">last log was…</a>
+						published {renderRelativeDate(data.lastNote.published)}!
+					</p>
+					<div class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[60ch]">
+						<Note note={data.lastNote} onlyContent />
+					</div>
+				</div>
+			{/if}
+			{#if data.lastTrack}
+				<div class="flex flex-row gap-0.5 m-1.5 border-4 border-double bg-ralsei-black">
+					<!-- svelte-ignore a11y_missing_attribute -->
+					{#if data.lastTrack.image}
+						<img
+							class="border-4 w-[4.5rem] h-[4.5rem]"
+							style="border-style: none double none none;"
+							src={data.lastTrack.image}
+						/>
+					{:else}
+						<img
+							class="border-4 w-[4.5rem] h-[4.5rem] p-2"
+							style="border-style: none double none none; image-rendering: pixelated;"
+							src="/icons/cd_audio.webp"
+						/>
+					{/if}
+					<div class="flex flex-col max-w-[60ch] p-2">
+						<p
+							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
+						>
+							<span class="text-sm text-shadow-white text-ralsei-white"
+								>{data.lastTrack.playing ? 'listening to' : 'listened to'}</span
+							>
+							<a
+								title={data.lastTrack.name}
+								href="https://www.last.fm/user/yusdacra"
+								class="hover:underline motion-safe:hover:animate-squiggle">{data.lastTrack.name}</a
+							>
+						</p>
+						<p
+							class="text-shadow-pink text-ralsei-pink-regular text-sm text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
+						>
+							<span class="text-shadow-white text-ralsei-white">by</span>
+							<span title={data.lastTrack.artist}>{data.lastTrack.artist}</span>
+						</p>
+						<p
+							class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
+						>
+							…{renderRelativeDate(data.lastTrack.when)}
+						</p>
+					</div>
+				</div>
+			{/if}
+			{#if data.lastGame}
+				<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
+					<!-- svelte-ignore a11y_missing_attribute -->
+					<img
+						class="border-4 w-[4.5rem] h-[4.5rem]"
+						style="border-style: none double none none;"
+						width="64"
+						height="64"
+						src={data.lastGame.icon}
+					/>
+					<div class="flex flex-col max-w-[60ch] p-2 gap-0.5 overflow-hidden">
+						<p
+							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
+						>
+							<span class="text-sm text-shadow-white text-ralsei-white"
+								>{data.lastGame.playing ? 'playing' : 'played'}</span
+							>
+							<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
+								>{data.lastGame.name}</a
+							>
+						</p>
+						<p
+							class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
+						>
+							…{renderRelativeDate(data.lastGame.when)}
+						</p>
+						<!-- svelte-ignore a11y_missing_attribute -->
+						<a
+							href="https://steamcommunity.com/id/yusdacra"
+							class="text-xs hover:underline text-shadow-green text-ralsei-green-light"
+							><img class="inline w-4" src={data.lastGame.pfp} />
+							<span class="align-middle">steam profile</span></a
+						>
+					</div>
+				</div>
+			{/if}
+		</Window>
+	</div>
+	<div class="flex flex-col gap-4 md:gap-8 mr-auto w-full md:w-fit place-items-end">
+		<Window style="md:mr-12" title="links!" iconUri="/icons/contact.webp">
+			<div
+				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-[1.1rem] prose-headings:leading-none"
+			>
+				<ul>
+					<li>discord: yusdacra</li>
+					<li>
+						e-mail:
+						<a class="u-email" href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
+					</li>
+					<li>
+						bluesky:
+						<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
+					</li>
+				</ul>
+				<h4>development</h4>
+				<ul>
+					<li>
+						github:
+						<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
+					</li>
+					<li>
+						my gitea:
+						<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
+						(<a href="https://git.gaze.systems/gazesys/website">website repo</a>)
+					</li>
+					<li>
+						gitlab:
+						<a class="u-url" href="https://gitlab.com/yusdacra" rel="me">@yusdacra</a>
+					</li>
+					<li>
+						itch.io:
+						<a class="u-url" href="https://yusdacra.itch.io" rel="me">@yusdacra</a>
+					</li>
+				</ul>
+				<h4>services</h4>
+				<ul>
+					<li>
+						<a href="https://pmart.gaze.systems">random project moon art</a>
+					</li>
+				</ul>
+				<h4>88x31</h4>
+				<div class="flex flex-row flex-wrap gap-1 prose-img:m-0">
+					<img src="/88x31.gif" alt="88x31 banner" title="midnight AND sunrise! woaw" />
+					<img
+						src="/88x31_midnight.gif"
+						alt="88x31 banner (midnight only)"
+						title="it's midnight!"
+					/>
+					<img src="/88x31_sunrise.gif" alt="88x31 banner (sunrise only)" title="it's sunrise!" />
+				</div>
+			</div>
+		</Window>
 		<Window title="readme?" iconUri="/icons/question.webp" removePadding>
 			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
 				<div class="flex flex-row gap-3 mx-auto bg-ralsei-black/20 overflow-hidden">
@@ -107,162 +263,6 @@
 					>
 				</div>
 			</div>
-		</Window>
-		<Window title="latest stuff" style="mt-auto">
-			<div class="prose prose-ralsei prose-img:m-0 leading-6">
-				<LatestStuff />
-			</div>
-		</Window>
-	</div>
-	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto w-full md:w-fit place-items-end">
-		<Window title="links!" iconUri="/icons/contact.webp">
-			<div
-				class="prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-[1.1rem] prose-headings:leading-none"
-			>
-				<ul>
-					<li>discord: yusdacra</li>
-					<li>
-						e-mail:
-						<a class="u-email" href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
-					</li>
-					<li>
-						bluesky:
-						<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
-					</li>
-				</ul>
-				<h4>development</h4>
-				<ul>
-					<li>
-						github:
-						<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
-					</li>
-					<li>
-						my gitea:
-						<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
-						(<a href="https://git.gaze.systems/gazesys/website">website repo</a>)
-					</li>
-					<li>
-						gitlab:
-						<a class="u-url" href="https://gitlab.com/yusdacra" rel="me">@yusdacra</a>
-					</li>
-					<li>
-						itch.io:
-						<a class="u-url" href="https://yusdacra.itch.io" rel="me">@yusdacra</a>
-					</li>
-				</ul>
-				<h4>services</h4>
-				<ul>
-					<li>
-						<a href="https://pmart.gaze.systems">random project moon art</a>
-					</li>
-				</ul>
-				<h4>88x31</h4>
-				<div class="flex flex-row flex-wrap gap-1 prose-img:m-0">
-					<img src="/88x31.gif" alt="88x31 banner" title="midnight AND sunrise! woaw" />
-					<img
-						src="/88x31_midnight.gif"
-						alt="88x31 banner (midnight only)"
-						title="it's midnight!"
-					/>
-					<img src="/88x31_sunrise.gif" alt="88x31 banner (sunrise only)" title="it's sunrise!" />
-				</div>
-			</div>
-		</Window>
-		<Window title="status" style="mt-auto" removePadding>
-			{#if data.lastNote}
-				<div class="m-1.5 flex flex-col font-monospace text-sm">
-					<p
-						class="prose prose-ralsei p-1 border-4 text-sm bg-ralsei-black"
-						style="border-style: double double none double;"
-						title={renderDate(data.lastNote.published)}
-					>
-						<a href="/entries">last log was…</a>
-						published {renderRelativeDate(data.lastNote.published)}!
-					</p>
-					<div class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[40ch]">
-						<Note note={data.lastNote} onlyContent />
-					</div>
-				</div>
-			{/if}
-			{#if data.lastTrack}
-				<div class="flex flex-row gap-0.5 m-1.5 border-4 border-double bg-ralsei-black">
-					<!-- svelte-ignore a11y_missing_attribute -->
-					{#if data.lastTrack.image}
-						<img
-							class="border-4 w-[4.5rem] h-[4.5rem]"
-							style="border-style: none double none none;"
-							src={data.lastTrack.image}
-						/>
-					{:else}
-						<img
-							class="border-4 w-[4.5rem] h-[4.5rem] p-2"
-							style="border-style: none double none none; image-rendering: pixelated;"
-							src="/icons/cd_audio.webp"
-						/>
-					{/if}
-					<div class="flex flex-col max-w-[40ch] p-2">
-						<p
-							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-						>
-							<span class="text-sm text-shadow-white text-ralsei-white"
-								>{data.lastTrack.playing ? 'listening to' : 'listened to'}</span
-							>
-							<a
-								title={data.lastTrack.name}
-								href="https://www.last.fm/user/yusdacra"
-								class="hover:underline motion-safe:hover:animate-squiggle">{data.lastTrack.name}</a
-							>
-						</p>
-						<p
-							class="text-shadow-pink text-ralsei-pink-regular text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-						>
-							<span class="text-shadow-white text-ralsei-white">by</span>
-							<span title={data.lastTrack.artist}>{data.lastTrack.artist}</span>
-						</p>
-						<p
-							class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-						>
-							…{renderRelativeDate(data.lastTrack.when)}
-						</p>
-					</div>
-				</div>
-			{/if}
-			{#if data.lastGame}
-				<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
-					<!-- svelte-ignore a11y_missing_attribute -->
-					<img
-						class="border-4 w-[4.5rem] h-[4.5rem]"
-						style="border-style: none double none none;"
-						width="64"
-						height="64"
-						src={data.lastGame.icon}
-					/>
-					<div class="flex flex-col max-w-[40ch] p-2 gap-0.5 overflow-hidden">
-						<p
-							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-						>
-							<span class="text-sm text-shadow-white text-ralsei-white"
-								>{data.lastGame.playing ? 'playing' : 'played'}</span
-							>
-							<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
-								>{data.lastGame.name}</a
-							>
-						</p>
-						<p
-							class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-						>
-							…{renderRelativeDate(data.lastGame.when)}
-						</p>
-						<!-- svelte-ignore a11y_missing_attribute -->
-						<a
-							href="https://steamcommunity.com/id/yusdacra"
-							class="text-xs hover:underline text-shadow-green text-ralsei-green-light"
-							><img class="inline w-4" src={data.lastGame.pfp} />
-							<span class="align-middle">steam profile</span></a
-						>
-					</div>
-				</div>
-			{/if}
 		</Window>
 	</div>
 </div>
