@@ -4,6 +4,7 @@
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
 	import { renderDate, renderRelativeDate } from '$lib/dateFmt';
+	import Tooltip from '../components/tooltip.svelte';
 
 	interface Props {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,14 +35,20 @@
 					{/each}
 				</div>
 				<div class="flex flex-grow">
-					<div class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black/20">
-						<img
-							class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]"
-							src="/pfp-iojkqpwerojnasduijf.webp"
-							alt="my angelsona"
-							title="that's me! my angelsona :3c"
-						/>
-					</div>
+					<Tooltip>
+						{#snippet tooltipContent()}
+							that's me! my angelsona :3c
+						{/snippet}
+						<div
+							class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black/20"
+						>
+							<img
+								class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]"
+								src="/pfp-iojkqpwerojnasduijf.webp"
+								alt="my angelsona"
+							/>
+						</div>
+					</Tooltip>
 					<div
 						class="flex flex-row flex-grow place-content-center ml-1.5 [padding:8px] bg-ralsei-black/20"
 					>
@@ -49,8 +56,18 @@
 							class="place-self-center m-0 mr-4 [padding-left:1em] sm:[padding-left:0.5em] leading-none marker:[content:'->'] [list-style-type:'->']"
 						>
 							<li class="[list-style-type:'->'] p-note">trying to do stuff</li>
-							<li class="[list-style-type:'->'] p-note" title="angelrobotdollpuppything">
-								is a thing (it/they)
+							<li class="[list-style-type:'->'] p-note">
+								<Tooltip
+									x="translate-x-none"
+									y="translate-y-none"
+									targetX="group-hover:translate-x-[80%]"
+									targetY="group-hover:-translate-y-[70%]"
+								>
+									{#snippet tooltipContent()}
+										angelrobotdollpuppything
+									{/snippet}
+									is a thing (it/they)
+								</Tooltip>
 							</li>
 							<li class="[list-style-type:'->']">
 								<span class="p-category">software engineer</span>,
