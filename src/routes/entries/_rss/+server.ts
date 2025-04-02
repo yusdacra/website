@@ -3,15 +3,13 @@ import { _allPosts, type PostData } from '../+layout.server.ts';
 
 const entriesUrl = `${PUBLIC_BASE_URL}/entries`;
 
-export const GET = async ({ }) => {
-      return new Response(
-            render(_allPosts),
-            {
-            headers: {
-                  'content-type': 'application/xml',
-                  'cache-control': 'no-store',
-            }
-      })
+export const GET = async () => {
+	return new Response(render(_allPosts), {
+		headers: {
+			'content-type': 'application/xml',
+			'cache-control': 'no-store'
+		}
+	});
 };
 
 const render = (posts: PostData[]) => `<?xml version="1.0" encoding="UTF-8" ?>
@@ -21,13 +19,17 @@ const render = (posts: PostData[]) => `<?xml version="1.0" encoding="UTF-8" ?>
   <title>dusk's posts (@gaze.systems)</title>
   <link>${entriesUrl}</link>
   <description>posts from my website</description>
-  ${posts.map((post) => `<item>
+  ${posts
+		.map(
+			(post) => `<item>
   <guid>${entriesUrl}/${post.path}</guid>
   <title>${post.metadata.title}</title>
   <link>${entriesUrl}/${post.path}</link>
   <description>${post.metadata.excerpt}</description>
   <pubDate>${new Date(post.metadata.date).toUTCString()}</pubDate>
-  </item>`).join('')}
+  </item>`
+		)
+		.join('')}
   </channel>
   </rss>
   `;
