@@ -3,9 +3,10 @@
 	import Note from '../components/note.svelte';
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
-	import {renderDate, renderRelativeDate} from '$lib/dateFmt';
+	import { renderDate, renderRelativeDate } from '$lib/dateFmt';
 
 	interface Props {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		data: any;
 	}
 
@@ -16,9 +17,7 @@
 	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto">
 		<Window title="readme?" iconUri="/icons/question.webp" removePadding>
 			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
-				<div
-					class="flex flex-row gap-3 mx-auto bg-ralsei-black/20 overflow-hidden"
-				>
+				<div class="flex flex-row gap-3 mx-auto bg-ralsei-black/20 overflow-hidden">
 					{#each data.banners as bannerNo, index}
 						{@const hideIfMobile = index === data.banners.length - 1}
 						<img
@@ -35,10 +34,13 @@
 					{/each}
 				</div>
 				<div class="flex flex-grow">
-					<div
-						class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black/20"
-					>
-					<img class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]" src="/pfp-iojkqpwerojnasduijf.webp" alt="my character" title="hi ;)"/>
+					<div class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black/20">
+						<img
+							class="w-36 u-photo hover:invert transition-all [transition-duration:300ms]"
+							src="/pfp-iojkqpwerojnasduijf.webp"
+							alt="my angelsona"
+							title="that's me! my angelsona :3c"
+						/>
 					</div>
 					<div
 						class="flex flex-row flex-grow place-content-center ml-1.5 [padding:8px] bg-ralsei-black/20"
@@ -47,7 +49,9 @@
 							class="place-self-center m-0 mr-4 [padding-left:1em] sm:[padding-left:0.5em] leading-none marker:[content:'->'] [list-style-type:'->']"
 						>
 							<li class="[list-style-type:'->'] p-note">trying to do stuff</li>
-							<li class="[list-style-type:'->'] p-note">is a thing that exists</li>
+							<li class="[list-style-type:'->'] p-note" title="angelrobotdollpuppything">
+								is a thing (it/they)
+							</li>
 							<li class="[list-style-type:'->']">
 								<span class="p-category">software engineer</span>,
 								<span class="p-category">indie game dev</span>
@@ -95,7 +99,9 @@
 	</div>
 	<div class="flex flex-col gap-y-2 lg:gap-y-0 mx-auto w-full md:w-fit place-items-end">
 		<Window title="links!" iconUri="/icons/contact.webp">
-			<div class="prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-[1.1rem] prose-headings:leading-none">
+			<div
+				class="prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-[1.1rem] prose-headings:leading-none"
+			>
 				<ul>
 					<li>discord: yusdacra</li>
 					<li>
@@ -135,102 +141,110 @@
 				</ul>
 				<h4>88x31</h4>
 				<div class="flex flex-row flex-wrap gap-1 prose-img:m-0">
-					<img src="/88x31.gif" alt="88x31 banner" title="midnight AND sunrise! woaw"/>
-					<img src="/88x31_midnight.gif" alt="88x31 banner (midnight only)" title="it's midnight!"/>
-					<img src="/88x31_sunrise.gif" alt="88x31 banner (sunrise only)" title="it's sunrise!"/>
+					<img src="/88x31.gif" alt="88x31 banner" title="midnight AND sunrise! woaw" />
+					<img
+						src="/88x31_midnight.gif"
+						alt="88x31 banner (midnight only)"
+						title="it's midnight!"
+					/>
+					<img src="/88x31_sunrise.gif" alt="88x31 banner (sunrise only)" title="it's sunrise!" />
 				</div>
 			</div>
 		</Window>
 		<Window title="status" style="mt-auto" removePadding>
 			{#if data.lastNote}
-			<div class="m-1.5 flex flex-col font-monospace text-sm">
-				<p
-					class="prose prose-ralsei p-1 border-4 text-sm bg-ralsei-black"
-					style="border-style: double double none double;"
-					title={renderDate(data.lastNote.published)}
-				>
-					<a href="/entries">last log was…</a>
-					published {renderRelativeDate(data.lastNote.published)}!
-				</p>
-				<div class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[40ch]">
-					<Note note={data.lastNote} onlyContent/>
+				<div class="m-1.5 flex flex-col font-monospace text-sm">
+					<p
+						class="prose prose-ralsei p-1 border-4 text-sm bg-ralsei-black"
+						style="border-style: double double none double;"
+						title={renderDate(data.lastNote.published)}
+					>
+						<a href="/entries">last log was…</a>
+						published {renderRelativeDate(data.lastNote.published)}!
+					</p>
+					<div class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[40ch]">
+						<Note note={data.lastNote} onlyContent />
+					</div>
 				</div>
-			</div>
 			{/if}
 			{#if data.lastTrack}
-			<div class="flex flex-row gap-0.5 m-1.5 border-4 border-double bg-ralsei-black">
-				<!-- svelte-ignore a11y_missing_attribute -->
-				{#if data.lastTrack.image}
+				<div class="flex flex-row gap-0.5 m-1.5 border-4 border-double bg-ralsei-black">
+					<!-- svelte-ignore a11y_missing_attribute -->
+					{#if data.lastTrack.image}
+						<img
+							class="border-4 w-[4.5rem] h-[4.5rem]"
+							style="border-style: none double none none;"
+							src={data.lastTrack.image}
+						/>
+					{:else}
+						<img
+							class="border-4 w-[4.5rem] h-[4.5rem] p-2"
+							style="border-style: none double none none; image-rendering: pixelated;"
+							src="/icons/cd_audio.webp"
+						/>
+					{/if}
+					<div class="flex flex-col max-w-[40ch] p-2">
+						<p
+							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						>
+							<span class="text-sm text-shadow-white text-ralsei-white"
+								>{data.lastTrack.playing ? 'listening to' : 'listened to'}</span
+							>
+							<a
+								title={data.lastTrack.name}
+								href="https://www.last.fm/user/yusdacra"
+								class="hover:underline motion-safe:hover:animate-squiggle">{data.lastTrack.name}</a
+							>
+						</p>
+						<p
+							class="text-shadow-pink text-ralsei-pink-regular text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						>
+							<span class="text-shadow-white text-ralsei-white">by</span>
+							<span title={data.lastTrack.artist}>{data.lastTrack.artist}</span>
+						</p>
+						<p
+							class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						>
+							…{renderRelativeDate(data.lastTrack.when)}
+						</p>
+					</div>
+				</div>
+			{/if}
+			{#if data.lastGame}
+				<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
+					<!-- svelte-ignore a11y_missing_attribute -->
 					<img
 						class="border-4 w-[4.5rem] h-[4.5rem]"
 						style="border-style: none double none none;"
-						src={data.lastTrack.image}
+						width="64"
+						height="64"
+						src={data.lastGame.icon}
 					/>
-				{:else}
-					<img
-						class="border-4 w-[4.5rem] h-[4.5rem] p-2"
-						style="border-style: none double none none; image-rendering: pixelated;"
-						src="/icons/cd_audio.webp"
-					/>
-				{/if}
-				<div class="flex flex-col max-w-[40ch] p-2">
-					<p
-						class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-					>
-						<span class="text-sm text-shadow-white text-ralsei-white">{data.lastTrack.playing ? "listening to" : "listened to"}</span>
+					<div class="flex flex-col max-w-[40ch] p-2 gap-0.5 overflow-hidden">
+						<p
+							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						>
+							<span class="text-sm text-shadow-white text-ralsei-white"
+								>{data.lastGame.playing ? 'playing' : 'played'}</span
+							>
+							<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
+								>{data.lastGame.name}</a
+							>
+						</p>
+						<p
+							class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
+						>
+							…{renderRelativeDate(data.lastGame.when)}
+						</p>
+						<!-- svelte-ignore a11y_missing_attribute -->
 						<a
-							title={data.lastTrack.name}
-							href="https://www.last.fm/user/yusdacra"
-							class="hover:underline motion-safe:hover:animate-squiggle">{data.lastTrack.name}</a
+							href="https://steamcommunity.com/id/yusdacra"
+							class="text-xs hover:underline text-shadow-green text-ralsei-green-light"
+							><img class="inline w-4" src={data.lastGame.pfp} />
+							<span class="align-middle">steam profile</span></a
 						>
-					</p>
-					<p
-						class="text-shadow-pink text-ralsei-pink-regular text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-					>
-						<span class="text-shadow-white text-ralsei-white">by</span>
-						<span title={data.lastTrack.artist}>{data.lastTrack.artist}</span>
-					</p>
-					<p
-						class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-					>
-						…{renderRelativeDate(data.lastTrack.when)}
-					</p>
+					</div>
 				</div>
-			</div>
-			{/if}
-			{#if data.lastGame}
-			<div class="flex flex-row m-1.5 border-4 border-double bg-ralsei-black">
-				<!-- svelte-ignore a11y_missing_attribute -->
-				<img
-					class="border-4 w-[4.5rem] h-[4.5rem]"
-					style="border-style: none double none none;"
-					width="64"
-					height="64"
-					src={data.lastGame.icon}
-				/>
-				<div class="flex flex-col max-w-[40ch] p-2 gap-0.5 overflow-hidden">
-					<p
-						class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-					>
-						<span class="text-sm text-shadow-white text-ralsei-white">{data.lastGame.playing ? "playing" : "played"}</span>
-						<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
-							>{data.lastGame.name}</a
-						>
-					</p>
-					<p
-						class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[30ch]"
-					>
-						…{renderRelativeDate(data.lastGame.when)}
-					</p>
-					<!-- svelte-ignore a11y_missing_attribute -->
-					<a
-						href="https://steamcommunity.com/id/yusdacra"
-						class="text-xs hover:underline text-shadow-green text-ralsei-green-light"
-						><img class="inline w-4" src={data.lastGame.pfp} />
-						<span class="align-middle">steam profile</span></a
-					>
-				</div>
-			</div>
 			{/if}
 		</Window>
 	</div>

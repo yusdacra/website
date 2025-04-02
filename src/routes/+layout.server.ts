@@ -5,26 +5,26 @@ import { error } from '@sveltejs/kit';
 export const csr = true;
 export const ssr = true;
 export const prerender = false;
-export const trailingSlash = 'always'; 
+export const trailingSlash = 'always';
 
 export async function load({ request, cookies, url }) {
-    notifyDarkVisitors(url, request) // no await so it doesnt block load
+	notifyDarkVisitors(url, request); // no await so it doesnt block load
 
-    // block any requests if the user agent is disallowed by our robots txt
-    if (await testUa(url.toString(), request.headers.get('user-agent') ?? "") === false) {
-        throw error(403, "get a better user agent silly")
-    }
+	// block any requests if the user agent is disallowed by our robots txt
+	if ((await testUa(url.toString(), request.headers.get('user-agent') ?? '')) === false) {
+		throw error(403, 'get a better user agent silly');
+	}
 
-    const lastVisitors = addLastVisitor(request, cookies)
-    let recentVisitCount = 0
-    for (const [_, visitor] of lastVisitors) {
-        recentVisitCount += visitor.visits.length
-    }
+	const lastVisitors = addLastVisitor(request, cookies);
+	let recentVisitCount = 0;
+	for (const [, visitor] of lastVisitors) {
+		recentVisitCount += visitor.visits.length;
+	}
 
-    return {
-        route: url.pathname,
-        visitCount: incrementVisitCount(request, cookies),
-        lastVisitors,
-        recentVisitCount,
-    }
+	return {
+		route: url.pathname,
+		visitCount: incrementVisitCount(request, cookies),
+		lastVisitors,
+		recentVisitCount
+	};
 }

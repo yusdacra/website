@@ -5,6 +5,7 @@
 	import '../styles/app.css';
 
 	interface Props {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		data: any;
 		children?: import('svelte').Snippet;
 	}
@@ -73,7 +74,7 @@
 			<filter id="squiggly-{index}">
 				<feTurbulence
 					id="turbulence"
-					baseFrequency=0.03
+					baseFrequency="0.03"
 					numOctaves="3"
 					result="noise"
 					seed={index}
@@ -134,7 +135,9 @@
 	</defs>
 </svg>
 
-<div class="md:h-[96vh] pb-[8vh] lg:px-[1vw] 2xl:px-[2vw] lg:pb-[3vh] lg:pt-[1vh] overflow-x-hidden [scrollbar-gutter:stable]">
+<div
+	class="md:h-[96vh] pb-[8vh] lg:px-[1vw] 2xl:px-[2vw] lg:pb-[3vh] lg:pt-[1vh] overflow-x-hidden [scrollbar-gutter:stable]"
+>
 	{@render children?.()}
 </div>
 
@@ -152,7 +155,12 @@
 				{@const highlight = isRoute(item.href)}
 				<NavButton {highlight} {...item} />
 				{#if doAddPostItem && menuIdx == 1}
-					<NavButton highlight name={routeComponents[2]} href={data.route.slice(1)} iconUri='/icons/entry.webp'/>
+					<NavButton
+						highlight
+						name={routeComponents[2]}
+						href={data.route.slice(1)}
+						iconUri="/icons/entry.webp"
+					/>
 				{/if}
 			{/each}
 			<div class="hidden md:block grow"></div>
@@ -163,22 +171,33 @@
 			</div>
 			<Tooltip>
 				{#snippet tooltipContent()}
-							
-						<p class="font-monospace">
-							<nobr>total visits = <span class="text-ralsei-green-light text-shadow-green">{data.visitCount.toString().padStart(9, ".")}</span></nobr>
-							<nobr>uniq recent visits = <span class="text-ralsei-green-light text-shadow-green">{data.lastVisitors.size.toString().padStart(3, ".")}</span></nobr>
-						</p>
-					
-							{/snippet}
-				<div class="navbox"><p><span class="text-ralsei-green-light text-shadow-green">{data.recentVisitCount}</span> recent clicks</p></div>
+					<p class="font-monospace">
+						<nobr
+							>total visits = <span class="text-ralsei-green-light text-shadow-green"
+								>{data.visitCount.toString().padStart(9, '.')}</span
+							></nobr
+						>
+						<nobr
+							>uniq recent visits = <span class="text-ralsei-green-light text-shadow-green"
+								>{data.lastVisitors.size.toString().padStart(3, '.')}</span
+							></nobr
+						>
+					</p>
+				{/snippet}
+				<div class="navbox">
+					<p>
+						<span class="text-ralsei-green-light text-shadow-green">{data.recentVisitCount}</span> recent
+						clicks
+					</p>
+				</div>
 			</Tooltip>
-			{#if isRoute("entries") || isRoute("log")}
-			<div class="navbox !gap-1">
-				rss:
-				<a class="align-middle hover:underline" href="/entries/_rss">posts</a>
-				/
-				<a class="align-middle hover:underline" href="/log/_rss">log</a>
-			</div>
+			{#if isRoute('entries') || isRoute('log')}
+				<div class="navbox !gap-1">
+					rss:
+					<a class="align-middle hover:underline" href="/entries/_rss">posts</a>
+					/
+					<a class="align-middle hover:underline" href="/log/_rss">log</a>
+				</div>
 			{/if}
 		</div>
 	</div>
