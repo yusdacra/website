@@ -3,6 +3,7 @@
 	import Note from '../components/note.svelte';
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
+	import CoolStuff from './coolstuff.md';
 	import { renderDate, renderRelativeDate } from '$lib/dateFmt';
 	import Tooltip from '../components/tooltip.svelte';
 
@@ -15,13 +16,13 @@
 </script>
 
 <div class="flex flex-col md:flex-row gap-4 md:gap-8 md:h-full h-card">
-	<div class="flex flex-col gap-4 md:gap-8 ml-auto">
-		<Window title="latest stuff" iconUri="/icons/msg_information.webp">
+	<div class="flex flex-col gap-4 md:gap-8 ml-auto place-items-end">
+		<Window title="stuff im doing.." iconUri="/icons/msg_information.webp">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
 				<LatestStuff />
 			</div>
 		</Window>
-		<Window style="md:ml-4" title="status" iconUri="/icons/msn.webp" removePadding>
+		<Window style="md:mr-4" title="status" iconUri="/icons/msn.webp" removePadding>
 			{#if data.lastNote}
 				<div class="m-1.5 flex flex-col font-monospace text-sm">
 					<p
@@ -117,9 +118,14 @@
 				</div>
 			{/if}
 		</Window>
+		<Window title="cool stuff,,">
+			<div class="max-w-[50ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
+				<CoolStuff />
+			</div>
+		</Window>
 	</div>
-	<div class="flex flex-col gap-4 md:gap-8 mr-auto w-full md:w-fit place-items-end">
-		<Window style="md:mr-12" title="links!" iconUri="/icons/contact.webp">
+	<div class="flex flex-col gap-4 md:gap-8 mr-auto w-full md:w-fit place-items-start">
+		<Window title="links!" iconUri="/icons/contact.webp">
 			<div
 				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-[1.1rem] prose-headings:leading-none"
 			>
@@ -172,7 +178,7 @@
 				</div>
 			</div>
 		</Window>
-		<Window title="readme?" iconUri="/icons/question.webp" removePadding>
+		<Window style="md:ml-2" title="readme?" iconUri="/icons/question.webp" removePadding>
 			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
 				<div class="flex flex-row gap-3 mx-auto bg-ralsei-black/20 overflow-hidden">
 					{#each data.banners as bannerNo, index}
@@ -180,7 +186,7 @@
 						<img
 							width="150"
 							height="20"
-							title="banners from https://blinkies.cafe/"
+							title="banners from https://blinkies.cafe/ (refresh to get different ones! :3)"
 							alt="banner"
 							class="
 								{hideIfMobile ? 'hidden' : ''} sm:inline w-[150px] [height:20px]
@@ -193,7 +199,7 @@
 				<div class="flex flex-grow">
 					<Tooltip>
 						{#snippet tooltipContent()}
-							that's me! my angelsona :3c
+							that's me! my angelsona ^^
 						{/snippet}
 						<div
 							class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black/20"
@@ -215,14 +221,14 @@
 							<li class="[list-style-type:'->'] p-note">
 								<Tooltip
 									x="translate-x-none"
-									y="translate-y-none"
-									targetX="group-hover:translate-x-[80%]"
+									y="-translate-y-[40%]"
+									targetX="group-hover:translate-x-[40%]"
 									targetY="group-hover:-translate-y-[70%]"
 								>
 									{#snippet tooltipContent()}
-										angelrobotdollpuppything
+										angelrobotpuppydollthing
 									{/snippet}
-									is a thing (it/they)
+									is a <i>thing</i> (it/they)
 								</Tooltip>
 							</li>
 							<li class="[list-style-type:'->']">
