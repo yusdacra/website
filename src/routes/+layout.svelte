@@ -165,8 +165,21 @@
 			{/each}
 			<div class="hidden md:block grow"></div>
 			<div class="navbox">
+				<a
+					title="previous site"
+					class="hover:underline"
+					href="https://stellophiliac.github.io/roboring/gaze/previous">⮜</a
+				>
+				<a class="hover:underline" href="https://stellophiliac.github.io/roboring">roboring</a>
+				<a
+					title="next site"
+					class="hover:underline"
+					href="https://stellophiliac.github.io/roboring/gaze/next">⮞</a
+				>
+			</div>
+			<div class="navbox">
 				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
-				<a class="hover:underline" href="https://xn--sr8hvo.ws">indieweb 🕸💍</a>
+				<a class="hover:underline" href="https://xn--sr8hvo.ws">indieweb</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
 			<Tooltip>
