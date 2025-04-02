@@ -16,12 +16,12 @@
 
 <div class="flex flex-col md:flex-row gap-4 md:gap-8 md:h-full h-card">
 	<div class="flex flex-col gap-4 md:gap-8 ml-auto">
-		<Window title="latest stuff">
+		<Window title="latest stuff" iconUri="/icons/msg_information.webp">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
 				<LatestStuff />
 			</div>
 		</Window>
-		<Window style="md:ml-4" title="status" removePadding>
+		<Window style="md:ml-4" title="status" iconUri="/icons/msn.webp" removePadding>
 			{#if data.lastNote}
 				<div class="m-1.5 flex flex-col font-monospace text-sm">
 					<p
