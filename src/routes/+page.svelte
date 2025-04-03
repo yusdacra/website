@@ -15,14 +15,14 @@
 	let { data }: Props = $props();
 </script>
 
-<div class="flex flex-col md:flex-row gap-4 md:gap-8 md:h-full h-card">
-	<div class="flex flex-col gap-4 md:gap-8 ml-auto place-items-end">
+<div class="flex flex-col md:flex-row gap-2 md:gap-4 md:h-full h-card">
+	<div class="flex flex-col gap-2 md:gap-6 ml-auto place-items-end">
 		<Window title="stuff im doing.." iconUri="/icons/msg_information.webp">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
 				<LatestStuff />
 			</div>
 		</Window>
-		<Window style="md:mr-4" title="status" iconUri="/icons/msn.webp" removePadding>
+		<Window style="md:mr-8" title="status" iconUri="/icons/msn.webp" removePadding>
 			{#if data.lastNote}
 				<div class="m-1.5 flex flex-col font-monospace text-sm">
 					<p
@@ -118,13 +118,31 @@
 				</div>
 			{/if}
 		</Window>
-		<Window title="cool stuff,,">
+		<Window title="notify me">
+			<form class="flex flex-row gap-1" method="post">
+				<input
+					type="text"
+					class="entry text-lg p-1 m-0 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] border-none"
+					name="content"
+					placeholder="push a notif into me~~"
+					maxlength="100"
+					required
+				/>
+				<input
+					type="submit"
+					value="send!!"
+					formaction="?/pushnotif"
+					class="entry text-ralsei-green-light leading-none hover:underline motion-safe:hover:animate-squiggle p-1 z-50"
+				/>
+			</form>
+		</Window>
+		<Window style="md:mr-2" title="cool stuff,,">
 			<div class="max-w-[50ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
 				<CoolStuff />
 			</div>
 		</Window>
 	</div>
-	<div class="flex flex-col gap-4 md:gap-8 mr-auto w-full md:w-fit place-items-start">
+	<div class="flex flex-col gap-2 md:gap-6 mr-auto w-full md:w-fit place-items-start">
 		<Window title="links!" iconUri="/icons/contact.webp">
 			<div
 				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-[1.1rem] prose-headings:leading-none"
@@ -272,3 +290,13 @@
 		</Window>
 	</div>
 </div>
+
+<style lang="postcss">
+	.entry {
+		@apply bg-ralsei-green-dark/70 border-ralsei-green-light/30 border-x-[4px] border-y-[5px];
+		border-style: ridge;
+	}
+	.entryflex {
+		@apply flex flex-row gap-1;
+	}
+</style>

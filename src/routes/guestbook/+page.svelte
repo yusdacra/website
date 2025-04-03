@@ -8,14 +8,6 @@
 	}
 
 	let { data }: Props = $props();
-
-	function resetEntriesAnimation() {
-		var el = document.getElementById('guestbookentries');
-		if (el === null) { return }
-		el.style.animation = 'none';
-		el.offsetHeight; /* trigger reflow */
-		el.style.animation = ''; 
-	}
 </script>
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
@@ -24,7 +16,11 @@
 			<div class="prose prose-ralsei leading-6 entry p-2">
 				<p>hia, here is the guestbook if you wanna post anything :)</p>
 				<p>be a good human bean pretty please (and don't be shy!!!)</p>
-				<p class="text-sm italic">(to see all the entries, look <a href="https://bsky.app/profile/guestbook.gaze.systems">here</a>)</p>
+				<p class="text-sm italic">
+					(to see all the entries, look <a href="https://bsky.app/profile/guestbook.gaze.systems"
+						>here</a
+					>)
+				</p>
 			</div>
 			<form method="post">
 				<div class="entry entryflex">
@@ -45,7 +41,8 @@
 					/>
 					<div class="marquee-wrapper entry text-ralsei-white/50">
 						<div class="marquee font-monospace">
-							<p class="text-shadow-none">{data.fillText}</p><p class="text-shadow-none">{data.fillText}</p>
+							<p class="text-shadow-none">{data.fillText}</p>
+							<p class="text-shadow-none">{data.fillText}</p>
 						</div>
 					</div>
 				</div>
@@ -61,7 +58,13 @@
 			</form>
 		</div>
 	</Window>
-	<Window id='guestbookentries' style="mr-auto" title="entries" iconUri="/icons/entries.webp" removePadding>
+	<Window
+		id="guestbookentries"
+		style="mr-auto"
+		title="entries"
+		iconUri="/icons/entries.webp"
+		removePadding
+	>
 		<div class="flex flex-col gap-2 md:gap-4 2xl:w-[60ch]">
 			{#if data.getRatelimited}
 				<p class="text-error">
@@ -80,21 +83,46 @@
 						prose-pre:!bg-ralsei-black prose-code:!bg-ralsei-black
 					"
 				>
-				<pre class="language-bash"><code class="language-bash"><nobr>
-				<Token v="[" punct/>gazesystems <Token v="/" keywd/><Token v="]$" punct/> <Token v="source" funct/> <Token v="scripts/log.nu" />
-				<br>
-				<Token v="[" punct/>gazesystems <Token v="/" keywd/><Token v="]$" punct/> <Token v="let" funct/> <Token v="entries"/> <Token v="=" punct/> <Token v="(" punct/><Token v="ls" funct/> <Token v="guestbook" /> <Token v="|" punct/> <Token v="reverse" funct/> <Token v="|" punct/> <Token v="take" funct/> <Token v="16"/><Token v=")" punct/>
-				<br>
-				<Token v="[" punct/>gazesystems <Token v="/" keywd/><Token v="]$" punct/> <Token v="$entries" /> <Token v="|" punct/> <Token v="each" funct/> <Token v="&#123;" punct/><Token v="|" punct/><Token v="file"/><Token v="|" punct/> <Token v="render" funct/> <Token v="(" punct/><Token v="open" funct/> <Token v="$file.name" /><Token v=")" punct/><Token v="&#125;" punct/>
-				<br>
-				<br>
+					<pre class="language-bash"><code class="language-bash"
+							><nobr>
+				<Token v="[" punct />gazesystems <Token v="/" keywd /><Token v="]$" punct /> <Token
+									v="source"
+									funct
+								/> <Token v="scripts/log.nu" />
+				<br />
+				<Token v="[" punct />gazesystems <Token v="/" keywd /><Token v="]$" punct /> <Token
+									v="let"
+									funct
+								/> <Token v="entries" /> <Token v="=" punct /> <Token v="(" punct /><Token
+									v="ls"
+									funct
+								/> <Token v="guestbook" /> <Token v="|" punct /> <Token v="reverse" funct /> <Token
+									v="|"
+									punct
+								/> <Token v="take" funct /> <Token v="16" /><Token v=")" punct />
+				<br />
+				<Token v="[" punct />gazesystems <Token v="/" keywd /><Token v="]$" punct /> <Token
+									v="$entries"
+								/> <Token v="|" punct /> <Token v="each" funct /> <Token v="&#123;" punct /><Token
+									v="|"
+									punct
+								/><Token v="file" /><Token v="|" punct /> <Token v="render" funct /> <Token
+									v="("
+									punct
+								/><Token v="open" funct /> <Token v="$file.name" /><Token v=")" punct /><Token
+									v="&#125;"
+									punct
+								/>
+				<br />
+				<br />
 				{#each data.entries as note, index}
-				<Note showOutgoing={false} {note}/>
+									<Note showOutgoing={false} {note} />
 				{#if index < data.entries.length - 1}
-				<div class="mt-3"></div>
-				{/if}
-				{/each}
-				</nobr></code></pre>
+										<div class="mt-3"></div>
+									{/if}
+								{/each}
+				</nobr></code
+						></pre>
 				</div>
 			{/if}
 		</div>
