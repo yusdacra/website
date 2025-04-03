@@ -18,6 +18,7 @@
 			url: 'https://candlelitsmiles.neocities.org',
 			image: 'https://candlelitsmiles.neocities.org/candlebuttonone.png'
 		},
+		{ name: 'julia', url: 'https://aph.nekoweb.org', image: '/others/aph.gif' },
 		{
 			name: 'indieweb',
 			url: 'https://indieweb.org/',
