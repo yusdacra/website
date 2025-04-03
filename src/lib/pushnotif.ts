@@ -1,0 +1,12 @@
+import { env } from '$env/dynamic/private';
+
+export const pushNotification = (_content: string) => {
+	const content = encodeURIComponent(_content);
+	try {
+		fetch(
+			`https://api.day.app/${env.BARK_DEVICE_ID}/gaze.systems/${content}?icon=https://gaze.systems/icons/gaze_site.webp`
+		);
+	} catch (err) {
+		console.log(`failed to push notification: ${err}`);
+	}
+};

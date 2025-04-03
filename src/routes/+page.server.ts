@@ -2,7 +2,7 @@ import { getLastPosts } from '$lib/bluesky.js';
 import { getNowPlaying } from '$lib/lastfm';
 import { getLastGame } from '$lib/steam';
 import { noteFromBskyPost } from '../components/note.svelte';
-import { env } from '$env/dynamic/private';
+import { pushNotification } from '$lib/pushnotif';
 
 export const load = async () => {
 	const lastTrack = getNowPlaying();
@@ -18,16 +18,10 @@ export const load = async () => {
 };
 
 export const actions = {
-	pushnotif: async ({ request }: RequestEvent) => {
+	default: async ({ request }: RequestEvent) => {
 		const form = await request.formData();
-		const content = encodeURIComponent(form.get('content')?.toString().substring(0, 100));
-		try {
-			fetch(
-				`https://api.day.app/${env.BARK_DEVICE_ID}/gaze.systems/${content}?icon=https://gaze.systems/icons/gaze_site.webp`
-			);
-		} catch (err) {
-			console.log(`failed to push notification: ${err}`);
-		}
+		const content = form.get('content')?.toString().substring(0, 100);
+		pushNotification(content);
 	}
 };
 

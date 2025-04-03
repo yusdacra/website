@@ -119,7 +119,20 @@
 			{/if}
 		</Window>
 		<Window title="notify me">
-			<form class="flex flex-row gap-1" method="post">
+			<form
+				class="flex flex-row gap-1"
+				method="post"
+				onsubmit={(event) => {
+					event.preventDefault();
+					const data = new FormData(event.currentTarget);
+					try {
+						fetch(`${PUBLIC_BASE_URL}/pushnotif/?content=${data.get('content')}`);
+					} catch (err) {
+						console.log(`failed to send notif: ${err}`);
+					}
+					event.currentTarget.reset();
+				}}
+			>
 				<input
 					type="text"
 					class="entry text-lg p-1 m-0 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] border-none"
@@ -131,7 +144,6 @@
 				<input
 					type="submit"
 					value="send!!"
-					formaction="?/pushnotif"
 					class="entry text-ralsei-green-light leading-none hover:underline motion-safe:hover:animate-squiggle p-1 z-50"
 				/>
 			</form>
