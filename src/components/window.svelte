@@ -69,15 +69,15 @@
 		focusWindow(data.currentTarget);
 	}}
 	class="
-        relative {layered ? 'col-[1] row-[1]' : ''} flex flex-col {sticky
-		? 'md:sticky md:-top-9'
-		: ''} {center ? 'mx-auto' : ''}
-        max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl {tooltip
-		? 'min-w-fit'
-		: 'min-w-[30ch] lg:min-w-[40ch]'} w-full md:w-fit [height:fit-content]
-		bg-ralsei-black border-ralsei-white border-ridge {tooltip
-		? 'border-[6px] border-t-[9px]'
-		: 'border-8 border-t-[12px]'}
+        relative flex flex-col w-full md:w-fit [height:fit-content]
+        {center ? 'mx-auto' : ''}
+        {layered ? 'col-[1] row-[1]' : ''}
+        {sticky ? 'md:sticky md:-top-9' : ''}
+        max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl
+        {tooltip ? 'min-w-fit' : 'min-w-[30ch] lg:min-w-[40ch]'}
+		bg-ralsei-black border-ralsei-white border-ridge
+		{tooltip ? 'border-[6px] border-t-[9px]' : 'border-8 border-t-[12px]'}
+		{!isOnMobile && tooltip ? '' : 'hover:-translate-x-1 hover:translate-y-1'}
 		animate-{chosenKeyframe} drop-shadow-[24px_24px_24px_rgba(1,1,1,0.8)]
 		{style}
     "
