@@ -3,7 +3,6 @@
 	import Note from '../components/note.svelte';
 	import Window from '../components/window.svelte';
 	import LatestStuff from './lateststuff.md';
-	import CoolStuff from './coolstuff.md';
 	import { renderDate, renderRelativeDate } from '$lib/dateFmt';
 	import Tooltip from '../components/tooltip.svelte';
 
@@ -11,6 +10,20 @@
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		data: any;
 	}
+
+	const buttons = [
+		{ name: 'skyrina', url: 'https://skyrina.dev/', image: '/others/skylar.gif' },
+		{
+			name: 'candlelitsmiles',
+			url: 'https://candlelitsmiles.neocities.org',
+			image: 'https://candlelitsmiles.neocities.org/candlebuttonone.png'
+		},
+		{
+			name: 'indieweb',
+			url: 'https://indieweb.org/',
+			image: 'https://indieweb.org/images/9/91/indieweb88x31-retro-gif.gif'
+		}
+	];
 
 	let { data }: Props = $props();
 </script>
@@ -150,7 +163,20 @@
 		</Window>
 		<Window style="md:mr-2" title="cool stuff,,">
 			<div class="max-w-[50ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
-				<CoolStuff />
+				<div class="flex flex-row gap-3 place-items-start group">
+					{#each buttons as { name, url, image }}
+						<a title={name} href={url}
+							><img
+								class="transition-opacity group-hover:opacity-50 hover:!opacity-100"
+								src={image}
+								alt={name}
+							/></a
+						>
+					{/each}
+				</div>
+
+				<span class="text-sm">please send me your buttons or stuff to add !! ;3</span><br />
+				<span class="text-xs italic">last updated on: 02-04-2025</span>
 			</div>
 		</Window>
 	</div>
