@@ -74,8 +74,8 @@
         {center ? 'mx-auto' : ''}
         {layered ? 'col-[1] row-[1]' : ''}
         {sticky ? 'md:sticky md:-top-9' : ''}
-        max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl
-        {tooltip ? 'min-w-fit' : 'min-w-[30ch] lg:min-w-[40ch]'}
+        max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl
+        {tooltip ? 'min-w-fit' : ''}
 		bg-ralsei-black border-ralsei-white border-ridge
 		{tooltip ? 'border-[6px] border-t-[9px]' : 'border-8 border-t-[12px]'}
 		{isOnMobile || tooltip ? '' : 'hover:-translate-x-1 hover:translate-y-1'}
