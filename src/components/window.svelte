@@ -49,6 +49,7 @@
 	const _draggable = isOnMobile ? () => {} : draggable;
 
 	const focusWindow = (node: HTMLElement) => {
+		if (isOnMobile) return;
 		$highestZIndex += 1;
 		node.style.zIndex = $highestZIndex.toString();
 	};
@@ -77,7 +78,7 @@
         {tooltip ? 'min-w-fit' : 'min-w-[30ch] lg:min-w-[40ch]'}
 		bg-ralsei-black border-ralsei-white border-ridge
 		{tooltip ? 'border-[6px] border-t-[9px]' : 'border-8 border-t-[12px]'}
-		{!isOnMobile && tooltip ? '' : 'hover:-translate-x-1 hover:translate-y-1'}
+		{isOnMobile || tooltip ? '' : 'hover:-translate-x-1 hover:translate-y-1'}
 		animate-{chosenKeyframe} drop-shadow-[24px_24px_24px_rgba(1,1,1,0.8)]
 		{style}
     "

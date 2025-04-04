@@ -134,7 +134,7 @@
 		</Window>
 		<Window title="notify me">
 			<form
-				class="flex flex-row gap-1"
+				class="flex flex-row gap-1 place-self-center"
 				method="post"
 				onsubmit={(event) => {
 					event.preventDefault();
