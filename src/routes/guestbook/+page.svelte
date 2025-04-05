@@ -8,6 +8,8 @@
 	}
 
 	let { data }: Props = $props();
+
+	const placeholders = ['meow', 'arf', '0110100001101001', '0x6869'];
 </script>
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
@@ -27,7 +29,7 @@
 					<textarea
 						class="text-lg p-1 m-0 ml-0.5 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] [field-sizing:content] border-none"
 						name="content"
-						placeholder="say meow!"
+						placeholder="say {placeholders[Math.floor(Math.random() * placeholders.length)]}!"
 						maxlength="300"
 						required
 					></textarea>
