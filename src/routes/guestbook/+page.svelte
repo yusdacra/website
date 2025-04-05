@@ -15,7 +15,7 @@
 		<div class="flex flex-col gap-1 max-w-[50ch] leading-6">
 			<div class="prose prose-ralsei leading-6 entry p-2">
 				<p>hia, here is the guestbook if you wanna post anything :)</p>
-				<p>be a good human bean pretty please (and don't be shy!!!)</p>
+				<p>be good pretty please (and don't be shy!!!)</p>
 				<p class="text-sm italic">
 					(to see all the entries, look <a href="https://bsky.app/profile/guestbook.gaze.systems"
 						>here</a
