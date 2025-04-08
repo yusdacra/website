@@ -132,36 +132,6 @@
 				</div>
 			{/if}
 		</Window>
-		<Window title="notify me">
-			<form
-				class="flex flex-row gap-1 place-self-center"
-				method="post"
-				onsubmit={(event) => {
-					event.preventDefault();
-					const data = new FormData(event.currentTarget);
-					try {
-						fetch(`${PUBLIC_BASE_URL}/pushnotif/?content=${data.get('content')}`);
-					} catch (err) {
-						console.log(`failed to send notif: ${err}`);
-					}
-					event.currentTarget.reset();
-				}}
-			>
-				<input
-					type="text"
-					class="entry text-lg p-1 m-0 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] border-none"
-					name="content"
-					placeholder="push a notif into me~~"
-					maxlength="100"
-					required
-				/>
-				<input
-					type="submit"
-					value="send!!"
-					class="entry text-ralsei-green-light leading-none hover:underline motion-safe:hover:animate-squiggle p-1 z-50"
-				/>
-			</form>
-		</Window>
 		<Window style="md:mr-2" title="cool stuff,,">
 			<div class="max-w-[50ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
 				<div class="flex flex-row gap-3 place-items-start group">
@@ -181,10 +151,10 @@
 			</div>
 		</Window>
 	</div>
-	<div class="flex flex-col gap-2 md:gap-6 mr-auto w-full md:w-fit place-items-start">
+	<div class="flex flex-col gap-2 md:gap-3 mr-auto w-full md:w-fit place-items-start">
 		<Window title="links!" iconUri="/icons/contact.webp">
 			<div
-				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-[1.1rem] prose-headings:leading-none"
+				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-none prose-headings:leading-none"
 			>
 				<ul>
 					<li>discord: yusdacra</li>
@@ -326,6 +296,36 @@
 					>
 				</div>
 			</div>
+		</Window>
+		<Window title="notify me">
+			<form
+				class="flex flex-row gap-1 place-self-center"
+				method="post"
+				onsubmit={(event) => {
+					event.preventDefault();
+					const data = new FormData(event.currentTarget);
+					try {
+						fetch(`${PUBLIC_BASE_URL}/pushnotif/?content=${data.get('content')}`);
+					} catch (err) {
+						console.log(`failed to send notif: ${err}`);
+					}
+					event.currentTarget.reset();
+				}}
+			>
+				<input
+					type="text"
+					class="entry text-lg p-1 m-0 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] border-none"
+					name="content"
+					placeholder="push a notif into me~~"
+					maxlength="100"
+					required
+				/>
+				<input
+					type="submit"
+					value="send!!"
+					class="entry text-ralsei-green-light leading-none hover:underline motion-safe:hover:animate-squiggle p-1 z-50"
+				/>
+			</form>
 		</Window>
 	</div>
 </div>
