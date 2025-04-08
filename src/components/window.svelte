@@ -77,7 +77,7 @@
         max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl
         {tooltip ? 'min-w-fit' : ''}
 		bg-ralsei-black border-ralsei-white border-ridge
-		{tooltip ? 'border-[6px] border-t-[9px]' : 'border-8 border-t-[12px]'}
+		{tooltip ? 'border-[6px] border-t-[9px]' : 'border-[7px] border-t-[12px]'}
 		{isOnMobile || tooltip ? '' : 'hover:-translate-x-1 hover:translate-y-1'}
 		animate-{chosenKeyframe} drop-shadow-[24px_24px_24px_rgba(1,1,1,0.8)]
 		{style}

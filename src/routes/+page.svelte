@@ -335,7 +335,4 @@
 		@apply bg-ralsei-green-dark/70 border-ralsei-green-light/30 border-x-[4px] border-y-[5px];
 		border-style: ridge;
 	}
-	.entryflex {
-		@apply flex flex-row gap-1;
-	}
 </style>
