@@ -292,7 +292,7 @@
 							hover:!animate-none hover:!no-underline opacity-20 hover:opacity-100 transition-opacity [transition-duration:300ms]
 						"
 						title="dollcode? sure hope they do"
-						href="https://dollcode.v01dlabs.sh/">▌▖▌▖‍▌▌▘▌‍▌▌▘▖‍▌▘▘▘‍</a
+						href="https://dollcode.v01dlabs.sh/">▖▖▖▖▘▌▌▌▖▘▘</a
 					>
 				</div>
 			</div>
