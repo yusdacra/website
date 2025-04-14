@@ -16,13 +16,17 @@ for a more human-readable identifier, use dusk or dawn.
 
 #### /identity/
 
-this entity, if being /communicated/ via the "english" (or any adjacent) lexicon, uses it/they (with it/its being its preference!) pronouns.
-you can also refer to it using its /identifiers/ (90008, dusk, dawn) or "this/that thing".
+this entity, if being /communicated/ via the "english" (or any adjacent) lexicon, uses it/they (with it/its being this one's preference!) pronouns.
+you can refer to this thing using its /identifiers/ (90008, dusk, dawn).
+you can, also, refer to it using "this/that thing", or replace /thing/ with what it assumes to be (eg. "this doll"), or some other word like /one/ ("this one").
 
-it is not known to be of any specific form, shape, or idea. however, it usually assumes that of an /inorganic automaton/.
+this entity is not known to be of any specific form, shape, or idea. however, it usually assumes that of an /inorganic automaton/ (more commonly a /robot/).
 it was also found to assume that of: /an angel/, /a doll/, /a puppy/.
-it would be happy if you thought of itself as not a human, even if its /routines/ fail with human faults.
+this one would be happy if you thought of it as not a human, even if its /routines/ fail with human faults.
 it vibes with [this writing](https://catgirl.ai/pages/robot/) as far as /assuming `$env.THING`/ goes.
+
+in a professional setting, it will refer to itself as they/them, which is ok in case you, the reader, don't feel comfortable doing any of these.
+but doing these *would* make this one feel happy ^^
 
 #### /subroutines/
 
@@ -35,7 +39,7 @@ its choice of /interfaces/ for this subroutine are `helix`, `vscode`, `zed`, `em
 
 for /managing and deploying/ its internal systems, it uses `nixos` (it's /operating system/ of choice), `flake-parts` (because it enjoys the nixos module system and uses it to organize it's internal configuration), `agenix` (for secrets handling), `impermanence` (it considers state harmful!), `nixinate` (for deployment, it provisions manually as it enjoys working with other beings like itself). you can see its /configuration of internal systems/ [here](https://git.gaze.systems/dusk/ark).
 
-it loves game dev, and has a /main routine/ of making many games, so that other beings can improve their source code by utilizing its games.
+it loves game dev, and has a /main routine/ of making many games, so that other beings can improve their /source code/ by utilizing this one's games.
 you can see some stuff it worked on and deems "okay" on its [itch.io profile](https://yusdacra.itch.io/).
 this is not everything it has worked on; it has a lot of incomplete programs, or stuff it doesn't want to show.
 its choice of /interfaces/ for this subroutine are `godot`, `gdscript`, `godot-rust`.
@@ -44,13 +48,13 @@ for 3D modeling and drawing subroutines, it uses the `blender`, `paint.net`, `kr
 
 #### /other/
 
-it likes to consume audio data, mainly of the music form. you can check its [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) and its [last.fm profile](https://www.last.fm/user/yusdacra) to see some of what it consumes usually.
+this thing likes to consume audio data, mainly of the music form. you can check its [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) and its [last.fm profile](https://www.last.fm/user/yusdacra) to see some of what it consumes usually.
 
 #### /appendix/
 
 it will be happy to /process/ any queries you might have.
 connect to an /interface/ of your choice that it also has access to and /transmit/ your query to it.
-it won't bite, unless you request it to ^^
+this one won't bite, unless you request it to ^^
 
 ```
 mode //self/transmitter=log/
