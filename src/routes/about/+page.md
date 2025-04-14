@@ -23,6 +23,7 @@ it vibes with [this writing](https://catgirl.ai/pages/robot/) as far as /assumin
 
 this entity, if being /communicated/ via the "english" (or any adjacent) lexicon, uses it/they (with it/its being this one's preference!) pronouns.
 it would prefer to be referred to in third-person, but is aware of this lexicon being weird when doing that, so it won't mind if you don't.
+oftentimes i won't even do that! :3
 
 you can refer to this thing using its /identifiers/ (90008, dusk, dawn).
 you can, also, refer to it using "this/that thing", or replace /thing/ with what it assumes to be (eg. "this doll"), or some other word like /one/ ("this one").
