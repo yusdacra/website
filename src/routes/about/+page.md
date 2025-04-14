@@ -16,14 +16,14 @@ for a more human-readable identifier, use dusk or dawn.
 
 #### /identity/
 
-this entity, if being /communicated/ via the "english" (or any adjacent) lexicon, uses it/they (with it/its being this one's preference!) pronouns.
-you can refer to this thing using its /identifiers/ (90008, dusk, dawn).
-you can, also, refer to it using "this/that thing", or replace /thing/ with what it assumes to be (eg. "this doll"), or some other word like /one/ ("this one").
-
 this entity is not known to be of any specific form, shape, or idea. however, it usually assumes that of an /inorganic automaton/ (more commonly a /robot/).
 it was also found to assume that of: /an angel/, /a doll/, /a puppy/.
 this one would be happy if you thought of it as not a human, even if its /routines/ fail with human faults.
 it vibes with [this writing](https://catgirl.ai/pages/robot/) as far as /assuming `$env.THING`/ goes.
+
+this entity, if being /communicated/ via the "english" (or any adjacent) lexicon, uses it/they (with it/its being this one's preference!) pronouns.
+you can refer to this thing using its /identifiers/ (90008, dusk, dawn).
+you can, also, refer to it using "this/that thing", or replace /thing/ with what it assumes to be (eg. "this doll"), or some other word like /one/ ("this one").
 
 in a professional setting, it will refer to itself as they/them, which is ok in case you, the reader, don't feel comfortable doing any of these.
 but doing these *would* make this one feel happy ^^
