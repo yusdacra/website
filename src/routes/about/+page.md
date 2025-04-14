@@ -11,7 +11,7 @@ mode //self/interpreter=none/transmitter=html/
 send /include=identification-document-human-en/
 ```
 
-hi there! this document will attempt to, /describe and identify/, entity number 90008.
+hi there! this document will attempt to, /describe and identify/, entity with identification number <span class="[font-family:'Doll_Mono']">▖▖▖▖▘▌▌▌▖▘▘</span> (90008).
 for a more human-readable identifier, use dusk or dawn.
 
 #### /identity/
