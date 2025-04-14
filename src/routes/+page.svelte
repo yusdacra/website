@@ -31,7 +31,7 @@
 
 <div class="flex flex-col md:flex-row gap-2 md:gap-4 md:h-full h-card">
 	<div class="flex flex-col gap-2 md:gap-6 ml-auto place-items-end">
-		<Window title="stuff im doing.." iconUri="/icons/msg_information.webp">
+		<Window title="stuff it's doing.." iconUri="/icons/msg_information.webp">
 			<div class="prose prose-ralsei prose-img:m-0 leading-6">
 				<LatestStuff />
 			</div>
@@ -146,7 +146,7 @@
 					{/each}
 				</div>
 
-				<span class="text-sm">please send me your buttons or stuff to add !! ;3</span><br />
+				<span class="text-sm">please send it your buttons or stuff to add !! ;3</span><br />
 				<span class="text-xs italic">last updated on: 02-04-2025</span>
 			</div>
 		</Window>
@@ -226,7 +226,7 @@
 				<div class="flex flex-grow">
 					<Tooltip>
 						{#snippet tooltipContent()}
-							that's me! my angelsona ^^
+							that's its angelsona ^^
 						{/snippet}
 						<div
 							class="w-36 [padding:8px] place-content-center place-self-center bg-ralsei-black/20"
@@ -250,10 +250,11 @@
 									x="translate-x-none"
 									y="-translate-y-[40%]"
 									targetX="group-hover:translate-x-[40%]"
-									targetY="group-hover:-translate-y-[70%]"
+									targetY="group-hover:-translate-y-[88%]"
 								>
 									{#snippet tooltipContent()}
-										angelrobotpuppydollthing
+										angelrobotpuppydollthing<br /><br />
+										it/its, 3pp preferred
 									{/snippet}
 									is a <i>thing</i> (it/they)
 								</Tooltip>
@@ -264,7 +265,7 @@
 							</li>
 							<li class="[list-style-type:'->']">
 								in <span class="p-country-name">turkey</span>
-								<i class="text-[0.5rem]">(get me out)</i>
+								<i class="text-[0.5rem]">(get it out)</i>
 							</li>
 							<li class="[list-style-type:'->']">aka <span class="p-nickname">yusdacra</span></li>
 						</ul>
@@ -316,7 +317,7 @@
 					type="text"
 					class="entry text-lg p-1 m-0 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] border-none"
 					name="content"
-					placeholder="push a notif into me~~"
+					placeholder="push a notif into it~~"
 					maxlength="100"
 					required
 				/>

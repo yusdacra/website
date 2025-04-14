@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Window from '../../components/window.svelte'
-	import Itches from './itches.md'
-	import Stuff from './stuff.md'
-	import '../../styles/app.css'
+	import Window from '../../components/window.svelte';
+	import Stuff from './stuff.md';
+	import Media from './media.md';
+	import '../../styles/app.css';
 
 	interface Props {
 		title: any;
@@ -19,7 +19,7 @@
 		</div>
 	</Window>
 	<div class="sticky flex flex-col mr-auto gap-4 md:gap-8 !leading-6 prose-ul:!leading-5">
-		<Stuff/>
-		<Itches/>
+		<Stuff />
+		<Media />
 	</div>
 </div>

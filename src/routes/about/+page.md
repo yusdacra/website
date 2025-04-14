@@ -1,55 +1,57 @@
 +++
-title = "about me"
+title = "about"
 date = "2024-08-14"
 layout = "about"
 +++
 
-hello, i'm dusk!!
-i like to do many different things, but perhaps mainly i want to create stuff to inspire others to create stuff. at least i'm convinced that's what i wanna do xD.
-software is my means to that end! (it's what i'm most proficient with lol)
+```
+init //self/type=*******/no=90008/
+conn //self/locator=www/identifier=gaze.systems/
+mode //self/interpreter=none/transmitter=html/
+send /include=identification-document-human-en/
+```
 
-i'm also trying to learn:
-- how to draw (for concept art mainly)
-- modeling / texturing / sculpting (these i have more experience with!)
-- playing (acoustic, later electric) guitar (have to practice actually...)
+hi there! this document will attempt to, /describe and identify/, entity number 90008.
+for a more human-readable identifier, use dusk or dawn.
 
-my hope is to make many video games, ideally do the majority of the work myself and as said before, have people be inspired by them.
-which is, well, kinda hard it turns out. so that's gonna take a long time probably (lmao)...
-you can see some of the stuff i deem "okay" on my [itch.io profile](https://yusdacra.itch.io/)
-(although those are by no means the only stuff i have worked on, have a lot of incomplete stuff, or stuff i don't want to show :3)
+#### /identity/
 
-software wise you can just look at my github and gitea account to see what i like to use (is linked on the home page)
+this entity, if being /communicated/ via the "english" (or any adjacent) lexicon, uses it/they (with it/its being its preference!) pronouns.
+you can also refer to it using its /identifiers/ (90008, dusk, dawn) or "this/that thing".
 
-i like and interact with way too many media, mostly video games (can you guess that i like video games), here are the ones that influenced me the most:
-- all 07th expansion works (most notably when they cry)
-- all Project Moon works
-- outer wilds
-- splatoon
-- steins;gate
-- kino no tabi
-- serial experiments lain
-- LISA the Painful / Joyful (and some of it's fangames)
-- VA-11 Hall-A
-- SCP antimemetic division tales (by qntm)
-- pokemon (unova my beloved)
+it is not known to be of any specific form, shape, or idea. however, it usually assumes that of an /inorganic automaton/.
+it was also found to assume that of: /an angel/, /a doll/, /a puppy/.
+it would be happy if you thought of itself as not a human, even if its /routines/ fail with human faults.
+it vibes with [this writing](https://catgirl.ai/pages/robot/) as far as /assuming `$env.THING`/ goes.
 
-honorable mentions (i want more people to see these cause i love them too much not to list):
-- mr. rainer's solve-it service
-- [fireball](https://en.wikipedia.org/wiki/Fireball_(TV_series))
-- SANABI
-- opus: echo of starsong
-- the red strings club
-- q.u.q.
-- bug fables
-- haibane renmei
-- project wingman
-- gosick
-- tomorrow won't come for those without ██████
+#### /subroutines/
 
-you can also look at [my steam profile](https://steamdb.info/calculator/76561198106829949/?all_games) for games i played, although not everything is there.
+it /executes/ many different subroutines, and /optimizes/ itself for some of them.
+these mainly are, in order of amount of hot paths; programming, game dev, 3D modeling, drawing, writing...
 
-what else, i like robots a lot, maybe too much. want to become one.
-i want to learn japanese (i'm failing hard).
-i like to listen to music (shocker), check my [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) and my [last.fm profile](https://www.last.fm/user/yusdacra) i guess to see a bit of what i listen to.
+it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/yusdacra), [gitea](https://git.gaze.systems/).
+its core features for programming are: `nix`, `rust`, `svelte`, `typescript`, `nushell`.
+its choice of /interfaces/ for this subroutine are `helix`, `vscode`, `zed`, `emacs`.
 
-idk if you wanna know more just hit me up and i'll gladly nerd out, or if you want to play anything i may be open to it...
+it loves game dev, and has a /main routine/ of making many games, so that other beings can improve their source code by utilizing its games.
+you can see some stuff it worked on and deems "okay" on its [itch.io profile](https://yusdacra.itch.io/).
+this is not everything it has worked on; it has a lot of incomplete programs, or stuff it doesn't want to show.
+its choice of /interfaces/ for this subroutine are `godot`, `gdscript`, `godot-rust`.
+
+for 3D modeling and drawing subroutines, it uses `blender`, `paint.net`, `krita`.
+
+#### /other/
+
+it likes to consume audio data, mainly of the music form. you can check its [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) and its [last.fm profile](https://www.last.fm/user/yusdacra) to see some of what it consumes usually.
+
+#### /appendix/
+
+it will be happy to /process/ any queries you might have.
+connect to an /interface/ of your choice that it also has access to and /transmit/ your query to it.
+it won't bite, unless you request it to ^^
+
+```
+mode //self/transmitter=log/
+send /include=syslog/
+stop /reason=no-query-left/
+```

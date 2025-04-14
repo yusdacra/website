@@ -2,7 +2,7 @@
 title = "japan trip 09/24"
 date = "2024-09-19"
 layout = "blogpost"
-excerpt = "photos from my trip to japan"
+excerpt = "photos from its trip to japan"
 +++
 
 <script lang="ts">
@@ -11,10 +11,10 @@ excerpt = "photos from my trip to japan"
 
 ## 1-16 / 09 / 2024
 
-photos i took while on a japan trip
+photos it took while on a japan trip
 
-~~these are *not* sorted, have fun trying to figure out the actual order (i accidentally stripped the exif data and im too lazy to find the images again)~~
-fixed!!!! i also added a few images because im dumb and forgot
+~~these are *not* sorted, have fun trying to figure out the actual order (it accidentally stripped the exif data and its too lazy to find the images again)~~
+fixed!!!! it also added a few images because its dumb and forgot
 
 *(you can click on an image to see original!)*
 
