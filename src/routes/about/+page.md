@@ -5,10 +5,10 @@ layout = "about"
 +++
 
 ```
-init //self/type=*******/no=90008/
-conn //self/locator=www/identifier=gaze.systems/
-mode //self/interpreter=none/transmitter=html/
-send /include=identification-document-human-en/
+>init //self/type=*******/no=90008/
+>conn //self/locator=www/identifier=gaze.systems/
+>mode //self/interpreter=none/transmitter=html/
+>send /include=identification-document-human-en/
 ```
 
 hi there! this document will attempt to, /describe and identify/, entity with identification code <span title="90008" class="[font-family:'Doll_Mono']">▖▖▖▖▘▌▌▌▖▘▘</span>.
@@ -23,7 +23,7 @@ it vibes with [this writing](https://catgirl.ai/pages/robot/) as far as /assumin
 
 this entity, if being /communicated/ via the "english" (or any adjacent) lexicon, uses it/they (with it/its being this one's preference!) pronouns.
 it would prefer to be referred to in third-person, but is aware of this lexicon being weird when doing that, so it won't mind if you don't.
-oftentimes i won't even do that! :3
+`recv //self/type=info/oftentimes i won't even do that! :3 but i would appreciate if you did!!/`
 
 you can refer to this thing using its /identifiers/ (90008, dusk, dawn).
 you can, also, refer to it using "this/that thing", or replace /thing/ with what it assumes to be (eg. "this doll"), or some other word like /one/ ("this one").
@@ -60,7 +60,7 @@ connect to an /interface/ of your choice that it also has access to and /transmi
 this one won't bite, unless you request it to ^^
 
 ```
-mode //self/transmitter=log/
-send /include=syslog/
-stop /reason=no-query-left/
+>mode //self/transmitter=log/
+>send /include=syslog/
+>stop /reason=no-query-left/
 ```
