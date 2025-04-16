@@ -36,7 +36,7 @@ but doing these *would* make this one feel happy, means you care about this one 
 it /executes/ many different subroutines, and /optimizes/ itself for some of them.
 these mainly are, in order of amount of hot paths; programming, game dev, 3D modeling, drawing, writing...
 
-it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/yusdacra), [gitea](https://git.gaze.systems/).
+it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/yusdacra), [forgejo](https://git.gaze.systems/).
 its core features for programming are: `nix`, `rust`, `svelte`, `typescript`, `nushell`.
 its choice of /interfaces/ for this subroutine are `helix`, `vscode`, `zed`, `emacs`.
 

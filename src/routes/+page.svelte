@@ -174,9 +174,9 @@
 						<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
 					</li>
 					<li>
-						my gitea:
-						<a class="u-url" href="https://git.gaze.systems/dusk" rel="me">@dusk</a>
-						(<a href="https://git.gaze.systems/gazesys/website">website repo</a>)
+						forgejo:
+						<a class="u-url" href="https://git.gaze.systems/90008" rel="me">@90008</a>
+						(<a href="https://git.gaze.systems/90008/website">website repo</a>)
 					</li>
 					<li>
 						gitlab:
