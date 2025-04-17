@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          github-server-url: 'https://git.gaze.systems'
       - uses: https://github.com/cachix/cachix-action@v16
         with:
           name: gazesys-infra
