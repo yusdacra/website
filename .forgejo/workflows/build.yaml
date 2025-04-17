@@ -6,7 +6,7 @@ on:
 
 jobs:
   tag:
-    runs-on: docker
+    runs-on: lixpine
     steps:
       - uses: actions/checkout@v4
         with:
