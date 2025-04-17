@@ -35,7 +35,7 @@
 
           src = ./.;
           
-          outputHash = "sha256-9SWKDZ1IlsHrcZy1eqYk9cTFTugoIhpF/biJ5cgHcyY=";
+          outputHash = "sha256-Rk67wKAXOngKPagpAx8Zlqx7ogBBeQb4srMaJYsVobc=";
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
 
@@ -46,7 +46,15 @@
           #   ++ [ "GIT_PROXY_COMMAND" "SOCKS_SERVER" ];
 
           buildPhase = "bun install --no-cache --no-progress --frozen-lockfile";
-          installPhase = "mv node_modules $out";
+          installPhase = ''
+            mkdir -p $out/node_modules
+
+            # Do not copy .cache or .bin
+            cp -R ./node_modules/* $out/node_modules
+            ls -la $out/node_modules
+          '';
+          dontFixup = true;
+          dontPatchShebangs = true;
         };
         packages.gazesys = pkgs.stdenv.mkDerivation {
           pname = packageJson.name;
