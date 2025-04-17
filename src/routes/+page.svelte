@@ -139,6 +139,7 @@
 						<a title={name} href={url}
 							><img
 								class="relative transition-all group-hover:opacity-50 hover:!opacity-100 hover:!scale-[1.6] hover:z-10"
+								style="image-rendering: pixelated !important;"
 								src={image}
 								alt={name}
 							/></a
