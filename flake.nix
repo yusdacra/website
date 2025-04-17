@@ -35,15 +35,15 @@
 
           src = ./.;
           
-          outputHash = "sha256-ExuLin74KXUalYRy7OtATrkqhuUTsW/DOJwap8U/xNc=";
+          outputHash = "sha256-15flT7x7ILCKA3+VJYuXu7JlZGCFpa0A+dLS9M6EaEU=";
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
 
           nativeBuildInputs = with pkgs; [bun];
 
           dontConfigure = true;
-          impureEnvVars = pkgs.lib.fetchers.proxyImpureEnvVars
-            ++ [ "GIT_PROXY_COMMAND" "SOCKS_SERVER" ];
+          # impureEnvVars = pkgs.lib.fetchers.proxyImpureEnvVars
+          #   ++ [ "GIT_PROXY_COMMAND" "SOCKS_SERVER" ];
 
           buildPhase = "bun install --no-progress --frozen-lockfile";
           installPhase = "mv node_modules $out";
