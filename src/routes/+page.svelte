@@ -138,7 +138,7 @@
 					{#each buttons as { name, url, image }}
 						<a title={name} href={url}
 							><img
-								class="transition-opacity group-hover:opacity-50 hover:!opacity-100"
+								class="relative transition-all group-hover:opacity-50 hover:!opacity-100 hover:!scale-[1.6] hover:z-10"
 								src={image}
 								alt={name}
 							/></a
