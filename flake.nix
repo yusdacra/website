@@ -35,7 +35,7 @@
 
           src = ./.;
           
-          outputHash = "sha256-15flT7x7ILCKA3+VJYuXu7JlZGCFpa0A+dLS9M6EaEU=";
+          outputHash = "sha256-9SWKDZ1IlsHrcZy1eqYk9cTFTugoIhpF/biJ5cgHcyY=";
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
 
@@ -45,7 +45,7 @@
           # impureEnvVars = pkgs.lib.fetchers.proxyImpureEnvVars
           #   ++ [ "GIT_PROXY_COMMAND" "SOCKS_SERVER" ];
 
-          buildPhase = "bun install --no-progress --frozen-lockfile";
+          buildPhase = "bun install --no-cache --no-progress --frozen-lockfile";
           installPhase = "mv node_modules $out";
         };
         packages.gazesys = pkgs.stdenv.mkDerivation {
