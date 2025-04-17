@@ -1,9 +1,7 @@
-name: deploy to server
+name: build website
 
 on:
   push:
-    tags:
-      - 'latest'
   workflow_dispatch:
 
 jobs:
@@ -17,4 +15,4 @@ jobs:
         with:
           name: gazesys-infra
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - run: nix run .#nh -- os build -H wolumonde .
+      - run: nix build . -L --show-trace
