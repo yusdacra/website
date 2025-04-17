@@ -35,7 +35,7 @@
 
           src = ./.;
           
-          outputHash = "sha256-Rk67wKAXOngKPagpAx8Zlqx7ogBBeQb4srMaJYsVobc=";
+          outputHash = "sha256-auuXpZugP+PxHhrj2FpwHCwG1YkQe/FDro2Ej92AONo=";
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
 
@@ -47,11 +47,12 @@
 
           buildPhase = "bun install --no-cache --no-progress --frozen-lockfile";
           installPhase = ''
-            mkdir -p $out/node_modules
+            mkdir -p $out
 
             # Do not copy .cache or .bin
-            cp -R ./node_modules/* $out/node_modules
-            ls -la $out/node_modules
+            cp -R ./node_modules/* $out
+            cp -R ./node_modules/.bin $out
+            ls -la $out
           '';
           dontFixup = true;
           dontPatchShebangs = true;
@@ -68,6 +69,7 @@
           PUBLIC_BASE_URL="http://localhost:5173";
           GUESTBOOK_BASE_URL="http://localhost:8080";
 
+          # dontConfigure = true;
           configurePhase = ''
             runHook preConfigure
             cp -R --no-preserve=ownership ${config.packages.gazesys-modules} node_modules
@@ -85,7 +87,7 @@
             runHook preInstall
 
             mkdir -p $out/bin
-            ln -s ${config.packages.gazesys-modules} $out
+            cp -R --no-preserve=ownership node_modules $out
             cp -R ./build/* $out
 
             makeBinaryWrapper ${pkgs.bun}/bin/bun $out/bin/${packageJson.name} \
