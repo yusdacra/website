@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  tag:
+  build:
     runs-on: lixpine
     steps:
       - uses: actions/checkout@v4
@@ -17,3 +17,11 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - run: nix show-config
       - run: nix build . -L --show-trace
+  deploy:
+    runs-on: lixpine
+    depends-on: build
+    steps:
+      - name: trigger deploy
+        env:
+          PAT: ${{ secrets.PAT }}
+        run: curl -X POST https://git.gaze.systems/api/v1/repos/90008/ark/actions/workflows/deploy.yml/dispatches -H 'Accept: application/json' -H "Authorization: token $PAT" --json '{"ref": "terra"}'`
