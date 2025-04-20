@@ -161,7 +161,7 @@
 					<li>discord: yusdacra</li>
 					<li>
 						e-mail:
-						<a class="u-email" href="mailto:y.bera003.06@pm.me" rel="me">y.bera003.06@pm.me</a>
+						<a class="u-email" href="mailto:90008@gaze.systems" rel="me">90008@gaze.systems</a>
 					</li>
 					<li>
 						bluesky:
