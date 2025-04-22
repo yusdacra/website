@@ -364,7 +364,7 @@
 				</div>
 			</div>
 		</Window>
-		<Window title="notify me">
+		<Window title="notify this one">
 			<form
 				class="flex flex-row gap-1 place-self-center"
 				method="post"
