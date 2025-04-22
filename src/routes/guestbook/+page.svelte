@@ -1,10 +1,17 @@
 <script lang="ts">
-	import Note from '../../components/note.svelte';
+	import Note, { type NoteData } from '../../components/note.svelte';
 	import Token from '../../components/token.svelte';
 	import Window from '../../components/window.svelte';
 
 	interface Props {
-		data: any;
+		data: {
+			entries: NoteData[];
+			sendError: string;
+			getError: string;
+			sendRatelimited: string;
+			getRatelimited: boolean;
+			fillText: string;
+		};
 	}
 
 	let { data }: Props = $props();

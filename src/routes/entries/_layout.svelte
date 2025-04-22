@@ -5,18 +5,13 @@
 	import { page } from '$app/state';
 
 	interface Props {
-		title: any;
-		date: any;
-		excerpt: any;
+		title: string;
+		date: Date;
+		excerpt: string;
 		children?: import('svelte').Snippet;
 	}
 
-	let {
-		title,
-		date,
-		excerpt,
-		children
-	}: Props = $props();
+	let { title, date, excerpt, children }: Props = $props();
 
 	let showMetadata = $derived(excerpt !== undefined && excerpt !== null);
 </script>

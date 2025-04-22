@@ -36,7 +36,7 @@ const parseFeedToActivity = async (url: string) => {
 		if (description === null) continue;
 		results.push({
 			source,
-			description: description.split('</a>').pop(),
+			description: description.split('</a>').pop() || '',
 			link: item.url,
 			date: item.published
 		});

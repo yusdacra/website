@@ -51,9 +51,9 @@ export const actions = {
 	}
 };
 
-export async function load({ url, cookies }) {
+export async function load({ cookies }) {
 	const scopedCookies = scopeCookies(cookies);
-	let data = {
+	const data = {
 		entries: [] as NoteData[],
 		sendError: scopedCookies.get('sendError') || '',
 		getError: '',
@@ -91,6 +91,7 @@ export async function load({ url, cookies }) {
 			await (
 				await getBskyClient()
 			).post({ text: content, threadgate: { allowMentioned: false, allowFollowing: false } });
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			scopedCookies.set('sendError', err.toString());
 			redirect(303, callbackUrl);
@@ -104,6 +105,7 @@ export async function load({ url, cookies }) {
 	try {
 		const { posts } = await getUserPosts('did:web:guestbook.gaze.systems', 16);
 		data.entries = posts.map(noteFromBskyPost);
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (err: any) {
 		data.getError = err.toString();
 	}

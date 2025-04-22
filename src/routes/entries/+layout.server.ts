@@ -6,6 +6,7 @@ export interface PostData {
 	metadata: Record<string, string>;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const allPostFiles: Record<string, any> = import.meta.glob('./*/+page.md', { eager: true });
 const allPosts: PostData[] = Object.entries(allPostFiles)
 	.map(([path, post]) => {

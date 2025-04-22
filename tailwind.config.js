@@ -1,5 +1,5 @@
-const colors = require('tailwindcss/colors');
-const plugin = require('tailwindcss/plugin');
+import typography from '@tailwindcss/typography';
+import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -53,5 +53,5 @@ export default {
 			monospace: ['"Fusion Pixel 10px Monospaced zh_hans", monospace']
 		}
 	},
-	plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')]
+	plugins: [typography, forms]
 };

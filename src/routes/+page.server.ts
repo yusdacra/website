@@ -4,6 +4,7 @@ import { getLastGame } from '$lib/steam';
 import { noteFromBskyPost } from '../components/note.svelte';
 import { pushNotification } from '$lib/pushnotif';
 import { getLastActivity } from '$lib/activity.js';
+import type { RequestEvent } from '@sveltejs/kit';
 
 export const load = async () => {
 	const lastTrack = getNowPlaying();
@@ -23,6 +24,7 @@ export const actions = {
 	default: async ({ request }: RequestEvent) => {
 		const form = await request.formData();
 		const content = form.get('content')?.toString().substring(0, 100);
+		if (content === undefined) return;
 		pushNotification(content);
 	}
 };
