@@ -11,7 +11,11 @@
 	}
 
 	const buttons = [
-		{ name: 'skyrina', url: 'https://skyrina.dev/', image: '/others/skylar.gif' },
+		{
+			name: '250kb club',
+			url: 'https://250kb.club/gaze-systems/',
+			image: '/others/250kb.webp'
+		},
 		{
 			name: 'candlelitsmiles',
 			url: 'https://candlelitsmiles.neocities.org',
@@ -22,7 +26,8 @@
 			name: 'indieweb',
 			url: 'https://indieweb.org/',
 			image: 'https://indieweb.org/images/9/91/indieweb88x31-retro-gif.gif'
-		}
+		},
+		{ name: 'skyrina', url: 'https://skyrina.dev/', image: '/others/skylar.gif' }
 	];
 
 	let { data }: Props = $props();
@@ -155,7 +160,7 @@
 		</Window>
 		<Window style="md:mr-2" title="cool stuff,,">
 			<div class="max-w-[50ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
-				<div class="flex flex-row gap-3 place-items-start group">
+				<div class="flex flex-row flex-wrap gap-3 place-items-start group">
 					{#each buttons as { name, url, image }}
 						<a title={name} href={url}
 							><img
