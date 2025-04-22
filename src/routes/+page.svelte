@@ -77,7 +77,7 @@
 
 <div class="flex flex-col md:flex-row gap-2 md:gap-4 md:h-full h-card">
 	<div class="flex flex-col gap-2 md:gap-6 ml-auto place-items-end">
-		<Window style="md:mr-8" title="status" iconUri="/icons/msn.webp" removePadding>
+		<Window title="status" iconUri="/icons/msn.webp" removePadding>
 			{#if data.lastNote}
 				<div class="m-1.5 flex flex-col font-monospace text-sm">
 					<p
@@ -201,7 +201,7 @@
 			{/if}
 		</Window>
 		<Window style="md:mr-2" title="cool buttons :>">
-			<div class="max-w-[50ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
+			<div class="max-w-[64ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
 				<div class="flex flex-row flex-wrap gap-3 place-items-start group">
 					{#each buttons as { name, url, image }}
 						<a title={name} href={url}
