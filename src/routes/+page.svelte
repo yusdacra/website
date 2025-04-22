@@ -23,6 +23,7 @@
 		},
 		{ name: 'julia', url: 'https://aph.nekoweb.org', image: '/others/aph.gif' },
 		{ name: 'rain', url: 'https://slonk.ing/', image: '/others/slonk.gif' },
+		{ name: 'dd', url: 'https://dd86k.space/about/', image: '/others/dd86k.gif' },
 		{
 			name: 'indieweb',
 			url: 'https://indieweb.org/',
@@ -47,6 +48,26 @@
 			name: 'desktop!!',
 			url: '/',
 			image: '/others/desktopwebp.webp'
+		},
+		{
+			name: 'defective by design',
+			url: 'https://www.defectivebydesign.org/',
+			image: '/others/dbd.gif'
+		},
+		{
+			name: 'kill fascists',
+			url: '/',
+			image: '/others/killfascists.webp'
+		},
+		{
+			name: 'it/its',
+			url: '/',
+			image: '/others/it.webp'
+		},
+		{
+			name: 'not a person',
+			url: '/',
+			image: '/others/notaperson.webp'
 		},
 		{ name: 'skyrina', url: 'https://skyrina.dev/', image: '/others/skylar.gif' }
 	];
@@ -179,7 +200,7 @@
 				</div>
 			{/if}
 		</Window>
-		<Window style="md:mr-2" title="cool stuff,,">
+		<Window style="md:mr-2" title="cool buttons :3">
 			<div class="max-w-[50ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
 				<div class="flex flex-row flex-wrap gap-3 place-items-start group">
 					{#each buttons as { name, url, image }}
@@ -194,8 +215,8 @@
 					{/each}
 				</div>
 
-				<span class="text-sm">please send it your buttons or stuff to add !! ;3</span><br />
-				<span class="text-xs italic">last updated on: 02-04-2025</span>
+				<span class="text-sm">feel free to send this one stuff to add here ;3</span><br />
+				<span class="text-xs italic">last updated on: 22-04-2025</span>
 			</div>
 		</Window>
 	</div>
