@@ -11,23 +11,24 @@
 	}
 
 	const buttons = [
-		{
-			name: '250kb club',
-			url: 'https://250kb.club/gaze-systems/',
-			image: '/others/250kb.webp'
-		},
+		{ name: 'skyrina', url: 'https://skyrina.dev/', image: '/others/skylar.gif' },
 		{
 			name: 'candlelitsmiles',
 			url: 'https://candlelitsmiles.neocities.org',
 			image: 'https://candlelitsmiles.neocities.org/candlebuttonone.png'
 		},
 		{ name: 'julia', url: 'https://aph.nekoweb.org', image: '/others/aph.gif' },
+		{ name: 'rain', url: 'https://slonk.ing/', image: '/others/slonk.gif' },
+		{
+			name: '250kb club',
+			url: 'https://250kb.club/gaze-systems/',
+			image: '/others/250kb.webp'
+		},
 		{
 			name: 'indieweb',
 			url: 'https://indieweb.org/',
 			image: 'https://indieweb.org/images/9/91/indieweb88x31-retro-gif.gif'
-		},
-		{ name: 'skyrina', url: 'https://skyrina.dev/', image: '/others/skylar.gif' }
+		}
 	];
 
 	let { data }: Props = $props();
