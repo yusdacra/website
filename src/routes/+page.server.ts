@@ -3,18 +3,20 @@ import { getNowPlaying } from '$lib/lastfm';
 import { getLastGame } from '$lib/steam';
 import { noteFromBskyPost } from '../components/note.svelte';
 import { pushNotification } from '$lib/pushnotif';
+import { getLastActivity } from '$lib/activity.js';
 
 export const load = async () => {
 	const lastTrack = getNowPlaying();
 	const lastGame = getLastGame();
 	const lastPosts = getLastPosts();
 	const lastNote = lastPosts.length > 0 ? noteFromBskyPost(lastPosts[0]) : null;
-	let banners: number[] = [];
+	const lastActivity = getLastActivity();
+	const banners: number[] = [];
 	while (banners.length < 3) {
 		const no = getBannerNo(banners);
 		banners.push(no);
 	}
-	return { banners, lastTrack, lastGame, lastNote };
+	return { banners, lastTrack, lastGame, lastNote, lastActivity };
 };
 
 export const actions = {
