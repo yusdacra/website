@@ -13,7 +13,18 @@ export const pushNotification = (_content: string) => {
 			headers: {
 				'content-type': 'application/json'
 			},
-			body: JSON.stringify({ content: _content })
+			body: JSON.stringify({
+				content: '<@853064602904166430>',
+				embeds: [
+					{
+						id: 677465216,
+						title: _content,
+						footer: {
+							text: 'notif from gaze.systems'
+						}
+					}
+				]
+			})
 		});
 	} catch (err) {
 		console.log(`failed to push notification: ${err}`);
