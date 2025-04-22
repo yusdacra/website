@@ -28,6 +28,11 @@
 			name: 'indieweb',
 			url: 'https://indieweb.org/',
 			image: 'https://indieweb.org/images/9/91/indieweb88x31-retro-gif.gif'
+		},
+		{
+			name: 'nixos',
+			url: 'https://nixos.org/',
+			image: '/others/poweredbynixos.webp'
 		}
 	];
 
