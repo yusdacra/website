@@ -33,6 +33,11 @@
 			name: 'nixos',
 			url: 'https://nixos.org/',
 			image: '/others/poweredbynixos.webp'
+		},
+		{
+			name: 'godot',
+			url: 'https://godotengine.org/',
+			image: '/others/godot.gif'
 		}
 	];
 
