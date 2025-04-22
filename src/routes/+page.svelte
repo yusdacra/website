@@ -342,15 +342,15 @@
 				</div>
 				<div class="flex flex-row [padding:8px] bg-ralsei-black/20">
 					<p class="leading-none m-0 text-sm">
-						hi there
+						hi
 						<img
 							class="relative inline h-5 animate-squiggle pb-1"
 							src="/wavey.gif"
 							alt="wavey"
-							title="hi :33"
+							title="says hi :33"
 						/>
 						<i
-							>i'm <a class="m-0 [padding:0px] p-name u-url u-uid" href={PUBLIC_BASE_URL}
+							>this is <a class="m-0 [padding:0px] p-name u-url u-uid" href={PUBLIC_BASE_URL}
 								><span>dusk</span></a
 							></i
 						>
