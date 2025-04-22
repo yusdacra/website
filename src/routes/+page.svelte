@@ -38,6 +38,11 @@
 			name: 'godot',
 			url: 'https://godotengine.org/',
 			image: '/others/godot.gif'
+		},
+		{
+			name: 'moonlight',
+			url: 'https://moonlight-mod.github.io/',
+			image: '/others/moonlightnow.gif'
 		}
 	];
 
