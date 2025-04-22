@@ -88,7 +88,7 @@
 						{#each data.lastActivity as activity, index}
 							<div
 								class="text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[60ch]"
-								style="opacity: {1.0 - (index * 1.0) / data.lastActivity.length + index * 0.05};"
+								style="opacity: {1.0 - (index * 1.0) / data.lastActivity.length + index * 0.03};"
 							>
 								<span title={renderDate(activity.date)} class="text-[#f87c32]"
 									>[{activity.source}]</span
