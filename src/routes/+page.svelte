@@ -200,7 +200,7 @@
 				</div>
 			{/if}
 		</Window>
-		<Window style="md:mr-2" title="cool buttons :3">
+		<Window style="md:mr-2" title="cool buttons :>">
 			<div class="max-w-[50ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
 				<div class="flex flex-row flex-wrap gap-3 place-items-start group">
 					{#each buttons as { name, url, image }}
@@ -386,7 +386,7 @@
 					type="text"
 					class="entry text-lg p-1 m-0 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] border-none"
 					name="content"
-					placeholder="push a notif into it~~"
+					placeholder="bother it now!!"
 					maxlength="100"
 					required
 				/>
