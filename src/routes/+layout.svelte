@@ -182,6 +182,14 @@
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">indieweb</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
+			{#if isRoute('entries') || isRoute('log')}
+				<div class="navbox !gap-1">
+					rss:
+					<a class="align-middle hover:underline" href="/entries/_rss">posts</a>
+					/
+					<a class="align-middle hover:underline" href="/log/_rss">log</a>
+				</div>
+			{/if}
 			<Tooltip>
 				{#snippet tooltipContent()}
 					<p class="font-monospace">
@@ -204,14 +212,6 @@
 					</p>
 				</div>
 			</Tooltip>
-			{#if isRoute('entries') || isRoute('log')}
-				<div class="navbox !gap-1">
-					rss:
-					<a class="align-middle hover:underline" href="/entries/_rss">posts</a>
-					/
-					<a class="align-middle hover:underline" href="/log/_rss">log</a>
-				</div>
-			{/if}
 		</div>
 	</div>
 </nav>
