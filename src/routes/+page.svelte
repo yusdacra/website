@@ -11,7 +11,11 @@
 	}
 
 	const buttons = [
-		{ name: 'skyrina', url: 'https://skyrina.dev/', image: '/others/skylar.gif' },
+		{
+			name: '250kb club',
+			url: 'https://250kb.club/gaze-systems/',
+			image: '/others/250kb.webp'
+		},
 		{
 			name: 'candlelitsmiles',
 			url: 'https://candlelitsmiles.neocities.org',
@@ -19,11 +23,6 @@
 		},
 		{ name: 'julia', url: 'https://aph.nekoweb.org', image: '/others/aph.gif' },
 		{ name: 'rain', url: 'https://slonk.ing/', image: '/others/slonk.gif' },
-		{
-			name: '250kb club',
-			url: 'https://250kb.club/gaze-systems/',
-			image: '/others/250kb.webp'
-		},
 		{
 			name: 'indieweb',
 			url: 'https://indieweb.org/',
@@ -43,7 +42,13 @@
 			name: 'moonlight',
 			url: 'https://moonlight-mod.github.io/',
 			image: '/others/moonlightnow.gif'
-		}
+		},
+		{
+			name: 'desktop!!',
+			url: '/',
+			image: '/others/desktopwebp.webp'
+		},
+		{ name: 'skyrina', url: 'https://skyrina.dev/', image: '/others/skylar.gif' }
 	];
 
 	let { data }: Props = $props();
