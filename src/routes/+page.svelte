@@ -24,6 +24,7 @@
 		{ name: 'julia', url: 'https://aph.nekoweb.org', image: '/others/aph.gif' },
 		{ name: 'rain', url: 'https://slonk.ing/', image: '/others/slonk.gif' },
 		{ name: 'dd', url: 'https://dd86k.space/about/', image: '/others/dd86k.gif' },
+		{ name: 'cqql', url: 'https://cqql.site/', image: 'https://cqql.site/button/8831button.png' },
 		{
 			name: 'indieweb',
 			url: 'https://indieweb.org/',
