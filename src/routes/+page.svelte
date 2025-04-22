@@ -249,10 +249,6 @@
 						(<a href="https://git.gaze.systems/90008/website">website repo</a>)
 					</li>
 					<li>
-						gitlab:
-						<a class="u-url" href="https://gitlab.com/yusdacra" rel="me">@yusdacra</a>
-					</li>
-					<li>
 						itch.io:
 						<a class="u-url" href="https://yusdacra.itch.io" rel="me">@yusdacra</a>
 					</li>
