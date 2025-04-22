@@ -76,8 +76,8 @@
 	let { data }: Props = $props();
 </script>
 
-<div class="flex flex-col md:flex-row gap-2 md:gap-4 md:h-full h-card">
-	<div class="flex flex-col gap-2 md:gap-6 ml-auto place-items-end">
+<div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4 md:h-full h-card">
+	<div class="flex flex-col gap-2 md:gap-6 md:ml-auto place-items-end">
 		<Window title="status" iconUri="/icons/msn.webp" removePadding>
 			{#if data.lastNote}
 				<div class="m-1.5 flex flex-col font-monospace text-sm">
@@ -221,7 +221,7 @@
 			</div>
 		</Window>
 	</div>
-	<div class="flex flex-col gap-2 md:gap-3 mr-auto w-full md:w-fit place-items-start">
+	<div class="flex flex-col gap-2 md:gap-3 md:mr-auto w-full md:w-fit place-items-start">
 		<Window title="links!" iconUri="/icons/contact.webp">
 			<div
 				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-none prose-headings:leading-none"
