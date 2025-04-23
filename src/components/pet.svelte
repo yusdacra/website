@@ -66,6 +66,7 @@
 	let velocityY = 0;
 	let gravity = 200.0; // Gravity strength (positive because -Y is up)
 	let friction = 0.96; // Air friction
+	let groundFriction = 0.9; // Ground friction
 	let bounciness = 0.8; // How much energy is preserved on bounce
 
 	const move = () => {
@@ -79,8 +80,9 @@
 			velocityY += gravity * delta;
 
 			// Apply friction
-			velocityX *= friction;
-			velocityY *= friction;
+			const fric = position.y === 0 ? groundFriction : friction;
+			velocityX *= fric;
+			velocityY *= fric;
 
 			// Update position
 			position.x += velocityX * delta;
