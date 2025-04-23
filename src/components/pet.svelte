@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { draggable } from '@neodrag/svelte';
-	import type { argv0 } from 'process';
 
 	let position = $state({ x: 0, y: 0 });
 	let rotation = $state(0.0);
@@ -49,10 +48,6 @@
 
 	// Add spring update to the move function
 	setInterval(updateRotationSpring, tickRate);
-
-	const lerp = (from: number, to: number, weight: number) => {
-		return from + (to - from) * weight;
-	};
 
 	const moveTowards = (from: number, to: number, by: number) => {
 		let d = (to - from) * 1.0;
@@ -180,9 +175,9 @@
 		},
 		onDragEnd: () => {
 			dragged = false;
-			// Apply velocity based on the drag movement
-			velocityX = rotationVelocity * 80.0; // Convert rotation velocity to horizontal movement
-			velocityY = -Math.abs(rotationVelocity) * 30.0; // Jump higher with faster drags
+			// apply velocity based on rotation since we already keep track of that
+			velocityX = rotationVelocity * 80.0;
+			velocityY = -Math.abs(rotationVelocity) * 30.0;
 		}
 	}}
 	class="absolute bottom-[5vh] z-[1000] hover:animate-squiggle"
