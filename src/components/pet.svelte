@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { draggable } from '@neodrag/svelte';
+	import type { argv0 } from 'process';
 
 	let position = $state({ x: 0, y: 0 });
 	let rotation = $state(0.0);
@@ -61,16 +62,72 @@
 		return moveBy;
 	};
 
+	// Physics constants
+	let velocityX = $state(0);
+	let velocityY = $state(0);
+	let gravity = 200.0; // Gravity strength (positive because -Y is up)
+	let friction = 0.96; // Air friction
+	let bounciness = 0.8; // How much energy is preserved on bounce
+
 	const move = () => {
 		if (dragged) {
 			return;
 		}
 
-		if (position.y !== 0) {
-			position.y = Math.ceil(lerp(position.y, 0.0, 0.2));
+		// Apply physics when pet is in motion
+		if (velocityX !== 0 || velocityY !== 0 || position.y !== 0) {
+			// Apply gravity (remember negative Y is upward)
+			velocityY += gravity * delta;
+
+			// Apply friction
+			velocityX *= friction;
+			velocityY *= friction;
+
+			// Update position
+			position.x += velocityX * delta;
+			position.y += velocityY * delta;
+
+			// Handle window boundaries
+			const viewportWidth = window.innerWidth;
+
+			// Bounce off sides
+			if (position.x < 0) {
+				position.x = 0;
+				velocityX = -velocityX * bounciness;
+			} else if (position.x > viewportWidth) {
+				position.x = viewportWidth;
+				velocityX = -velocityX * bounciness;
+			}
+
+			// Bounce off bottom (floor)
+			if (position.y > 0) {
+				position.y = 0;
+				velocityY = -velocityY * bounciness;
+				// Only bounce if velocity is significant
+				if (Math.abs(velocityY) < 1) {
+					velocityY = 0;
+					position.y = 0;
+				}
+			}
+
+			// Stop very small movements
+			if (position.y === 0) {
+				velocityX = 0;
+				velocityY = 0;
+				position.y = 0;
+			}
+
+			// Update flip based on velocity
+			if (Math.abs(velocityX) > 0.5) {
+				flip = velocityX < 0;
+			}
+
+			targetRotation = velocityX * 0.02 + velocityY * 0.01;
+
 			return;
 		}
 
+		// Normal movement when not physics-based
 		let moveByX = moveTowards(position.x, targetX, speed);
 		position.x += moveByX;
 
@@ -123,6 +180,9 @@
 		},
 		onDragEnd: () => {
 			dragged = false;
+			// Apply velocity based on the drag movement
+			velocityX = rotationVelocity * 80.0; // Convert rotation velocity to horizontal movement
+			velocityY = -Math.abs(rotationVelocity) * 30.0; // Jump higher with faster drags
 		}
 	}}
 	class="absolute bottom-[5vh] z-[1000] hover:animate-squiggle"
