@@ -125,15 +125,15 @@
 			dragged = false;
 		}
 	}}
-	class="absolute bottom-[5vh] z-[1000]"
+	class="absolute bottom-[5vh] z-[1000] hover:animate-squiggle"
 	style="cursor: url('/icons/gaze.webp'), pointer;"
 >
 	<img
 		draggable="false"
-		class="invert"
 		style="
 		  image-rendering: pixelated !important;
 		  transform: rotate({rotation}rad) scaleX({flip ? -1 : 1});
+		  filter: invert(100%) drop-shadow(2px 2px 0 black) drop-shadow(-2px -2px 0 black);
 		"
 		src={sprite}
 	/>
