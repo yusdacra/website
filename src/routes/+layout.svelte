@@ -1,6 +1,8 @@
 <script lang="ts">
 	import getTitle from '$lib/getTitle';
+	import { isMobile } from '$lib/window';
 	import NavButton from '../components/navButton.svelte';
+	import Pet from '../components/pet.svelte';
 	import Tooltip from '../components/tooltip.svelte';
 	import '../styles/app.css';
 
@@ -141,7 +143,11 @@
 	{@render children?.()}
 </div>
 
-<nav class="w-full min-h-[5vh] max-h-[6vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
+{#if !isMobile()}
+	<Pet></Pet>
+{/if}
+
+<nav class="w-full min-h-[5vh] max-h-[5vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
 	<div
 		class="
 			max-w-full max-h-fit p-1 z-[999]
