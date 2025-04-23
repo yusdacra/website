@@ -126,6 +126,7 @@
 		}
 	}}
 	class="absolute bottom-[5vh] z-[1000]"
+	style="cursor: url('/icons/gaze.webp'), pointer;"
 >
 	<img
 		draggable="false"
