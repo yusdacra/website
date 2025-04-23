@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { draggable } from '@neodrag/svelte';
 
+	let lastDragged = 0;
+	let mouseX = 0;
+	let mouseY = 0;
+
 	let position = $state({ x: 0, y: 0 });
 	let rotation = $state(0.0);
 	let sprite = $state('/pet/idle.webp');
@@ -24,8 +28,8 @@
 		}
 	};
 
-	let targetRotation = $state(0.0);
-	let rotationVelocity = $state(0.0);
+	let targetRotation = 0.0;
+	let rotationVelocity = 0.0;
 	let springStiffness = 20.0; // How quickly rotation returns to target
 	let springDamping = 0.2; // Damping factor to prevent oscillation
 
@@ -58,8 +62,8 @@
 	};
 
 	// Physics constants
-	let velocityX = $state(0);
-	let velocityY = $state(0);
+	let velocityX = 0;
+	let velocityY = 0;
 	let gravity = 200.0; // Gravity strength (positive because -Y is up)
 	let friction = 0.96; // Air friction
 	let bounciness = 0.8; // How much energy is preserved on bounce
@@ -99,17 +103,16 @@
 				position.y = 0;
 				velocityY = -velocityY * bounciness;
 				// Only bounce if velocity is significant
-				if (Math.abs(velocityY) < 1) {
+				if (Math.abs(velocityY) < 5) {
 					velocityY = 0;
 					position.y = 0;
 				}
 			}
 
-			// Stop very small movements
-			if (position.y === 0) {
+			// reset velocity
+			if (Math.abs(velocityX) < 5 && Math.abs(velocityY) < 5) {
 				velocityX = 0;
 				velocityY = 0;
-				position.y = 0;
 			}
 
 			// Update flip based on velocity
@@ -171,13 +174,27 @@
 		onDrag: ({ offsetX, offsetY, event }) => {
 			position.x = offsetX;
 			position.y = offsetY;
-			rotationVelocity += event.movementY * delta + event.movementX * delta;
+			const mouseXD = event.movementX * delta;
+			const mouseYD = event.movementY * delta;
+			// reset mouse movement if it's not moving in the same direction so it doesnt accumulate its weird!@!@
+			mouseX = Math.sign(mouseXD) != Math.sign(mouseX) ? mouseXD : mouseX + mouseXD;
+			mouseY = Math.sign(mouseYD) != Math.sign(mouseY) ? mouseYD : mouseY + mouseYD;
+			rotationVelocity += mouseXD + mouseYD;
+			lastDragged = Date.now();
 		},
 		onDragEnd: () => {
 			dragged = false;
+			// reset mouse movement if we stopped for longer than some time
+			if (Date.now() - lastDragged > 50) {
+				mouseX = 0.0;
+				mouseY = 0.0;
+			}
 			// apply velocity based on rotation since we already keep track of that
-			velocityX = rotationVelocity * 80.0;
-			velocityY = -Math.abs(rotationVelocity) * 30.0;
+			velocityX = mouseX * 70.0;
+			velocityY = mouseY * 50.0;
+			// reset mouse movement we dont want it to accumulate
+			mouseX = 0.0;
+			mouseY = 0.0;
 		}
 	}}
 	class="absolute bottom-[5vh] z-[1000] hover:animate-squiggle"
