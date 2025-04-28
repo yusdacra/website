@@ -69,6 +69,11 @@
 	let groundFriction = 0.9; // Ground friction
 	let bounciness = 0.8; // How much energy is preserved on bounce
 
+	const sendBounceMetrics = () => {
+		fetch('/pet/bounce');
+		console.log('bouncy');
+	};
+
 	const move = () => {
 		if (dragged) {
 			return;
@@ -95,9 +100,11 @@
 			if (position.x < 0) {
 				position.x = 0;
 				velocityX = -velocityX * bounciness;
+				sendBounceMetrics();
 			} else if (position.x > viewportWidth) {
 				position.x = viewportWidth;
 				velocityX = -velocityX * bounciness;
+				sendBounceMetrics();
 			}
 
 			// Bounce off bottom (floor)
@@ -105,9 +112,11 @@
 				position.y = 0;
 				velocityY = -velocityY * bounciness;
 				// Only bounce if velocity is significant
-				if (Math.abs(velocityY) < 5) {
+				if (Math.abs(velocityY) < 80) {
 					velocityY = 0;
 					position.y = 0;
+				} else {
+					sendBounceMetrics();
 				}
 			}
 

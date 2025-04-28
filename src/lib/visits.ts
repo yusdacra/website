@@ -86,7 +86,7 @@ const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cooki
 	return visitors;
 };
 
-const isBot = (request: Request) => {
+export const isBot = (request: Request) => {
 	const ua = request.headers.get('user-agent');
 	return ua
 		? ua.toLowerCase().match(/(bot|crawl|spider|walk|fetch|scrap|proxy|image)/) !== null
