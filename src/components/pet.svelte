@@ -71,7 +71,6 @@
 
 	const sendBounceMetrics = () => {
 		fetch('/pet/bounce');
-		console.log('bouncy');
 	};
 
 	const move = () => {

@@ -4,12 +4,15 @@ import { pushMetrics } from 'prometheus-remote-write';
 import { get, writable } from 'svelte/store';
 
 export const pushMetric = async (metrics: Record<string, number>) => {
-	await pushMetrics(metrics, {
+	const result = await pushMetrics(metrics, {
 		url: env.PROMETHEUS_URL,
 		labels: {
 			service: 'website'
 		}
 	});
+	if (result.status != 200) {
+		throw new Error(`failed to push metrics: ${result.status} ${result.errorMessage}`);
+	}
 };
 
 const bounceCountFile = `${env.WEBSITE_DATA_DIR}/bouncecount`;
