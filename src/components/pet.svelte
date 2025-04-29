@@ -153,8 +153,10 @@
 		const accel = event.acceleration ?? event.accelerationIncludingGravity;
 		if (accel === null || accel.x === null || accel.y === null) return;
 		if (Math.abs(accel.x) + Math.abs(accel.y) < 40.0) return;
-		velocityX += accel.x * 4.0;
-		velocityY += accel.y * 3.0;
+		// make it so that it amplifies motion proportionally to the window size
+		const windowRatio = (window.innerWidth * 1.0) / (window.innerHeight * 1.0);
+		velocityX += accel.x * windowRatio * 5.0;
+		velocityY += accel.y * (1.0 / windowRatio) * 5.0;
 		sprite = '/pet/pick.webp';
 	};
 
