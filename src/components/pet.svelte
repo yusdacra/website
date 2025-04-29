@@ -234,7 +234,7 @@
 			mouseY = 0.0;
 		}
 	}}
-	class="absolute bottom-[5vh] z-[1000] hover:animate-squiggle"
+	class="fixed bottom-[5vh] z-[1000] hover:animate-squiggle"
 	style="cursor: url('/icons/gaze.webp'), pointer;"
 >
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
