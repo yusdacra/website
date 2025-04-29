@@ -74,9 +74,7 @@
 	};
 
 	const move = () => {
-		if (dragged) {
-			return;
-		}
+		if (dragged) return;
 
 		// Apply physics when pet is in motion
 		if (velocityX !== 0 || velocityY !== 0 || position.y !== 0) {
@@ -151,6 +149,35 @@
 
 	setInterval(move, tickRate);
 
+	const shake = (event: DeviceMotionEvent) => {
+		const accel = event.acceleration;
+		if (accel === null || accel.x === null || accel.y === null || accel.z === null) return;
+		if (Math.abs(accel.x) + Math.abs(accel.z) < 40.0) return;
+		velocityX += accel.x * 4.0;
+		velocityY += accel.z * 3.0;
+	};
+
+	self.ondevicemotion = shake;
+
+	// this is for ios
+	const askForShakePermission = () => {
+		if (
+			typeof DeviceMotionEvent !== 'undefined' &&
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			typeof (DeviceMotionEvent as any).requestPermission === 'function'
+		) {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(DeviceMotionEvent as any)
+				.requestPermission()
+				.then((permissionState: string) => {
+					if (permissionState === 'granted') {
+						self.ondevicemotion = shake;
+					}
+				})
+				.catch(console.error);
+		}
+	};
+
 	const pickNewTargetX = () => {
 		const viewportWidth = self.innerWidth || null;
 		if (viewportWidth !== null && Math.abs(position.x - targetX) < 5) {
@@ -210,8 +237,11 @@
 	class="absolute bottom-[5vh] z-[1000] hover:animate-squiggle"
 	style="cursor: url('/icons/gaze.webp'), pointer;"
 >
+	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<img
 		draggable="false"
+		onclick={askForShakePermission}
 		style="
 		  image-rendering: pixelated !important;
 		  transform: rotate({rotation}rad) scaleX({flip ? -1 : 1});

@@ -3,12 +3,15 @@ import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { pushMetrics } from 'prometheus-remote-write';
 import { get, writable } from 'svelte/store';
 
+const endpoint = env.PROMETHEUS_URL;
+
 export const pushMetric = async (
 	metrics: Record<string, number>,
 	labels: Record<string, string> = {}
 ) => {
+	if (endpoint === undefined) return;
 	const result = await pushMetrics(metrics, {
-		url: env.PROMETHEUS_URL,
+		url: endpoint,
 		labels: {
 			service: 'website',
 			...labels
