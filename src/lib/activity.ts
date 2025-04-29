@@ -31,9 +31,12 @@ const parseFeedToActivity = async (url: string) => {
 
 	const source = new URL(url).host;
 	const results: Activity[] = [];
-	for (const item of feed.items.slice(0, 10)) {
+	for (const item of feed.items) {
 		const description: string | null = item.description || item.title;
 		if (description === null) continue;
+		// dont count mirrored repos
+		// TODO: probably can implement a deduplication algorithm
+		if (description.includes('yusdacra/ark') || description.includes('yusdacra/website')) continue;
 		results.push({
 			source,
 			description: description.split('</a>').pop() || '',
