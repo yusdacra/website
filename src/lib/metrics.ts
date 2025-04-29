@@ -10,7 +10,7 @@ export const pushMetric = async (metrics: Record<string, number>) => {
 			service: 'website'
 		}
 	});
-	if (result.status != 200) {
+	if (result.status != 204) {
 		throw new Error(`failed to push metrics: ${result.status} ${result.errorMessage}`);
 	}
 };
