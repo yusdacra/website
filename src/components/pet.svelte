@@ -150,7 +150,7 @@
 	setInterval(move, tickRate);
 
 	const shake = (event: DeviceMotionEvent) => {
-		const accel = event.acceleration;
+		const accel = event.acceleration ?? event.accelerationIncludingGravity;
 		if (accel === null || accel.x === null || accel.y === null) return;
 		if (Math.abs(accel.x) + Math.abs(accel.y) < 40.0) return;
 		velocityX += accel.x * 4.0;
