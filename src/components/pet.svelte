@@ -155,6 +155,7 @@
 		if (Math.abs(accel.x) + Math.abs(accel.y) < 40.0) return;
 		velocityX += accel.x * 4.0;
 		velocityY += accel.y * 3.0;
+		sprite = '/pet/pick.webp';
 	};
 
 	self.ondevicemotion = shake;
