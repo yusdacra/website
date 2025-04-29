@@ -151,10 +151,10 @@
 
 	const shake = (event: DeviceMotionEvent) => {
 		const accel = event.acceleration;
-		if (accel === null || accel.x === null || accel.y === null || accel.z === null) return;
-		if (Math.abs(accel.x) + Math.abs(accel.z) < 40.0) return;
+		if (accel === null || accel.x === null || accel.y === null) return;
+		if (Math.abs(accel.x) + Math.abs(accel.y) < 40.0) return;
 		velocityX += accel.x * 4.0;
-		velocityY += accel.z * 3.0;
+		velocityY += accel.y * 3.0;
 	};
 
 	self.ondevicemotion = shake;
