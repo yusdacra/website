@@ -1,3 +1,4 @@
+import { incrementFakeVisitCount, incrementLegitVisitCount, pushMetric } from '$lib/metrics.js';
 import { testUa } from '$lib/robots.js';
 import { addLastVisitor, incrementVisitCount, notifyDarkVisitors } from '$lib/visits.js';
 import { error } from '@sveltejs/kit';
@@ -12,7 +13,10 @@ export async function load({ request, cookies, url }) {
 
 	// block any requests if the user agent is disallowed by our robots txt
 	if ((await testUa(url.toString(), request.headers.get('user-agent') ?? '')) === false) {
+		pushMetric({ gazesys_visit_fake_total: incrementFakeVisitCount() });
 		throw error(403, 'get a better user agent silly');
+	} else {
+		pushMetric({ gazesys_visit_real_total: incrementLegitVisitCount() });
 	}
 
 	const lastVisitors = addLastVisitor(request, cookies);

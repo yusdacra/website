@@ -3,6 +3,7 @@ import { lastFmUpdateNowPlaying } from '$lib/lastfm';
 import { steamUpdateNowPlaying } from '$lib/steam';
 import { updateCommits } from '$lib/activity';
 import { cancelJob, scheduleJob, scheduledJobs } from 'node-schedule';
+import { sendAllMetrics } from '$lib/metrics';
 
 const UPDATE_LAST_JOB_NAME = 'update steam game, lastfm track, bsky posts, git activity';
 
@@ -19,7 +20,8 @@ scheduleJob(UPDATE_LAST_JOB_NAME, '*/1 * * * *', async () => {
 			steamUpdateNowPlaying(),
 			lastFmUpdateNowPlaying(),
 			updateLastPosts(),
-			updateCommits()
+			updateCommits(),
+			sendAllMetrics() // send all metrics every minute
 		]);
 	} catch (err) {
 		console.log(`error while running ${UPDATE_LAST_JOB_NAME} job: ${err}`);
