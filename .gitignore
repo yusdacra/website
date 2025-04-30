@@ -6,6 +6,9 @@ node_modules
 /.svelte-kit
 /build
 /visitcount
+/bouncecount
+/legitvisitcount
+/fakevisitcount
 /notes
 /note
 
