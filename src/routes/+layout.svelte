@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
 	import NavButton from '../components/navButton.svelte';
-	import Pet from '../components/pet.svelte';
+	import Pet, { localDistanceTravelled } from '../components/pet.svelte';
 	import Tooltip from '../components/tooltip.svelte';
 	import '../styles/app.css';
 
@@ -193,6 +194,35 @@
 					<a class="align-middle hover:underline" href="/log/_rss">log</a>
 				</div>
 			{/if}
+			<Tooltip>
+				{#snippet tooltipContent()}
+					<p class="font-monospace">
+						<nobr>
+							pet global bounce = <span class="text-ralsei-green-light text-shadow-green"
+								>{data.petTotalBounce.toString().padStart(14, '.')}</span
+							>
+						</nobr>
+						<nobr>
+							pet global distance = <span class="text-ralsei-green-light text-shadow-green"
+								>{data.petTotalDistance.toFixed(0).toString().padStart(12, '.')}</span
+							>
+						</nobr>
+						{#if browser}
+							<nobr>
+								pet local distance = <span class="text-ralsei-green-light text-shadow-green"
+									>{$localDistanceTravelled.toFixed(0).toString().padStart(13, '.')}</span
+								>
+							</nobr>
+						{/if}
+					</p>
+				{/snippet}
+				<div class="navbox">
+					<p>
+						<span class="text-ralsei-green-light text-shadow-green">*</span>
+						pet stats
+					</p>
+				</div>
+			</Tooltip>
 			<Tooltip>
 				{#snippet tooltipContent()}
 					<p class="font-monospace">

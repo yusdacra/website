@@ -1,7 +1,15 @@
-import { incrementFakeVisitCount, incrementLegitVisitCount, pushMetric } from '$lib/metrics.js';
+import {
+	bounceCount,
+	distanceTravelled,
+	incrementFakeVisitCount,
+	incrementLegitVisitCount,
+	pushMetric
+} from '$lib/metrics.js';
 import { testUa } from '$lib/robots.js';
 import { addLastVisitor, incrementVisitCount, notifyDarkVisitors } from '$lib/visits.js';
 import { error } from '@sveltejs/kit';
+import { localDistanceTravelled } from '../components/pet.svelte';
+import { get } from 'svelte/store';
 
 export const csr = true;
 export const ssr = true;
@@ -27,6 +35,9 @@ export async function load({ request, cookies, url }) {
 
 	return {
 		route: url.pathname,
+		petTotalBounce: bounceCount.get(),
+		petTotalDistance: distanceTravelled.get(),
+		petLocalDistance: get(localDistanceTravelled),
 		visitCount: incrementVisitCount(request, cookies),
 		lastVisitors,
 		recentVisitCount

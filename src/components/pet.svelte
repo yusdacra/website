@@ -1,5 +1,12 @@
+<script module lang="ts">
+	import { writable } from 'svelte/store';
+
+	export const localDistanceTravelled = writable(0.0);
+</script>
+
 <script lang="ts">
 	import { draggable } from '@neodrag/svelte';
+	import { browser } from '$app/environment';
 
 	let lastDragged = 0;
 	let mouseX = 0;
@@ -51,7 +58,7 @@
 	};
 
 	// Add spring update to the move function
-	setInterval(updateRotationSpring, tickRate);
+	if (browser) setInterval(updateRotationSpring, tickRate);
 
 	const moveTowards = (from: number, to: number, by: number) => {
 		let d = (to - from) * 1.0;
@@ -73,6 +80,21 @@
 		fetch('/pet/bounce');
 	};
 
+	let deltaTravelled = 0.0;
+	const updateDistanceTravelled = () => {
+		if (deltaTravelled > 0.1 || deltaTravelled < -0.1) {
+			localDistanceTravelled.update((n) => {
+				n += deltaTravelled;
+				return n;
+			});
+			fetch('/pet/distance', {
+				method: 'POST',
+				body: deltaTravelled.toString()
+			});
+		}
+		deltaTravelled = 0.0;
+	};
+
 	const move = () => {
 		if (dragged) return;
 
@@ -87,8 +109,13 @@
 			velocityY *= fric;
 
 			// Update position
-			position.x += velocityX * delta;
-			position.y += velocityY * delta;
+			const moveX = velocityX * delta;
+			const moveY = velocityY * delta;
+			position.x += moveX;
+			position.y += moveY;
+
+			deltaTravelled += Math.sqrt(moveX ** 2 + moveY ** 2);
+			updateDistanceTravelled();
 
 			// Handle window boundaries
 			const viewportWidth = window.innerWidth;
@@ -145,9 +172,12 @@
 		} else {
 			sprite = '/pet/idle.webp';
 		}
+
+		deltaTravelled += Math.abs(moveByX);
+		updateDistanceTravelled();
 	};
 
-	setInterval(move, tickRate);
+	if (browser) setInterval(move, tickRate);
 
 	const shake = (event: DeviceMotionEvent) => {
 		const accel = event.acceleration ?? event.accelerationIncludingGravity;
@@ -160,7 +190,7 @@
 		sprite = '/pet/pick.webp';
 	};
 
-	self.ondevicemotion = shake;
+	if (browser) self.ondevicemotion = shake;
 
 	// this is for ios
 	const askForShakePermission = () => {
@@ -195,7 +225,7 @@
 	};
 
 	// Start the process
-	setTimeout(pickNewTargetX, 1000);
+	if (browser) setTimeout(pickNewTargetX, 1000);
 </script>
 
 <!-- svelte-ignore a11y_missing_attribute -->
@@ -216,6 +246,7 @@
 			position.y = offsetY;
 			const mouseXD = event.movementX * delta;
 			const mouseYD = event.movementY * delta;
+			deltaTravelled += Math.sqrt(mouseXD ** 2 + mouseYD ** 2);
 			// reset mouse movement if it's not moving in the same direction so it doesnt accumulate its weird!@!@
 			mouseX = Math.sign(mouseXD) != Math.sign(mouseX) ? mouseXD : mouseX + mouseXD;
 			mouseY = Math.sign(mouseYD) != Math.sign(mouseY) ? mouseYD : mouseY + mouseYD;
@@ -223,7 +254,6 @@
 			lastDragged = Date.now();
 		},
 		onDragEnd: () => {
-			dragged = false;
 			// reset mouse movement if we stopped for longer than some time
 			if (Date.now() - lastDragged > 50) {
 				mouseX = 0.0;
@@ -232,9 +262,11 @@
 			// apply velocity based on rotation since we already keep track of that
 			velocityX = mouseX * 70.0;
 			velocityY = mouseY * 50.0;
+			updateDistanceTravelled();
 			// reset mouse movement we dont want it to accumulate
 			mouseX = 0.0;
 			mouseY = 0.0;
+			dragged = false;
 		}
 	}}
 	class="fixed bottom-[5vh] z-[1000] hover:animate-squiggle"
