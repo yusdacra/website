@@ -81,19 +81,28 @@
 	};
 
 	let deltaTravelled = 0.0;
+	let deltaTravelledTotal = 0.0;
 	const updateDistanceTravelled = () => {
 		if (deltaTravelled > 0.1 || deltaTravelled < -0.1) {
 			localDistanceTravelled.update((n) => {
 				n += deltaTravelled;
 				return n;
 			});
-			fetch('/pet/distance', {
-				method: 'POST',
-				body: deltaTravelled.toString()
-			});
+			deltaTravelledTotal += deltaTravelled;
 		}
 		deltaTravelled = 0.0;
 	};
+
+	const sendTotalDistance = () => {
+		fetch('/pet/distance', {
+			method: 'POST',
+			body: deltaTravelledTotal.toString()
+		});
+		deltaTravelledTotal = 0.0;
+	};
+
+	// sending every 5 seconds is probably reliable enough
+	if (browser) setInterval(sendTotalDistance, 1000 * 5);
 
 	const move = () => {
 		if (dragged) return;
