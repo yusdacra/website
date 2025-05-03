@@ -134,7 +134,7 @@
 		}
 
 		// Normal movement when not physics-based
-		let moveByX = moveTowards(position.x, targetX, speed);
+		let moveByX = moveTowards(position.x, targetX, speed * ((self.innerWidth ?? 1600.0) / 1600.0));
 		position.x += moveByX;
 
 		turnStrideWheel(moveByX);
@@ -185,7 +185,7 @@
 		const viewportWidth = self.innerWidth || null;
 		if (viewportWidth !== null && Math.abs(position.x - targetX) < 5) {
 			targetX = Math.max(
-				Math.min(targetX + (Math.random() - 0.5) * 500.0, viewportWidth * 0.9),
+				Math.min(targetX + (Math.random() - 0.5) * (viewportWidth * 0.5), viewportWidth * 0.9),
 				viewportWidth * 0.1
 			);
 		}

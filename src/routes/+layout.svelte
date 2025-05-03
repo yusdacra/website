@@ -1,6 +1,5 @@
 <script lang="ts">
 	import getTitle from '$lib/getTitle';
-	import { isMobile } from '$lib/window';
 	import NavButton from '../components/navButton.svelte';
 	import Pet from '../components/pet.svelte';
 	import Tooltip from '../components/tooltip.svelte';
