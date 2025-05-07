@@ -46,7 +46,12 @@ export const removeLastVisitor = (id: string) => {
 	if (visitors.has(id)) {
 		const visitor = visitors.get(id) ?? { visits: [] };
 		visitor?.visits.pop();
-		visitors.set(id, visitor);
+		// if not enough visits remove
+		if (visitor?.visits.length === 0) {
+			visitors.delete(id);
+		} else {
+			visitors.set(id, visitor);
+		}
 	}
 	lastVisitors.set(visitors);
 };
