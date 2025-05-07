@@ -77,7 +77,7 @@
 	let bounciness = 0.8; // How much energy is preserved on bounce
 
 	const sendBounceMetrics = () => {
-		fetch('/pet/bounce');
+		fetch('/_api/pet/bounce');
 	};
 
 	let deltaTravelled = 0.0;
@@ -94,7 +94,7 @@
 	};
 
 	const sendTotalDistance = () => {
-		fetch('/pet/distance', {
+		fetch('/_api/pet/distance', {
 			method: 'POST',
 			body: deltaTravelledTotal.toString()
 		});

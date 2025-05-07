@@ -6,20 +6,22 @@ import { nanoid } from 'nanoid';
 import { get, writable } from 'svelte/store';
 
 const visitCountFile = `${env.WEBSITE_DATA_DIR}/visitcount`;
-const visitCount = writable(
+export const visitCount = writable(
 	parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0')
 );
 
 type Visitor = { visits: number[] };
-const lastVisitors = writable<Map<string, Visitor>>(new Map());
+export const lastVisitors = writable<Map<string, Visitor>>(new Map());
 const VISITOR_EXPIRY_SECONDS = 60 * 60; // an hour seems reasonable
+
+export const decrementVisitCount = () => {
+	visitCount.set(get(visitCount) - 1);
+};
 
 export const incrementVisitCount = (request: Request, cookies: Cookies) => {
 	let currentVisitCount = get(visitCount);
 	// check whether the request is from a bot or not (this doesnt need to be accurate we just want to filter out honest bots)
-	if (isBot(request)) {
-		return currentVisitCount;
-	}
+	if (isBot(request)) return false;
 	const scopedCookies = scopeCookies(cookies, '/');
 	// parse the last visit timestamp from cookies if it exists
 	const visitedTimestamp = parseInt(scopedCookies.get('visitedTimestamp') || '0');
@@ -36,14 +38,23 @@ export const incrementVisitCount = (request: Request, cookies: Cookies) => {
 		// write the visit count to a file so we can load it later again
 		writeFileSync(visitCountFile, currentVisitCount.toString());
 	}
-	return currentVisitCount;
+	return true;
+};
+
+export const removeLastVisitor = (id: string) => {
+	const visitors = get(lastVisitors);
+	if (visitors.has(id)) {
+		const visitor = visitors.get(id) ?? { visits: [] };
+		visitor?.visits.pop();
+		visitors.set(id, visitor);
+	}
+	lastVisitors.set(visitors);
 };
 
 export const addLastVisitor = (request: Request, cookies: Cookies) => {
-	let visitors = get(lastVisitors);
-	visitors = _addLastVisitor(visitors, request, cookies);
+	const { visitors, visitorId } = _addLastVisitor(get(lastVisitors), request, cookies);
 	lastVisitors.set(visitors);
-	return visitors;
+	return visitorId;
 };
 
 export const getVisitorId = (cookies: Cookies) => {
@@ -66,9 +77,7 @@ const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cooki
 		}
 	});
 	// check whether the request is from a bot or not (this doesnt need to be accurate we just want to filter out honest bots)
-	if (isBot(request)) {
-		return visitors;
-	}
+	if (isBot(request)) return { visitors, visitorId: null };
 	const scopedCookies = scopeCookies(cookies, '/');
 	// parse the last visit timestamp from cookies if it exists
 	let visitorId = scopedCookies.get('visitorId') || '';
@@ -83,7 +92,10 @@ const _addLastVisitor = (visitors: Map<string, Visitor>, request: Request, cooki
 	// put new visit in the front
 	visitorEntry.visits = [currentTime].concat(visitorEntry.visits);
 	visitors.set(visitorId, visitorEntry);
-	return visitors;
+	return {
+		visitors,
+		visitorId
+	};
 };
 
 export const isBot = (request: Request) => {
@@ -113,7 +125,7 @@ export const notifyDarkVisitors = (url: URL, request: Request) => {
 		.then(async (resp) => {
 			if (resp !== null) {
 				const msg = await resp.json();
-				const host = `(${request.headers.get('host')} ${request.headers.get('x-real-ip')})`;
+				const host = `(${request.headers.get('host')}|${request.headers.get('x-real-ip')}|${request.headers.get('user-agent')})`;
 				console.log(
 					`sent visitor analytic to dark visitors: ${resp.statusText}; ${msg.message ?? ''}${host}`
 				);

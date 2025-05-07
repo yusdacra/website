@@ -372,7 +372,7 @@
 					event.preventDefault();
 					const data = new FormData(event.currentTarget);
 					try {
-						fetch(`${PUBLIC_BASE_URL}/pushnotif/?content=${data.get('content')}`);
+						fetch(`${PUBLIC_BASE_URL}/_api/pushnotif/?content=${data.get('content')}`);
 					} catch (err) {
 						console.log(`failed to send notif: ${err}`);
 					}

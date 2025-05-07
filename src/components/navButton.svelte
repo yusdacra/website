@@ -6,12 +6,7 @@
 		iconUri: string;
 	}
 
-	let {
-		highlight = false,
-		name,
-		href,
-		iconUri
-	}: Props = $props();
+	let { highlight = false, name, href, iconUri }: Props = $props();
 </script>
 
 <a
@@ -25,7 +20,7 @@
 	"
 	title={name}
 	href="/{href}"
-	data-sveltekit-preload-data="hover"
+	data-sveltekit-preload-data="tap"
 >
 	<img class="max-w-4" style="image-rendering: pixelated;" src={iconUri} alt={name} />
 	<div
