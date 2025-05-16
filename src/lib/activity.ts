@@ -37,6 +37,9 @@ const parseFeedToActivity = async (url: string) => {
 		// dont count mirrored repos
 		// TODO: probably can implement a deduplication algorithm
 		if (description.includes('yusdacra/ark') || description.includes('yusdacra/website')) continue;
+		// dont show activity that is just update flake deps or something
+		if (item.content?.includes('update flake deps') || item.content?.includes('chore(deps)'))
+			continue;
 		results.push({
 			source,
 			description: description.split('</a>').pop() || '',
