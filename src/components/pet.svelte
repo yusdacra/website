@@ -1,7 +1,8 @@
 <script module lang="ts">
-	import { writable } from 'svelte/store';
+	import { get, writable } from 'svelte/store';
 
 	export const localDistanceTravelled = writable(0.0);
+	export const localBounces = writable(0);
 </script>
 
 <script lang="ts">
@@ -78,6 +79,7 @@
 
 	const sendBounceMetrics = () => {
 		fetch('/_api/pet/bounce');
+		localBounces.set(get(localBounces) + 1);
 	};
 
 	let deltaTravelled = 0.0;

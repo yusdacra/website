@@ -1,6 +1,6 @@
 import { bounceCount, distanceTravelled } from '$lib/metrics.js';
 import { lastVisitors, visitCount } from '$lib/visits.js';
-import { localDistanceTravelled } from '../components/pet.svelte';
+import { localBounces, localDistanceTravelled } from '../components/pet.svelte';
 import { get } from 'svelte/store';
 
 export const csr = true;
@@ -19,7 +19,6 @@ export async function load({ url }) {
 		route: url.pathname,
 		petTotalBounce: bounceCount.get(),
 		petTotalDistance: distanceTravelled.get(),
-		petLocalDistance: get(localDistanceTravelled),
 		visitCount: get(visitCount),
 		lastVisitors: visitors,
 		recentVisitCount

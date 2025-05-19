@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
 	import NavButton from '../components/navButton.svelte';
-	import Pet, { localDistanceTravelled } from '../components/pet.svelte';
+	import Pet, { localBounces, localDistanceTravelled } from '../components/pet.svelte';
 	import Tooltip from '../components/tooltip.svelte';
 	import '../styles/app.css';
 
@@ -199,18 +199,23 @@
 					<p class="font-monospace">
 						<nobr>
 							pet global bounce = <span class="text-ralsei-green-light text-shadow-green"
-								>{data.petTotalBounce.toString().padStart(14, '.')}</span
+								>{data.petTotalBounce.toString().padStart(12, '.')}</span
 							>
 						</nobr>
 						<nobr>
-							pet global distance = <span class="text-ralsei-green-light text-shadow-green"
+							pet global travel = <span class="text-ralsei-green-light text-shadow-green"
 								>{data.petTotalDistance.toFixed(0).toString().padStart(12, '.')}</span
 							>
 						</nobr>
 						{#if browser}
 							<nobr>
-								pet local distance = <span class="text-ralsei-green-light text-shadow-green"
-									>{$localDistanceTravelled.toFixed(0).toString().padStart(13, '.')}</span
+								pet local bounce &nbsp;= <span class="text-ralsei-green-light text-shadow-green"
+									>{$localBounces.toFixed(0).toString().padStart(12, '.')}</span
+								>
+							</nobr>
+							<nobr>
+								pet local travel &nbsp;= <span class="text-ralsei-green-light text-shadow-green"
+									>{$localDistanceTravelled.toFixed(0).toString().padStart(12, '.')}</span
 								>
 							</nobr>
 						{/if}
