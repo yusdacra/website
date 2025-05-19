@@ -26,6 +26,11 @@
 		{ name: 'dd', url: 'https://dd86k.space/about/', image: '/others/dd86k.gif' },
 		{ name: 'cqql', url: 'https://cqql.site/', image: 'https://cqql.site/button/8831button.png' },
 		{
+			name: "31A05B9C's random site",
+			url: 'https://www.31a05b.net/',
+			image: 'https://www.31a05b.net/a/8831/31a05b.png'
+		},
+		{
 			name: 'indieweb',
 			url: 'https://indieweb.org/',
 			image: 'https://indieweb.org/images/9/91/indieweb88x31-retro-gif.gif'
