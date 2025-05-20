@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
+	import Eye from '../components/eye.svelte';
 	import NavButton from '../components/navButton.svelte';
 	import Pet, { localBounces, localDistanceTravelled } from '../components/pet.svelte';
 	import Tooltip from '../components/tooltip.svelte';
@@ -43,6 +44,12 @@
 	let title = $derived(getTitle(data.route));
 
 	const svgSquiggles = [[2], [3], [2], [3], [1]];
+
+	// svelte-ignore non_reactive_update
+	let eyePositions = null;
+	if (eyePositions === null) {
+		eyePositions = data.eyePositions;
+	}
 </script>
 
 <svelte:head>
@@ -137,13 +144,20 @@
 	</defs>
 </svg>
 
+{#each data.lastVisitors as [id, visitor], index}
+	{@const pos = eyePositions.at(index)}
+	{#if pos !== undefined}
+		<Eye visits={visitor.visits} {id} top={pos[0]} left={pos[1]} />
+	{/if}
+{/each}
+
 <div
 	class="md:h-[96vh] pb-[8vh] lg:px-[1vw] 2xl:px-[2vw] lg:pb-[3vh] lg:pt-[1vh] overflow-x-hidden [scrollbar-gutter:stable]"
 >
 	{@render children?.()}
 </div>
 
-<Pet></Pet>
+<Pet />
 
 <nav class="w-full min-h-[5vh] max-h-[5vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
 	<div

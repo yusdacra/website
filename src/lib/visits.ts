@@ -10,7 +10,7 @@ export const visitCount = writable(
 	parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0')
 );
 
-type Visitor = { visits: number[] };
+export type Visitor = { visits: number[] };
 export const lastVisitors = writable<Map<string, Visitor>>(new Map());
 const VISITOR_EXPIRY_SECONDS = 60 * 60; // an hour seems reasonable
 
@@ -129,11 +129,8 @@ export const notifyDarkVisitors = (url: URL, request: Request) => {
 		})
 		.then(async (resp) => {
 			if (resp !== null) {
-				const msg = await resp.json();
 				const host = `(${request.headers.get('host')}|${request.headers.get('x-real-ip')}|${request.headers.get('user-agent')})`;
-				console.log(
-					`sent visitor analytic to dark visitors: ${resp.statusText}; ${msg.message ?? ''}${host}`
-				);
+				console.log(`sent visitor analytic to dark visitors: ${resp.statusText}; ${host}`);
 			}
 		});
 };
