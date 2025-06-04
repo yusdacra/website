@@ -7,7 +7,11 @@ export const updateCommits = async () => {
 	try {
 		const forgejoFeed = await parseFeedToActivity('https://git.gaze.systems/90008.rss');
 		const githubFeed = await parseFeedToActivity('https://github.com/yusdacra.atom');
-		const mergedFeed = sortActivities(forgejoFeed.concat(githubFeed)).slice(0, 7);
+		const codebergFeed = await parseFeedToActivity('https://codeberg.org/yusdacra.atom');
+		const mergedFeed = sortActivities(forgejoFeed.concat(githubFeed).concat(codebergFeed)).slice(
+			0,
+			7
+		);
 		lastCommits.set(mergedFeed);
 	} catch (why) {
 		console.log('could not fetch git activity: ', why);
@@ -47,9 +51,9 @@ const parseFeedToActivity = async (url: string) => {
 			continue;
 		results.push({
 			source,
-			description: description.split('</a>').pop() || '',
+			description: description.split('</a>').at(1) || description.split('</a>').pop() || '',
 			link: item.url,
-			date: item.published
+			date: item.published || item.updated
 		});
 	}
 
