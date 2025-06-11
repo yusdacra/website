@@ -239,7 +239,7 @@
 					</li>
 					<li>
 						bluesky:
-						<a class="u-url" href="https://bsky.app/profile/gaze.systems" rel="me">@gaze.systems</a>
+						<a class="u-url" href="https://bsky.app/profile/poor.dog" rel="me">@poor.dog</a>
 					</li>
 				</ul>
 				<h4>development</h4>

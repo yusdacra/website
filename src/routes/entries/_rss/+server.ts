@@ -16,7 +16,7 @@ const render = (posts: PostData[]) => `<?xml version="1.0" encoding="UTF-8" ?>
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
   <atom:link href="${entriesUrl}/_rss" rel="self" type="application/rss+xml" />
-  <title>dusk's posts (@gaze.systems)</title>
+  <title>dusk's posts (@poor.dog)</title>
   <link>${entriesUrl}</link>
   <description>posts from my website</description>
   ${posts
