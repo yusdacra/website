@@ -43,7 +43,7 @@ its choice of /interfaces/ for this subroutine are `helix`, `vscode`, `zed`, `em
 for /managing and deploying/ its internal systems, it uses `nixos` (it's /operating system/ of choice), `flake-parts` (because it enjoys the nixos module system and uses it to organize it's internal configuration), `agenix` (for secrets handling), `impermanence` (it considers state harmful!), `nixinate` (for deployment, it provisions manually as it enjoys working with other beings like itself). you can see its /configuration of internal systems/ [here](https://git.gaze.systems/dusk/ark).
 
 it loves game dev, and has a /main routine/ of making many games, so that other beings can improve their /source code/ by utilizing this one's games.
-you can see some stuff it worked on and deems "okay" on its [itch.io profile](https://yusdacra.itch.io/).
+you can see some stuff it worked on and deems "okay" on its [itch.io profile](https://90008.itch.io/).
 this is not everything it has worked on; it has a lot of incomplete programs, or stuff it doesn't want to show.
 its choice of /interfaces/ for this subroutine are `godot`, `gdscript`, `godot-rust`.
 

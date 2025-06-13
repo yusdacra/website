@@ -197,7 +197,7 @@
 						</p>
 						<!-- svelte-ignore a11y_missing_attribute -->
 						<a
-							href="https://steamcommunity.com/id/yusdacra"
+							href="https://steamcommunity.com/id/090008"
 							class="text-xs hover:underline text-shadow-green text-ralsei-green-light"
 							><img class="inline w-4" src={data.lastGame.pfp} />
 							<span class="align-middle">steam profile</span></a
@@ -232,7 +232,7 @@
 				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-none prose-headings:leading-none"
 			>
 				<ul>
-					<li>discord: yusdacra</li>
+					<li>discord: 90.008</li>
 					<li>
 						e-mail:
 						<a class="u-email" href="mailto:90008@gaze.systems" rel="me">90008@gaze.systems</a>
@@ -255,7 +255,7 @@
 					</li>
 					<li>
 						itch.io:
-						<a class="u-url" href="https://yusdacra.itch.io" rel="me">@yusdacra</a>
+						<a class="u-url" href="https://90008.itch.io" rel="me">@90008</a>
 					</li>
 				</ul>
 				<h4>services</h4>
@@ -338,7 +338,6 @@
 								in <span class="p-country-name">turkey</span>
 								<i class="text-[0.5rem]">(get it out)</i>
 							</li>
-							<li class="[list-style-type:'->']">aka <span class="p-nickname">yusdacra</span></li>
 						</ul>
 					</div>
 				</div>
