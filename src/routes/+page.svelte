@@ -246,7 +246,7 @@
 				<ul>
 					<li>
 						github:
-						<a class="u-url" href="https://github.com/yusdacra" rel="me">@yusdacra</a>
+						<a class="u-url" href="https://github.com/90-008" rel="me">@90-008</a>
 					</li>
 					<li>
 						forgejo:

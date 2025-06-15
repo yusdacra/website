@@ -6,7 +6,7 @@ const lastCommits = writable<Activity[]>([]);
 export const updateCommits = async () => {
 	try {
 		const forgejoFeed = await parseFeedToActivity('https://git.gaze.systems/90008.rss');
-		const githubFeed = await parseFeedToActivity('https://github.com/yusdacra.atom');
+		const githubFeed = await parseFeedToActivity('https://github.com/90-008.atom');
 		const codebergFeed = await parseFeedToActivity('https://codeberg.org/yusdacra.atom');
 		const mergedFeed = sortActivities(forgejoFeed.concat(githubFeed).concat(codebergFeed)).slice(
 			0,

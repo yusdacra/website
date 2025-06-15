@@ -2,7 +2,7 @@
   inputs.parts.url = "github:hercules-ci/flake-parts";
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.systems.url = "github:nix-systems/x86_64-linux";
-  inputs.naked-shell.url = "github:yusdacra/mk-naked-shell";
+  inputs.naked-shell.url = "github:90-008/mk-naked-shell";
 
   outputs = inp:
     inp.parts.lib.mkFlake {inputs = inp;} {
@@ -34,7 +34,7 @@
           version = packageJson.version;
 
           src = ./.;
-          
+
           outputHash = "sha256-CO0bFv5WbNBSgucHCb+I9kIZEkh6QqWngRra0luMtSI=";
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";

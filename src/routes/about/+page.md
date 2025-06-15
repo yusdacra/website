@@ -36,11 +36,11 @@ but doing these *would* make this one feel happy, means you care about this one 
 it /executes/ many different subroutines, and /optimizes/ itself for some of them.
 these mainly are, in order of amount of hot paths; programming, game dev, 3D modeling, drawing, writing...
 
-it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/yusdacra), [forgejo](https://git.gaze.systems/).
+it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/90-008), [forgejo](https://git.gaze.systems/).
 its core features for programming are: `nix`, `rust`, `svelte`, `typescript`, `nushell`.
 its choice of /interfaces/ for this subroutine are `helix`, `vscode`, `zed`, `emacs`.
 
-for /managing and deploying/ its internal systems, it uses `nixos` (it's /operating system/ of choice), `flake-parts` (because it enjoys the nixos module system and uses it to organize it's internal configuration), `agenix` (for secrets handling), `impermanence` (it considers state harmful!), `nixinate` (for deployment, it provisions manually as it enjoys working with other beings like itself). you can see its /configuration of internal systems/ [here](https://git.gaze.systems/dusk/ark).
+for /managing and deploying/ its internal systems, it uses `nixos` (it's /operating system/ of choice), `flake-parts` (because it enjoys the nixos module system and uses it to organize it's internal configuration), `agenix` (for secrets handling), `impermanence` (it considers state harmful!), `nixinate` (for deployment, it provisions manually as it enjoys working with other beings like itself). you can see its /configuration of internal systems/ [here](https://git.gaze.systems/90008/ark).
 
 it loves game dev, and has a /main routine/ of making many games, so that other beings can improve their /source code/ by utilizing this one's games.
 you can see some stuff it worked on and deems "okay" on its [itch.io profile](https://90008.itch.io/).
