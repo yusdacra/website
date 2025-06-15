@@ -41,7 +41,7 @@
 
 	const getOutgoingLink = (name: string, link: string) => {
 		if (name === 'bsky') {
-			return `https://bsky.app/profile/gaze.systems/post/${link.split('/').pop()}`;
+			return `https://bsky.app/profile/did:plc:dfl62fgb7wtjj3fcbb72naae/post/${link.split('/').pop()}`;
 		}
 		return link;
 	};
