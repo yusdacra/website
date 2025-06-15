@@ -7,7 +7,7 @@ export const updateCommits = async () => {
 	try {
 		const forgejoFeed = await parseFeedToActivity('https://git.gaze.systems/90008.rss');
 		const githubFeed = await parseFeedToActivity('https://github.com/90-008.atom');
-		const codebergFeed = await parseFeedToActivity('https://codeberg.org/yusdacra.atom');
+		const codebergFeed = await parseFeedToActivity('https://codeberg.org/90-008.atom');
 		const mergedFeed = sortActivities(forgejoFeed.concat(githubFeed).concat(codebergFeed)).slice(
 			0,
 			7
@@ -41,8 +41,8 @@ const parseFeedToActivity = async (url: string) => {
 		// dont count mirrored repos
 		// TODO: probably can implement a deduplication algorithm
 		if (
-			['yusdacra/ark', 'yusdacra/website', 'yusdacra/moonlight-exts', 'yusdacra/extensions'].some(
-				(repo) => description.includes(repo)
+			['90-008/ark', '90-008/website', '90-008/moonlight-exts', '90-008/extensions'].some((repo) =>
+				description.includes(repo)
 			)
 		)
 			continue;
