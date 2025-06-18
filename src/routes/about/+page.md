@@ -16,8 +16,9 @@ for a more human-readable identifier, use dusk or dawn.
 
 #### /identity/
 
-this entity is not known to be of any specific form, shape, or idea. however, it usually assumes that of an /inorganic automaton/ (more commonly a /robot/).
-it was also found to assume that of: /an angel/, /a doll/, /a puppy/.
+this entity is not known to be of any specific form, shape, or idea.
+however, it usually assumes that of a /puppy/ or an /inorganic automaton/ (more commonly known as a /robot/).
+it was also found to assume that of: /an angel/, /a doll/.
 this one would be happy if you thought of it as not a human, even if its /routines/ fail with human faults.
 it vibes with [this writing](https://catgirl.ai/pages/robot/) as far as /assuming `$env.THING`/ goes.
 
