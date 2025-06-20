@@ -90,7 +90,7 @@ export async function load({ cookies }) {
 			// post to guestbook account
 			await (
 				await getBskyClient()
-			).post({ text: content, threadgate: { allowMentioned: false, allowFollowing: false } });
+			).post({ text: content, threadgate: { allowMentioned: false, allowFollowing: true } });
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			scopedCookies.set('sendError', err.toString());
