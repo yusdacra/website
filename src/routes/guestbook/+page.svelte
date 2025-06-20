@@ -125,7 +125,11 @@
 				<br />
 				<br />
 				{#each data.entries as note, index}
-									<Note showOutgoing={false} {note} />
+									<Note
+										mapOutgoingNames={{ bsky: '', reply: 'src' }}
+										showOutgoing={true}
+										rootNote={note}
+									/>
 				{#if index < data.entries.length - 1}
 										<div class="mt-3"></div>
 									{/if}

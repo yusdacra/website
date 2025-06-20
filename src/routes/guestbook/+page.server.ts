@@ -109,7 +109,20 @@ export async function load({ cookies }) {
 	// actually get posts
 	try {
 		const { posts } = await getUserPosts('did:web:guestbook.gaze.systems', 16);
-		data.entries = posts.map(noteFromBskyPost);
+		for (const post of posts) {
+			const note = noteFromBskyPost(post);
+			// the only reply can be mine
+			if (post.replyCount ?? 0 > 0) {
+				const replies = await post.fetchChildren({ depth: 1, force: true });
+				note.children = replies.map((reply) => {
+					const note = noteFromBskyPost(reply);
+					note.purposeAction = 'reply';
+					note.outgoingLinks = [{ name: 'bsky-reply', link: reply.uri }];
+					return note;
+				});
+			}
+			data.entries.push(note);
+		}
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (err: any) {
 		data.getError = err.toString();

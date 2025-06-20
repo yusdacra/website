@@ -95,7 +95,7 @@
 						published {renderRelativeDate(data.lastNote.published)}!
 					</p>
 					<div class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[60ch]">
-						<Note note={data.lastNote} onlyContent />
+						<Note rootNote={data.lastNote} onlyContent />
 					</div>
 				</div>
 			{/if}

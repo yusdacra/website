@@ -53,7 +53,7 @@
 <br />
 <br />
 {#each data.feedPosts as note, index}
-						<Note {note} />
+						<Note rootNote={note} />
 {#if index < data.feedPosts.length - 1}
 							<div class="mt-3"></div>
 						{/if}
