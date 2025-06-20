@@ -7,6 +7,7 @@ import { getVisitorId } from '$lib/visits';
 import { nanoid } from 'nanoid';
 import { noteFromBskyPost, type NoteData } from '../../components/note.svelte';
 import { get, writable } from 'svelte/store';
+import type { Post } from '@skyware/bot';
 
 export const prerender = false;
 
@@ -109,18 +110,19 @@ export async function load({ cookies }) {
 	// actually get posts
 	try {
 		const { posts } = await getUserPosts('did:web:guestbook.gaze.systems', 16);
-		for (const post of posts) {
+		const fetchPostReplies = async (post: Post) => {
+			if ((post.replyCount ?? 0) === 0) return { post, replies: [] };
+			return { post, replies: await post.fetchChildren({ depth: 1, force: true }) };
+		};
+		const postsWithReplies = await Promise.all(posts.map(fetchPostReplies));
+		for (const { post, replies } of postsWithReplies) {
 			const note = noteFromBskyPost(post);
-			// the only reply can be mine
-			if (post.replyCount ?? 0 > 0) {
-				const replies = await post.fetchChildren({ depth: 1, force: true });
-				note.children = replies.map((reply) => {
-					const note = noteFromBskyPost(reply);
-					note.purposeAction = 'reply';
-					note.outgoingLinks = [{ name: 'bsky-reply', link: reply.uri }];
-					return note;
-				});
-			}
+			note.children = replies.map((reply) => {
+				const replyNote = noteFromBskyPost(reply);
+				replyNote.purposeAction = 'reply';
+				replyNote.outgoingLinks = [{ name: 'bsky-reply', link: reply.uri }];
+				return replyNote;
+			});
 			data.entries.push(note);
 		}
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
