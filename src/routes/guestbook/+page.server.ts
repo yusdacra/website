@@ -88,9 +88,14 @@ export async function load({ cookies }) {
 				redirect(303, callbackUrl);
 			}
 			// post to guestbook account
-			await (
-				await getBskyClient()
-			).post({ text: content, threadgate: { allowMentioned: false, allowFollowing: true } });
+			const client = await getBskyClient();
+			await client.post(
+				{
+					text: content,
+					threadgate: { allowMentioned: false, allowFollowing: true }
+				},
+				{ resolveFacets: false }
+			);
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			scopedCookies.set('sendError', err.toString());
