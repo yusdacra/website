@@ -18,6 +18,7 @@ import {
 } from '$lib/visits';
 import { testUa } from '$lib/robots';
 import { error } from '@sveltejs/kit';
+import { _fetchEntries } from './routes/guestbook/+page.server';
 
 const UPDATE_LAST_JOB_NAME = 'update steam game, lastfm track, bsky posts, git activity';
 
@@ -34,6 +35,7 @@ scheduleJob(UPDATE_LAST_JOB_NAME, '*/1 * * * *', async () => {
 			steamUpdateNowPlaying(),
 			lastFmUpdateNowPlaying(),
 			updateLastPosts(),
+			_fetchEntries(),
 			updateCommits(),
 			sendAllMetrics() // send all metrics every minute
 		]);

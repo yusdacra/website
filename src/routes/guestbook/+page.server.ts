@@ -23,6 +23,29 @@ const scopeCookies = (cookies: Cookies) => {
 };
 
 const postTokens = writable<Set<string>>(new Set());
+const entries = writable<NoteData[]>([]);
+
+export const _fetchEntries = async () => {
+	const newEntries: NoteData[] = [];
+	const { posts } = await getUserPosts('did:web:guestbook.gaze.systems', 16);
+	const fetchPostReplies = async (post: Post) => {
+		if ((post.replyCount ?? 0) === 0) return { post, replies: [] };
+		return { post, replies: await post.fetchChildren({ depth: 1, force: true }) };
+	};
+	const postsWithReplies = await Promise.all(posts.map(fetchPostReplies));
+	for (const { post, replies } of postsWithReplies) {
+		const note = noteFromBskyPost(post);
+		note.children = replies.map((reply) => {
+			const replyNote = noteFromBskyPost(reply);
+			replyNote.purposeAction = 'reply';
+			replyNote.outgoingLinks = [{ name: 'bsky-reply', link: reply.uri }];
+			return replyNote;
+		});
+		newEntries.push(note);
+	}
+	entries.set(newEntries);
+	return newEntries;
+};
 
 export const actions = {
 	post: async (event: RequestEvent) => {
@@ -55,13 +78,14 @@ export const actions = {
 export async function load({ cookies }) {
 	const scopedCookies = scopeCookies(cookies);
 	const data = {
-		entries: [] as NoteData[],
+		entries: get(entries),
 		sendError: scopedCookies.get('sendError') || '',
 		getError: '',
 		sendRatelimited: scopedCookies.get('sendRatelimited') || '',
 		getRatelimited: false,
 		fillText: fancyText(getVisitorId(cookies) ?? nanoid())
 	};
+	let refetchEntries = data.entries.length === 0;
 	const rawPostData = scopedCookies.get('postData') || null;
 	const postAuth = scopedCookies.get('postAuth') || null;
 	if (rawPostData !== null && postAuth !== null) {
@@ -97,6 +121,7 @@ export async function load({ cookies }) {
 				},
 				{ resolveFacets: false }
 			);
+			refetchEntries = true;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			scopedCookies.set('sendError', err.toString());
@@ -107,27 +132,13 @@ export async function load({ cookies }) {
 	// delete the cookies after we get em since we dont really need these more than once
 	scopedCookies.delete('sendError');
 	scopedCookies.delete('sendRatelimited');
-	// actually get posts
-	try {
-		const { posts } = await getUserPosts('did:web:guestbook.gaze.systems', 16);
-		const fetchPostReplies = async (post: Post) => {
-			if ((post.replyCount ?? 0) === 0) return { post, replies: [] };
-			return { post, replies: await post.fetchChildren({ depth: 1, force: true }) };
-		};
-		const postsWithReplies = await Promise.all(posts.map(fetchPostReplies));
-		for (const { post, replies } of postsWithReplies) {
-			const note = noteFromBskyPost(post);
-			note.children = replies.map((reply) => {
-				const replyNote = noteFromBskyPost(reply);
-				replyNote.purposeAction = 'reply';
-				replyNote.outgoingLinks = [{ name: 'bsky-reply', link: reply.uri }];
-				return replyNote;
-			});
-			data.entries.push(note);
+	if (refetchEntries) {
+		try {
+			data.entries = await _fetchEntries();
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			data.getError = err.toString();
 		}
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	} catch (err: any) {
-		data.getError = err.toString();
 	}
 
 	return data;
