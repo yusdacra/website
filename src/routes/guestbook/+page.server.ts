@@ -85,7 +85,6 @@ export async function load({ cookies }) {
 		getRatelimited: false,
 		fillText: fancyText(getVisitorId(cookies) ?? nanoid())
 	};
-	let refetchEntries = data.entries.length === 0;
 	const rawPostData = scopedCookies.get('postData') || null;
 	const postAuth = scopedCookies.get('postAuth') || null;
 	if (rawPostData !== null && postAuth !== null) {
@@ -121,7 +120,12 @@ export async function load({ cookies }) {
 				},
 				{ resolveFacets: false }
 			);
-			refetchEntries = true;
+			try {
+				data.entries = await _fetchEntries();
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} catch (err: any) {
+				data.getError = err.toString();
+			}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			scopedCookies.set('sendError', err.toString());
@@ -132,14 +136,6 @@ export async function load({ cookies }) {
 	// delete the cookies after we get em since we dont really need these more than once
 	scopedCookies.delete('sendError');
 	scopedCookies.delete('sendRatelimited');
-	if (refetchEntries) {
-		try {
-			data.entries = await _fetchEntries();
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		} catch (err: any) {
-			data.getError = err.toString();
-		}
-	}
 
 	return data;
 }
