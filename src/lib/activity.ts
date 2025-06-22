@@ -46,9 +46,8 @@ const parseFeedToActivity = async (url: string) => {
 			)
 		)
 			continue;
-		// dont show activity that is just update flake deps or something
-		if (item.content?.includes('update flake deps') || item.content?.includes('chore(deps)'))
-			continue;
+		// dont show activity that is just chore
+		if (item.content?.includes('chore')) continue;
 		results.push({
 			source,
 			description: description.split('</a>').at(1) || description.split('</a>').pop() || '',
