@@ -29,10 +29,10 @@
 	];
 
 	let routeComponents = $derived(data.route.split('/'));
-	let doAddPostItem = $derived(routeComponents.length > 3 && routeComponents[1] === 'entries');
-	let doAddResumeItem = $derived(routeComponents[1] === 'resume');
+	let isEntryPage = $derived(routeComponents.length > 3 && routeComponents[1] === 'entries');
+	let isResumePage = $derived(routeComponents[1] === 'resume');
 	let isRoute = $derived((_route: string) => {
-		if (doAddPostItem) {
+		if (isEntryPage) {
 			if (_route === 'entries') {
 				return false;
 			} else if (_route.startsWith('entries/')) {
@@ -145,12 +145,14 @@
 	</defs>
 </svg>
 
-{#each data.lastVisitors as [id, visitor], index}
-	{@const pos = eyePositions.at(index)}
-	{#if pos !== undefined}
-		<Eye visits={visitor.visits} {id} top={pos[0]} left={pos[1]} />
-	{/if}
-{/each}
+{#if !isResumePage}
+	{#each data.lastVisitors as [id, visitor], index}
+		{@const pos = eyePositions.at(index)}
+		{#if pos !== undefined}
+			<Eye visits={visitor.visits} {id} top={pos[0]} left={pos[1]} />
+		{/if}
+	{/each}
+{/if}
 
 <div
 	class="md:h-[96vh] pb-[8vh] lg:px-[1vw] 2xl:px-[2vw] lg:pb-[3vh] lg:pt-[1vh] overflow-x-hidden [scrollbar-gutter:stable]"
@@ -158,7 +160,9 @@
 	{@render children?.()}
 </div>
 
-<Pet />
+{#if !isResumePage}
+	<Pet />
+{/if}
 
 <nav class="w-full min-h-[5vh] max-h-[5vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
 	<div
@@ -173,7 +177,7 @@
 			{#each menuItems as item, menuIdx}
 				{@const highlight = isRoute(item.href)}
 				<NavButton {highlight} {...item} />
-				{#if doAddPostItem && menuIdx === 1}
+				{#if isEntryPage && menuIdx === 1}
 					<NavButton
 						highlight
 						name={routeComponents[2]}
@@ -181,13 +185,8 @@
 						iconUri="/icons/entry.webp"
 					/>
 				{/if}
-				{#if doAddResumeItem && menuIdx === 2}
-					<NavButton
-						highlight
-						name={routeComponents[1]}
-						href="/resume"
-						iconUri="/icons/about.webp"
-					/>
+				{#if isResumePage && menuIdx === 2}
+					<NavButton highlight name="resume" href="/resume" iconUri="/icons/about.webp" />
 				{/if}
 			{/each}
 			<div class="hidden md:block grow"></div>
