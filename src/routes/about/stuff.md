@@ -3,6 +3,7 @@ title = "stuff it did"
 layout = "simple"
 +++
 
+*for resume, see [here](/resume)*<br/>
 *for professional / job related stuff, see its [linkedin](https://www.linkedin.com/in/yusuf-bera-ertan/)*
 
 - it develops games

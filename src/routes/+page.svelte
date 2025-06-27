@@ -327,12 +327,15 @@
 										angelrobotpuppydollthing<br /><br />
 										it/its, 3pp preferred
 									{/snippet}
-									is a <i>thing</i> (it/they)
+									is a <i class="motion-safe:hover:animate-squiggle">thing</i> (it/they)
 								</Tooltip>
 							</li>
 							<li class="[list-style-type:'->']">
 								<span class="p-category">software engineer</span>,
 								<span class="p-category">indie game dev</span>
+							</li>
+							<li class="[list-style-type:'->']">
+								for resume, click <a href="/resume">here</a>
 							</li>
 							<li class="[list-style-type:'->']">
 								in <span class="p-country-name">turkey</span>

@@ -1,9 +1,9 @@
 import adapter from 'svelte-adapter-bun';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-import { mdsvex } from 'mdsvex'
+import { mdsvex } from 'mdsvex';
 
-import * as toml from "@std/toml";
+import * as toml from '@std/toml';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -14,47 +14,43 @@ const config = {
 		mdsvex({
 			extensions: ['.md', '.svx'],
 			frontmatter: {
-				type: "toml",
-				marker: "+",
+				type: 'toml',
+				marker: '+',
 				parse(frontmatter, messages) {
 					try {
 						return toml.parse(frontmatter);
 					} catch (e) {
 						messages.push(
-							"Parsing error on line " +
-								e.line +
-								", column " +
-								e.column +
-								": " +
-								e.message
+							'Parsing error on line ' + e.line + ', column ' + e.column + ': ' + e.message
 						);
 					}
-				},
+				}
 			},
 			smartypants: {
 				dashes: 'oldschool',
 				quotes: true,
 				ellipses: true,
-				backticks: false,
+				backticks: false
 			},
 			layout: {
 				about: './src/routes/about/_layout.svelte',
 				blogpost: './src/routes/entries/_layout.svelte',
 				simple: './src/components/_window_layout.svelte',
-			},
-		}),
+				resume: './src/routes/resume/_layout.svelte'
+			}
+		})
 	],
 
 	kit: {
 		csrf: {
-			checkOrigin: false,
+			checkOrigin: false
 		},
 		prerender: {
-			handleHttpError: 'warn',
+			handleHttpError: 'warn'
 		},
 		adapter: adapter({
-			precompress: true,
-		}),
+			precompress: true
+		})
 	}
 };
 

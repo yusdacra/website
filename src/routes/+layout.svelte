@@ -30,6 +30,7 @@
 
 	let routeComponents = $derived(data.route.split('/'));
 	let doAddPostItem = $derived(routeComponents.length > 3 && routeComponents[1] === 'entries');
+	let doAddResumeItem = $derived(routeComponents[1] === 'resume');
 	let isRoute = $derived((_route: string) => {
 		if (doAddPostItem) {
 			if (_route === 'entries') {
@@ -172,12 +173,20 @@
 			{#each menuItems as item, menuIdx}
 				{@const highlight = isRoute(item.href)}
 				<NavButton {highlight} {...item} />
-				{#if doAddPostItem && menuIdx == 1}
+				{#if doAddPostItem && menuIdx === 1}
 					<NavButton
 						highlight
 						name={routeComponents[2]}
 						href={data.route.slice(1)}
 						iconUri="/icons/entry.webp"
+					/>
+				{/if}
+				{#if doAddResumeItem && menuIdx === 2}
+					<NavButton
+						highlight
+						name={routeComponents[1]}
+						href="/resume"
+						iconUri="/icons/about.webp"
 					/>
 				{/if}
 			{/each}
