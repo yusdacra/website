@@ -87,12 +87,11 @@
             runHook preInstall
 
             mkdir -p $out/bin
-            cp -R --no-preserve=ownership node_modules $out
             cp -R ./build/* $out
 
             makeBinaryWrapper ${pkgs.bun}/bin/bun $out/bin/${packageJson.name} \
               --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.bun ]} \
-              --add-flags "run --prefer-offline --no-install --cwd $out start"
+              --add-flags "run --bun --no-install --cwd $out start"
 
             runHook postInstall
           '';
