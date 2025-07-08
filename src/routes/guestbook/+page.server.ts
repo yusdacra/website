@@ -15,8 +15,8 @@ export const prerender = false;
 const callbackUrl = `${PUBLIC_BASE_URL}/guestbook/`;
 
 const createPostRatelimiter = new RetryAfterRateLimiter({
-	IP: [10, 'd'],
-	IPUA: [5, 'h']
+	IP: [5, 'd'],
+	IPUA: [2, 'h']
 });
 
 const scopeCookies = (cookies: Cookies) => {
