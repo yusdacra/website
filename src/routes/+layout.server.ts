@@ -1,3 +1,4 @@
+import { newToken as getApiToken } from '$lib/apiToken.js';
 import { bounceCount, distanceTravelled } from '$lib/metrics.js';
 import { lastVisitors, visitCount } from '$lib/visits.js';
 import { get } from 'svelte/store';
@@ -60,6 +61,7 @@ export async function load({ url }) {
 		visitCount: get(visitCount),
 		lastVisitors: visitors,
 		recentVisitCount,
-		eyePositions
+		eyePositions,
+		apiToken: getApiToken()
 	};
 }

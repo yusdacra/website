@@ -9,6 +9,12 @@
 	import { draggable } from '@neodrag/svelte';
 	import { browser } from '$app/environment';
 
+	interface Props {
+		apiToken: string;
+	}
+
+	let { apiToken }: Props = $props();
+
 	let lastDragged = 0;
 	let mouseX = 0;
 	let mouseY = 0;
@@ -78,7 +84,7 @@
 	let bounciness = 0.8; // How much energy is preserved on bounce
 
 	const sendBounceMetrics = () => {
-		fetch('/_api/pet/bounce');
+		fetch(`/_api/pet/bounce?_token=${apiToken}`);
 		localBounces.set(get(localBounces) + 1);
 	};
 
@@ -96,7 +102,7 @@
 	};
 
 	const sendTotalDistance = () => {
-		fetch('/_api/pet/distance', {
+		fetch(`/_api/pet/distance?_token=${apiToken}`, {
 			method: 'POST',
 			body: deltaTravelledTotal.toString()
 		});

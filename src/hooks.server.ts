@@ -82,11 +82,13 @@ export const handle = async ({ event, resolve }) => {
 		valid = incrementVisitCount(event.request, event.cookies);
 	}
 
+	// actually resolve event
 	const resp = await resolve(event);
 	// remove visitors if it was a 404
 	if (resp.status === 404) {
 		if (id !== null) removeLastVisitor(id);
 		if (valid) decrementVisitCount();
 	}
+
 	return resp;
 };

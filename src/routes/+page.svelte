@@ -382,9 +382,11 @@
 				method="post"
 				onsubmit={(event) => {
 					event.preventDefault();
-					const data = new FormData(event.currentTarget);
+					const formData = new FormData(event.currentTarget);
 					try {
-						fetch(`${PUBLIC_BASE_URL}/_api/pushnotif/?content=${data.get('content')}`);
+						fetch(
+							`${PUBLIC_BASE_URL}/_api/pushnotif/?content=${formData.get('content')}&_token=${data.apiToken}`
+						);
 					} catch (err) {
 						console.log(`failed to send notif: ${err}`);
 					}
@@ -399,6 +401,7 @@
 					maxlength="100"
 					required
 				/>
+				<input type="hidden" name="_token" value={data.apiToken} />
 				<input
 					type="submit"
 					value="send!!"

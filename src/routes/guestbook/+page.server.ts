@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid';
 import { noteFromBskyPost, type NoteData } from '../../components/note.svelte';
 import { get, writable } from 'svelte/store';
 import type { Post } from '@skyware/bot';
+import { useToken as checkApiToken, newToken } from '$lib/apiToken.js';
 
 export const prerender = false;
 
@@ -60,6 +61,11 @@ export const actions = {
 			redirect(303, callbackUrl);
 		}
 		const form = await request.formData();
+		const apiToken = form.get('_token')?.toString() ?? '';
+		if (!checkApiToken(apiToken)) {
+			scopedCookies.set('sendError', 'api token is invalid');
+			redirect(303, callbackUrl);
+		}
 		const content = form.get('content')?.toString().substring(0, 300);
 		if (content === undefined) {
 			scopedCookies.set('sendError', 'content field is missing');
@@ -83,7 +89,8 @@ export async function load({ cookies }) {
 		getError: '',
 		sendRatelimited: scopedCookies.get('sendRatelimited') || '',
 		getRatelimited: false,
-		fillText: fancyText(getVisitorId(cookies) ?? nanoid())
+		fillText: fancyText(getVisitorId(cookies) ?? nanoid()),
+		apiToken: newToken()
 	};
 	const rawPostData = scopedCookies.get('postData') || null;
 	const postAuth = scopedCookies.get('postAuth') || null;

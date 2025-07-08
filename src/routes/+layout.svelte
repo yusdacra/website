@@ -161,7 +161,7 @@
 </div>
 
 {#if !isResumePage}
-	<Pet />
+	<Pet apiToken={data.apiToken} />
 {/if}
 
 <nav class="w-full min-h-[5vh] max-h-[5vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">

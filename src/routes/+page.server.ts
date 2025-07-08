@@ -5,6 +5,7 @@ import { noteFromBskyPost } from '../components/note.svelte';
 import { pushNotification } from '$lib/pushnotif';
 import { getLastActivity } from '$lib/activity.js';
 import type { RequestEvent } from '@sveltejs/kit';
+import { useToken as checkApiToken } from '$lib/apiToken.js';
 
 export const load = async () => {
 	const lastTrack = getNowPlaying();
@@ -23,6 +24,8 @@ export const load = async () => {
 export const actions = {
 	default: async ({ request }: RequestEvent) => {
 		const form = await request.formData();
+		const token = form.get('_token')?.toString() ?? '';
+		if (!checkApiToken(token)) return;
 		const content = form.get('content')?.toString().substring(0, 100);
 		if (content === undefined) return;
 		pushNotification(content);

@@ -1,8 +1,9 @@
 import { distanceTravelled, pushMetric } from '$lib/metrics';
 import { isBot } from '$lib/visits';
+import { checkUrl as checkApiToken } from '$lib/apiToken.js';
 
-export const POST = async ({ request }) => {
-	if (isBot(request)) return new Response();
+export const POST = async ({ request, url }) => {
+	if (isBot(request) || !checkApiToken(url)) return new Response();
 	try {
 		const delta = parseFloat(await request.text());
 		await pushMetric({ gazesys_pet_distance_total: distanceTravelled.increment(delta) });
