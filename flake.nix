@@ -1,12 +1,11 @@
 {
   inputs.parts.url = "github:hercules-ci/flake-parts";
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  inputs.systems.url = "github:nix-systems/x86_64-linux";
   inputs.naked-shell.url = "github:90-008/mk-naked-shell";
 
   outputs = inp:
     inp.parts.lib.mkFlake {inputs = inp;} {
-      systems = import inp.systems;
+      systems = ["x86_64-linux"];
       imports = [
         inp.naked-shell.flakeModule
       ];
@@ -16,7 +15,6 @@
         ...
       }: let
         pkgs = inp.nixpkgs.legacyPackages.${system};
-        packageJson = builtins.fromJSON (builtins.readFile ./package.json);
       in {
         devShells.default = config.mk-naked-shell.lib.mkNakedShell {
           name = "gazesys-devshell";
@@ -30,8 +28,7 @@
           '';
         };
         packages.gazesys-modules = pkgs.stdenv.mkDerivation {
-          pname = "${packageJson.name}-modules";
-          version = packageJson.version;
+          name = "gazesys-modules";
 
           src = ./.;
 
@@ -39,43 +36,40 @@
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
 
-          nativeBuildInputs = with pkgs; [bun];
+          nativeBuildInputs = [pkgs.bun];
 
           dontConfigure = true;
-          # impureEnvVars = pkgs.lib.fetchers.proxyImpureEnvVars
-          #   ++ [ "GIT_PROXY_COMMAND" "SOCKS_SERVER" ];
+          dontCheck = true;
+          dontFixup = true;
+          dontPatchShebangs = true;
 
           buildPhase = "bun install --no-cache --no-progress --frozen-lockfile";
           installPhase = ''
             mkdir -p $out
 
-            # Do not copy .cache or .bin
             cp -R ./node_modules/* $out
             cp -R ./node_modules/.bin $out
             ls -la $out
           '';
-          dontFixup = true;
-          dontPatchShebangs = true;
         };
         packages.gazesys = pkgs.stdenv.mkDerivation {
-          pname = packageJson.name;
-          version = packageJson.version;
+          name = "gazesys-website";
 
           src = ./.;
 
-          nativeBuildInputs = [pkgs.makeBinaryWrapper pkgs.rsync];
+          nativeBuildInputs = [pkgs.makeBinaryWrapper];
           buildInputs = [pkgs.bun];
 
           PUBLIC_BASE_URL="http://localhost:5173";
-          GUESTBOOK_BASE_URL="http://localhost:8080";
 
-          # dontConfigure = true;
+          dontCheck = true;
+
           configurePhase = ''
             runHook preConfigure
             cp -R --no-preserve=ownership ${config.packages.gazesys-modules} node_modules
             find node_modules -type d -exec chmod 755 {} \;
             substituteInPlace node_modules/.bin/vite \
-              --replace-fail "/usr/bin/env node" "${pkgs.nodejs-slim_latest}/bin/node"
+              --replace-fail "/usr/bin/env node" "${pkgs.bun}/bin/bun --bun"
             runHook postConfigure
           '';
           buildPhase = ''
@@ -89,7 +83,7 @@
             mkdir -p $out/bin
             cp -R ./build/* $out
 
-            makeBinaryWrapper ${pkgs.bun}/bin/bun $out/bin/${packageJson.name} \
+            makeBinaryWrapper ${pkgs.bun}/bin/bun $out/bin/website \
               --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.bun ]} \
               --add-flags "run --bun --no-install --cwd $out start"
 
