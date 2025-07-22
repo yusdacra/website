@@ -27,70 +27,11 @@
             export PATH="$PATH:$PWD/node_modules/.bin"
           '';
         };
-        packages.gazesys-modules = pkgs.stdenv.mkDerivation {
-          name = "gazesys-modules";
-
-          src = ./.;
-
-          outputHash = "sha256-CO0bFv5WbNBSgucHCb+I9kIZEkh6QqWngRra0luMtSI=";
-          outputHashAlgo = "sha256";
-          outputHashMode = "recursive";
-
-          nativeBuildInputs = [pkgs.bun];
-
-          dontConfigure = true;
-          dontCheck = true;
-          dontFixup = true;
-          dontPatchShebangs = true;
-
-          buildPhase = "bun install --no-cache --no-progress --frozen-lockfile";
-          installPhase = ''
-            mkdir -p $out
-
-            cp -R ./node_modules/* $out
-            cp -R ./node_modules/.bin $out
-            ls -la $out
-          '';
-        };
-        packages.gazesys = pkgs.stdenv.mkDerivation {
-          name = "gazesys-website";
-
-          src = ./.;
-
-          nativeBuildInputs = [pkgs.makeBinaryWrapper];
-          buildInputs = [pkgs.bun];
-
-          PUBLIC_BASE_URL="http://localhost:5173";
-
-          dontCheck = true;
-
-          configurePhase = ''
-            runHook preConfigure
-            cp -R --no-preserve=ownership ${config.packages.gazesys-modules} node_modules
-            find node_modules -type d -exec chmod 755 {} \;
-            substituteInPlace node_modules/.bin/vite \
-              --replace-fail "/usr/bin/env node" "${pkgs.bun}/bin/bun --bun"
-            runHook postConfigure
-          '';
-          buildPhase = ''
-            runHook preBuild
-            bun --prefer-offline run build
-            runHook postBuild
-          '';
-          installPhase = ''
-            runHook preInstall
-
-            mkdir -p $out/bin
-            cp -R ./build/* $out
-
-            makeBinaryWrapper ${pkgs.bun}/bin/bun $out/bin/website \
-              --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.bun ]} \
-              --add-flags "run --bun --no-install --cwd $out start"
-
-            runHook postInstall
-          '';
+        packages.gazesys-modules = pkgs.callPackage ./nix/modules.nix {};
+        packages.gazesys = pkgs.callPackage ./nix {
+          inherit (config.packages) gazesys-modules;
         };
         packages.default = config.packages.gazesys;
-      };
     };
+  };
 }
