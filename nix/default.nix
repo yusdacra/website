@@ -4,6 +4,7 @@
   bun,
   makeBinaryWrapper,
   gazesys-modules,
+  PUBLIC_BASE_URL ? "http://localhost:5173",
 }:
 stdenv.mkDerivation {
   name = "gazesys-website";
@@ -26,7 +27,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [makeBinaryWrapper];
   buildInputs = [bun];
 
-  PUBLIC_BASE_URL="http://localhost:5173";
+  inherit PUBLIC_BASE_URL;
 
   dontCheck = true;
 
