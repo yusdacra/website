@@ -31,6 +31,11 @@
 			image: 'https://www.31a05b.net/a/8831/31a05b.png'
 		},
 		{
+			name: 'thermia',
+			url: 'https://girlthi.ng/~thermia/',
+			image: 'https://girlthi.ng/~thermia/img/88x31/thermia.gif'
+		},
+		{
 			name: 'sparkles',
 			url: 'https://sparkles.getconfigured.org/',
 			image: 'https://sparkles.getconfigured.org/assets/sparkles.png'
