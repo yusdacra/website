@@ -52,7 +52,7 @@ stdenv.mkDerivation {
 
     makeBinaryWrapper ${bun}/bin/bun $out/bin/website \
       --prefix PATH : ${lib.makeBinPath [ bun ]} \
-      --add-flags "run --bun --no-install --cwd $out start"
+      --add-flags "run --bun --cwd $out start"
 
     runHook postInstall
   '';
