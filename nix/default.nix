@@ -49,10 +49,11 @@ stdenv.mkDerivation {
 
     mkdir -p $out/bin
     cp -R ./build/* $out
+    cp -R ./node_modules $out
 
     makeBinaryWrapper ${bun}/bin/bun $out/bin/website \
       --prefix PATH : ${lib.makeBinPath [ bun ]} \
-      --add-flags "run --bun --cwd $out start"
+      --add-flags "run --bun --no-install --cwd $out start"
 
     runHook postInstall
   '';
