@@ -14,8 +14,12 @@ export const getBskyClient = async () => {
 };
 
 const loginToBsky = async () => {
+	const password = env.BSKY_PASSWORD ?? null;
+	if (password === null) {
+		throw new Error('no password provided');
+	}
 	const bot = new Bot({ service: 'https://gaze.systems' });
-	await bot.login({ identifier: 'guestbook.gaze.systems', password: env.BSKY_PASSWORD ?? '' });
+	await bot.login({ identifier: 'guestbook.gaze.systems', password });
 	return bot;
 };
 
