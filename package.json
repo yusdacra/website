@@ -42,7 +42,7 @@
 	"dependencies": {
 		"@neodrag/svelte": "^2.3.1",
 		"@rowanmanning/feed-parser": "^2.0.2",
-		"@skyware/bot": "^0.3.11",
+		"@skyware/bot": "^0.4.0",
 		"@std/toml": "npm:@jsr/std__toml",
 		"@types/node-schedule": "^2.1.7",
 		"nanoid": "^5.1.0",
