@@ -1,4 +1,4 @@
-code for its personal website.
+code for one of its (90008) human-facing data endpoints.
 
 - the website itself uses sveltekit (w/ typescript) and tailwindcss. it's served with bun.
 - the logs and guestbook show posts from its bsky account and a guestbook account respectively, hosted on its pds.
