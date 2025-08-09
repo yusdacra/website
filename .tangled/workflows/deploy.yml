@@ -1,0 +1,14 @@
+when:
+  - event: ['push']
+    branch: ['svelte']
+
+dependencies:
+  nixpkgs:
+    - bun
+    - curl
+
+steps:
+  - name: build website
+    command: bun -b install && bun -b run build
+  - name: trigger deploy
+    command: curl -u "$WEBHOOK_AUTH" https://webhook.gaze.systems/deploy-wolumonde
