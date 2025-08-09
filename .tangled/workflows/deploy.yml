@@ -9,6 +9,8 @@ dependencies:
 
 steps:
   - name: build website
-    command: bun install && bun run -b build
+    command: |
+      export PUBLIC_BASE_URL="http://localhost:4173"
+      bun install && bun run -b build
   - name: trigger deploy
     command: curl -u "$WEBHOOK_AUTH" https://webhook.gaze.systems/deploy-wolumonde
