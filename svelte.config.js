@@ -4,6 +4,7 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex } from 'mdsvex';
 
 import * as toml from '@std/toml';
+import { resolve } from 'path';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -33,10 +34,10 @@ const config = {
 				backticks: false
 			},
 			layout: {
-				about: './src/routes/about/_layout.svelte',
-				blogpost: './src/routes/entries/_layout.svelte',
-				simple: './src/components/_window_layout.svelte',
-				resume: './src/routes/resume/_layout.svelte'
+				about: resolve('src/routes/about/_layout.svelte'),
+				blogpost: resolve('src/routes/entries/_layout.svelte'),
+				simple: resolve('src/components/_window_layout.svelte'),
+				resume: resolve('src/routes/resume/_layout.svelte')
 			}
 		})
 	],
