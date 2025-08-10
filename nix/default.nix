@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     fileset = lib.fileset.unions [
       ../src
       ../static
-      ../bun.lockb
+      ../bun.lock
       ../package.json
       ../postcss.config.js
       ../svelte.config.js

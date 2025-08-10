@@ -9,12 +9,12 @@ stdenv.mkDerivation {
   src = lib.fileset.toSource {
     root = ../.;
     fileset = lib.fileset.unions [
-      ../bun.lockb
+      ../bun.lock
       ../package.json
     ];
   };
 
-  outputHash = "sha256-wa4yMkpWjn6QdDQHdyX5xhPe56IV+xrI98AzKQbbdMs=";
+  outputHash = "sha256-GlWxpVz/G3/8Fn/TrPhJIXgXs8k0ICKoeTGE2CBdx/A=";
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
 
