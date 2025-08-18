@@ -44,10 +44,11 @@ Projects I worked on
 - Rewriting [PluralKit's](https://github.com/PluralKit/PluralKit) command parser in Rust [here](https://github.com/90-008/PluralKit/tree/rust-command-parser/crates).
 
 ### Others
+- Wrote an [ATProto lexicon tracker](https://tangled.sh/@poor.dog/nsid-tracker) using Rust and SvelteKit that tracks lexicon usages seen on the ATProto Jetstream.
+- [My personal website](https://git.gaze.systems/90008/website) written using SvelteKit + TypeScript, which I'm quite proud of!
 - A multithreaded [boids](https://github.com/90-008/godot_boids) (flocking) extension for the Godot Engine, written in Rust (and targetting all platforms).
-- Wrote [musikquadrupled](https://github.com/90-008/musikquadrupled) which is a proxy server for [musikcube](https://github.com/clangen/musikcube) because I wanted to make a [web client](https://github.com/90-008/musikspider) for it and their server implementation did not support the necessary features for web.
 - Wrote a small [BlueSky Jetstream consuming server](https://tangled.sh/@poor.dog/bsky-repost-likes) in Go that lets a user listen to if any of their reposts got liked.
-- [My personal website](https://git.gaze.systems/90008/website) written using SvelteKit + Typescript, which I'm quite proud of!
+- Wrote [musikquadrupled](https://github.com/90-008/musikquadrupled) which is a proxy server for [musikcube](https://github.com/clangen/musikcube) because I wanted to make a [web client](https://github.com/90-008/musikspider) for it and their server implementation did not support the necessary features for web.
 - [A GUI application for organizing / tagging media](https://github.com/90-008/levent) like how boorus do it, written in Zig.
 
 Technologies
