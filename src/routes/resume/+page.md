@@ -40,11 +40,10 @@ Projects I worked on
 - [A Nix library / flake-parts module](https://github.com/90-008/nix-cargo-integration) based on dream2nix that makes packaging / developing Rust projects using Cargo a breeze using Nix.
 - I wrote this because I wasn't happy with how Cargo projects were handled in Nix usually, and overtime it evolved a lot and it's being used somewhat often.
 
-### PluralKit
-- Rewriting [PluralKit's](https://github.com/PluralKit/PluralKit) command parser in Rust [here](https://github.com/90-008/PluralKit/tree/rust-command-parser/crates).
-
 ### Others
+- Rewrote [PluralKit's](https://github.com/PluralKit/PluralKit) command parser in Rust [here](https://github.com/90-008/PluralKit/tree/rust-command-parser/crates).
 - Wrote an [ATProto lexicon tracker](https://tangled.sh/@poor.dog/nsid-tracker) using Rust and SvelteKit that tracks lexicon usages seen on the ATProto Jetstream.
+  It implements timeseries data storage on top of a KV database called fjall.
 - [My personal website](https://git.gaze.systems/90008/website) written using SvelteKit + TypeScript, which I'm quite proud of!
 - A multithreaded [boids](https://github.com/90-008/godot_boids) (flocking) extension for the Godot Engine, written in Rust (and targetting all platforms).
 - Wrote a small [BlueSky Jetstream consuming server](https://tangled.sh/@poor.dog/bsky-repost-likes) in Go that lets a user listen to if any of their reposts got liked.
