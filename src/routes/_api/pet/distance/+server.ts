@@ -6,7 +6,7 @@ export const POST = async ({ request, url }) => {
 	if (isBot(request) || !checkApiToken(url)) return new Response();
 	try {
 		const delta = parseFloat(await request.text());
-		await pushMetric({ gazesys_pet_distance_total: distanceTravelled.increment(delta) });
+		await pushMetric({ gazesys_pet_distance_total: await distanceTravelled.increment(delta) });
 	} catch (error) {
 		console.log(`error while pushing bounce metric: ${error}`);
 	}

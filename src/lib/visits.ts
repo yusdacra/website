@@ -1,13 +1,12 @@
 import { env } from '$env/dynamic/private';
 import { scopeCookies } from '$lib';
 import type { Cookies } from '@sveltejs/kit';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { nanoid } from 'nanoid';
 import { get, writable } from 'svelte/store';
 
 const visitCountFile = `${env.WEBSITE_DATA_DIR}/visitcount`;
 export const visitCount = writable(
-	parseInt(existsSync(visitCountFile) ? readFileSync(visitCountFile).toString() : '0')
+	parseInt((await Bun.file(visitCountFile).exists()) ? await Bun.file(visitCountFile).text() : '0')
 );
 
 export type Visitor = { visits: number[] };
@@ -18,7 +17,7 @@ export const decrementVisitCount = () => {
 	visitCount.set(get(visitCount) - 1);
 };
 
-export const incrementVisitCount = (request: Request, cookies: Cookies) => {
+export const incrementVisitCount = async (request: Request, cookies: Cookies) => {
 	let currentVisitCount = get(visitCount);
 	// check whether the request is from a bot or not (this doesnt need to be accurate we just want to filter out honest bots)
 	if (isBot(request)) return false;
@@ -36,7 +35,7 @@ export const incrementVisitCount = (request: Request, cookies: Cookies) => {
 		// update the cookie with the current timestamp
 		scopedCookies.set('visitedTimestamp', currentTime.toString());
 		// write the visit count to a file so we can load it later again
-		writeFileSync(visitCountFile, currentVisitCount.toString());
+		await Bun.write(visitCountFile, currentVisitCount.toString());
 	}
 	return true;
 };

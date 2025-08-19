@@ -36,11 +36,6 @@
 			image: 'https://girlthi.ng/~thermia/img/88x31/thermia.gif'
 		},
 		{
-			name: 'sparkles',
-			url: 'https://sparkles.getconfigured.org/',
-			image: 'https://sparkles.getconfigured.org/assets/sparkles.png'
-		},
-		{
 			name: 'indieweb',
 			url: 'https://indieweb.org/',
 			image: 'https://indieweb.org/images/9/91/indieweb88x31-retro-gif.gif'

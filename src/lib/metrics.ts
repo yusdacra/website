@@ -34,13 +34,15 @@ export const sendAllMetrics = async () => {
 	}
 };
 
-export const bounceCount = createFileCounter(`${env.WEBSITE_DATA_DIR}/bouncecount`);
+export const bounceCount = await createFileCounter(`${env.WEBSITE_DATA_DIR}/bouncecount`);
 export const incrementBounceCount = bounceCount.increment;
 
-export const legitVisitCount = createFileCounter(`${env.WEBSITE_DATA_DIR}/legitvisitcount`);
+export const legitVisitCount = await createFileCounter(`${env.WEBSITE_DATA_DIR}/legitvisitcount`);
 export const incrementLegitVisitCount = legitVisitCount.increment;
 
-export const fakeVisitCount = createFileCounter(`${env.WEBSITE_DATA_DIR}/fakevisitcount`);
+export const fakeVisitCount = await createFileCounter(`${env.WEBSITE_DATA_DIR}/fakevisitcount`);
 export const incrementFakeVisitCount = fakeVisitCount.increment;
 
-export const distanceTravelled = createFileCounter(`${env.WEBSITE_DATA_DIR}/distancetravelled`);
+export const distanceTravelled = await createFileCounter(
+	`${env.WEBSITE_DATA_DIR}/distancetravelled`
+);

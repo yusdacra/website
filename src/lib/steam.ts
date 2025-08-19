@@ -4,6 +4,7 @@ import { get, writable } from 'svelte/store';
 
 const STEAM_ID = '76561198106829949';
 const GET_PLAYER_SUMMARY_ENDPOINT = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${env.STEAM_API_KEY}&steamids=${STEAM_ID}&format=json`;
+const LAST_GAME_FILE = `${env.WEBSITE_DATA_DIR}/last_game.json`;
 
 type LastGame = {
 	name: string;
@@ -16,6 +17,17 @@ type LastGame = {
 
 const steamgriddbClient = writable<SGDB | null>(null);
 const lastGame = writable<LastGame | null>(null);
+
+export const steamReadLastGame = async () => {
+	try {
+		const file = Bun.file(LAST_GAME_FILE);
+		const data = (await file.exists()) ? await file.text() : null;
+		lastGame.set(data ? JSON.parse(data) : null);
+	} catch (why) {
+		console.log('could not read last game: ', why);
+		lastGame.set(null);
+	}
+};
 
 export const steamUpdateNowPlaying = async () => {
 	let griddbClient = get(steamgriddbClient);
@@ -39,6 +51,7 @@ export const steamUpdateNowPlaying = async () => {
 			playing: true
 		};
 		lastGame.set(game);
+		await Bun.write(LAST_GAME_FILE, JSON.stringify(game));
 	} catch (why) {
 		console.log('could not fetch steam: ', why);
 		lastGame.update((t) => {

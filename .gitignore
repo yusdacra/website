@@ -37,3 +37,5 @@ target
 .bloop
 guestbook/entries
 guestbook/entries_size
+last_game.json
+last_track.json

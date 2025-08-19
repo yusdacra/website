@@ -5,7 +5,7 @@ import { checkUrl as checkApiToken } from '$lib/apiToken.js';
 export const GET = async ({ request, url }) => {
 	if (isBot(request) || !checkApiToken(url)) return new Response();
 	try {
-		await pushMetric({ gazesys_pet_bounce_total: incrementBounceCount() });
+		await pushMetric({ gazesys_pet_bounce_total: await incrementBounceCount() });
 	} catch (error) {
 		console.log(`error while pushing bounce metric: ${error}`);
 	}

@@ -1,6 +1,6 @@
 import { updateLastPosts } from '$lib/bluesky';
-import { lastFmUpdateNowPlaying } from '$lib/lastfm';
-import { steamUpdateNowPlaying } from '$lib/steam';
+import { lastFmReadLast, lastFmUpdateNowPlaying } from '$lib/lastfm';
+import { steamReadLastGame, steamUpdateNowPlaying } from '$lib/steam';
 import { updateCommits } from '$lib/activity';
 import { cancelJob, scheduleJob, scheduledJobs } from 'node-schedule';
 import {
@@ -26,6 +26,9 @@ if (UPDATE_LAST_JOB_NAME in scheduledJobs) {
 	console.log(`${UPDATE_LAST_JOB_NAME} is already running, cancelling so we can start a new one`);
 	cancelJob(UPDATE_LAST_JOB_NAME);
 }
+
+await steamReadLastGame();
+await lastFmReadLast();
 
 console.log(`starting ${UPDATE_LAST_JOB_NAME} job...`);
 scheduleJob(UPDATE_LAST_JOB_NAME, '*/1 * * * *', async () => {
@@ -66,20 +69,20 @@ export const handle = async ({ event, resolve }) => {
 	const isFakeVisit =
 		(await testUa(event.url.toString(), event.request.headers.get('user-agent') ?? '')) === false;
 	if (isFakeVisit) {
-		pushMetric({ gazesys_visit_fake_total: incrementFakeVisitCount() });
+		pushMetric({ gazesys_visit_fake_total: await incrementFakeVisitCount() });
 		throw error(403, 'get a better user agent silly');
 	}
 
 	// only push metric if legit page visit (still want rss to count here though)
 	const isPageVisit = !isApi() && !isPrefetch();
-	if (isPageVisit) pushMetric({ gazesys_visit_real_total: incrementLegitVisitCount() });
+	if (isPageVisit) pushMetric({ gazesys_visit_real_total: await incrementLegitVisitCount() });
 
 	// only add visitors if its a "legit" page visit
 	let id = null;
 	let valid = false;
 	if (isPageVisit && !isRss()) {
 		id = addLastVisitor(event.request, event.cookies);
-		valid = incrementVisitCount(event.request, event.cookies);
+		valid = await incrementVisitCount(event.request, event.cookies);
 	}
 
 	// actually resolve event

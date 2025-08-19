@@ -1,4 +1,3 @@
-import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { get, writable } from 'svelte/store';
 
 /**
@@ -7,13 +6,17 @@ import { get, writable } from 'svelte/store';
  * @param initialValue The initial value if the file doesn't exist
  * @returns An object with methods to get, increment, and set the count
  */
-export const createFileCounter = (filePath: string, initialValue: number = 0) => {
+export const createFileCounter = async (filePath: string, initialValue: number = 0) => {
 	const counter = writable(
-		parseInt(existsSync(filePath) ? readFileSync(filePath).toString() : initialValue.toString())
+		parseInt(
+			(await Bun.file(filePath).exists())
+				? await Bun.file(filePath).text()
+				: initialValue.toString()
+		)
 	);
 
-	const saveToFile = (value: number) => {
-		writeFileSync(filePath, value.toString());
+	const saveToFile = async (value: number) => {
+		await Bun.write(filePath, value.toString());
 		return value;
 	};
 

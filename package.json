@@ -44,6 +44,7 @@
 		"@rowanmanning/feed-parser": "^2.1.1",
 		"@skyware/bot": "^0.4.0",
 		"@std/toml": "npm:@jsr/std__toml",
+		"@types/bun": "^1.2.20",
 		"@types/node-schedule": "^2.1.8",
 		"nanoid": "^5.1.5",
 		"node-schedule": "^2.1.1",
