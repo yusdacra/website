@@ -186,7 +186,7 @@
 					/>
 				{/if}
 				{#if isResumePage && menuIdx === 2}
-					<NavButton highlight name="resume" href="/resume" iconUri="/icons/about.webp" />
+					<NavButton highlight name="resume" href="/resume.pdf" iconUri="/icons/about.webp" />
 				{/if}
 			{/each}
 			<div class="hidden md:block grow"></div>

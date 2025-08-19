@@ -36,8 +36,7 @@ const config = {
 			layout: {
 				about: resolve('src/routes/about/_layout.svelte'),
 				blogpost: resolve('src/routes/entries/_layout.svelte'),
-				simple: resolve('src/components/_window_layout.svelte'),
-				resume: resolve('src/routes/resume/_layout.svelte')
+				simple: resolve('src/components/_window_layout.svelte')
 			}
 		})
 	],
