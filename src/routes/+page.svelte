@@ -25,6 +25,7 @@
 		{ name: 'rain', url: 'https://slonk.ing/', image: '/others/slonk.gif' },
 		{ name: 'dd', url: 'https://dd86k.space/about/', image: '/others/dd86k.gif' },
 		{ name: 'cqql', url: 'https://cqql.site/', image: 'https://cqql.site/button/8831button.png' },
+		{ name: 'drew', url: 'https://drewsh.com/', image: '/others/drewsh.gif' },
 		{
 			name: "31A05B9C's random site",
 			url: 'https://www.31a05b.net/',
@@ -117,7 +118,7 @@
 					<div
 						class="prose prose-ralsei mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[60ch]"
 					>
-						{#each data.lastActivity as activity, index}
+						{#each data.lastActivity as activity, index (index)}
 							<div
 								class="text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[60ch]"
 								style="opacity: {1.0 - (index * 1.0) / data.lastActivity.length + index * 0.03};"
@@ -214,7 +215,7 @@
 		<Window style="md:mr-2" title="cool buttons :>">
 			<div class="max-w-[64ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
 				<div class="flex flex-row flex-wrap gap-3 place-items-start group">
-					{#each buttons as { name, url, image }}
+					{#each buttons as { name, url, image } (url)}
 						<a title={name} href={url}
 							><img
 								class="relative transition-all group-hover:opacity-50 hover:!opacity-100 hover:!scale-[1.6] hover:z-10"
@@ -284,7 +285,7 @@
 		<Window style="md:ml-2" title="readme?" iconUri="/icons/question.webp" removePadding>
 			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
 				<div class="flex flex-row gap-3 mx-auto bg-ralsei-black/20 overflow-hidden">
-					{#each data.banners as bannerNo, index}
+					{#each data.banners as bannerNo, index (bannerNo)}
 						{@const hideIfMobile = index === data.banners.length - 1}
 						<img
 							width="150"
