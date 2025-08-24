@@ -227,8 +227,7 @@
 					{/each}
 				</div>
 
-				<span class="text-sm">feel free to send this one stuff to add here ;3</span><br />
-				<span class="text-xs italic">last updated on: 22-04-2025</span>
+				<span class="text-sm">feel free to send this one stuff to add here ;3</span>
 			</div>
 		</Window>
 	</div>
