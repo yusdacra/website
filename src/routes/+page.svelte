@@ -215,7 +215,7 @@
 		<Window style="md:mr-2" title="cool buttons :>">
 			<div class="max-w-[64ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
 				<div class="flex flex-row flex-wrap gap-3 place-items-start group">
-					{#each buttons as { name, url, image } (url)}
+					{#each buttons as { name, url, image } (image)}
 						<a title={name} href={url}
 							><img
 								class="relative transition-all group-hover:opacity-50 hover:!opacity-100 hover:!scale-[1.6] hover:z-10"
