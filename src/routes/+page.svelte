@@ -266,6 +266,9 @@
 				<h4>services</h4>
 				<ul>
 					<li>
+						<a href="https://gaze.systems/nsid-tracker">atproto lexicon tracker</a>
+					</li>
+					<li>
 						<a href="https://pmart.gaze.systems">random project moon art</a>
 					</li>
 				</ul>
