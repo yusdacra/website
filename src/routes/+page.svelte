@@ -80,8 +80,7 @@
 			name: 'not a person',
 			url: '/',
 			image: '/others/notaperson.webp'
-		},
-		{ name: 'skyrina', url: 'https://skyrina.dev/', image: '/others/skylar.gif' }
+		}
 	];
 
 	let { data }: Props = $props();
@@ -213,6 +212,14 @@
 			{/if}
 		</Window>
 		<Window style="md:mr-2" title="cool buttons :>">
+			<a class="fixed" title="skyrina" href="https://skyrina.dev/"
+				><img
+					class="-translate-y-[8.85rem] z-20"
+					style="image-rendering: pixelated !important;"
+					src="/others/skylar.gif"
+					alt="skyrina"
+				/></a
+			>
 			<div class="max-w-[64ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug">
 				<div class="flex flex-row flex-wrap gap-3 place-items-start group">
 					{#each buttons as { name, url, image } (image)}
