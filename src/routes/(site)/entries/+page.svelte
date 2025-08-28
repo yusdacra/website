@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Window from '../../components/window.svelte';
+	import Window from '$components/window.svelte';
 	import type { PostData } from './+layout.server.ts';
 	import LogPage from '../log/+page.svelte';
-	import type { NoteData } from '../../components/note.svelte';
+	import type { NoteData } from '$components/note.svelte';
 
 	interface Props {
 		data: {
@@ -16,7 +16,7 @@
 
 <div class="mx-auto md:max-w-fit flex flex-col-reverse md:flex-row gap-y-4 gap-x-16">
 	<div class="flex flex-col gap-y-4">
-		{#each data.posts as post}
+		{#each data.posts as post (post.path)}
 			<Window title={post.metadata.title} iconUri="/icons/entry.webp">
 				<a
 					href="/entries/{post.path}"

@@ -5,7 +5,7 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { getBskyClient, getUserPosts } from '$lib/bluesky.js';
 import { getVisitorId } from '$lib/visits';
 import { nanoid } from 'nanoid';
-import { noteFromBskyPost, type NoteData } from '../../components/note.svelte';
+import { noteFromBskyPost, type NoteData } from '$components/note.svelte';
 import { get, writable } from 'svelte/store';
 import type { Post } from '@skyware/bot';
 import { useToken as checkApiToken, newToken } from '$lib/apiToken.js';

@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Window from '../../components/window.svelte';
+	import Window from '$components/window.svelte';
 	// @ts-expect-error "mdsvex include is broken"
 	import Stuff from './stuff.md';
 	// @ts-expect-error "mdsvex include is broken"
 	import Media from './media.md';
-	import '../../styles/app.css';
+	import '$styles/app.css';
 
 	interface Props {
 		title: string;

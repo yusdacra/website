@@ -1,7 +1,7 @@
 import { getLastPosts } from '$lib/bluesky.js';
 import { getNowPlaying } from '$lib/lastfm';
 import { getLastGame } from '$lib/steam';
-import { noteFromBskyPost } from '../components/note.svelte';
+import { noteFromBskyPost } from '$components/note.svelte';
 import { pushNotification } from '$lib/pushnotif';
 import { getLastActivity } from '$lib/activity.js';
 import type { RequestEvent } from '@sveltejs/kit';

@@ -18,7 +18,7 @@ import {
 } from '$lib/visits';
 import { testUa } from '$lib/robots';
 import { error } from '@sveltejs/kit';
-import { _fetchEntries } from './routes/guestbook/+page.server';
+import { _fetchEntries } from './routes/(site)/guestbook/+page.server';
 
 const UPDATE_LAST_JOB_NAME = 'update steam game, lastfm track, bsky posts, git activity';
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_BASE_URL } from '$env/static/public';
-	import Window from '../../components/window.svelte';
-	import '../../styles/app.css';
+	import Window from '$components/window.svelte';
+	import '$styles/app.css';
 	import { page } from '$app/state';
 
 	interface Props {

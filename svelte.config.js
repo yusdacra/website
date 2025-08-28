@@ -34,8 +34,8 @@ const config = {
 				backticks: false
 			},
 			layout: {
-				about: resolve('src/routes/about/_layout.svelte'),
-				blogpost: resolve('src/routes/entries/_layout.svelte'),
+				about: resolve('src/routes/(site)/about/_layout.svelte'),
+				blogpost: resolve('src/routes/(site)/entries/_layout.svelte'),
 				simple: resolve('src/components/_window_layout.svelte')
 			}
 		})
@@ -50,7 +50,11 @@ const config = {
 		},
 		adapter: adapter({
 			precompress: true
-		})
+		}),
+		alias: {
+			$components: 'src/components',
+			$styles: 'src/styles'
+		}
 	}
 };
 

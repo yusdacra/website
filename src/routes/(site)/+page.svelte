@@ -1,14 +1,25 @@
 <script lang="ts">
 	import { PUBLIC_BASE_URL } from '$env/static/public';
-	import Note from '../components/note.svelte';
-	import Window from '../components/window.svelte';
+	import Note from '$components/note.svelte';
+	import Window from '$components/window.svelte';
 	import { renderDate, renderRelativeDate } from '$lib/dateFmt';
-	import Tooltip from '../components/tooltip.svelte';
+	import Tooltip from '$components/tooltip.svelte';
 
 	interface Props {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		data: any;
 	}
+
+	const trimStr = (str: string, maxLength: number = 32): string => {
+		if (str.length <= maxLength) return str;
+		return str.slice(0, maxLength - 3) + '…';
+	};
+
+	const wallets: Record<string, string> = {
+		btc: 'bc1q7dgsgxj8jua50d3xjgg28v2c6uhpgpe79vr4ra',
+		eth: '0xF5dC63d340556925Ae2a64e5F0c19e3c2471139F',
+		xmr: '45TJMbHrdyTSPywExKbzL51uuJZGTrDzrLidFufeGU4LA13Un92LTZeWhy2ePCcVaZ64KJdUjSZgMPM9jXfjJcxEQJ8szvw'
+	};
 
 	const buttons = [
 		{
@@ -239,58 +250,6 @@
 		</Window>
 	</div>
 	<div class="flex flex-col gap-2 md:gap-3 md:mr-auto w-full md:w-fit place-items-start">
-		<Window title="links!" iconUri="/icons/contact.webp">
-			<div
-				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:leading-none prose-headings:leading-none"
-			>
-				<ul>
-					<li>discord: 90.008</li>
-					<li>
-						e-mail:
-						<a class="u-email" href="mailto:90008@gaze.systems" rel="me">90008@gaze.systems</a>
-					</li>
-					<li>
-						bluesky:
-						<a class="u-url" href="https://bsky.app/profile/poor.dog" rel="me">@poor.dog</a>
-					</li>
-				</ul>
-				<h4>development</h4>
-				<ul>
-					<li>
-						github:
-						<a class="u-url" href="https://github.com/90-008" rel="me">@90-008</a>
-					</li>
-					<li>
-						forgejo:
-						<a class="u-url" href="https://git.gaze.systems/90008" rel="me">@90008</a>
-						(<a href="https://git.gaze.systems/90008/website">website repo</a>)
-					</li>
-					<li>
-						itch.io:
-						<a class="u-url" href="https://90008.itch.io" rel="me">@90008</a>
-					</li>
-				</ul>
-				<h4>services</h4>
-				<ul>
-					<li>
-						<a href="https://gaze.systems/nsid-tracker">atproto lexicon tracker</a>
-					</li>
-					<li>
-						<a href="https://pmart.gaze.systems">random project moon art</a>
-					</li>
-				</ul>
-				<h4>88x31</h4>
-				<div class="flex flex-row flex-wrap gap-1 prose-img:m-0">
-					<img src="/88x31.gif" alt="88x31 banner" title="midnight AND sunrise! woaw" />
-					<img
-						src="/88x31_midnight.gif"
-						alt="88x31 banner (midnight only)"
-						title="it's midnight!"
-					/>
-					<img src="/88x31_sunrise.gif" alt="88x31 banner (sunrise only)" title="it's sunrise!" />
-				</div>
-			</div>
-		</Window>
 		<Window style="md:ml-2" title="readme?" iconUri="/icons/question.webp" removePadding>
 			<div class="flex flex-col p-1.5 gap-1.5 prose prose-ralsei prose-img:m-0 leading-none">
 				<div class="flex flex-row gap-3 mx-auto bg-ralsei-black/20 overflow-hidden">
@@ -419,6 +378,86 @@
 				/>
 			</form>
 		</Window>
+		<Window title="links!" iconUri="/icons/contact.webp">
+			<div
+				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:mt-2 prose-ul:leading-none prose-headings:leading-none"
+			>
+				<ul>
+					<li>discord: 90.008</li>
+					<li>
+						e-mail:
+						<a class="u-email" href="mailto:90008@gaze.systems" rel="me">90008@gaze.systems</a>
+					</li>
+					<li>
+						bluesky:
+						<a class="u-url" href="https://bsky.app/profile/poor.dog" rel="me">@poor.dog</a>
+					</li>
+				</ul>
+				<details open>
+					<summary>development</summary>
+					<ul>
+						<li>
+							github:
+							<a class="u-url" href="https://github.com/90-008" rel="me">@90-008</a>
+						</li>
+						<li>
+							forgejo:
+							<a class="u-url" href="https://git.gaze.systems/90008" rel="me">@90008</a>
+							(<a href="https://git.gaze.systems/90008/website">website repo</a>)
+						</li>
+						<li>
+							tangled:
+							<a class="u-url" href="https://tangled.sh/@poor.dog" rel="me">@poor.dog</a>
+						</li>
+						<li>
+							itch.io:
+							<a class="u-url" href="https://90008.itch.io" rel="me">@90008</a>
+						</li>
+					</ul>
+				</details>
+				<details class="donate" open>
+					<summary>donate</summary>
+					<ul>
+						{#each ['eth', 'btc', 'xmr'] as coin (coin)}
+							<li>
+								<span
+									>{coin}: <a href="/copy?text={wallets[coin]}">{trimStr(wallets[coin])}</a></span
+								>
+							</li>
+						{/each}
+						<li>
+							<span
+								><a href="https://patreon.com/_90008" rel="me">patreon</a>,
+								<a href="https://github.com/sponsors/90-008" rel="me">github sponsors</a></span
+							>
+						</li>
+					</ul>
+				</details>
+				<details>
+					<summary>services</summary>
+					<ul>
+						<li>
+							<a href="https://gaze.systems/nsid-tracker">atproto lexicon tracker</a>
+						</li>
+						<li>
+							<a href="https://pmart.gaze.systems">random project moon art</a>
+						</li>
+					</ul>
+				</details>
+				<details>
+					<summary>88x31</summary>
+					<div class="mt-2 flex flex-row flex-wrap gap-1 prose-img:m-0">
+						<img src="/88x31.gif" alt="88x31 banner" title="midnight AND sunrise! woaw" />
+						<img
+							src="/88x31_midnight.gif"
+							alt="88x31 banner (midnight only)"
+							title="it's midnight!"
+						/>
+						<img src="/88x31_sunrise.gif" alt="88x31 banner (sunrise only)" title="it's sunrise!" />
+					</div>
+				</details>
+			</div>
+		</Window>
 	</div>
 </div>
 
@@ -426,5 +465,24 @@
 	.entry {
 		@apply bg-ralsei-green-dark/70 border-ralsei-green-light/30 border-x-[4px] border-y-[5px];
 		border-style: ridge;
+	}
+
+	details {
+		@apply leading-none mt-2;
+		summary {
+			@apply text-shadow-pink text-ralsei-pink-neon;
+		}
+		summary::marker {
+			content: '(+) ';
+		}
+	}
+	details[open] summary::marker {
+		content: '(*) ';
+	}
+
+	.donate ul {
+		li span {
+			@apply font-monospace overflow-hidden text-ellipsis text-nowrap;
+		}
 	}
 </style>

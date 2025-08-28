@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
-	import Eye from '../components/eye.svelte';
-	import NavButton from '../components/navButton.svelte';
-	import Pet, { localBounces, localDistanceTravelled } from '../components/pet.svelte';
-	import Tooltip from '../components/tooltip.svelte';
-	import '../styles/app.css';
+	import Eye from '$components/eye.svelte';
+	import NavButton from '$components/navButton.svelte';
+	import Pet, { localBounces, localDistanceTravelled } from '$components/pet.svelte';
+	import Tooltip from '$components/tooltip.svelte';
+	import '$styles/app.css';
 
 	interface Props {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,7 +80,7 @@
 	image-rendering="optimizeSpeed"
 >
 	<defs>
-		{#each svgSquiggles as [scale], index}
+		{#each svgSquiggles as [scale], index (index)}
 			<filter id="squiggly-{index}">
 				<feTurbulence
 					id="turbulence"
@@ -146,7 +146,7 @@
 </svg>
 
 {#if !isResumePage}
-	{#each data.lastVisitors as [id, visitor], index}
+	{#each data.lastVisitors as [id, visitor], index (id)}
 		{@const pos = eyePositions.at(index)}
 		{#if pos !== undefined}
 			<Eye visits={visitor.visits} {id} top={pos[0]} left={pos[1]} />
@@ -174,7 +174,7 @@
 		style="border-style: ridge hidden hidden hidden;"
 	>
 		<div class="flex flex-row flex-nowrap gap-2 justify-start overflow-x-auto">
-			{#each menuItems as item, menuIdx}
+			{#each menuItems as item, menuIdx (item.href)}
 				{@const highlight = isRoute(item.href)}
 				<NavButton {highlight} {...item} />
 				{#if isEntryPage && menuIdx === 1}

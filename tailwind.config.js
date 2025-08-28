@@ -30,6 +30,7 @@ export default {
 			}),
 			animation: {
 				'bounce-slow': 'bounce 3s infinite',
+				'bounce-fast': 'bounce 0.5s infinite',
 				'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
 				blink: 'blink 1s step-start infinite'
 			},

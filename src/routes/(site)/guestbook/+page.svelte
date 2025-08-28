@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Note, { type NoteData } from '../../components/note.svelte';
-	import Token from '../../components/token.svelte';
-	import Window from '../../components/window.svelte';
+	import Note, { type NoteData } from '$components/note.svelte';
+	import Token from '$components/token.svelte';
+	import Window from '$components/window.svelte';
 
 	interface Props {
 		data: {
@@ -126,7 +126,7 @@
 								/>
 				<br />
 				<br />
-				{#each data.entries as note, index}
+				{#each data.entries as note, index ([note.content, note.published])}
 									<Note
 										mapOutgoingNames={{ bsky: '', reply: 'src' }}
 										showOutgoing={true}

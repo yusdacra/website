@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Window from '../../components/window.svelte';
-	import Token from '../../components/token.svelte';
-	import Note, { type NoteData } from '../../components/note.svelte';
+	import Window from '$components/window.svelte';
+	import Token from '$components/token.svelte';
+	import Note, { type NoteData } from '$components/note.svelte';
 
 	interface Props {
 		data: {
@@ -52,7 +52,7 @@
 					/>
 <br />
 <br />
-{#each data.feedPosts as note, index}
+{#each data.feedPosts as note, index ([note.content, note.published])}
 						<Note rootNote={note} />
 {#if index < data.feedPosts.length - 1}
 							<div class="mt-3"></div>
