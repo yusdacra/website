@@ -4,6 +4,7 @@
 	import Window from '$components/window.svelte';
 	import { renderDate, renderRelativeDate } from '$lib/dateFmt';
 	import Tooltip from '$components/tooltip.svelte';
+	import '$styles/main.css';
 
 	interface Props {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -460,29 +461,3 @@
 		</Window>
 	</div>
 </div>
-
-<style lang="postcss">
-	.entry {
-		@apply bg-ralsei-green-dark/70 border-ralsei-green-light/30 border-x-[4px] border-y-[5px];
-		border-style: ridge;
-	}
-
-	details {
-		@apply leading-none mt-2;
-		summary {
-			@apply text-shadow-pink text-ralsei-pink-neon;
-		}
-		summary::marker {
-			content: '(+) ';
-		}
-	}
-	details[open] summary::marker {
-		content: '(*) ';
-	}
-
-	.donate ul {
-		li span {
-			@apply font-monospace overflow-hidden text-ellipsis text-nowrap;
-		}
-	}
-</style>

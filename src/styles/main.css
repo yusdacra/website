@@ -1,0 +1,25 @@
+@import 'app.css';
+
+.entry {
+	@apply bg-ralsei-green-dark/70 border-ralsei-green-light/30 border-x-[4px] border-y-[5px];
+	border-style: ridge;
+}
+
+details {
+	@apply leading-none mt-2;
+	summary {
+		@apply text-shadow-pink text-ralsei-pink-neon;
+	}
+	summary::marker {
+		content: '(+) ';
+	}
+}
+details[open] summary::marker {
+	content: '(*) ';
+}
+
+.donate ul {
+	li span {
+		@apply font-monospace overflow-hidden text-ellipsis text-nowrap;
+	}
+}
