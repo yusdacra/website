@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { renderDate } from '$lib/dateFmt';
 	import { genDollcode } from '$lib/dollcode';
-	import Tooltip from './tooltip.svelte';
 
 	interface Props {
 		top: number;
@@ -11,9 +9,8 @@
 		id: string;
 	}
 
-	let { top, left, kind = 'normal', visits, id }: Props = $props();
+	let { top, left, kind = 'normal', visits }: Props = $props();
 
-	const reverse = Math.random() > 0.35;
 	let rotation = $state((Math.random() - 0.5) * 0.4);
 	const opacity = Math.min(Math.random() * 0.3 + 0.4, 0.7);
 
@@ -34,54 +31,40 @@
 
 	let src = $derived(closed ? `/eyes/closed.webp` : `/eyes/${kind}_${look}.webp`);
 
+	// generate dollcode based on time, but mod by 3 hours
+	const timeDollcode = genDollcode((visits[0] / 1000) % (60 * 60 * 24));
+	const visitsDollcode = genDollcode(visits.length);
+
 	randomizeLook();
 </script>
 
 <!-- svelte-ignore a11y_mouse_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<Tooltip
+<div
+	class="group flex gap-4 items-center scale-[0.75]"
 	style="
         position: fixed;
         top: {top}vh;
-    	left: {left}%;
-    "
-	y="translate-y-none"
-	targetY="group-hover:translate-y-none"
-	x="-translate-x-[20%]"
-	targetX="group-hover:-translate-x-[20%]"
->
-	{#snippet tooltipContent()}
-		<p class="font-monospace" style="min-width: {id.length + 15}ch;">
-			//observant/id={id}<br />
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/date="{renderDate(
-				visits[0]
-			)}"<br />
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/count={visits.length}/
-		</p>
-	{/snippet}
-	<div
-		class="group flex gap-4 items-center scale-[0.75]"
-		style="
-	opacity: {opacity};
-	flex-direction: {reverse ? 'column-reverse' : 'column'};
+       	left: {left}%;
+    	opacity: {opacity};
+    	flex-direction: column-reverse;
 	"
-		onmouseover={() => {
-			closed = true;
-		}}
-		onmouseleave={() => {
-			closed = false;
-		}}
-	>
-		<span class="eye-text !text-base">{genDollcode(visits.length)}</span>
-		<!-- svelte-ignore a11y_missing_attribute -->
-		<img class="w-24 eye-image" style="transform: rotate({rotation}rad);" {src} />
-		<span class="eye-text">{genDollcode(visits[0])}</span>
-	</div>
-</Tooltip>
+	onmouseover={() => {
+		closed = true;
+	}}
+	onmouseleave={() => {
+		closed = false;
+	}}
+>
+	<span class="eye-text !text-base">{visitsDollcode}</span>
+	<!-- svelte-ignore a11y_missing_attribute -->
+	<img class="w-24 eye-image" style="transform: rotate({rotation}rad);" {src} />
+	<span class="eye-text">{timeDollcode}</span>
+</div>
 
 <style lang="postcss">
 	.eye-text {
-		@apply text-xs [font-family:Doll_Mono] opacity-30 group-hover:opacity-80;
+		@apply text-sm [font-family:Doll_Mono] opacity-30 group-hover:opacity-80;
 	}
 	.eye-image {
 		@apply opacity-50 group-hover:opacity-100;
