@@ -36,7 +36,11 @@
 		{ name: 'julia', url: 'https://aph.nekoweb.org', image: '/others/aph.gif' },
 		{ name: 'rain', url: 'https://slonk.ing/', image: '/others/slonk.gif' },
 		{ name: 'dd', url: 'https://dd86k.space/about/', image: '/others/dd86k.gif' },
-		{ name: 'cqql', url: 'https://cqql.site/', image: 'https://cqql.site/button/8831button.png' },
+		{
+			name: 'blooym',
+			url: 'https://blooym.dev/',
+			image: 'https://blooym.dev/files/88x31/blooym_mori.webp'
+		},
 		{ name: 'drew', url: 'https://drewsh.com/', image: '/others/drewsh.gif' },
 		{
 			name: "31A05B9C's random site",
