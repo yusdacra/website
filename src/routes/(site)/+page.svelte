@@ -43,6 +43,11 @@
 		},
 		{ name: 'drew', url: 'https://drewsh.com/', image: '/others/drewsh.gif' },
 		{
+			name: 'elysia',
+			url: 'https://ely.pub.moe/',
+			image: 'https://ely.pub.moe/storage/icons/buttons/elysia.png'
+		},
+		{
 			name: "31A05B9C's random site",
 			url: 'https://www.31a05b.net/',
 			image: 'https://www.31a05b.net/a/8831/31a05b.png'
