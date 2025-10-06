@@ -29,9 +29,9 @@
 			image: '/others/250kb.webp'
 		},
 		{
-			name: 'candlelitsmiles',
-			url: 'https://candlelitsmiles.neocities.org',
-			image: 'https://candlelitsmiles.neocities.org/candlebuttonone.png'
+			name: 'june',
+			url: 'https://girlboss.ceo',
+			image: 'https://x86.pet/~strawberry/june_88x31.png'
 		},
 		{ name: 'julia', url: 'https://aph.nekoweb.org', image: '/others/aph.gif' },
 		{ name: 'rain', url: 'https://slonk.ing/', image: '/others/slonk.gif' },
@@ -51,6 +51,11 @@
 			name: "31A05B9C's random site",
 			url: 'https://www.31a05b.net/',
 			image: 'https://www.31a05b.net/a/8831/31a05b.png'
+		},
+		{
+			name: 'candlelitsmiles',
+			url: 'https://candlelitsmiles.neocities.org',
+			image: 'https://candlelitsmiles.neocities.org/candlebuttonone.png'
 		},
 		{
 			name: 'thermia',
