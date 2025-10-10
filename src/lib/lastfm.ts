@@ -17,9 +17,8 @@ const lastTrack = writable<LastTrack | null>(null);
 
 export const lastFmReadLast = async () => {
 	try {
-		const file = Bun.file(LAST_TRACK_FILE);
-		const data = (await file.exists()) ? await file.text() : null;
-		lastTrack.set(data ? JSON.parse(data) : null);
+		const data = await Deno.readTextFile(LAST_TRACK_FILE);
+		lastTrack.set(JSON.parse(data));
 	} catch (why) {
 		console.log('could not read last fm: ', why);
 		lastTrack.set(null);
@@ -42,7 +41,7 @@ export const lastFmUpdateNowPlaying = async () => {
 			playing: true
 		};
 		lastTrack.set(data);
-		await Bun.write(LAST_TRACK_FILE, JSON.stringify(data));
+		await Deno.writeTextFile(LAST_TRACK_FILE, JSON.stringify(data));
 	} catch (why) {
 		console.log('could not fetch last fm: ', why);
 		lastTrack.update((t) => {

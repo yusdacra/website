@@ -7,16 +7,15 @@ import { get, writable } from 'svelte/store';
  * @returns An object with methods to get, increment, and set the count
  */
 export const createFileCounter = async (filePath: string, initialValue: number = 0) => {
-	const counter = writable(
-		parseInt(
-			(await Bun.file(filePath).exists())
-				? await Bun.file(filePath).text()
-				: initialValue.toString()
-		)
-	);
+	let countRaw: string | null = null;
+	try {
+		countRaw = await Deno.readTextFile(filePath);
+	} catch {}
+
+	const counter = writable(parseInt(countRaw ?? initialValue.toString()));
 
 	const saveToFile = async (value: number) => {
-		await Bun.write(filePath, value.toString());
+		await Deno.writeTextFile(filePath, value.toString());
 		return value;
 	};
 

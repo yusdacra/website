@@ -9,15 +9,19 @@ export const pushMetric = async (
 	labels: Record<string, string> = {}
 ) => {
 	if (endpoint === undefined) return;
-	const result = await pushMetrics(metrics, {
-		url: endpoint,
-		labels: {
-			service: 'website',
-			...labels
+	try {
+		const result = await pushMetrics(metrics, {
+			url: endpoint,
+			labels: {
+				service: 'website',
+				...labels
+			}
+		});
+		if (result.status != 204) {
+			throw new Error(`failed to push metrics: ${result.status} ${result.errorMessage}`);
 		}
-	});
-	if (result.status != 204) {
-		throw new Error(`failed to push metrics: ${result.status} ${result.errorMessage}`);
+	} catch (err) {
+		console.log(`failed to push metrics: ${err}`);
 	}
 };
 

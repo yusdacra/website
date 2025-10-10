@@ -20,9 +20,8 @@ const lastGame = writable<LastGame | null>(null);
 
 export const steamReadLastGame = async () => {
 	try {
-		const file = Bun.file(LAST_GAME_FILE);
-		const data = (await file.exists()) ? await file.text() : null;
-		lastGame.set(data ? JSON.parse(data) : null);
+		const data = await Deno.readTextFile(LAST_GAME_FILE);
+		lastGame.set(JSON.parse(data));
 	} catch (why) {
 		console.log('could not read last game: ', why);
 		lastGame.set(null);
@@ -51,7 +50,7 @@ export const steamUpdateNowPlaying = async () => {
 			playing: true
 		};
 		lastGame.set(game);
-		await Bun.write(LAST_GAME_FILE, JSON.stringify(game));
+		await Deno.writeTextFile(LAST_GAME_FILE, JSON.stringify(game));
 	} catch (why) {
 		console.log('could not fetch steam: ', why);
 		lastGame.update((t) => {

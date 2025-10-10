@@ -12,6 +12,7 @@ node_modules
 /distancetravelled
 /notes
 /note
+/data
 
 # OS
 .DS_Store

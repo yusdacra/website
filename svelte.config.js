@@ -1,10 +1,10 @@
-import adapter from 'svelte-adapter-bun';
+import adapter from '@sveltejs/adapter-node';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 import { mdsvex } from 'mdsvex';
 
 import * as toml from '@std/toml';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

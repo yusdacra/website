@@ -1,15 +1,15 @@
 import type { Cookies } from '@sveltejs/kit';
-import { hash } from 'crypto';
+import { hash } from 'node:crypto';
 
 export const scopeCookies = (cookies: Cookies, path: string) => {
 	return {
 		get: (key: string) => {
 			return cookies.get(key);
 		},
-		set: (key: string, value: string, props: import('cookie').CookieSerializeOptions = {}) => {
+		set: (key: string, value: string, props: Omit<Parameters<Cookies['set']>[2], 'path'> = {}) => {
 			cookies.set(key, value, { ...props, path });
 		},
-		delete: (key: string, props: import('cookie').CookieSerializeOptions = {}) => {
+		delete: (key: string, props: Omit<Parameters<Cookies['delete']>[1], 'path'> = {}) => {
 			cookies.delete(key, { ...props, path });
 		}
 	};
