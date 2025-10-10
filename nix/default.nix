@@ -1,7 +1,8 @@
 {
   lib,
   stdenv,
-  bun,
+  deno,
+  nodejs,
   makeBinaryWrapper,
   gazesys-modules,
   PUBLIC_BASE_URL ? "http://localhost:5173",
@@ -14,7 +15,7 @@ stdenv.mkDerivation {
     fileset = lib.fileset.unions [
       ../src
       ../static
-      ../bun.lock
+      ../deno.lock
       ../package.json
       ../postcss.config.js
       ../svelte.config.js
@@ -25,7 +26,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [makeBinaryWrapper];
-  buildInputs = [bun];
+  buildInputs = [deno];
 
   inherit PUBLIC_BASE_URL;
 
@@ -36,12 +37,12 @@ stdenv.mkDerivation {
     cp -R --no-preserve=ownership ${gazesys-modules} node_modules
     find node_modules -type d -exec chmod 755 {} \;
     substituteInPlace node_modules/.bin/vite \
-      --replace-fail "/usr/bin/env node" "${bun}/bin/bun --bun"
+      --replace-fail "/usr/bin/env node" "${nodejs}/bin/node"
     runHook postConfigure
   '';
   buildPhase = ''
     runHook preBuild
-    bun --prefer-offline run build
+    HOME=$TMPDIR deno run --cached-only build
     runHook postBuild
   '';
   installPhase = ''
@@ -51,9 +52,9 @@ stdenv.mkDerivation {
     cp -R ./build/* $out
     cp -R ./node_modules $out
 
-    makeBinaryWrapper ${bun}/bin/bun $out/bin/website \
-      --prefix PATH : ${lib.makeBinPath [ bun ]} \
-      --add-flags "run --bun --no-install --cwd $out start"
+    makeBinaryWrapper ${deno}/bin/deno $out/bin/website \
+      --prefix PATH : ${lib.makeBinPath [ deno ]} \
+      --add-flags "run --allow-all --node-modules-dir=manual --cached-only $out/index.js"
 
     runHook postInstall
   '';

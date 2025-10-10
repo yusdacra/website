@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  bun,
+  deno,
 }:
 stdenv.mkDerivation {
   name = "gazesys-modules";
@@ -9,28 +9,27 @@ stdenv.mkDerivation {
   src = lib.fileset.toSource {
     root = ../.;
     fileset = lib.fileset.unions [
-      ../bun.lock
+      ../deno.lock
       ../package.json
     ];
   };
 
-  outputHash = "sha256-XqJ32vIa7ex+SpOaK8Qh4YRSffN6ekvwb9bddREGAOA=";
+  outputHash = "sha256-FhJT1CR5FyGlWMYjGDQDSebXtPWdRvDn5DR/rtk/T+4=";
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
 
-  nativeBuildInputs = [bun];
+  nativeBuildInputs = [deno];
 
   dontConfigure = true;
   dontCheck = true;
   dontFixup = true;
   dontPatchShebangs = true;
 
-  buildPhase = "bun install --no-cache --no-progress --frozen-lockfile";
+  buildPhase = ''
+    HOME=$TMPDIR deno install --allow-scripts=npm:protobufjs@7.5.4 --frozen --seed 8008135
+  '';
   installPhase = ''
-    mkdir -p $out
-
-    cp -R ./node_modules/* $out
-    cp -R ./node_modules/.bin $out
+    cp -R node_modules $out
     ls -la $out
   '';
 }
