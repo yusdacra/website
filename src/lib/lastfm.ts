@@ -1,7 +1,7 @@
 import { env } from '$env/dynamic/private';
 import { get, writable } from 'svelte/store';
 
-const GET_RECENT_TRACKS_ENDPOINT = 'https://api.listenbrainz.org/1/user/90008/playing-now';
+const GET_RECENT_TRACKS_ENDPOINT = 'https://api.listenbrainz.org/1/user/90008/listens?count=1';
 const LAST_TRACK_FILE = `${env.WEBSITE_DATA_DIR}/last_track.json`;
 
 type LastTrack = {
@@ -10,7 +10,6 @@ type LastTrack = {
 	image: string | null;
 	link: string;
 	when: number;
-	playing: boolean;
 };
 const lastTrack = writable<LastTrack | null>(null);
 
@@ -35,37 +34,32 @@ const getTrackCoverArt = (track: any) => {
 	return null;
 };
 
+const joinArtists = (artists: any[]) => {
+	if (artists.length === 0) return null;
+	let result = '';
+	for (const artist of artists) {
+		result += artist.artist_credit_name + artist.join_phrase;
+	}
+	return result;
+};
+
 export const updateNowPlayingTrack = async () => {
 	try {
 		const resp = await (await fetch(GET_RECENT_TRACKS_ENDPOINT)).json();
 		const track = resp.payload.listens[0]?.track_metadata;
-		if (!track) {
-			lastTrack.update((t) => {
-				if (t !== null) {
-					t.playing = false;
-				}
-				return t;
-			});
-			return;
-		}
+		const mapping = track.mbid_mapping;
+		if (!track || !mapping) return;
 		const data = {
-			name: track.track_name,
-			artist: track.artist_name,
+			name: mapping.recording_name ?? track.track_name,
+			artist: joinArtists(mapping.artists ?? []) ?? track.artist_name,
 			image: getTrackCoverArt(track),
 			link: track.additional_info?.origin_url ?? null,
-			when: Date.now(),
-			playing: true
+			when: resp.payload.latest_listen_ts ? resp.payload.latest_listen_ts * 1000 : Date.now()
 		};
 		lastTrack.set(data);
 		await Deno.writeTextFile(LAST_TRACK_FILE, JSON.stringify(data));
 	} catch (why) {
 		console.log('could not fetch last fm: ', why);
-		lastTrack.update((t) => {
-			if (t !== null) {
-				t.playing = false;
-			}
-			return t;
-		});
 	}
 };
 

@@ -177,9 +177,7 @@
 						<p
 							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
 						>
-							<span class="text-sm text-shadow-white text-ralsei-white"
-								>{data.lastTrack.playing ? 'listening to' : 'listened to'}</span
-							>
+							<span class="text-sm text-shadow-white text-ralsei-white">listened to</span>
 							<a
 								title={data.lastTrack.name}
 								href={data.lastTrack.link ?? 'https://listenbrainz.org/user/90008/'}
