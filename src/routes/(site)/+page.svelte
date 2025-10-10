@@ -344,7 +344,7 @@
 						/>
 						<i
 							>this is <a class="m-0 [padding:0px] p-name u-url u-uid" href={PUBLIC_BASE_URL}
-								><span>dusk</span></a
+								><span>{Math.random() > 0.8 ? 'dusk' : 'dawn'}</span></a
 							></i
 						>
 					</p>
@@ -405,7 +405,11 @@
 					</li>
 					<li>
 						bluesky:
-						<a class="u-url" href="https://bsky.app/profile/poor.dog" rel="me">@poor.dog</a>
+						<a
+							class="u-url"
+							href="https://bsky.app/profile/did:plc:dfl62fgb7wtjj3fcbb72naae"
+							rel="me">@ptr.pet</a
+						>
 					</li>
 				</ul>
 				<details open>
@@ -422,7 +426,9 @@
 						</li>
 						<li>
 							tangled:
-							<a class="u-url" href="https://tangled.sh/@poor.dog" rel="me">@poor.dog</a>
+							<a class="u-url" href="https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae" rel="me"
+								>@ptr.pet</a
+							>
 						</li>
 						<li>
 							itch.io:

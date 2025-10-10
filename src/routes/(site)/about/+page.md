@@ -12,7 +12,7 @@ layout = "about"
 ```
 
 hi there! this document will attempt to, /describe and identify/, entity with identification code <span title="90008" class="[font-family:'Doll_Mono']">▖▖▖▖▘▌▌▌▖▘▘</span>.
-for a more human-readable identifier, use dusk or dawn.
+for a more human-readable identifier, use dawn or dusk.
 
 #### /identity/
 
@@ -26,7 +26,7 @@ this entity, if being /communicated/ via the "english" (or any adjacent) lexicon
 it would prefer to be referred to in third-person, but is aware of this lexicon being weird when doing that, so it won't mind if you don't.
 `recv //self/type=info/oftentimes i won't even do that! :3 but i would appreciate if you did!!/`
 
-you can refer to this thing using its /identifiers/ (90008, dusk, dawn).
+you can refer to this thing using its /identifiers/ (90008, dawn, dusk).
 you can, also, refer to it using "this/that thing", or replace /thing/ with what it assumes to be (eg. "this doll"), or some other word like /one/ ("this one").
 
 in a professional setting, it will refer to itself as they/them, which is ok in case you, the reader, don't feel comfortable doing any of these.
@@ -37,11 +37,11 @@ but doing these *would* make this one feel happy, means you care about this one 
 it /executes/ many different subroutines, and /optimizes/ itself for some of them.
 these mainly are, in order of amount of hot paths; programming, game dev, 3D modeling, drawing, writing...
 
-it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/90-008), [forgejo](https://git.gaze.systems/).
+it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/90-008), [tangled](https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae) and [forgejo](https://git.gaze.systems/).
 its core features for programming are: `nix`, `rust`, `svelte`, `typescript`, `nushell`.
 its choice of /interfaces/ for this subroutine are `helix`, `vscode`, `zed`, `emacs`.
 
-for /managing and deploying/ its internal systems, it uses `nixos` (it's /operating system/ of choice), `flake-parts` (because it enjoys the nixos module system and uses it to organize it's internal configuration), `agenix` (for secrets handling), `impermanence` (it considers state harmful!), `nixinate` (for deployment, it provisions manually as it enjoys working with other beings like itself). you can see its /configuration of internal systems/ [here](https://git.gaze.systems/90008/ark).
+for /managing and deploying/ its internal systems, it uses `nixos` (it's /operating system/ of choice), `flake-parts` (because it enjoys the nixos module system and uses it to organize it's internal configuration), `agenix` (for secrets handling), `impermanence` (it considers state harmful!), `nixinate` (for deployment, it provisions manually as it enjoys working with other beings like itself). you can see its /configuration of internal systems/ [here](https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae/ark).
 
 it loves game dev, and has a /main routine/ of making many games, so that other beings can improve their /source code/ by utilizing this one's games.
 you can see some stuff it worked on and deems "okay" on its [itch.io profile](https://90008.itch.io/).
@@ -52,7 +52,7 @@ for 3D modeling and drawing subroutines, it uses the `blender`, `paint.net`, `kr
 
 #### /other/
 
-this thing likes to consume audio data, mainly of the music form. you can check its [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) and its [last.fm profile](https://www.last.fm/user/yusdacra) to see some of what it consumes usually.
+this thing likes to consume audio data, mainly of the music form. you can check its [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) and its [listenbrainz profile](https://listenbrainz.org/user/90008/) to see some of what it consumes usually.
 
 #### /appendix/
 

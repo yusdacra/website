@@ -116,6 +116,12 @@
 	button,
 	input[type='submit'] {
 		@apply text-shadow-green;
+	}
+
+	a,
+	button,
+	details,
+	input[type='submit'] {
 		cursor: url('/icons/gaze.webp'), pointer;
 	}
 
