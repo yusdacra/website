@@ -131,7 +131,7 @@ export const notifyDarkVisitors = (url: URL, request: Request) => {
 			console.log('failed sending dark visitors analytics:', why);
 			return null;
 		})
-		.then(async (resp) => {
+		.then((resp) => {
 			if (resp !== null) {
 				const host = `(${request.headers.get('host')}|${request.headers.get('x-real-ip')}|${request.headers.get('user-agent')})`;
 				console.log(`sent visitor analytic to dark visitors: ${resp.statusText}; ${host}`);

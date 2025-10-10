@@ -1,5 +1,5 @@
 import { getLastPosts } from '$lib/bluesky.js';
-import { getNowPlaying } from '$lib/lastfm';
+import { getNowPlayingTrack } from '$lib/lastfm';
 import { getLastGame } from '$lib/steam';
 import { noteFromBskyPost } from '$components/note.svelte';
 import { pushNotification } from '$lib/pushnotif';
@@ -8,7 +8,7 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { useToken as checkApiToken } from '$lib/apiToken.js';
 
 export const load = async () => {
-	const lastTrack = getNowPlaying();
+	const lastTrack = getNowPlayingTrack();
 	const lastGame = getLastGame();
 	const lastPosts = getLastPosts();
 	const lastNote = lastPosts.length > 0 ? noteFromBskyPost(lastPosts[0]) : null;

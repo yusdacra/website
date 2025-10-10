@@ -1,8 +1,8 @@
 import { updateLastPosts } from '$lib/bluesky';
-import { lastFmReadLast, lastFmUpdateNowPlaying } from '$lib/lastfm';
+import { getLastTrack, updateNowPlayingTrack } from '$lib/lastfm';
 import { steamReadLastGame, steamUpdateNowPlaying } from '$lib/steam';
 import { updateCommits } from '$lib/activity';
-import { cancelJob, scheduleJob, scheduledJobs } from 'node-schedule';
+import { ToadScheduler, SimpleIntervalJob, Task, AsyncTask } from 'toad-scheduler';
 import {
 	incrementFakeVisitCount,
 	incrementLegitVisitCount,
@@ -20,32 +20,29 @@ import { testUa } from '$lib/robots';
 import { error } from '@sveltejs/kit';
 import { _fetchEntries } from './routes/(site)/guestbook/+page.server';
 
-const UPDATE_LAST_JOB_NAME = 'update steam game, lastfm track, bsky posts, git activity';
-
-if (UPDATE_LAST_JOB_NAME in scheduledJobs) {
-	console.log(`${UPDATE_LAST_JOB_NAME} is already running, cancelling so we can start a new one`);
-	cancelJob(UPDATE_LAST_JOB_NAME);
-}
-
-await steamReadLastGame();
-await lastFmReadLast();
-
-console.log(`starting ${UPDATE_LAST_JOB_NAME} job...`);
-scheduleJob(UPDATE_LAST_JOB_NAME, '*/1 * * * *', async () => {
-	console.log(`running ${UPDATE_LAST_JOB_NAME} job...`);
+const update = async () => {
 	try {
 		await Promise.all([
 			steamUpdateNowPlaying(),
-			lastFmUpdateNowPlaying(),
+			updateNowPlayingTrack(),
 			updateLastPosts(),
 			_fetchEntries(),
 			updateCommits(),
-			sendAllMetrics() // send all metrics every minute
+			sendAllMetrics()
 		]);
 	} catch (err) {
-		console.log(`error while running ${UPDATE_LAST_JOB_NAME} job: ${err}`);
+		console.log(`error while updating: ${err}`);
 	}
-}).invoke(); // invoke once immediately
+};
+
+await update();
+
+const scheduler = new ToadScheduler();
+const task = new AsyncTask('update task', update, (err) =>
+	console.log(`error while updating: ${err}`)
+);
+const job = new SimpleIntervalJob({ seconds: 5 }, task);
+scheduler.addSimpleIntervalJob(job);
 
 export const handle = async ({ event, resolve }) => {
 	notifyDarkVisitors(event.url, event.request); // no await so it doesnt block

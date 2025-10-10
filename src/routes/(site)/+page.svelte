@@ -162,7 +162,7 @@
 					<!-- svelte-ignore a11y_missing_attribute -->
 					{#if data.lastTrack.image}
 						<img
-							class="border-4 w-[4.5rem] h-[4.5rem]"
+							class="border-4 w-[4.5rem] h-[4.5rem] object-cover"
 							style="border-style: none double none none;"
 							src={data.lastTrack.image}
 						/>
@@ -182,7 +182,7 @@
 							>
 							<a
 								title={data.lastTrack.name}
-								href="https://www.last.fm/user/yusdacra"
+								href={data.lastTrack.link ?? 'https://listenbrainz.org/user/90008/'}
 								class="hover:underline motion-safe:hover:animate-squiggle">{data.lastTrack.name}</a
 							>
 						</p>

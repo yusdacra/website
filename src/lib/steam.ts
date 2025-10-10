@@ -37,7 +37,13 @@ export const steamUpdateNowPlaying = async () => {
 	try {
 		const profile = (await (await fetch(GET_PLAYER_SUMMARY_ENDPOINT)).json()).response.players[0];
 		if (!profile.gameid) {
-			throw 'no game is being played';
+			lastGame.update((t) => {
+				if (t !== null) {
+					t.playing = false;
+				}
+				return t;
+			});
+			return;
 		}
 		const icons = await griddbClient.getIconsBySteamAppId(profile.gameid, ['official', 'custom']);
 		//console.log(icons)

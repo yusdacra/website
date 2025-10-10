@@ -1,8 +1,7 @@
 import { env } from '$env/dynamic/private';
 import { get, writable } from 'svelte/store';
 
-const GET_RECENT_TRACKS_ENDPOINT =
-	'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=yusdacra&api_key=da1911d405b5b37383e200b8f36ee9ec&format=json&limit=1';
+const GET_RECENT_TRACKS_ENDPOINT = 'https://api.listenbrainz.org/1/user/90008/playing-now';
 const LAST_TRACK_FILE = `${env.WEBSITE_DATA_DIR}/last_track.json`;
 
 type LastTrack = {
@@ -15,28 +14,45 @@ type LastTrack = {
 };
 const lastTrack = writable<LastTrack | null>(null);
 
-export const lastFmReadLast = async () => {
+export const getLastTrack = async () => {
 	try {
 		const data = await Deno.readTextFile(LAST_TRACK_FILE);
 		lastTrack.set(JSON.parse(data));
 	} catch (why) {
-		console.log('could not read last fm: ', why);
+		console.log('could not read last track: ', why);
 		lastTrack.set(null);
 	}
 };
 
-export const lastFmUpdateNowPlaying = async () => {
+const getTrackCoverArt = (track: any) => {
+	// parse origin url to see if it matches youtube.com / music.youtube.com and extract video id
+	const originUrl = track.additional_info?.origin_url ?? null;
+	if (originUrl && (originUrl.includes('youtube.com') || originUrl.includes('music.youtube.com'))) {
+		const videoId = new URL(originUrl).searchParams.get('v');
+		if (!videoId) return null;
+		return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+	}
+	return null;
+};
+
+export const updateNowPlayingTrack = async () => {
 	try {
 		const resp = await (await fetch(GET_RECENT_TRACKS_ENDPOINT)).json();
-		const track = resp.recenttracks.track[0] ?? null;
-		if (!((track['@attr'] ?? {}).nowplaying ?? null)) {
-			throw 'no nowplaying track found';
+		const track = resp.payload.listens[0]?.track_metadata;
+		if (!track) {
+			lastTrack.update((t) => {
+				if (t !== null) {
+					t.playing = false;
+				}
+				return t;
+			});
+			return;
 		}
 		const data = {
-			name: track.name,
-			artist: track.artist['#text'],
-			image: track.image[2]['#text'] ?? null,
-			link: track.url,
+			name: track.track_name,
+			artist: track.artist_name,
+			image: getTrackCoverArt(track),
+			link: track.additional_info?.origin_url ?? null,
 			when: Date.now(),
 			playing: true
 		};
@@ -53,6 +69,6 @@ export const lastFmUpdateNowPlaying = async () => {
 	}
 };
 
-export const getNowPlaying = () => {
+export const getNowPlayingTrack = () => {
 	return get(lastTrack);
 };
