@@ -20,29 +20,40 @@ import { testUa } from '$lib/robots';
 import { error } from '@sveltejs/kit';
 import { _fetchEntries } from './routes/(site)/guestbook/+page.server';
 
-const update = async () => {
+const updateNowPlaying = async () => {
 	try {
-		await Promise.all([
-			steamUpdateNowPlaying(),
-			updateNowPlayingTrack(),
-			updateLastPosts(),
-			_fetchEntries(),
-			updateCommits(),
-			sendAllMetrics()
-		]);
+		await Promise.all([steamUpdateNowPlaying(), updateNowPlayingTrack()]);
+	} catch (err) {
+		console.log(`error while updating: ${err}`);
+	}
+};
+const refreshContent = async () => {
+	try {
+		await Promise.all([updateLastPosts(), _fetchEntries(), updateCommits(), sendAllMetrics()]);
 	} catch (err) {
 		console.log(`error while updating: ${err}`);
 	}
 };
 
-await update();
+await Promise.all([updateNowPlaying(), refreshContent()]);
 
 const scheduler = new ToadScheduler();
-const task = new AsyncTask('update task', update, (err) =>
-	console.log(`error while updating: ${err}`)
+scheduler.addSimpleIntervalJob(
+	new SimpleIntervalJob(
+		{ seconds: 5 },
+		new AsyncTask('updateNowPlaying task', updateNowPlaying, (err) =>
+			console.log(`error while updateNowPlaying: ${err}`)
+		)
+	)
 );
-const job = new SimpleIntervalJob({ seconds: 5 }, task);
-scheduler.addSimpleIntervalJob(job);
+scheduler.addSimpleIntervalJob(
+	new SimpleIntervalJob(
+		{ seconds: 30 },
+		new AsyncTask('refreshContent task', refreshContent, (err) =>
+			console.log(`error while refreshContent: ${err}`)
+		)
+	)
+);
 
 export const handle = async ({ event, resolve }) => {
 	notifyDarkVisitors(event.url, event.request); // no await so it doesnt block
