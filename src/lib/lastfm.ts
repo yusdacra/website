@@ -47,8 +47,8 @@ export const updateNowPlayingTrack = async () => {
 	try {
 		const resp = await (await fetch(GET_RECENT_TRACKS_ENDPOINT)).json();
 		const track = resp.payload.listens[0]?.track_metadata;
-		const mapping = track.mbid_mapping;
-		if (!track || !mapping) return;
+		const mapping = track.mbid_mapping ?? {};
+		if (!track) return;
 		const data = {
 			name: mapping.recording_name ?? track.track_name,
 			artist: joinArtists(mapping.artists ?? []) ?? track.artist_name,
