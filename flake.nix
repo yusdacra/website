@@ -19,7 +19,7 @@
         devShells.default = config.mk-naked-shell.lib.mkNakedShell {
           name = "gazesys-devshell";
           packages = with pkgs; [
-            nodejs-slim_latest bun
+            nodejs-slim_latest deno
             nodePackages.svelte-language-server
             nodePackages.typescript-language-server
           ];
