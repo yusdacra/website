@@ -28,7 +28,7 @@ const entries = writable<NoteData[]>([]);
 
 export const _fetchEntries = async () => {
 	const newEntries: NoteData[] = [];
-	const { posts } = await getUserPosts('did:web:guestbook.gaze.systems', 16);
+	const { posts } = await getUserPosts('did:web:guestbook.gaze.systems', 14);
 	const fetchPostReplies = async (post: Post) => {
 		if ((post.replyCount ?? 0) === 0) return { post, replies: [] };
 		return { post, replies: await post.fetchChildren({ depth: 1, force: true }) };

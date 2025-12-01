@@ -36,7 +36,7 @@
 					/> <Token v="logs" /> <Token v="|" punct /> <Token v="reverse" funct /> <Token
 						v="|"
 						punct
-					/> <Token v="take" funct /> <Token v="13" /><Token v=")" punct />
+					/> <Token v="take" funct /> <Token v="10" /><Token v=")" punct />
     <br />
     <Token v="[" punct />gazesystems <Token v="/" keywd /><Token v="]$" punct /> <Token
 						v="$entries"
@@ -55,7 +55,7 @@
 {#each data.feedPosts as note, index ([note.content, note.published])}
 						<Note rootNote={note} />
 {#if index < data.feedPosts.length - 1}
-							<div class="mt-3"></div>
+							<div class="mt-2"></div>
 						{/if}
 					{/each}
 </nobr></code
