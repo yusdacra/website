@@ -413,11 +413,6 @@
 							<a class="u-url" href="https://github.com/90-008" rel="me">@90-008</a>
 						</li>
 						<li>
-							forgejo:
-							<a class="u-url" href="https://git.gaze.systems/90008" rel="me">@90008</a>
-							(<a href="https://git.gaze.systems/90008/website">website repo</a>)
-						</li>
-						<li>
 							tangled:
 							<a class="u-url" href="https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae" rel="me"
 								>@ptr.pet</a

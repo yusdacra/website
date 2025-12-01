@@ -37,7 +37,7 @@ but doing these *would* make this one feel happy, means you care about this one 
 it /executes/ many different subroutines, and /optimizes/ itself for some of them.
 these mainly are, in order of amount of hot paths; programming, game dev, 3D modeling, drawing, writing...
 
-it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/90-008), [tangled](https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae) and [forgejo](https://git.gaze.systems/).
+it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/90-008), [tangled](https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae).
 its core features for programming are: `nix`, `rust`, `svelte`, `typescript`, `nushell`.
 its choice of /interfaces/ for this subroutine are `helix`, `vscode`, `zed`, `emacs`.
 

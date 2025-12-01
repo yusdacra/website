@@ -7,7 +7,7 @@ layout = "simple"
 *for professional / job related stuff, see its [linkedin](https://www.linkedin.com/in/yusuf-bera-ertan/)*
 
 - it develops games
-    - it mainly works with godot, also have developed addons (eg. [boids](https://git.gaze.systems/90008/godot_boids))
+    - it mainly works with godot, also have developed addons (eg. [boids](https://github.com/90-008/godot_boids))
     - you can find most of its games at its [itch.io page](https://90008.itch.io)
 - it works on open source projects and whatnot, mostly on [its github](https://github.com/90-008)
     - [nix-cargo-integration](https://github.com/90-008/nix-cargo-integration)
@@ -17,7 +17,7 @@ layout = "simple"
 - it has a [booth.pm page](https://yusdacra.booth.pm/) where it posts 3D models etc. it makes (mostly VRchat avatars)
 - its [misskey.art account](https://misskey.art/@yusdacra) where it only posts art in
 - some of its other more solo / hobby projects include
-    - [musikquadrupled](https://git.gaze.systems/90008/musikquadrupled) and [musikspider](https://git.gaze.systems/90008/musikspider), a proxy-like server and a client for [musikcubed](https://github.com/clangen/musikcube)
+    - [musikquadrupled](https://github.com/90-008/musikquadrupled) and [musikspider](https://github.com/90-008/musikspider), a proxy-like server and a client for [musikcubed](https://github.com/clangen/musikcube)
     - [levent](https://github.com/90-008/levent), a media tagger
-    - [this website](https://git.gaze.systems/90008/website) :3
+    - [this website](https://github.com/90-008/website) :3
     - ...and a bunch of other random stuff its done overtime, but that's for you to look for
