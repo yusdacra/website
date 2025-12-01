@@ -33,15 +33,15 @@
 			url: 'https://girlboss.ceo',
 			image: 'https://x86.pet/~strawberry/june_88x31.png'
 		},
-		{ name: 'julia', url: 'https://aph.nekoweb.org', image: '/others/aph.gif' },
-		{ name: 'rain', url: 'https://slonk.ing/', image: '/others/slonk.gif' },
 		{ name: 'dd', url: 'https://dd86k.space/about/', image: '/others/dd86k.gif' },
+		{ name: 'drew', url: 'https://drewsh.com/', image: '/others/drewsh.gif' },
+		{ name: 'deniz', url: 'https://deniz.blue', image: 'https://deniz.blue/assets/88x31v0.png' },
+		{ name: 'rain', url: 'https://slonk.ing/', image: '/others/slonk.gif' },
 		{
 			name: 'blooym',
 			url: 'https://blooym.dev/',
 			image: 'https://blooym.dev/files/88x31/blooym_mori.webp'
 		},
-		{ name: 'drew', url: 'https://drewsh.com/', image: '/others/drewsh.gif' },
 		{
 			name: 'elysia',
 			url: 'https://ely.pub.moe/',
@@ -56,11 +56,6 @@
 			name: 'candlelitsmiles',
 			url: 'https://candlelitsmiles.neocities.org',
 			image: 'https://candlelitsmiles.neocities.org/candlebuttonone.png'
-		},
-		{
-			name: 'thermia',
-			url: 'https://girlthi.ng/~thermia/',
-			image: 'https://girlthi.ng/~thermia/img/88x31/thermia.gif'
 		},
 		{
 			name: 'indieweb',
