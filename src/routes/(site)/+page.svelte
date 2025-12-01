@@ -362,7 +362,7 @@
 					const formData = new FormData(event.currentTarget);
 					try {
 						fetch(
-							`${PUBLIC_BASE_URL}/_api/pushnotif/?content=${formData.get('content')}&_token=${data.apiToken}`
+							`${PUBLIC_BASE_URL}/_api/pushnotif?content=${formData.get('content')}&_token=${data.apiToken}`
 						);
 					} catch (err) {
 						console.log(`failed to send notif: ${err}`);
