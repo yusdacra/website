@@ -43,7 +43,8 @@ const config = {
 
 	kit: {
 		csrf: {
-			checkOrigin: false
+			checkOrigin: false,
+			trustedOrigins: ["https://gaze.systems", "https://ptr.pet", "https://poor.dog"]
 		},
 		prerender: {
 			handleHttpError: 'warn'
