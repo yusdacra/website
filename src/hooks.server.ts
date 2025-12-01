@@ -17,8 +17,9 @@ import {
 	removeLastVisitor
 } from '$lib/visits';
 import { testUa } from '$lib/robots';
-import { error } from '@sveltejs/kit';
+import { error, type Handle } from '@sveltejs/kit';
 import { _fetchEntries } from './routes/(site)/guestbook/+page.server';
+import { sequence } from '@sveltejs/kit/hooks';
 
 const updateNowPlaying = async () => {
 	try {
@@ -55,7 +56,36 @@ scheduler.addSimpleIntervalJob(
 	)
 );
 
-export const handle = async ({ event, resolve }) => {
+const corsHandler = (allowedOrigins = ['*']) => {
+  return async ({ event, resolve }: Parameters<Handle>[0]) => {
+    const origin = event.request.headers.get('origin');
+    
+    const corsHeaders: Record<string, string> = {
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    };
+
+    if (allowedOrigins.includes('*'))
+      corsHeaders['Access-Control-Allow-Origin'] = '*';
+    else if (origin && allowedOrigins.includes(origin)) {
+      corsHeaders['Access-Control-Allow-Origin'] = origin;
+      corsHeaders['Access-Control-Allow-Credentials'] = 'true';
+    }
+
+    if (event.request.method === 'OPTIONS')
+      return new Response(null, { headers: corsHeaders });
+    
+    const response = await resolve(event);
+    
+    Object.entries(corsHeaders).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
+
+    return response;
+  };
+}
+
+const handler = async ({ event, resolve }: Parameters<Handle>[0]) => {
 	notifyDarkVisitors(event.url, event.request); // no await so it doesnt block
 
 	const isPrefetch = () => {
@@ -103,3 +133,10 @@ export const handle = async ({ event, resolve }) => {
 
 	return resp;
 };
+
+const allowedOrigins = [
+	"https://gaze.systems",
+	"https://ptr.pet",
+	"https://poor.dog",
+];
+export const handle = sequence(corsHandler(allowedOrigins), handler);
