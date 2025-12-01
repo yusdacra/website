@@ -5,13 +5,9 @@ const lastCommits = writable<Activity[]>([]);
 
 export const updateCommits = async () => {
 	try {
-		const forgejoFeed = await parseFeedToActivity('https://git.gaze.systems/90008.rss');
 		const githubFeed = await parseFeedToActivity('https://github.com/90-008.atom');
 		const codebergFeed = await parseFeedToActivity('https://codeberg.org/90-008.atom');
-		const mergedFeed = sortActivities(forgejoFeed.concat(githubFeed).concat(codebergFeed)).slice(
-			0,
-			7
-		);
+		const mergedFeed = sortActivities(githubFeed.concat(codebergFeed)).slice(0, 7);
 		lastCommits.set(mergedFeed);
 	} catch (why) {
 		console.log('could not fetch git activity: ', why);
