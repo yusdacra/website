@@ -22,12 +22,12 @@
 	>
 		<pre class="language-bash"><code class="language-bash"
 				><nobr>
-    <Token v="[" punct />gazesystems <Token v="/" keywd /><Token v="]$" punct /> <Token
+    <Token v="[" punct />gazesys <Token v="/" keywd /><Token v="]$" punct /> <Token
 						v="source"
 						funct
 					/> <Token v="scripts/log.nu" />
     <br />
-    <Token v="[" punct />gazesystems <Token v="/" keywd /><Token v="]$" punct /> <Token
+    <Token v="[" punct />gazesys <Token v="/" keywd /><Token v="]$" punct /> <Token
 						v="let"
 						funct
 					/> <Token v="entries" /> <Token v="=" punct /> <Token v="(" punct /><Token
@@ -38,7 +38,7 @@
 						punct
 					/> <Token v="take" funct /> <Token v="10" /><Token v=")" punct />
     <br />
-    <Token v="[" punct />gazesystems <Token v="/" keywd /><Token v="]$" punct /> <Token
+    <Token v="[" punct />gazesys <Token v="/" keywd /><Token v="]$" punct /> <Token
 						v="$entries"
 					/> <Token v="|" punct /> <Token v="each" funct /> <Token v="&#123;" punct /><Token
 						v="|"
