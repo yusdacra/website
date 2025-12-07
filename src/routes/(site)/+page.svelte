@@ -160,12 +160,14 @@
 							class="border-4 w-[4.5rem] h-[4.5rem] object-cover"
 							style="border-style: none double none none;"
 							src={data.lastTrack.image}
+							title={data.lastTrack.album}
 						/>
 					{:else}
 						<img
 							class="border-4 w-[4.5rem] h-[4.5rem] p-2"
 							style="border-style: none double none none; image-rendering: pixelated;"
 							src="/icons/cd_audio.webp"
+							title={data.lastTrack.album}
 						/>
 					{/if}
 					<div class="flex flex-col max-w-[60ch] p-2">

@@ -8,6 +8,7 @@ const LAST_TRACK_FILE = `${env.WEBSITE_DATA_DIR}/last_track.json`;
 type LastTrack = {
 	name: string;
 	artist: string;
+	album: string;
 	image: string | null;
 	link: string | null;
 	when: number;
@@ -25,7 +26,9 @@ export const getLastTrack = async () => {
 	}
 };
 
-const getTrackCoverArt = (originUrl: string | null | undefined) => {
+const getTrackCoverArt = (releaseMbId: string | null | undefined, originUrl: string | null | undefined) => {
+	if (releaseMbId) return `https://coverartarchive.org/release/${releaseMbId}/front-250`;
+	
 	if (!originUrl) return null;
 	let videoId: string | null = null;
 	
@@ -93,7 +96,8 @@ export const updateNowPlayingTrack = async () => {
 		const data: LastTrack = {
 			name: track.trackName,
 			artist: joinArtists(track.artists) ?? 'Unknown Artist',
-			image: getTrackCoverArt(track.originUrl),
+			album: track.releaseName ?? 'Unknown Album',
+			image: getTrackCoverArt(track.releaseMbId, track.originUrl),
 			link: track.originUrl ?? null,
 			when: when,
 			status: status
