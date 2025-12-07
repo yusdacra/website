@@ -34,7 +34,7 @@ const toHex = (bytes: number[]): string => {
 
 const fetchTangledActivity = async (): Promise<Activity[]> => {
 	const did = 'did:plc:dfl62fgb7wtjj3fcbb72naae';
-	const pds = 'https://gaze.systems';
+	const pds = 'https://zwsp.xyz';
 	const knot = 'https://knot.gaze.systems';
 	const activities: Activity[] = [];
 
