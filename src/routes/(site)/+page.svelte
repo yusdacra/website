@@ -453,18 +453,7 @@
 						</li>
 					</ul>
 				</details>
-				<details>
-					<summary>services</summary>
-					<ul>
-						<li>
-							<a href="https://gaze.systems/nsid-tracker">atproto lexicon tracker</a>
-						</li>
-						<li>
-							<a href="https://pmart.gaze.systems">random project moon art</a>
-						</li>
-					</ul>
-				</details>
-				<details>
+				<details open>
 					<summary>88x31</summary>
 					<div class="mt-2 flex flex-row flex-wrap gap-1 prose-img:m-0">
 						<img src="/88x31.gif" alt="88x31 banner" title="midnight AND sunrise! woaw" />
