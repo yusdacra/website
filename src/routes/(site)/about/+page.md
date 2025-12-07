@@ -38,10 +38,10 @@ it /executes/ many different subroutines, and /optimizes/ itself for some of the
 these mainly are, in order of amount of hot paths; programming, game dev, 3D modeling, drawing, writing...
 
 it enjoys programming, tinkering with stuff, you can see what it does on its [github](https://github.com/90-008), [tangled](https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae).
-its core features for programming are: `nix`, `rust`, `svelte`, `typescript`, `nushell`.
-its choice of /interfaces/ for this subroutine are `helix`, `vscode`, `zed`, `emacs`.
+its core features for programming are: `rust`, `svelte`, `typescript`, `nushell`, `nix`.
+its choice of /interfaces/ for this subroutine are `zed`, `helix`, `emacs`.
 
-for /managing and deploying/ its internal systems, it uses `nixos` (it's /operating system/ of choice), `flake-parts` (because it enjoys the nixos module system and uses it to organize it's internal configuration), `agenix` (for secrets handling), `impermanence` (it considers state harmful!), `nixinate` (for deployment, it provisions manually as it enjoys working with other beings like itself). you can see its /configuration of internal systems/ [here](https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae/ark).
+for /managing and deploying/ its internal systems, it uses `nixos` (it's /operating system/ of choice), `flake-parts` (because it enjoys the nixos module system and uses it to organize it's internal configuration), `agenix` (for secrets handling), own scripts for deployment, and `nixos-anywhere` for provisioning (it still provisions manually sometimes as it enjoys working with other beings like itself). you can see its /configuration of internal systems/ [here](https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae/ark).
 
 it loves game dev, and has a /main routine/ of making many games, so that other beings can improve their /source code/ by utilizing this one's games.
 you can see some stuff it worked on and deems "okay" on its [itch.io profile](https://90008.itch.io/).
