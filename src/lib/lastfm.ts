@@ -69,9 +69,10 @@ export const updateNowPlayingTrack = async () => {
 			if (statusRes.ok) {
 				const statusData = await statusRes.json();
 				if (statusData.value?.item) {
+					const metadata = statusData.value;
 					track = statusData.value.item;
 					if (track.playedTime) when = new Date(track.playedTime).getTime();
-					status = (Date.now() / 1000) >= track.expiry ? 'played' : 'playing';
+					status = ((Date.now() / 1000) >= (parseInt(metadata.time) + track.duration)) ? 'played' : 'playing';
 				}
 			}
 		} catch (err) {
