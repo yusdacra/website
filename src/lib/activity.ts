@@ -7,7 +7,10 @@ export const updateCommits = async () => {
 	try {
 		const githubFeed = await parseFeedToActivity('https://github.com/90-008.atom');
 		const codebergFeed = await parseFeedToActivity('https://codeberg.org/90-008.atom');
-		const mergedFeed = sortActivities(githubFeed.concat(codebergFeed)).slice(0, 7);
+		const tangledFeed = await fetchTangledActivity();
+		const mergedFeed = sortActivities(
+			githubFeed.concat(codebergFeed).concat(tangledFeed)
+		).slice(0, 7);
 		lastCommits.set(mergedFeed);
 	} catch (why) {
 		console.log('could not fetch git activity: ', why);
@@ -23,6 +26,58 @@ type Activity = {
 	description: string;
 	link: string | null;
 	date: Date | null;
+};
+
+const toHex = (bytes: number[]): string => {
+	return bytes.map((b) => b.toString(16).padStart(2, '0')).join('');
+};
+
+const fetchTangledActivity = async (): Promise<Activity[]> => {
+	const did = 'did:plc:dfl62fgb7wtjj3fcbb72naae';
+	const pds = 'https://gaze.systems';
+	const knot = 'https://knot.gaze.systems';
+	const activities: Activity[] = [];
+
+	try {
+		const listRes = await fetch(
+			`${pds}/xrpc/com.atproto.repo.listRecords?repo=${did}&collection=sh.tangled.repo`
+		);
+		if (!listRes.ok) return [];
+		const listData = await listRes.json();
+
+		for (const record of listData.records || []) {
+			const repoName = record.value.name;
+			if (!repoName) continue;
+
+			try {
+				const logRes = await fetch(
+					`${knot}/xrpc/sh.tangled.repo.log?repo=${did}/${repoName}`
+				);
+				if (!logRes.ok) continue;
+				const logData = await logRes.json();
+				
+				const commits = logData.commits || [];
+
+				for (const commit of commits) {
+					const hash = commit.Hash ? toHex(commit.Hash) : '';
+					const message = commit.Message || '';
+					const dateStr = commit.Author?.When;
+					
+					activities.push({
+						source: 'knot.gaze.systems',
+						description: message,
+						link: `https://tangled.sh/${did}/${repoName}/commit/${hash}`,
+						date: dateStr ? new Date(dateStr) : null
+					});
+				}
+			} catch (err) {
+				console.log(`could not fetch tangled log for ${repoName}:`, err);
+			}
+		}
+	} catch (err) {
+		console.log('could not fetch tangled repos:', err);
+	}
+	return activities;
 };
 
 const parseFeedToActivity = async (url: string) => {
