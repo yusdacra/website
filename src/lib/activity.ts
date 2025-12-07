@@ -64,8 +64,8 @@ const fetchTangledActivity = async (): Promise<Activity[]> => {
 					const dateStr = commit.Author?.When;
 					
 					activities.push({
-						source: 'knot.gaze.systems',
-						description: message,
+						source: 'knot.ptr.pet',
+						description: `pushed ${repoName}: ${message}`,
 						link: `https://tangled.sh/${did}/${repoName}/commit/${hash}`,
 						date: dateStr ? new Date(dateStr) : null
 					});
@@ -99,9 +99,10 @@ const parseFeedToActivity = async (url: string) => {
 			continue;
 		// dont show activity that is just chore
 		if (item.content?.includes('chore')) continue;
+		const desc = description.split('</a>').at(1) || description.split('</a>').pop() || '';
 		results.push({
 			source,
-			description: description.split('</a>').at(1) || description.split('</a>').pop() || '',
+			description: desc.replace(/^90-008 /, ""),
 			link: item.url,
 			date: item.published || item.updated
 		});
