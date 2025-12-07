@@ -1,15 +1,17 @@
 import { env } from '$env/dynamic/private';
 import { get, writable } from 'svelte/store';
 
-const GET_RECENT_TRACKS_ENDPOINT = 'https://api.listenbrainz.org/1/user/90008/listens?count=1';
+const DID = 'did:plc:dfl62fgb7wtjj3fcbb72naae';
+const PDS = 'https://zwsp.xyz';
 const LAST_TRACK_FILE = `${env.WEBSITE_DATA_DIR}/last_track.json`;
 
 type LastTrack = {
 	name: string;
 	artist: string;
 	image: string | null;
-	link: string;
+	link: string | null;
 	when: number;
+	status: 'playing' | 'played';
 };
 const lastTrack = writable<LastTrack | null>(null);
 
@@ -23,43 +25,84 @@ export const getLastTrack = async () => {
 	}
 };
 
-const getTrackCoverArt = (track: any) => {
-	// parse origin url to see if it matches youtube.com / music.youtube.com and extract video id
-	const originUrl = track.additional_info?.origin_url ?? null;
-	if (originUrl && (originUrl.includes('youtube.com') || originUrl.includes('music.youtube.com'))) {
-		const videoId = new URL(originUrl).searchParams.get('v');
-		if (!videoId) return null;
-		return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+const getTrackCoverArt = (originUrl: string | null | undefined) => {
+	if (!originUrl) return null;
+	let videoId: string | null = null;
+	
+	try {
+		if (originUrl.includes('youtube.com') || originUrl.includes('music.youtube.com')) {
+			videoId = new URL(originUrl).searchParams.get('v');
+		} else if (originUrl.includes('youtu.be')) {
+			videoId = originUrl.split('youtu.be/')[1]?.split('?')[0];
+		}
+	} catch {
+		return null;
 	}
-	return null;
+
+	if (!videoId) return null;
+	return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
 };
 
 const joinArtists = (artists: any[]) => {
-	if (artists.length === 0) return null;
-	let result = '';
-	for (const artist of artists) {
-		result += artist.artist_credit_name + artist.join_phrase;
-	}
-	return result;
+	if (!artists || artists.length === 0) return null;
+	return artists.map((a) => a.artistName).join(', ');
 };
 
 export const updateNowPlayingTrack = async () => {
 	try {
-		const resp = await (await fetch(GET_RECENT_TRACKS_ENDPOINT)).json();
-		const track = resp.payload.listens[0]?.track_metadata;
-		const mapping = track.mbid_mapping ?? {};
+		let track: any = null;
+		let when: number = Date.now();
+		let status: 'playing' | 'played' = 'played';
+
+		try {
+			const statusRes = await fetch(
+				`${PDS}/xrpc/com.atproto.repo.getRecord?repo=${DID}&collection=fm.teal.alpha.actor.status&rkey=self`
+			);
+			if (statusRes.ok) {
+				const statusData = await statusRes.json();
+				if (statusData.value?.item) {
+					track = statusData.value.item;
+					if (track.playedTime) when = new Date(track.playedTime).getTime();
+					status = 'playing';
+				}
+			}
+		} catch (err) {
+			console.log('could not fetch teal status:', err);
+		}
+
+		if (!track) {
+			try {
+				const playRes = await fetch(
+					`${PDS}/xrpc/com.atproto.repo.listRecords?repo=${DID}&collection=fm.teal.alpha.feed.play&limit=1`
+				);
+				if (playRes.ok) {
+					const playData = await playRes.json();
+					if (playData.records.length > 0) {
+						track = playData.records[0].value;
+						if (track.playedTime) when = new Date(track.playedTime).getTime();
+						status = 'played';
+					}
+				}
+			} catch (err) {
+				console.log('could not fetch teal history:', err);
+			}
+		}
+
 		if (!track) return;
-		const data = {
-			name: mapping.recording_name ?? track.track_name,
-			artist: joinArtists(mapping.artists ?? []) ?? track.artist_name,
-			image: getTrackCoverArt(track),
-			link: track.additional_info?.origin_url ?? null,
-			when: resp.payload.latest_listen_ts ? resp.payload.latest_listen_ts * 1000 : Date.now()
+
+		const data: LastTrack = {
+			name: track.trackName,
+			artist: joinArtists(track.artists) ?? 'Unknown Artist',
+			image: getTrackCoverArt(track.originUrl),
+			link: track.originUrl ?? null,
+			when: when,
+			status: status
 		};
+
 		lastTrack.set(data);
 		await Deno.writeTextFile(LAST_TRACK_FILE, JSON.stringify(data));
 	} catch (why) {
-		console.log('could not fetch last fm: ', why);
+		console.log('could not fetch teal fm: ', why);
 	}
 };
 

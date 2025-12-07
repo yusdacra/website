@@ -52,7 +52,7 @@ for 3D modeling and drawing subroutines, it uses the `blender`, `paint.net`, `kr
 
 #### /other/
 
-this thing likes to consume audio data, mainly of the music form. you can check its [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) and its [listenbrainz profile](https://listenbrainz.org/user/90008/) to see some of what it consumes usually.
+this thing likes to consume audio data, mainly of the music form. you can check its [youtube music profile](https://music.youtube.com/channel/UCE_r0yMNQhOWituywmOJgzA?si=7DTUV9PFqcKxJyl1) and its [teal.fm profile](https://tealfm-slice.wisp.place/profile/ptr.pet/scrobbles) to see some of what it consumes usually.
 
 #### /appendix/
 

@@ -33,12 +33,14 @@ const toHex = (bytes: number[]): string => {
 };
 
 const fetchTangledActivity = async (): Promise<Activity[]> => {
+	// todo: auto resolve pds and knots
 	const did = 'did:plc:dfl62fgb7wtjj3fcbb72naae';
 	const pds = 'https://zwsp.xyz';
 	const knot = 'https://knot.gaze.systems';
 	const activities: Activity[] = [];
 
 	try {
+		// todo: fetch until we exhaust
 		const listRes = await fetch(
 			`${pds}/xrpc/com.atproto.repo.listRecords?repo=${did}&collection=sh.tangled.repo`
 		);
