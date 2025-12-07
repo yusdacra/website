@@ -64,7 +64,7 @@ const fetchTangledActivity = async (): Promise<Activity[]> => {
 					const dateStr = commit.Author?.When;
 					
 					activities.push({
-						source: 'knot.ptr.pet',
+						source: 'tangled',
 						description: `pushed ${repoName}: ${message}`,
 						link: `https://tangled.sh/${did}/${repoName}/commit/${hash}`,
 						date: dateStr ? new Date(dateStr) : null
@@ -84,7 +84,7 @@ const parseFeedToActivity = async (url: string) => {
 	const response = await fetch(url);
 	const feed = parseFeed(await response.text());
 
-	const source = new URL(url).host;
+	const source = new URL(url).host.split('.')[0];
 	const results: Activity[] = [];
 	for (const item of feed.items) {
 		const description: string | null = item.description || item.title;
