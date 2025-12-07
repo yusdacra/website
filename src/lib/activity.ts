@@ -92,7 +92,7 @@ const parseFeedToActivity = async (url: string) => {
 		// dont count mirrored repos
 		// TODO: probably can implement a deduplication algorithm
 		if (
-			['90-008/ark', '90-008/website', '90-008/moonlight-exts', '90-008/extensions'].some((repo) =>
+			['90-008/ark', '90-008/website', 'ark', 'website'].some((repo) =>
 				description.includes(repo)
 			)
 		)
