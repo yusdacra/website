@@ -48,6 +48,11 @@
 			image: 'https://ely.pub.moe/storage/icons/buttons/elysia.png'
 		},
 		{
+			name: 'vern',
+			url: 'https://vern.cc/',
+			image: 'https://cobra.vern.cc/media/buttons/vern.webp'
+		},
+		{
 			name: "31A05B9C's random site",
 			url: 'https://www.31a05b.net/',
 			image: 'https://www.31a05b.net/a/8831/31a05b.png'
