@@ -9,7 +9,10 @@ type LastTrack = {
 	name: string;
 	artist: string;
 	album: string;
-	image: string | null;
+	images: {
+		mb: string | null;
+		yt: string | null;
+	};
 	link: string | null;
 	when: number;
 	status: 'playing' | 'played';
@@ -27,23 +30,25 @@ export const getLastTrack = async () => {
 };
 
 const getTrackCoverArt = (releaseMbId: string | null | undefined, originUrl: string | null | undefined) => {
-	if (releaseMbId) return `https://coverartarchive.org/release/${releaseMbId}/front-250`;
-	
-	if (!originUrl) return null;
-	let videoId: string | null = null;
+	let mb: string | null = null;
+	let yt: string | null = null;
+
+	if (releaseMbId) mb = `https://coverartarchive.org/release/${releaseMbId}/front-250`;
 	
 	try {
-		if (originUrl.includes('youtube.com') || originUrl.includes('music.youtube.com')) {
-			videoId = new URL(originUrl).searchParams.get('v');
-		} else if (originUrl.includes('youtu.be')) {
-			videoId = originUrl.split('youtu.be/')[1]?.split('?')[0];
+		if (originUrl) {
+			let videoId: string | null = null;
+			if (originUrl.includes('youtube.com') || originUrl.includes('music.youtube.com')) {
+				videoId = new URL(originUrl).searchParams.get('v');
+			} else if (originUrl.includes('youtu.be')) {
+				videoId = originUrl.split('youtu.be/')[1]?.split('?')[0];
+			}
+			if (videoId) yt = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
 		}
 	} catch {
-		return null;
 	}
 
-	if (!videoId) return null;
-	return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+	return { mb, yt };
 };
 
 const joinArtists = (artists: any[]) => {
@@ -66,29 +71,11 @@ export const updateNowPlayingTrack = async () => {
 				if (statusData.value?.item) {
 					track = statusData.value.item;
 					if (track.playedTime) when = new Date(track.playedTime).getTime();
-					status = 'playing';
+					status = (Date.now() / 1000) >= track.expiry ? 'played' : 'playing';
 				}
 			}
 		} catch (err) {
 			console.log('could not fetch teal status:', err);
-		}
-
-		if (!track) {
-			try {
-				const playRes = await fetch(
-					`${PDS}/xrpc/com.atproto.repo.listRecords?repo=${DID}&collection=fm.teal.alpha.feed.play&limit=1`
-				);
-				if (playRes.ok) {
-					const playData = await playRes.json();
-					if (playData.records.length > 0) {
-						track = playData.records[0].value;
-						if (track.playedTime) when = new Date(track.playedTime).getTime();
-						status = 'played';
-					}
-				}
-			} catch (err) {
-				console.log('could not fetch teal history:', err);
-			}
 		}
 
 		if (!track) return;
@@ -97,7 +84,7 @@ export const updateNowPlayingTrack = async () => {
 			name: track.trackName,
 			artist: joinArtists(track.artists) ?? 'Unknown Artist',
 			album: track.releaseName ?? 'Unknown Album',
-			image: getTrackCoverArt(track.releaseMbId, track.originUrl),
+			images: getTrackCoverArt(track.releaseMbId, track.originUrl),
 			link: track.originUrl ?? null,
 			when: when,
 			status: status

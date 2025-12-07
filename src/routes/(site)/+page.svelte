@@ -153,23 +153,27 @@
 				</div>
 			{/if}
 			{#if data.lastTrack}
+				{@const images = data.lastTrack.images}
+				{@const initialUrl = images.mb ?? images.yt}
 				<div class="flex flex-row gap-0.5 m-1.5 border-4 border-double bg-ralsei-black">
 					<!-- svelte-ignore a11y_missing_attribute -->
-					{#if data.lastTrack.image}
-						<img
-							class="border-4 w-[4.5rem] h-[4.5rem] object-cover"
-							style="border-style: none double none none;"
-							src={data.lastTrack.image}
-							title={data.lastTrack.album}
-						/>
-					{:else}
-						<img
-							class="border-4 w-[4.5rem] h-[4.5rem] p-2"
-							style="border-style: none double none none; image-rendering: pixelated;"
-							src="/icons/cd_audio.webp"
-							title={data.lastTrack.album}
-						/>
-					{/if}
+					<img
+						class="border-4 w-[4.5rem] h-[4.5rem] {initialUrl ? 'object-cover' : 'p-2'}"
+						style="border-style: none double none none; {initialUrl ? '' : 'image-rendering: pixelated;'}"
+						src={initialUrl ?? '/icons/cd_audio.webp'}
+						title={data.lastTrack.album}
+						onerror={(e) => {
+							const img = e.currentTarget as HTMLImageElement;
+							if (images.mb && img.src === images.mb && images.yt)
+								img.src = images.yt;
+							else {
+								img.src = '/icons/cd_audio.webp';
+								img.classList.remove('object-cover');
+								img.classList.add('p-2');
+								img.style.imageRendering = 'pixelated';
+							}
+						}}
+					/>
 					<div class="flex flex-col max-w-[60ch] p-2">
 						<p
 							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
