@@ -3,16 +3,16 @@ node_modules
 # Output
 .output
 .vercel
-/.svelte-kit
-/build
-/visitcount
-/bouncecount
-/legitvisitcount
-/fakevisitcount
-/distancetravelled
-/notes
-/note
-/data
+.svelte-kit
+build
+visitcount
+bouncecount
+legitvisitcount
+fakevisitcount
+distancetravelled
+notes
+note
+data
 
 # OS
 .DS_Store

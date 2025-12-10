@@ -17,7 +17,7 @@
         pkgs = inp.nixpkgs.legacyPackages.${system};
       in {
         devShells.default = config.mk-naked-shell.lib.mkNakedShell {
-          name = "gazesys-devshell";
+          name = "eunomia-devshell";
           packages = with pkgs; [
             nodejs-slim_latest deno
             nodePackages.svelte-language-server
@@ -27,11 +27,11 @@
             export PATH="$PATH:$PWD/node_modules/.bin"
           '';
         };
-        packages.gazesys-modules = pkgs.callPackage ./nix/modules.nix {};
-        packages.gazesys = pkgs.callPackage ./nix {
-          inherit (config.packages) gazesys-modules;
+        packages.eunomia-modules = pkgs.callPackage ./nix/modules.nix {};
+        packages.eunomia = pkgs.callPackage ./nix {
+          inherit (config.packages) eunomia-modules;
         };
-        packages.default = config.packages.gazesys;
+        packages.default = config.packages.eunomia;
     };
   };
 }

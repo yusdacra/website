@@ -4,24 +4,18 @@
   deno,
   nodejs,
   makeBinaryWrapper,
-  gazesys-modules,
+  eunomia-modules,
   PUBLIC_BASE_URL ? "http://localhost:5173",
 }:
 stdenv.mkDerivation {
-  name = "gazesys-website";
+  name = "eunomia";
 
   src = lib.fileset.toSource {
     root = ../.;
     fileset = lib.fileset.unions [
-      ../src
-      ../static
       ../deno.lock
-      ../package.json
-      ../postcss.config.js
-      ../svelte.config.js
-      ../tailwind.config.js
-      ../tsconfig.json
-      ../vite.config.ts
+      ../deno.json
+      ../eunomia
     ];
   };
 
@@ -34,7 +28,7 @@ stdenv.mkDerivation {
 
   configurePhase = ''
     runHook preConfigure
-    cp -R --no-preserve=ownership ${gazesys-modules} node_modules
+    cp -R --no-preserve=ownership ${eunomia-modules} node_modules
     find node_modules -type d -exec chmod 755 {} \;
     substituteInPlace node_modules/.bin/vite \
       --replace-fail "/usr/bin/env node" "${nodejs}/bin/node"
@@ -42,17 +36,19 @@ stdenv.mkDerivation {
   '';
   buildPhase = ''
     runHook preBuild
-    HOME=$TMPDIR deno run --cached-only build
+    pushd eunomia
+    HOME=$TMPDIR ../node_modules/.bin/vite build
+    popd
     runHook postBuild
   '';
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
-    cp -R ./build/* $out
+    cp -R ./eunomia/build/* $out
     cp -R ./node_modules $out
 
-    makeBinaryWrapper ${deno}/bin/deno $out/bin/website \
+    makeBinaryWrapper ${deno}/bin/deno $out/bin/eunomia \
       --prefix PATH : ${lib.makeBinPath [ deno ]} \
       --add-flags "run --allow-all --node-modules-dir=manual --cached-only $out/index.js"
 
