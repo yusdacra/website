@@ -1,0 +1,46 @@
+[package]
+name = "dysnomia-sh"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+getrandom = { version = "0.3", features = ["wasm_js"] }
+web-sys = { version = "0.3", features = ["console", "Window"] }
+vfs = { version = "0.12" }
+nu-cmd-lang = { version = "0.109.1", default-features = false }
+nu-command = { version = "0.109.1", default-features = false }
+nu-engine = { version = "0.109.1", default-features = false }
+nu-parser = { version = "0.109.1", default-features = false }
+nu-protocol = { version = "0.109.1", default-features = false }
+nu-cmd-extra = { version = "0.109.1", default-features = false }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1"
+miette = { version = "7.6", features = ["fancy"] }
+ansi_term = "0.12.1"
+
+anyhow = "1"
+jacquard = { path = "../../jacquard/crates/jacquard", default-features = false, features = ["api", "cache"] }
+jacquard-repo = { path = "../../jacquard/crates/jacquard-repo" }
+url = "2"
+futures = "0.3.31"
+js-sys = "0.3.83"
+serde_ipld_dagcbor = "0.6.4"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"] }
+console_error_panic_hook = "0.1.7"
+
+scc = "3"
+rapidhash = { version = "4", features = ["unsafe"] }
+
+[patch.crates-io]
+vfs = { git = "https://github.com/landaire/rust-vfs", branch = "fix/wasm" }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

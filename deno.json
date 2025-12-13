@@ -1,4 +1,4 @@
 {
-  "workspace": ["./eunomia"],
+  "workspace": ["./eunomia", "./dysnomia/www"],
   "nodeModulesDir": "auto"
 }
