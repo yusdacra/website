@@ -71,7 +71,7 @@ const fetchTangledActivity = async (): Promise<Activity[]> => {
 
 					activities.push({
 						source: 'tangled',
-						description: `pushed ${repoName}: ${message}`,
+						description: `${repoName}: ${message}`,
 						link: `https://tangled.sh/${did}/${repoName}/commit/${hash}`,
 						date: dateStr ? new Date(dateStr) : null,
 						id: hash

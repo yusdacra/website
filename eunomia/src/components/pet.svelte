@@ -178,7 +178,11 @@
 		}
 
 		// Normal movement when not physics-based
-		let moveByX = moveTowards(position.x, targetX, speed * ((self.innerWidth ?? 1600.0) / 1600.0));
+		let moveByX = moveTowards(
+			position.x,
+			targetX,
+			speed * ((self.innerWidth ?? 1600.0) / 1600.0)
+		);
 		position.x += moveByX;
 
 		turnStrideWheel(moveByX);
@@ -232,7 +236,10 @@
 		const viewportWidth = self.innerWidth || null;
 		if (viewportWidth !== null && Math.abs(position.x - targetX) < 5) {
 			targetX = Math.max(
-				Math.min(targetX + (Math.random() - 0.5) * (viewportWidth * 0.5), viewportWidth * 0.9),
+				Math.min(
+					targetX + (Math.random() - 0.5) * (viewportWidth * 0.5),
+					viewportWidth * 0.9
+				),
 				viewportWidth * 0.1
 			);
 		}
@@ -252,7 +259,7 @@
 		applyUserSelectHack: true,
 		handle: 'img',
 		bounds: {
-			bottom: (window.innerHeight / 100) * 5.5
+			bottom: (window.innerHeight / 100) * 5
 		},
 		onDragStart: () => {
 			sprite = '/pet/pick.webp';
@@ -286,7 +293,7 @@
 			dragged = false;
 		}
 	}}
-	class="fixed bottom-[5vh] z-[1000] hover:animate-squiggle"
+	class="fixed bottom-[4.6vh] z-[1000] hover:animate-squiggle"
 	style="cursor: url('/icons/gaze.webp'), pointer;"
 >
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->

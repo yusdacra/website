@@ -120,9 +120,9 @@
 	<div class="flex flex-col gap-2 md:gap-6 md:ml-auto place-items-end">
 		<Window title="status" iconUri="/icons/msn.webp" removePadding>
 			{#if data.lastNote}
-				<div class="m-1.5 flex flex-col font-monospace text-sm">
+				<div class="m-1.5 flex flex-col font-monospace">
 					<p
-						class="prose prose-ralsei p-1 border-4 text-sm bg-ralsei-black"
+						class="prose prose-ralsei leading-tight p-1 border-4 bg-ralsei-black"
 						style="border-style: double double none double;"
 						title={renderDate(data.lastNote.published)}
 					>
@@ -137,9 +137,9 @@
 				</div>
 			{/if}
 			{#if data.lastActivity.length > 0}
-				<div class="m-1.5 flex flex-col font-monospace text-sm">
+				<div class="m-1.5 flex flex-col font-monospace">
 					<p
-						class="prose prose-ralsei p-1 border-4 text-sm bg-ralsei-black"
+						class="prose prose-ralsei leading-tight p-1 px-1.5 border-4 bg-ralsei-black"
 						style="border-style: double double none double;"
 						title={renderDate(data.lastActivity[0].date)}
 					>
@@ -147,11 +147,11 @@
 						was {renderRelativeDate(data.lastActivity[0].date)}..
 					</p>
 					<div
-						class="prose prose-ralsei mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[60ch]"
+						class="prose prose-ralsei mt-0 leading-tight p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[60ch]"
 					>
 						{#each data.lastActivity as activity, index (index)}
 							<div
-								class="text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[60ch]"
+								class="text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[60ch]"
 								style="opacity: {1.0 -
 									(index * 1.0) / data.lastActivity.length +
 									index * 0.03};"
@@ -403,7 +403,7 @@
 			>
 				<input
 					type="text"
-					class="entry w-full p-1 m-0 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] border-none"
+					class="entry w-full p-1 m-0 bg-transparent resize-none text-shadow-white focus:[box-shadow:none] placeholder-shown:[text-shadow:none] border-none"
 					name="content"
 					placeholder="bother it now!!"
 					maxlength="100"

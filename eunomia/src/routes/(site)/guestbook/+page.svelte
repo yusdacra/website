@@ -22,23 +22,22 @@
 
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4">
 	<Window title="guestbook" style="ml-auto" iconUri="/icons/guestbook.webp">
-		<div class="flex flex-col gap-1 max-w-[50ch] leading-6">
-			<div class="prose prose-ralsei leading-6 entry p-2">
-				<p>hia, here is the guestbook if you wanna post anything :)</p>
-				<p>be good pretty please (and don't be shy!!!)</p>
-				<p class="text-sm italic">
-					(to see all the entries, look <a href="https://bsky.app/profile/guestbook.gaze.systems"
-						>here</a
-					>)
-				</p>
+		<div class="flex flex-col gap-1 max-w-[50ch]">
+			<div class="prose prose-ralsei entry p-2">
+				hia, here is the guestbook if you wanna post anything :) <br />
+				be good pretty please (and don't be shy!!!) <br />
+				(to see all the entries, look
+				<a href="https://bsky.app/profile/guestbook.gaze.systems">here</a>)
 			</div>
 			<form method="post">
 				<input type="hidden" name="_token" value={data.apiToken} />
 				<div class="entry entryflex">
 					<textarea
-						class="text-lg p-1 m-0 ml-0.5 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] [field-sizing:content] border-none"
+						class="p-1 m-0 ml-0.5 bg-transparent resize-none text-shadow-white focus:[box-shadow:none] placeholder-shown:[text-shadow:none] [field-sizing:content] border-none"
 						name="content"
-						placeholder="say {placeholders[Math.floor(Math.random() * placeholders.length)]}!"
+						placeholder="say {placeholders[
+							Math.floor(Math.random() * placeholders.length)
+						]}!"
 						maxlength="300"
 						required
 					></textarea>
@@ -104,23 +103,29 @@
 				<Token v="[" punct />gazesys <Token v="/" keywd /><Token v="]$" punct /> <Token
 									v="let"
 									funct
-								/> <Token v="entries" /> <Token v="=" punct /> <Token v="(" punct /><Token
-									v="ls"
-									funct
-								/> <Token v="guestbook" /> <Token v="|" punct /> <Token v="reverse" funct /> <Token
+								/> <Token v="entries" /> <Token v="=" punct /> <Token
+									v="("
+									punct
+								/><Token v="ls" funct /> <Token v="guestbook" /> <Token
 									v="|"
 									punct
-								/> <Token v="take" funct /> <Token v="14" /><Token v=")" punct />
+								/> <Token v="reverse" funct /> <Token v="|" punct /> <Token
+									v="take"
+									funct
+								/> <Token v="14" /><Token v=")" punct />
 				<br />
 				<Token v="[" punct />gazesys <Token v="/" keywd /><Token v="]$" punct /> <Token
 									v="$entries"
-								/> <Token v="|" punct /> <Token v="each" funct /> <Token v="&#123;" punct /><Token
+								/> <Token v="|" punct /> <Token v="each" funct /> <Token
+									v="&#123;"
+									punct
+								/><Token v="|" punct /><Token v="file" /><Token
 									v="|"
 									punct
-								/><Token v="file" /><Token v="|" punct /> <Token v="render" funct /> <Token
-									v="("
-									punct
-								/><Token v="open" funct /> <Token v="$file.name" /><Token v=")" punct /><Token
+								/> <Token v="render" funct /> <Token v="(" punct /><Token
+									v="open"
+									funct
+								/> <Token v="$file.name" /><Token v=")" punct /><Token
 									v="&#125;"
 									punct
 								/>
