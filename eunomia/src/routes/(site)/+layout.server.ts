@@ -1,6 +1,8 @@
+import { getRequestEvent } from '$app/server';
 import { newToken as getApiToken } from '$lib/apiToken.js';
 import { bounceCount, distanceTravelled } from '$lib/metrics.js';
 import { lastVisitors, visitCount } from '$lib/visits.js';
+import { isIPv6 } from 'node:net';
 import { get } from 'svelte/store';
 
 export const csr = true;
@@ -8,7 +10,9 @@ export const ssr = true;
 export const prerender = false;
 export const trailingSlash = 'always';
 
-export async function load({ url }) {
+export const load = () => {
+	const { url, request } = getRequestEvent();
+
 	const visitors = get(lastVisitors);
 	let recentVisitCount = 0;
 	for (const [, visitor] of visitors) {
@@ -62,6 +66,7 @@ export async function load({ url }) {
 		lastVisitors: visitors,
 		recentVisitCount,
 		eyePositions,
-		apiToken: getApiToken()
+		apiToken: getApiToken(),
+		ipv6: isIPv6(request.headers.get('x-real-ip') ?? 'localhost')
 	};
-}
+};

@@ -99,7 +99,14 @@
 			<feComposite in="SourceGraphic" in2="a" operator="in" />
 			<feMorphology operator="dilate" radius="5" />
 		</filter>
-		<filter id="dither" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+		<filter
+			id="dither"
+			color-interpolation-filters="sRGB"
+			x="0"
+			y="0"
+			width="100%"
+			height="100%"
+		>
 			<feImage
 				width="4"
 				height="4"
@@ -186,7 +193,12 @@
 					/>
 				{/if}
 				{#if isResumePage && menuIdx === 2}
-					<NavButton highlight name="resume" href="/resume.pdf" iconUri="/icons/about.webp" />
+					<NavButton
+						highlight
+						name="resume"
+						href="/resume.pdf"
+						iconUri="/icons/about.webp"
+					/>
 				{/if}
 			{/each}
 			<div class="hidden md:block grow"></div>
@@ -196,7 +208,9 @@
 					class="hover:underline"
 					href="https://stellophiliac.github.io/roboring/gazesys/previous">⮜</a
 				>
-				<a class="hover:underline" href="https://stellophiliac.github.io/roboring">roboring</a>
+				<a class="hover:underline" href="https://stellophiliac.github.io/roboring"
+					>roboring</a
+				>
 				<a
 					title="next site"
 					class="hover:underline"
@@ -204,7 +218,11 @@
 				>
 			</div>
 			<div class="navbox">
-				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
+				<a
+					title="previous site"
+					class="hover:underline"
+					href="https://xn--sr8hvo.ws/previous">⮜</a
+				>
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">indieweb</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
@@ -218,57 +236,53 @@
 			{/if}
 			<Tooltip>
 				{#snippet tooltipContent()}
-					<p class="font-monospace">
-						<nobr>
-							pet global bounce = <span class="text-ralsei-green-light text-shadow-green"
-								>{data.petTotalBounce.toString().padStart(12, '.')}</span
-							>
-						</nobr>
-						<nobr>
-							pet global travel = <span class="text-ralsei-green-light text-shadow-green"
-								>{data.petTotalDistance.toFixed(0).toString().padStart(12, '.')}</span
-							>
-						</nobr>
-						{#if browser}
-							<nobr>
-								pet local bounce &nbsp;= <span class="text-ralsei-green-light text-shadow-green"
-									>{$localBounces.toFixed(0).toString().padStart(12, '.')}</span
-								>
-							</nobr>
-							<nobr>
-								pet local travel &nbsp;= <span class="text-ralsei-green-light text-shadow-green"
-									>{$localDistanceTravelled.toFixed(0).toString().padStart(12, '.')}</span
-								>
-							</nobr>
+					<p>
+						{#if data.ipv6}
+							yay!!!!! good thing :3 you get a cookie!
+						{:else}
+							wow u're using ipv4.... you suck!!!!! <br />(or ur isp sucks sorgy)
 						{/if}
 					</p>
 				{/snippet}
 				<div class="navbox">
 					<p>
-						<span class="text-ralsei-green-light text-shadow-green">*</span>
-						pet stats
+						using <span
+							class={data.ipv6
+								? 'text-ralsei-green-light text-shadow-green'
+								: 'text-red-500 text-shadow-red'}
+							>{data.ipv6 ? 'ipv6' : 'ipv4'}</span
+						>
 					</p>
 				</div>
 			</Tooltip>
 			<Tooltip>
 				{#snippet tooltipContent()}
 					<p class="font-monospace">
-						<nobr
-							>total visits = <span class="text-ralsei-green-light text-shadow-green"
-								>{data.visitCount.toString().padStart(9, '.')}</span
-							></nobr
-						>
-						<nobr
-							>uniq recent visits = <span class="text-ralsei-green-light text-shadow-green"
-								>{data.lastVisitors.size.toString().padStart(3, '.')}</span
-							></nobr
-						>
+						{#snippet stat(text: string, value: number)}
+							<nobr
+								>{text}
+								<span class="text-ralsei-green-light text-shadow-green"
+									>{Math.round(value)
+										.toString()
+										.padStart(30 - (text.length + 1), '.')}</span
+								></nobr
+							>
+						{/snippet}
+						{@render stat('total visits', data.visitCount)}
+						{@render stat('uniq recent visits', data.lastVisitors.size)}
+						{@render stat('pet global bounce', data.petTotalBounce)}
+						{@render stat('pet global travel', data.petTotalDistance)}
+						{#if browser}
+							{@render stat('pet local bounce', $localBounces)}
+							{@render stat('pet local travel', $localDistanceTravelled)}
+						{/if}
 					</p>
 				{/snippet}
 				<div class="navbox">
 					<p>
-						<span class="text-ralsei-green-light text-shadow-green">{data.recentVisitCount}</span> recent
-						clicks
+						<span class="text-ralsei-green-light text-shadow-green"
+							>{data.recentVisitCount}</span
+						> recent clicks
 					</p>
 				</div>
 			</Tooltip>

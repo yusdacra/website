@@ -132,7 +132,7 @@ export const notifyDarkVisitors = (url: URL, request: Request) => {
 			return null;
 		})
 		.then((resp) => {
-			if (resp !== null) {
+			if (resp !== null && resp.status !== 401 && resp.status !== 400) {
 				const host = `(${request.headers.get('host')}|${request.headers.get('x-real-ip')}|${request.headers.get('user-agent')})`;
 				console.log(`sent visitor analytic to dark visitors: ${resp.statusText}; ${host}`);
 			}

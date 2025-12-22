@@ -8,9 +8,10 @@ export const updateCommits = async () => {
 		const githubFeed = await parseFeedToActivity('https://github.com/90-008.atom');
 		const codebergFeed = await parseFeedToActivity('https://codeberg.org/90-008.atom');
 		const tangledFeed = await fetchTangledActivity();
-		const mergedFeed = sortActivities(
-			githubFeed.concat(codebergFeed).concat(tangledFeed)
-		).slice(0, 7);
+		const mergedFeed = sortActivities(githubFeed.concat(codebergFeed).concat(tangledFeed)).slice(
+			0,
+			7
+		);
 		lastCommits.set(mergedFeed);
 	} catch (why) {
 		console.log('could not fetch git activity: ', why);
@@ -26,6 +27,7 @@ type Activity = {
 	description: string;
 	link: string | null;
 	date: Date | null;
+	id?: string;
 };
 
 const toHex = (bytes: number[]): string => {
@@ -52,24 +54,27 @@ const fetchTangledActivity = async (): Promise<Activity[]> => {
 			if (!repoName) continue;
 
 			try {
-				const logRes = await fetch(
-					`${knot}/xrpc/sh.tangled.repo.log?repo=${did}/${repoName}`
-				);
+				const logRes = await fetch(`${knot}/xrpc/sh.tangled.repo.log?repo=${did}/${repoName}`);
 				if (!logRes.ok) continue;
 				const logData = await logRes.json();
-				
+
 				const commits = logData.commits || [];
 
 				for (const commit of commits) {
-					const hash = commit.Hash ? toHex(commit.Hash) : '';
-					const message = commit.Message || '';
-					const dateStr = commit.Author?.When;
-					
+					if (!commit.hash) continue;
+
+					const hash = commit.hash ? toHex(commit.hash) : '';
+					if (activities.some((a) => a.id === hash)) continue;
+
+					const message = commit.message || '';
+					const dateStr = commit.author?.When;
+
 					activities.push({
 						source: 'tangled',
 						description: `pushed ${repoName}: ${message}`,
 						link: `https://tangled.sh/${did}/${repoName}/commit/${hash}`,
-						date: dateStr ? new Date(dateStr) : null
+						date: dateStr ? new Date(dateStr) : null,
+						id: hash
 					});
 				}
 			} catch (err) {
@@ -94,7 +99,8 @@ const parseFeedToActivity = async (url: string) => {
 		// dont count mirrored repos
 		// TODO: probably can implement a deduplication algorithm
 		if (
-			['90-008/ark', '90-008/website', 'ark', 'website'].some((repo) =>
+			source === 'github' &&
+			['90-008/ark', '90-008/website', 'ark', 'website', 'trill', 'faunu'].some((repo) =>
 				description.includes(repo)
 			)
 		)
@@ -104,7 +110,7 @@ const parseFeedToActivity = async (url: string) => {
 		const desc = description.split('</a>').at(1) || description.split('</a>').pop() || '';
 		results.push({
 			source,
-			description: desc.replace(/^90-008 /, ""),
+			description: desc.replace(/^90-008 /, ''),
 			link: item.url,
 			date: item.published || item.updated
 		});

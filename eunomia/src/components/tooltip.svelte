@@ -15,7 +15,7 @@
 		x = 'translate-x-none',
 		y = 'translate-y-full',
 		targetY = 'group-hover:-translate-y-[105%]',
-		targetX = 'group-hover:-translate-x-2/3',
+		targetX = 'group-hover:-translate-x-2/4',
 		tooltipContent,
 		children,
 		style = ''
