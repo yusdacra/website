@@ -87,7 +87,7 @@
 	{#if title !== undefined}
 		<div
 			class="
-				window-titlebar p-1 border-ralsei-white border-8
+				window-titlebar p-1 px-2 border-ralsei-white border-8
 				bg-gradient-to-l from-ralsei-pink-neon to-ralsei-black to-75%
 				{!isOnMobile ? 'cursor-move' : ''}
 			"
@@ -96,7 +96,7 @@
 			<div class="flex bg-opacity-100 pixelate-bg">
 				<h1
 					class="
-						font-monospace text-xl text-ralsei-pink-regular
+						font-monospace text-2xl text-ralsei-pink-regular
 						grow justify-self-start self-center {entry ? 'p-name' : ''}
 					"
 				>

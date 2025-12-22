@@ -16,7 +16,7 @@
 	}
 
 	@font-face {
-		font-family: 'Fusion Pixel 10px Monospaced zh_hans';
+		font-family: 'Fusion Pixel 8px Monospaced SC';
 		src: url('/fonts/fusion-pixel-sc-monospaced.woff2') format('woff2');
 		font-weight: normal;
 		font-style: normal;
@@ -24,7 +24,7 @@
 	}
 
 	@font-face {
-		font-family: 'Fusion Pixel 10px Proportional zh_hans';
+		font-family: 'Fusion Pixel 8px Proportional SC';
 		src: url('/fonts/fusion-pixel-sc-proportional.woff2') format('woff2');
 		font-weight: normal;
 		font-style: normal;

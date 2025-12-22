@@ -50,8 +50,8 @@ export default {
 			}
 		},
 		fontFamily: {
-			'sans-serif': ['"Fusion Pixel 10px Proportional zh_hans", sans-serif'],
-			monospace: ['"Fusion Pixel 10px Monospaced zh_hans", monospace']
+			'sans-serif': ['"Fusion Pixel 8px Proportional SC", sans-serif'],
+			monospace: ['"Fusion Pixel 8px Monospaced SC", monospace']
 		}
 	},
 	plugins: [typography, forms]

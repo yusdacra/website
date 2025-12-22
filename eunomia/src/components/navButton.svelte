@@ -24,7 +24,7 @@
 >
 	<img class="max-w-4" style="image-rendering: pixelated;" src={iconUri} alt={name} />
 	<div
-		class="font-monospace text-sm/3 overflow-hidden text-ellipsis text-nowrap [text-decoration-line:inherit]"
+		class="font-monospace text-base/3 overflow-hidden text-ellipsis text-nowrap [text-decoration-line:inherit]"
 	>
 		{name}
 	</div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import getTitle from '$lib/getTitle';
 	import Eye from '$components/eye.svelte';
@@ -28,7 +29,7 @@
 		{ href: 'about', name: 'about', iconUri: '/icons/about.webp' }
 	];
 
-	let routeComponents = $derived(data.route.split('/'));
+	let routeComponents = $derived($page.url.pathname.split('/'));
 	let isEntryPage = $derived(routeComponents.length > 3 && routeComponents[1] === 'entries');
 	let isResumePage = $derived(routeComponents[1] === 'resume');
 	let isRoute = $derived((_route: string) => {
@@ -171,7 +172,7 @@
 	<Pet apiToken={data.apiToken} />
 {/if}
 
-<nav class="w-full min-h-[5vh] max-h-[5vh] fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
+<nav class="w-full fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
 	<div
 		class="
 			max-w-full max-h-fit p-1 z-[999]
@@ -292,7 +293,7 @@
 
 <style lang="postcss">
 	.navbox {
-		@apply flex gap-3 px-1.5 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-4;
+		@apply flex gap-2 px-1 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-4;
 		border-style: groove;
 	}
 </style>

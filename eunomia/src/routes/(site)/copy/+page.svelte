@@ -25,7 +25,7 @@
 		}}
 	>
 		<Window style="!max-w-full" title={copied ? 'copied!' : 'click to copy'}>
-			<span class="text-4xl text-wrap break-all">{text}</span>
+			<span class="text-[32px] text-wrap break-all">{text}</span>
 		</Window>
 	</div>
 </div>

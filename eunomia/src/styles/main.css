@@ -8,7 +8,7 @@
 details {
 	@apply leading-none mt-2;
 	summary {
-		@apply text-shadow-pink text-ralsei-pink-neon hover:underline;
+		@apply select-none text-shadow-pink text-ralsei-pink-neon hover:underline;
 	}
 	summary::marker {
 		content: '(+) ';

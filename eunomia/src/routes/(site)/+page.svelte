@@ -191,7 +191,7 @@
 							}
 						}}
 					/>
-					<div class="flex flex-col max-w-[60ch] p-2">
+					<div class="flex flex-col max-w-[60ch] p-2 text-ellipsis overflow-hidden">
 						<p
 							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
 						>
@@ -271,7 +271,7 @@
 				/></a
 			>
 			<div
-				class="max-w-[64ch] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-snug"
+				class="max-w-[488px] prose prose-ralsei prose-a:!animate-none prose-img:m-0 leading-none"
 			>
 				<div class="flex flex-row flex-wrap gap-3 place-items-start group">
 					{#each buttons as { name, url, image } (image)}
@@ -286,7 +286,7 @@
 					{/each}
 				</div>
 
-				<span class="text-sm">feel free to send this one stuff to add here ;3</span>
+				<br />feel free to send this one stuff to add here ;3
 			</div>
 		</Window>
 	</div>
@@ -360,20 +360,16 @@
 					</div>
 				</div>
 				<div class="flex flex-row [padding:8px] bg-ralsei-black/20">
-					<p class="leading-none m-0 text-sm">
-						hi
+					<p class="leading-none m-0">
 						<img
 							class="relative inline h-5 animate-squiggle pb-1"
 							src="/wavey.gif"
 							alt="wavey"
 							title="says hi :33"
 						/>
-						<i
-							>this is <a
-								class="m-0 [padding:0px] p-name u-url u-uid"
-								href={PUBLIC_BASE_URL}
-								><span>{Math.random() > 0.8 ? 'dusk' : 'dawn'}</span></a
-							></i
+						this is
+						<a class="m-0 [padding:0px] p-name u-url u-uid" href={PUBLIC_BASE_URL}
+							><span>{Math.random() > 0.8 ? 'dusk' : 'dawn'}</span></a
 						>
 					</p>
 					<div class="grow"></div>
@@ -407,7 +403,7 @@
 			>
 				<input
 					type="text"
-					class="entry text-lg p-1 m-0 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] border-none"
+					class="entry w-full p-1 m-0 bg-transparent resize-none text-shadow-white placeholder-shown:[text-shadow:none] border-none"
 					name="content"
 					placeholder="bother it now!!"
 					maxlength="100"
@@ -423,7 +419,7 @@
 		</Window>
 		<Window title="links!" iconUri="/icons/contact.webp">
 			<div
-				class="[width:40ch] prose prose-ralsei prose-ul:px-[0.9rem] prose-ul:mt-2 prose-ul:leading-none prose-headings:leading-none"
+				class="prose prose-ralsei prose-ul:px-[1rem] prose-ul:mt-2 prose-ul:leading-none prose-headings:leading-none"
 			>
 				<ul>
 					<li>discord: 90.008</li>
