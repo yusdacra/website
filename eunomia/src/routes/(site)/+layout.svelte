@@ -239,7 +239,7 @@
 				{#snippet tooltipContent()}
 					<p>
 						{#if data.ipv6}
-							yay!!!!! good thing :3 you get a cookie!
+							yay!!!!! good thing :3 you get a cookie! 🍪
 						{:else}
 							wow u're using ipv4.... you suck!!!!! <br />(or ur isp sucks sorgy)
 						{/if}

@@ -29,12 +29,15 @@ export const getLastTrack = async () => {
 	}
 };
 
-const getTrackCoverArt = (releaseMbId: string | null | undefined, originUrl: string | null | undefined) => {
+const getTrackCoverArt = (
+	releaseMbId: string | null | undefined,
+	originUrl: string | null | undefined
+) => {
 	let mb: string | null = null;
 	let yt: string | null = null;
 
 	if (releaseMbId) mb = `https://coverartarchive.org/release/${releaseMbId}/front-250`;
-	
+
 	try {
 		if (originUrl) {
 			let videoId: string | null = null;
@@ -45,15 +48,16 @@ const getTrackCoverArt = (releaseMbId: string | null | undefined, originUrl: str
 			}
 			if (videoId) yt = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
 		}
-	} catch {
-	}
+	} catch {}
 
 	return { mb, yt };
 };
 
 const joinArtists = (artists: any[]) => {
 	if (!artists || artists.length === 0) return null;
-	return artists.map((a) => a.artistName).join(', ');
+	// remove duplicates
+	const uniqueArtists = [...new Set(artists.map((a) => a.artistName))];
+	return uniqueArtists.join(', ');
 };
 
 export const updateNowPlayingTrack = async () => {
@@ -72,7 +76,8 @@ export const updateNowPlayingTrack = async () => {
 					const metadata = statusData.value;
 					track = statusData.value.item;
 					if (track.playedTime) when = new Date(track.playedTime).getTime();
-					status = ((Date.now() / 1000) >= (parseInt(metadata.time) + track.duration)) ? 'played' : 'playing';
+					status =
+						Date.now() / 1000 >= parseInt(metadata.time) + track.duration ? 'played' : 'playing';
 				}
 			}
 		} catch (err) {

@@ -170,10 +170,14 @@
 			{#if data.lastTrack}
 				{@const images = data.lastTrack.images}
 				{@const initialUrl = images.mb ?? images.yt}
+				{@const showAlbum =
+					data.lastTrack.album && data.lastTrack.name !== data.lastTrack.album}
 				<div class="flex flex-row gap-0.5 m-1.5 border-4 border-double bg-ralsei-black">
 					<!-- svelte-ignore a11y_missing_attribute -->
 					<img
-						class="border-4 w-[4.5rem] h-[4.5rem] {initialUrl ? 'object-cover' : 'p-2'}"
+						class="border-4 {showAlbum
+							? 'w-[5.75rem] h-[5.75rem]'
+							: 'w-[4.5rem] h-[4.5rem]'} {initialUrl ? 'object-cover' : 'p-2'}"
 						style="border-style: none double none none; {initialUrl
 							? ''
 							: 'image-rendering: pixelated;'}"
@@ -193,7 +197,7 @@
 					/>
 					<div class="flex flex-col max-w-[60ch] p-2 text-ellipsis overflow-hidden">
 						<p
-							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
+							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[45ch]"
 						>
 							<span class="text-sm text-shadow-white text-ralsei-white"
 								>{data.lastTrack.status === 'playing'
@@ -208,14 +212,22 @@
 								>{data.lastTrack.name}</a
 							>
 						</p>
+						{#if showAlbum}
+							<p
+								class="text-blue-500 text-sm text-ellipsis text-nowrap overflow-hidden max-w-[45ch]"
+							>
+								<span class="text-shadow-white text-ralsei-white">in</span>
+								<span title={data.lastTrack.album}>{data.lastTrack.album}</span>
+							</p>
+						{/if}
 						<p
-							class="text-shadow-pink text-ralsei-pink-regular text-sm text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
+							class="text-ralsei-pink-regular/80 text-sm text-ellipsis text-nowrap overflow-hidden max-w-[45ch]"
 						>
 							<span class="text-shadow-white text-ralsei-white">by</span>
 							<span title={data.lastTrack.artist}>{data.lastTrack.artist}</span>
 						</p>
 						<p
-							class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[50ch]"
+							class="text-shadow-white text-ralsei-white text-xs text-ellipsis text-nowrap overflow-hidden max-w-[45ch]"
 						>
 							…{renderRelativeDate(data.lastTrack.when)}
 						</p>
