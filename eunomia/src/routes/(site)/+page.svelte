@@ -171,7 +171,8 @@
 				{@const images = data.lastTrack.images}
 				{@const initialUrl = images.mb ?? images.yt}
 				{@const showAlbum =
-					data.lastTrack.album && data.lastTrack.name !== data.lastTrack.album}
+					data.lastTrack.album &&
+					data.lastTrack.name.toLowerCase() !== data.lastTrack.album.toLowerCase()}
 				<div class="flex flex-row gap-0.5 m-1.5 border-4 border-double bg-ralsei-black">
 					<!-- svelte-ignore a11y_missing_attribute -->
 					<img
