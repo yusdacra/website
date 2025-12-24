@@ -37,6 +37,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@darkvisitors/sdk": "^1.6.0",
 		"@neodrag/svelte": "^2.3.3",
 		"@rowanmanning/feed-parser": "^2.1.1",
 		"@skyware/bot": "^0.4.0",

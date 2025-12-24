@@ -1,6 +1,7 @@
 {
   "version": "5",
   "specifiers": {
+    "npm:@darkvisitors/sdk@^1.6.0": "1.6.0",
     "npm:@jsr/std__toml@1.0.11": "1.0.11",
     "npm:@neodrag/svelte@^2.3.3": "2.3.3_svelte@5.46.0__acorn@8.15.0",
     "npm:@rowanmanning/feed-parser@^2.1.1": "2.1.1",
@@ -131,6 +132,9 @@
     },
     "@badrap/valita@0.4.6": {
       "integrity": "sha512-4kdqcjyxo/8RQ8ayjms47HCWZIF5981oE5nIenbfThKDxWXtEHKipAOWlflpPJzZx9y/JWYQkp18Awr7VuepFg=="
+    },
+    "@darkvisitors/sdk@1.6.0": {
+      "integrity": "sha512-KfAO7Dzg/EGZGNRUVpjK8dBzOe9xQI2bXF9aq8JcEk8BiOIAn+e4Vf+ceVMhOBB8PkuLvRBnJwfADAYXNL0iFg=="
     },
     "@esbuild/aix-ppc64@0.27.2": {
       "integrity": "sha512-GZMB+a0mOMZs4MpDbj8RJp4cw+w1WV5NYD6xzgvzUJ5Ek2jerwfO2eADyI6ExDSUED+1X8aMbegahsJi+8mgpw==",
@@ -2327,6 +2331,7 @@
       "eunomia": {
         "packageJson": {
           "dependencies": [
+            "npm:@darkvisitors/sdk@^1.6.0",
             "npm:@jsr/std__toml@1.0.11",
             "npm:@neodrag/svelte@^2.3.3",
             "npm:@rowanmanning/feed-parser@^2.1.1",

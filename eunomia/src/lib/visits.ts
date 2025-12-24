@@ -1,8 +1,10 @@
 import { env } from '$env/dynamic/private';
 import { scopeCookies } from '$lib';
+import { DarkVisitors } from '@darkvisitors/sdk';
 import type { Cookies } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
 import { get, writable } from 'svelte/store';
+import { darkVisitors } from './darkvisitors';
 
 const visitCountFile = `${env.WEBSITE_DATA_DIR}/visitcount`;
 const readVisitCount = async () => {
@@ -115,26 +117,14 @@ export const isBot = (request: Request) => {
 };
 
 export const notifyDarkVisitors = (url: URL, request: Request) => {
-	fetch('https://api.darkvisitors.com/visits', {
-		method: 'POST',
-		headers: {
-			authorization: `Bearer ${env.DARK_VISITORS_TOKEN}`,
-			'content-type': 'application/json'
-		},
-		body: JSON.stringify({
-			request_path: url.pathname,
-			request_method: request.method,
-			request_headers: request.headers
-		})
-	})
-		.catch((why) => {
-			console.log('failed sending dark visitors analytics:', why);
-			return null;
-		})
-		.then((resp) => {
-			if (resp !== null && resp.status !== 401 && resp.status !== 400) {
-				const host = `(${request.headers.get('host')}|${request.headers.get('x-real-ip')}|${request.headers.get('user-agent')})`;
-				console.log(`sent visitor analytic to dark visitors: ${resp.statusText}; ${host}`);
-			}
+	const headers = Object.fromEntries(request.headers.entries());
+	try {
+		darkVisitors.trackVisit({
+			path: url.pathname,
+			method: request.method,
+			headers: headers
 		});
+	} catch (error) {
+		console.error('failed to notify dark visitors:', error);
+	}
 };
