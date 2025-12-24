@@ -11,16 +11,21 @@ const cachedRobots = writable<string>('');
 const lastFetched = writable<number>(Date.now());
 
 const fetchRobotsTxt = async () => {
-	const robotsTxt = await darkVisitors.generateRobotsTxt([
-		AgentType.AIAgent,
-		AgentType.AIAssistant,
-		AgentType.AIDataScraper,
-		AgentType.AISearchCrawler,
-		AgentType.UndocumentedAIAgent,
-		AgentType.SEOCrawler
-	]);
-	lastFetched.set(Date.now());
-	return robotsTxt;
+	try {
+		const robotsTxt = await darkVisitors.generateRobotsTxt([
+			AgentType.AIAgent,
+			AgentType.AIAssistant,
+			AgentType.AIDataScraper,
+			AgentType.AISearchCrawler,
+			AgentType.UndocumentedAIAgent,
+			AgentType.SEOCrawler
+		]);
+		lastFetched.set(Date.now());
+		return robotsTxt;
+	} catch (error) {
+		console.error('failed to fetch robots.txt:', error);
+		return '';
+	}
 };
 
 export const getRobotsTxt = async () => {

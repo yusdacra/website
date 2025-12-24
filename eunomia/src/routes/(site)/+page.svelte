@@ -168,8 +168,6 @@
 				</div>
 			{/if}
 			{#if data.lastTrack}
-				{@const images = data.lastTrack.images}
-				{@const initialUrl = images.mb ?? images.yt}
 				{@const showAlbum =
 					data.lastTrack.album &&
 					data.lastTrack.name.toLowerCase() !== data.lastTrack.album.toLowerCase()}
@@ -178,23 +176,14 @@
 					<img
 						class="border-4 {showAlbum
 							? 'w-[5.75rem] h-[5.75rem]'
-							: 'w-[4.5rem] h-[4.5rem]'} {initialUrl ? 'object-cover' : 'p-2'}"
-						style="border-style: none double none none; {initialUrl
+							: 'w-[4.5rem] h-[4.5rem]'} {data.lastTrack.image
+							? 'object-cover'
+							: 'p-2'}"
+						style="border-style: none double none none; {data.lastTrack.image
 							? ''
 							: 'image-rendering: pixelated;'}"
-						src={initialUrl ?? '/icons/cd_audio.webp'}
+						src={data.lastTrack.image ?? '/icons/cd_audio.webp'}
 						title={data.lastTrack.album}
-						onerror={(e) => {
-							const img = e.currentTarget as HTMLImageElement;
-							if (images.mb && img.src === images.mb && images.yt)
-								img.src = images.yt;
-							else {
-								img.src = '/icons/cd_audio.webp';
-								img.classList.remove('object-cover');
-								img.classList.add('p-2');
-								img.style.imageRendering = 'pixelated';
-							}
-						}}
 					/>
 					<div class="flex flex-col max-w-[60ch] p-2 text-ellipsis overflow-hidden">
 						<p
