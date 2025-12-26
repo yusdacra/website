@@ -141,7 +141,9 @@ export const updateNowPlayingTrack = async () => {
 			artist: joinArtists(track.artists) ?? 'Unknown Artist',
 			album: track.releaseName ?? 'Unknown Album',
 			image: coverArt,
-			link: track.originUrl ?? null,
+			link:
+				track.originUrl ??
+				(track.recordingMbId ? `https://musicbrainz.org/recording/${track.recordingMbId}` : null),
 			when: when,
 			status: status
 		};
