@@ -29,6 +29,11 @@
 			image: '/others/250kb.webp'
 		},
 		{
+			name: 'zero-width space',
+			url: 'https://zwsp.xyz',
+			image: '/others/zwsp_dark.webp'
+		},
+		{
 			name: 'june',
 			url: 'https://girlboss.ceo',
 			image: 'https://x86.pet/~strawberry/june_88x31.png'
@@ -60,11 +65,6 @@
 			name: "31A05B9C's random site",
 			url: 'https://www.31a05b.net/',
 			image: 'https://www.31a05b.net/a/8831/31a05b.png'
-		},
-		{
-			name: 'candlelitsmiles',
-			url: 'https://candlelitsmiles.neocities.org',
-			image: 'https://candlelitsmiles.neocities.org/candlebuttonone.png'
 		},
 		{
 			name: 'indieweb',
