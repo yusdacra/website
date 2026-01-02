@@ -87,9 +87,9 @@
 			image: '/others/moonlightnow.gif'
 		},
 		{
-			name: 'desktop!!',
+			name: 'members choice',
 			url: '/',
-			image: '/others/desktopwebp.webp'
+			image: '/others/memberschoice.webp'
 		},
 		{
 			name: 'defective by design',
@@ -474,8 +474,7 @@
 							</li>
 						{/each}
 						<li>
-							<span
-								><a href="https://patreon.com/_90008" rel="me">patreon</a>,
+							<span>
 								<a href="https://github.com/sponsors/90-008" rel="me"
 									>github sponsors</a
 								></span
