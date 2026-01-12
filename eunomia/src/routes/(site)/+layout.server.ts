@@ -1,7 +1,7 @@
 import { getRequestEvent } from '$app/server';
 import { newToken as getApiToken } from '$lib/apiToken.js';
 import { bounceCount, distanceTravelled } from '$lib/metrics.js';
-import { lastVisitors, visitCount } from '$lib/visits.js';
+import { lastVisitors } from '$lib/visits.js';
 import { isIPv6 } from 'node:net';
 import { get } from 'svelte/store';
 
@@ -62,7 +62,6 @@ export const load = () => {
 		route: url.pathname,
 		petTotalBounce: bounceCount.get(),
 		petTotalDistance: distanceTravelled.get(),
-		visitCount: get(visitCount),
 		lastVisitors: visitors,
 		recentVisitCount,
 		eyePositions,

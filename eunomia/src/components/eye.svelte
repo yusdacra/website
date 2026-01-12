@@ -32,8 +32,8 @@
 	let src = $derived(closed ? `/eyes/closed.webp` : `/eyes/${kind}_${look}.webp`);
 
 	// generate dollcode based on time, but mod by 3 hours
-	const timeDollcode = genDollcode((visits[0] / 1000) % (60 * 60 * 24));
-	const visitsDollcode = genDollcode(visits.length);
+	const timeDollcode = $derived(genDollcode((visits[0] / 1000) % (60 * 60 * 24)));
+	const visitsDollcode = $derived(genDollcode(visits.length));
 
 	randomizeLook();
 </script>

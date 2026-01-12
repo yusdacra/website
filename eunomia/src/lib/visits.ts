@@ -1,51 +1,12 @@
-import { env } from '$env/dynamic/private';
-import { scopeCookies } from '$lib';
-import { DarkVisitors } from '@darkvisitors/sdk';
+import { scopeCookies } from '$lib/index.ts';
 import type { Cookies } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
 import { get, writable } from 'svelte/store';
-import { darkVisitors } from './darkvisitors';
-
-const visitCountFile = `${env.WEBSITE_DATA_DIR}/visitcount`;
-const readVisitCount = async () => {
-	try {
-		return parseInt(await Deno.readTextFile(visitCountFile));
-	} catch {
-		return 0;
-	}
-};
-export const visitCount = writable(await readVisitCount());
+import { darkVisitors } from './darkvisitors.ts';
 
 export type Visitor = { visits: number[] };
 export const lastVisitors = writable<Map<string, Visitor>>(new Map());
 const VISITOR_EXPIRY_SECONDS = 60 * 60; // an hour seems reasonable
-
-export const decrementVisitCount = () => {
-	visitCount.set(get(visitCount) - 1);
-};
-
-export const incrementVisitCount = async (request: Request, cookies: Cookies) => {
-	let currentVisitCount = get(visitCount);
-	// check whether the request is from a bot or not (this doesnt need to be accurate we just want to filter out honest bots)
-	if (isBot(request)) return false;
-	const scopedCookies = scopeCookies(cookies, '/');
-	// parse the last visit timestamp from cookies if it exists
-	const visitedTimestamp = parseInt(scopedCookies.get('visitedTimestamp') || '0');
-	// get unix timestamp
-	const currentTime = Date.now();
-	const timeSinceVisit = currentTime - visitedTimestamp;
-	// check if this is the first time a client is visiting or if an hour has passed since they last visited
-	if (visitedTimestamp === 0 || timeSinceVisit > 1000 * 60 * 60 * 24) {
-		// increment current and write to the store
-		currentVisitCount += 1;
-		visitCount.set(currentVisitCount);
-		// update the cookie with the current timestamp
-		scopedCookies.set('visitedTimestamp', currentTime.toString());
-		// write the visit count to a file so we can load it later again
-		await Deno.writeTextFile(visitCountFile, currentVisitCount.toString());
-	}
-	return true;
-};
 
 export const removeLastVisitor = (id: string) => {
 	const visitors = get(lastVisitors);

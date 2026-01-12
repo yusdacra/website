@@ -1,24 +1,18 @@
-import { updateLastPosts } from '$lib/bluesky';
-import { getLastTrack, updateNowPlayingTrack } from '$lib/lastfm';
-import { steamReadLastGame, steamUpdateNowPlaying } from '$lib/steam';
-import { updateCommits } from '$lib/activity';
-import { ToadScheduler, SimpleIntervalJob, Task, AsyncTask } from 'toad-scheduler';
+import { updateLastPosts } from './lib/bluesky.ts';
+import { updateNowPlayingTrack } from '$lib/lastfm.ts';
+import { steamUpdateNowPlaying } from '$lib/steam.ts';
+import { updateCommits } from '$lib/activity.ts';
+import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import {
 	incrementFakeVisitCount,
 	incrementLegitVisitCount,
 	pushMetric,
 	sendAllMetrics
-} from '$lib/metrics';
-import {
-	addLastVisitor,
-	decrementVisitCount,
-	incrementVisitCount,
-	notifyDarkVisitors,
-	removeLastVisitor
-} from '$lib/visits';
-import { testUa } from '$lib/robots';
+} from '$lib/metrics.ts';
+import { addLastVisitor, notifyDarkVisitors, removeLastVisitor } from '$lib/visits.ts';
+import { testUa } from '$lib/robots.ts';
 import { error, type Handle } from '@sveltejs/kit';
-import { _fetchEntries } from './routes/(site)/guestbook/+page.server';
+import { _fetchEntries } from './routes/(site)/guestbook/+page.server.ts';
 import { sequence } from '@sveltejs/kit/hooks';
 
 const updateNowPlaying = async () => {
@@ -57,33 +51,31 @@ scheduler.addSimpleIntervalJob(
 );
 
 const corsHandler = (allowedOrigins = ['*']) => {
-  return async ({ event, resolve }: Parameters<Handle>[0]) => {
-    const origin = event.request.headers.get('origin');
-    
-    const corsHeaders: Record<string, string> = {
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    };
+	return async ({ event, resolve }: Parameters<Handle>[0]) => {
+		const origin = event.request.headers.get('origin');
 
-    if (allowedOrigins.includes('*'))
-      corsHeaders['Access-Control-Allow-Origin'] = '*';
-    else if (origin && allowedOrigins.includes(origin)) {
-      corsHeaders['Access-Control-Allow-Origin'] = origin;
-      corsHeaders['Access-Control-Allow-Credentials'] = 'true';
-    }
+		const corsHeaders: Record<string, string> = {
+			'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+			'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+		};
 
-    if (event.request.method === 'OPTIONS')
-      return new Response(null, { headers: corsHeaders });
-    
-    const response = await resolve(event);
-    
-    Object.entries(corsHeaders).forEach(([key, value]) => {
-      response.headers.set(key, value);
-    });
+		if (allowedOrigins.includes('*')) corsHeaders['Access-Control-Allow-Origin'] = '*';
+		else if (origin && allowedOrigins.includes(origin)) {
+			corsHeaders['Access-Control-Allow-Origin'] = origin;
+			corsHeaders['Access-Control-Allow-Credentials'] = 'true';
+		}
 
-    return response;
-  };
-}
+		if (event.request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
+
+		const response = await resolve(event);
+
+		Object.entries(corsHeaders).forEach(([key, value]) => {
+			response.headers.set(key, value);
+		});
+
+		return response;
+	};
+};
 
 const handler = async ({ event, resolve }: Parameters<Handle>[0]) => {
 	notifyDarkVisitors(event.url, event.request); // no await so it doesnt block
@@ -117,10 +109,8 @@ const handler = async ({ event, resolve }: Parameters<Handle>[0]) => {
 
 	// only add visitors if its a "legit" page visit
 	let id = null;
-	let valid = false;
 	if (isPageVisit && !isRss()) {
 		id = addLastVisitor(event.request, event.cookies);
-		valid = await incrementVisitCount(event.request, event.cookies);
 	}
 
 	// actually resolve event
@@ -128,15 +118,10 @@ const handler = async ({ event, resolve }: Parameters<Handle>[0]) => {
 	// remove visitors if it was a 404
 	if (resp.status === 404) {
 		if (id !== null) removeLastVisitor(id);
-		if (valid) decrementVisitCount();
 	}
 
 	return resp;
 };
 
-const allowedOrigins = [
-	"https://gaze.systems",
-	"https://ptr.pet",
-	"https://poor.dog",
-];
+const allowedOrigins = ['https://gaze.systems', 'https://ptr.pet', 'https://poor.dog'];
 export const handle = sequence(corsHandler(allowedOrigins), handler);

@@ -10,7 +10,9 @@ export const createFileCounter = async (filePath: string, initialValue: number =
 	let countRaw: string | null = null;
 	try {
 		countRaw = await Deno.readTextFile(filePath);
-	} catch {}
+	} catch {
+		// we use initial value if not found
+	}
 
 	const counter = writable(parseInt(countRaw ?? initialValue.toString()));
 

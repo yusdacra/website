@@ -269,7 +269,6 @@
 								></nobr
 							>
 						{/snippet}
-						{@render stat('total visits', data.visitCount)}
 						{@render stat('uniq recent visits', data.lastVisitors.size)}
 						{@render stat('pet global bounce', data.petTotalBounce)}
 						{@render stat('pet global travel', data.petTotalDistance)}
