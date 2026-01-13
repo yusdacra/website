@@ -1,12 +1,14 @@
 import Konva from 'konva';
 import 'konva/skia-backend';
-import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs';
+import { writeFile, readFile, stat, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { env } from '$env/dynamic/private';
+import type { Canvas } from 'skia-canvas';
 
 const DATA_DIR = join(env.WEBSITE_DATA_DIR, 'constellation');
 const GRAPH_FILE = join(DATA_DIR, 'graph_processed.json');
-const OUTPUT_FILE = join(DATA_DIR, 'background.png');
+const OUTPUT_FILE = join(DATA_DIR, 'background.svg');
+const DUST_FILE = join(DATA_DIR, 'background_dust.webp');
 const STARS_FILE = join(DATA_DIR, 'stars.json');
 const GRAPH_URL = 'https://eightyeightthirty.one/graph.json';
 
@@ -420,8 +422,7 @@ export const generateConstellationData = (data: GraphData, seed: number = 123456
         const dy = r * Math.sin(phi) * Math.sin(theta);
         const dz = r * Math.cos(phi);
 
-        // Uniform distribution, no avoidance
-        const baseAlpha = 0.1 + rng.next() * 0.2;
+        const baseAlpha = 0.15 + rng.next() * 0.3;
 
         dust.push({
             x: dx,
@@ -439,7 +440,11 @@ export const generateConstellationData = (data: GraphData, seed: number = 123456
 
 export const initConstellation = async () => {
     try {
-        mkdirSync(DATA_DIR, { recursive: true });
+        try {
+            await stat(DATA_DIR);
+        } catch {
+            await mkdir(DATA_DIR, { recursive: true });
+        }
 
         let start = Date.now();
         console.log('fetching 88x31s graph data...');
@@ -451,11 +456,7 @@ export const initConstellation = async () => {
         console.log('generating constellation data...');
         const { stars, nebulae, dust } = generateConstellationData(data);
 
-        // Save legacy map for stars if strictly needed, but better to save the whole object
-        // The render function needs the whole object now.
-        // We'll save the structure exactly as ConstellationData
-
-        writeFileSync(GRAPH_FILE, JSON.stringify({ stars, nebulae, dust }));
+        await writeFile(GRAPH_FILE, JSON.stringify({ stars, nebulae, dust }));
         console.log(`${stars.length} stars, ${nebulae.length} nebulae, ${dust.length} dust particles generated in ${Date.now() - start}ms`);
 
         await renderConstellation();
@@ -468,38 +469,22 @@ type ProjectedTrans = { x: number, y: number, scale: number, z: number };
 
 export const renderConstellation = async () => {
     try {
-        if (!existsSync(GRAPH_FILE)) {
+        try {
+            await stat(GRAPH_FILE);
+        } catch {
             await initConstellation();
             return;
         }
 
         const start = Date.now();
-        console.log('rendering constellation...');
+        console.log('rendering constellation to SVG...');
 
-        const constellationData: ConstellationData = JSON.parse(readFileSync(GRAPH_FILE, 'utf-8'));
+        const constellationData: ConstellationData = JSON.parse(await readFile(GRAPH_FILE, 'utf-8'));
         const { stars, nebulae, dust } = constellationData;
 
-        // Canvas setup
-        const RESOLUTION_SCALE = 2; // 4K resolution
+        const RESOLUTION_SCALE = 1;
         const width = 1920 * RESOLUTION_SCALE;
         const height = 1080 * RESOLUTION_SCALE;
-
-        // Create stage and layer
-        const stage = new Konva.Stage({
-            width,
-            height,
-        });
-
-        const layer = new Konva.Layer({ imageSmoothingEnabled: false });
-        stage.add(layer);
-
-        // Background
-        const rect = new Konva.Rect({
-            width,
-            height,
-            fill: '#000000',
-        });
-        layer.add(rect);
 
         const fov = 400 * RESOLUTION_SCALE; // Field of view equivalent
         const cx = width / 2;
@@ -534,63 +519,27 @@ export const renderConstellation = async () => {
             return { x: x2, y: y2, z: z2 };
         };
 
-        // Project and draw
-        const projected: Record<string, ProjectedTrans> = {};
+        // Initialize SVG content
+        let svgBody = '';
+        let defsContent = '';
 
-        // 0. Universe Noise / Heatmap (Background Nebulae)
-        // Draw this BEFORE everything else so it's in the background
+        // 0.5 Render Dust via Konva
+        // Use a Stage/Layer for dust only, transparent background
+        const stage = new Konva.Stage({
+            width,
+            height,
+        });
+        const layer = new Konva.Layer();
+        stage.add(layer);
 
-        // Algorithm: Find dense clusters of stars to place nebulae
-        // 1. We'll use a simplified density estimation.
-        //    Pick N random 'probe' points (existing stars) and calculate how many neighbors they have within Radius R.
-        //    Higher neighbor count = higher density = larger/brighter nebula.
+        const rect = new Konva.Rect({
+            width,
+            height,
+            fill: '#000000',
+        });
+        layer.add(rect);
 
-        for (const n of nebulae) {
-            // Rotate matches star rotation
-            const { x: rotX, y: rotY, z: rotZ } = rotatePoint(n.x, n.y, n.z);
-
-            // Render if in front of camera
-            if (rotZ > 100) {
-                const scale = fov / rotZ;
-                const screenX = cx + rotX * scale;
-                const screenY = cy + (rotY * scale * -1);
-
-                // Density -> Size & Opacity
-                // Normalize density: typical range 5 to 50?
-                const intensity = Math.min(1, n.density / 25);
-
-                // Hues: Blue/Purple/Pink. Denser = shifting towards Pink/White?
-                // Stable random hue for this nebula based on position
-                // Use position as seed-ish
-                const hueSeed = Math.abs(Math.sin(n.x * n.y * n.z));
-                const hue = 200 + hueSeed * 80;
-
-                // Radius: Denser areas get BIGGER nebulae to cover the cluster
-                const radius = (600 + intensity * 800) * scale;
-
-                // Opacity: Denser = more opaque
-                const alpha = 0.2 + intensity * 0.5; // 0.2 to 0.7
-
-                // Create gradient
-                const circle = new Konva.Circle({
-                    x: screenX,
-                    y: screenY,
-                    radius: radius,
-                    fillRadialGradientStartPoint: { x: 0, y: 0 },
-                    fillRadialGradientStartRadius: 0,
-                    fillRadialGradientEndPoint: { x: 0, y: 0 },
-                    fillRadialGradientEndRadius: radius,
-                    fillRadialGradientColorStops: [
-                        0, `hsla(${hue}, 90%, 60%, ${alpha})`,
-                        1, 'hsla(0, 0%, 0%, 0)'
-                    ],
-                    opacity: 1,
-                });
-                layer.add(circle);
-            }
-        }
-
-        // 0.5. Void Noise / Space Dust
+        // Draw dust particles using Konva
         for (const d of dust) {
             const { x: rotX, y: rotY, z: rotZ } = rotatePoint(d.x, d.y, d.z);
 
@@ -613,27 +562,63 @@ export const renderConstellation = async () => {
             }
         }
 
+        layer.draw();
+
+        const sharpImg = await (stage.toCanvas() as unknown as Canvas).toSharp();
+        const buffer = await sharpImg.webp({ effort: 6, quality: 30, smartDeblock: true }).toBuffer();
+        await writeFile(DUST_FILE, buffer);
+
+        const projected: Record<string, ProjectedTrans> = {};
+
+        const fmt = (n: number) => n.toFixed(2); // Round to 2 decimal places
+
+        // 0. Universe Noise / Heatmap (Background Nebulae)
+        let nebulaIndex = 0;
+        for (const n of nebulae) {
+            // Rotate matches star rotation
+            const { x: rotX, y: rotY, z: rotZ } = rotatePoint(n.x, n.y, n.z);
+
+            // Render if in front of camera
+            if (rotZ > 100) {
+                const scale = fov / rotZ;
+                const screenX = cx + rotX * scale;
+                const screenY = cy + (rotY * scale * -1);
+
+                // Density -> Size & Opacity
+                const intensity = Math.min(1, n.density / 25);
+
+                const hueSeed = Math.abs(Math.sin(n.x * n.y * n.z));
+                const hue = 200 + hueSeed * 80;
+
+                const radius = (600 + intensity * 800) * scale;
+                const alpha = 0.2 + intensity * 0.5;
+
+                const gradId = `nebula-${nebulaIndex++}`;
+                defsContent += `
+                <radialGradient id="${gradId}" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+                    <stop offset="0%" stop-color="hsla(${fmt(hue)}, 90%, 60%, ${fmt(alpha)})" />
+                    <stop offset="100%" stop-color="hsla(0, 0%, 0%, 0)" />
+                </radialGradient>`;
+
+                svgBody += `<circle cx="${fmt(screenX)}" cy="${fmt(screenY)}" r="${fmt(radius)}" fill="url(#${gradId})" opacity="1" />`;
+            }
+        }
+
         // 1. Projection pass
         for (const star of stars) {
-            // Rotate
             const { x: rotX, y: rotY, z: rotZ } = rotatePoint(star.x, star.y, star.z);
 
             if (rotZ > 10) {
                 const scale = fov / rotZ;
                 const screenX = cx + rotX * scale;
-                const screenY = cy + (rotY * scale * -1); // Flip Y for screen coords
+                const screenY = cy + (rotY * scale * -1);
 
                 projected[star.domain] = { x: screenX, y: screenY, scale, z: rotZ };
             }
         }
 
-        // 2. Draw connections (lines) first so they are behind stars
-        // Track drawn connections to avoid duplicates (A-B and B-A)
+        // 2. Draw connections
         const drawnConnections = new Set<string>();
-
-        // Need quick lookup for stars now that we don't have the map handy (or we rebuild it)
-        const starMap = new Map<string, Star>();
-        stars.forEach(s => starMap.set(s.domain, s));
 
         type RenderLine = {
             p1: { x: number, y: number, z: number };
@@ -650,7 +635,6 @@ export const renderConstellation = async () => {
 
             if (star.visualConnections) {
                 for (const target of star.visualConnections) {
-                    // Unique key for connection
                     const key = [star.domain, target].sort().join('-');
                     if (drawnConnections.has(key)) continue;
                     drawnConnections.add(key);
@@ -664,42 +648,22 @@ export const renderConstellation = async () => {
             }
         }
 
-        // Sort lines by depth (furthest first) for correct layering
-        // Higher Z = further away
         linesToDraw.sort((a, b) => b.avgZ - a.avgZ);
 
         for (const line of linesToDraw) {
             const { p1, p2, avgZ } = line;
 
-            // distance fading
-            // Closer = more opaque. Max opacity 0.8 at z=0, drops to 0 at z=3000
             const opacity = Math.max(0.4, Math.min(1, 1 - (avgZ / 3000)));
             const strokeWidth = Math.max(0.2 * RESOLUTION_SCALE, 1.5 * RESOLUTION_SCALE * (1000 / avgZ));
 
-            // Halo (Occlusion) - Draw a thick black line behind the white line
-            // Only effective if there are things behind it (which sorted order ensures)
-            const halo = new Konva.Line({
-                points: [p1.x, p1.y, p2.x, p2.y],
-                stroke: '#000000',
-                strokeWidth: strokeWidth + strokeWidth * opacity, // 2px padding on each side
-                opacity: 1, // Full occlusion
-                tension: 0,
-            });
-            layer.add(halo);
+            // Halo (black line behind)
+            // svgBody += `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="#000000" stroke-width="${strokeWidth + strokeWidth * opacity}" opacity="1" stroke-linecap="butt" />`;
 
             // Actual Line
-            const l = new Konva.Line({
-                points: [p1.x, p1.y, p2.x, p2.y],
-                stroke: '#FFFFFF',
-                strokeWidth,
-                opacity,
-                tension: 0,
-            });
-            layer.add(l);
+            svgBody += `<line x1="${fmt(p1.x)}" y1="${fmt(p1.y)}" x2="${fmt(p2.x)}" y2="${fmt(p2.y)}" stroke="#FFFFFF" stroke-width="${fmt(strokeWidth)}" opacity="${fmt(opacity)}" stroke-linecap="butt" />`;
         }
 
-        const drawnStars: { star: Star, radius: number, opacity: number, proj: ProjectedTrans }[] = [];
-        // 3. draw star halos
+        // 3. Draw Stars
         for (const star of stars) {
             if (!projected[star.domain]) continue;
             const p = projected[star.domain];
@@ -708,48 +672,29 @@ export const renderConstellation = async () => {
             const importance = Math.min(1.5, 1 + connectionCount * 0.1);
 
             const radius = Math.max(1 * RESOLUTION_SCALE, 25 * p.scale * importance) * 0.4;
-            const haloRadius = radius * 1.6;
+            const haloRadius = radius * 1.85;
+
+            const strokeWidth = haloRadius - radius;
+
             const opacity = Math.min(1, Math.max(0.2, 1000 / p.z));
-            const haloOpacity = opacity * 0.4;
+            const haloOpacity = opacity * 0.3;
 
-            const rect = new Konva.Rect({
-                x: p.x - haloRadius / 2,
-                y: p.y - haloRadius / 2,
-                width: haloRadius,
-                height: haloRadius,
-                fill: '#FFFFFF',
-                opacity: haloOpacity,
-            });
-
-            layer.add(rect);
-            drawnStars.push({ star, radius, opacity, proj: p });
+            svgBody += `<rect x="${fmt(p.x - radius / 2)}" y="${fmt(p.y - radius / 2)}" width="${fmt(radius)}" height="${fmt(radius)}" fill="#EEEEEE" fill-opacity="${fmt(opacity)}" stroke="#FFFFFF" stroke-opacity="${fmt(haloOpacity)}" stroke-width="${fmt(strokeWidth)}" paint-order="stroke fill" />`;
         }
 
-        // 4. Draw actual stars
-        for (const { star, radius, opacity, proj } of drawnStars) {
-            const rect = new Konva.Rect({
-                x: proj.x - radius / 2,
-                y: proj.y - radius / 2,
-                width: radius,
-                height: radius,
-                fill: '#EEEEEE',
-                opacity,
-            });
+        // Construct final SVG
+        const finalSvg = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+        <defs>${defsContent}</defs>
+        ${svgBody}
+        </svg>`;
 
-            layer.add(rect);
-        }
-
-        layer.draw();
-
-        const buffer = await (stage.toCanvas() as any).toBuffer('png');
-        writeFileSync(OUTPUT_FILE, buffer);
+        await writeFile(OUTPUT_FILE, finalSvg);
 
         // Export projected coordinates for frontend interactivity
         const visibleStars = stars
             .filter(star => projected[star.domain])
             .map(star => {
                 const p = projected[star.domain];
-                // Match render logic for radius approx
                 const connectionCount = star.connections ? star.connections.length : 0;
                 const importance = Math.min(1.5, 1 + connectionCount * 0.1);
                 return {
@@ -760,7 +705,7 @@ export const renderConstellation = async () => {
                 };
             });
 
-        writeFileSync(STARS_FILE, JSON.stringify({
+        await writeFile(STARS_FILE, JSON.stringify({
             width,
             height,
             stars: visibleStars,

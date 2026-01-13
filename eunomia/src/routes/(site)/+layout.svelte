@@ -55,6 +55,8 @@
 	if (eyePositions === null) {
 		eyePositions = data.eyePositions;
 	}
+
+	let bgTimestamp = $derived(new Date(data.stars?.meta?.timestamp || 0).getTime());
 </script>
 
 <svelte:head>
@@ -64,11 +66,17 @@
 	<meta property="og:image" content="https://gaze.systems/icons/gaze_website.webp" />
 </svelte:head>
 
+<img
+	src="/_api/background/dust?t={bgTimestamp}"
+	alt=""
+	class="fixed -z-20 w-full h-full object-cover top-0 left-0 pointer-events-none"
+/>
 <div
 	class="
         app-grid-background
         fixed -z-10 w-full [height:100%] top-0 left-0
     "
+	style="background-image: url('/_api/background?t={bgTimestamp}');"
 ></div>
 
 <ConstellationOverlay stars={data.stars} {isUIHidden} />
