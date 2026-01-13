@@ -14,6 +14,10 @@ import { testUa } from '$lib/robots.ts';
 import { error, type Handle } from '@sveltejs/kit';
 import { _fetchEntries } from './routes/(site)/guestbook/+page.server.ts';
 import { sequence } from '@sveltejs/kit/hooks';
+import { initConstellation, renderConstellation } from '$lib/constellation.ts';
+
+// Init constellation on startup (non-blocking)
+initConstellation();
 
 const updateNowPlaying = async () => {
 	try {
@@ -46,6 +50,22 @@ scheduler.addSimpleIntervalJob(
 		{ seconds: 30 },
 		new AsyncTask('refreshContent task', refreshContent, (err) =>
 			console.log(`error while refreshContent: ${err}`)
+		)
+	)
+);
+scheduler.addSimpleIntervalJob(
+	new SimpleIntervalJob(
+		{ minutes: 1 },
+		new AsyncTask('rotateConstellation task', renderConstellation, (err) =>
+			console.log(`error while rotateConstellation: ${err}`)
+		)
+	)
+);
+scheduler.addSimpleIntervalJob(
+	new SimpleIntervalJob(
+		{ days: 1 },
+		new AsyncTask('initConstellation task', initConstellation, (err) =>
+			console.log(`error while initConstellation: ${err}`)
 		)
 	)
 );

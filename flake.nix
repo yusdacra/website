@@ -13,6 +13,7 @@
         # inp.nci.flakeModule
       ];
       perSystem = {
+        lib,
         config,
         pkgs,
         ...
@@ -20,13 +21,14 @@
         devShells.default = pkgs.mkShell {
           name = "eunomia-devshell";
           packages = with pkgs; [
-            nodejs-slim_latest deno
+            nodejs-slim_latest deno skia
             nodePackages.svelte-language-server
             nodePackages.typescript-language-server
             rustc rust-analyzer cargo wasm-pack wasm-bindgen-cli lld rustfmt binaryen
           ];
           shellHook = ''
             export PATH="$PATH:$PWD/node_modules/.bin"
+            export LD_LIBRARY_PATH="${lib.makeLibraryPath [pkgs.skia]}"
           '';
         };
         packages.eunomia-modules = pkgs.callPackage ./nix/modules.nix {};

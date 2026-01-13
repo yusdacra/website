@@ -4,6 +4,9 @@ import { bounceCount, distanceTravelled } from '$lib/metrics.js';
 import { lastVisitors } from '$lib/visits.js';
 import { isIPv6 } from 'node:net';
 import { get } from 'svelte/store';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { env } from '$env/dynamic/private';
 
 export const csr = true;
 export const ssr = true;
@@ -58,6 +61,17 @@ export const load = () => {
 		eyePositions.push([top, left]);
 	}
 
+	let starsData = null;
+	try {
+		const DATA_DIR = join(env.WEBSITE_DATA_DIR, 'constellation');
+		const STARS_FILE = join(DATA_DIR, 'stars.json');
+		if (existsSync(STARS_FILE)) {
+			starsData = JSON.parse(readFileSync(STARS_FILE, 'utf-8'));
+		}
+	} catch (e) {
+		console.error('Failed to load stars data', e);
+	}
+
 	return {
 		route: url.pathname,
 		petTotalBounce: bounceCount.get(),
@@ -66,6 +80,7 @@ export const load = () => {
 		recentVisitCount,
 		eyePositions,
 		apiToken: getApiToken(),
-		ipv6: isIPv6(request.headers.get('x-real-ip') ?? 'localhost')
+		ipv6: isIPv6(request.headers.get('x-real-ip') ?? 'localhost'),
+		stars: starsData
 	};
 };

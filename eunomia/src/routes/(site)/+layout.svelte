@@ -7,6 +7,7 @@
 	import Pet, { localBounces, localDistanceTravelled } from '$components/pet.svelte';
 	import Tooltip from '$components/tooltip.svelte';
 	import '$styles/app.css';
+	import ConstellationOverlay from '$components/constellationOverlay.svelte';
 
 	interface Props {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,6 +16,8 @@
 	}
 
 	let { data, children }: Props = $props();
+
+	let isUIHidden = $state(false);
 
 	interface MenuItem {
 		href: string;
@@ -63,16 +66,12 @@
 
 <div
 	class="
-        app-grid-background motion-safe:app-grid-background-anim
+        app-grid-background
         fixed -z-10 w-full [height:100%] top-0 left-0
     "
 ></div>
-<div
-	class="
-        app-grid-background-second-layer motion-safe:app-grid-background-second-layer-anim
-        fixed -z-20 w-full [height:100%] top-0 left-0
-    "
-></div>
+
+<ConstellationOverlay stars={data.stars} {isUIHidden} />
 
 <svg
 	xmlns="http://www.w3.org/2000/svg"
@@ -100,14 +99,7 @@
 			<feComposite in="SourceGraphic" in2="a" operator="in" />
 			<feMorphology operator="dilate" radius="5" />
 		</filter>
-		<filter
-			id="dither"
-			color-interpolation-filters="sRGB"
-			x="0"
-			y="0"
-			width="100%"
-			height="100%"
-		>
+		<filter id="dither" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
 			<feImage
 				width="4"
 				height="4"
@@ -153,7 +145,7 @@
 	</defs>
 </svg>
 
-{#if !isResumePage}
+{#if !isResumePage && !isUIHidden}
 	{#each data.lastVisitors as [id, visitor], index (id)}
 		{@const pos = eyePositions.at(index)}
 		{#if pos !== undefined}
@@ -163,16 +155,28 @@
 {/if}
 
 <div
-	class="md:h-[96vh] pb-[8vh] lg:px-[1vw] 2xl:px-[2vw] lg:pb-[3vh] lg:pt-[1vh] overflow-x-hidden [scrollbar-gutter:stable]"
+	class="md:h-[96vh] pb-[8vh] lg:px-[1vw] 2xl:px-[2vw] lg:pb-[3vh] lg:pt-[1vh] overflow-x-hidden [scrollbar-gutter:stable] transition-opacity duration-500"
+	class:opacity-0={isUIHidden}
+	class:pointer-events-none={isUIHidden}
+	aria-hidden={isUIHidden}
 >
 	{@render children?.()}
 </div>
 
 {#if !isResumePage}
-	<Pet apiToken={data.apiToken} />
+	<div
+		class="transition-opacity duration-500"
+		class:opacity-0={isUIHidden}
+		class:pointer-events-none={isUIHidden}
+	>
+		<Pet apiToken={data.apiToken} />
+	</div>
 {/if}
 
-<nav class="w-full fixed bottom-0 z-[999] bg-ralsei-black overflow-visible">
+<nav
+	class="w-full fixed bottom-0 z-[999] bg-ralsei-black overflow-visible transition-transform duration-500"
+	class:translate-y-full={isUIHidden}
+>
 	<div
 		class="
 			max-w-full max-h-fit p-1 z-[999]
@@ -194,24 +198,24 @@
 					/>
 				{/if}
 				{#if isResumePage && menuIdx === 2}
-					<NavButton
-						highlight
-						name="resume"
-						href="/resume.pdf"
-						iconUri="/icons/about.webp"
-					/>
+					<NavButton highlight name="resume" href="/resume.pdf" iconUri="/icons/about.webp" />
 				{/if}
 			{/each}
 			<div class="hidden md:block grow"></div>
+			<button
+				class="navbox hover:animate-squiggle group relative"
+				onclick={() => (isUIHidden = !isUIHidden)}
+				title="hide ui"
+			>
+				hide ui
+			</button>
 			<div class="navbox">
 				<a
 					title="previous site"
 					class="hover:underline"
 					href="https://stellophiliac.github.io/roboring/gazesys/previous">⮜</a
 				>
-				<a class="hover:underline" href="https://stellophiliac.github.io/roboring"
-					>roboring</a
-				>
+				<a class="hover:underline" href="https://stellophiliac.github.io/roboring">roboring</a>
 				<a
 					title="next site"
 					class="hover:underline"
@@ -219,11 +223,7 @@
 				>
 			</div>
 			<div class="navbox">
-				<a
-					title="previous site"
-					class="hover:underline"
-					href="https://xn--sr8hvo.ws/previous">⮜</a
-				>
+				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">indieweb</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
@@ -250,8 +250,7 @@
 						using <span
 							class={data.ipv6
 								? 'text-ralsei-green-light text-shadow-green'
-								: 'text-red-500 text-shadow-red'}
-							>{data.ipv6 ? 'ipv6' : 'ipv4'}</span
+								: 'text-red-500 text-shadow-red'}>{data.ipv6 ? 'ipv6' : 'ipv4'}</span
 						>
 					</p>
 				</div>
@@ -280,9 +279,8 @@
 				{/snippet}
 				<div class="navbox">
 					<p>
-						<span class="text-ralsei-green-light text-shadow-green"
-							>{data.recentVisitCount}</span
-						> recent clicks
+						<span class="text-ralsei-green-light text-shadow-green">{data.recentVisitCount}</span> recent
+						clicks
 					</p>
 				</div>
 			</Tooltip>
@@ -290,9 +288,26 @@
 	</div>
 </nav>
 
+{#if isUIHidden}
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div
+		class="fixed inset-0 z-[1000] cursor-pointer"
+		onclick={() => {
+			isUIHidden = false;
+		}}
+	></div>
+{/if}
+
 <style lang="postcss">
+	@import '../../styles/app.css';
+
 	.navbox {
 		@apply flex gap-2 px-1 text-nowrap align-middle items-center text-center place-content-center border-ralsei-white border-4;
 		border-style: groove;
+	}
+
+	.navbox a:hover {
+		@apply animate-squiggle;
 	}
 </style>
