@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { genDollcode } from '$lib/dollcode';
-	import { onMount } from 'svelte';
 
 	interface Star {
 		domain: string;
@@ -80,6 +79,8 @@
 			{#if screenX > -50 && screenX < containerWidth + 50 && screenY > -50 && screenY < containerHeight + 50}
 				<a
 					href="https://{star.domain}"
+					target="_blank"
+					rel="noopener noreferrer"
 					class="absolute pointer-events-auto group"
 					style="
                         left: {screenX - radius}px;

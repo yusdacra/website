@@ -28,7 +28,7 @@
           ];
           shellHook = ''
             export PATH="$PATH:$PWD/node_modules/.bin"
-            export LD_LIBRARY_PATH="${lib.makeLibraryPath [pkgs.skia]}"
+            export LD_LIBRARY_PATH="${lib.makeLibraryPath [pkgs.skia pkgs.stdenv.cc.cc.lib]}"
           '';
         };
         packages.eunomia-modules = pkgs.callPackage ./nix/modules.nix {};

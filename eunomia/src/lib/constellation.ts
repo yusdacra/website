@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { env } from '$env/dynamic/private';
 import type { Canvas } from 'skia-canvas';
 
-const DATA_DIR = join(env.WEBSITE_DATA_DIR, 'constellation');
+const DATA_DIR = join(env.WEBSITE_DATA_DIR ?? '', 'constellation');
 const GRAPH_FILE = join(DATA_DIR, 'graph_processed.json');
 const OUTPUT_FILE = join(DATA_DIR, 'background.svg');
 const DUST_FILE = join(DATA_DIR, 'background_dust.webp');
@@ -492,7 +492,7 @@ export const renderConstellation = async () => {
 
         // Calculate angle based on time: one full rotation per 3 hours (Y-axis)
         const periodY = 3 * 60 * 60 * 1000;
-        // Secondary rotation on X-axis to see the poles (slightly different period to avoid repeating patterns)
+        // Secondary rotation on X-axis to see the poles (different period to avoid repeating patterns)
         const periodX = 5.14 * 60 * 60 * 1000;
 
         const date = Date.now();
@@ -504,7 +504,6 @@ export const renderConstellation = async () => {
         const cosX = Math.cos(angleX);
         const sinX = Math.sin(angleX);
 
-        // Helper: Apply 3D rotation (Y then X)
         const rotatePoint = (x: number, y: number, z: number) => {
             // Yaw (Y-axis)
             const x1 = x * cosY - z * sinY;
@@ -519,12 +518,9 @@ export const renderConstellation = async () => {
             return { x: x2, y: y2, z: z2 };
         };
 
-        // Initialize SVG content
         let svgBody = '';
         let defsContent = '';
 
-        // 0.5 Render Dust via Konva
-        // Use a Stage/Layer for dust only, transparent background
         const stage = new Konva.Stage({
             width,
             height,
@@ -663,6 +659,8 @@ export const renderConstellation = async () => {
             svgBody += `<line x1="${fmt(p1.x)}" y1="${fmt(p1.y)}" x2="${fmt(p2.x)}" y2="${fmt(p2.y)}" stroke="#FFFFFF" stroke-width="${fmt(strokeWidth)}" opacity="${fmt(opacity)}" stroke-linecap="butt" />`;
         }
 
+        // for interactivity (we put links on these screen coordinates)
+        const visibleStars: { domain: string, x: number, y: number, r: number }[] = [];
         // 3. Draw Stars
         for (const star of stars) {
             if (!projected[star.domain]) continue;
@@ -680,30 +678,16 @@ export const renderConstellation = async () => {
             const haloOpacity = opacity * 0.3;
 
             svgBody += `<rect x="${fmt(p.x - radius / 2)}" y="${fmt(p.y - radius / 2)}" width="${fmt(radius)}" height="${fmt(radius)}" fill="#EEEEEE" fill-opacity="${fmt(opacity)}" stroke="#FFFFFF" stroke-opacity="${fmt(haloOpacity)}" stroke-width="${fmt(strokeWidth)}" paint-order="stroke fill" />`;
+
+            visibleStars.push({ domain: star.domain, x: p.x, y: p.y, r: radius * 1.75 });
         }
 
-        // Construct final SVG
         const finalSvg = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>${defsContent}</defs>
         ${svgBody}
         </svg>`;
 
         await writeFile(OUTPUT_FILE, finalSvg);
-
-        // Export projected coordinates for frontend interactivity
-        const visibleStars = stars
-            .filter(star => projected[star.domain])
-            .map(star => {
-                const p = projected[star.domain];
-                const connectionCount = star.connections ? star.connections.length : 0;
-                const importance = Math.min(1.5, 1 + connectionCount * 0.1);
-                return {
-                    domain: star.domain,
-                    x: p.x,
-                    y: p.y,
-                    r: Math.max(1 * RESOLUTION_SCALE, 25 * p.scale * importance) * 0.7
-                };
-            });
 
         await writeFile(STARS_FILE, JSON.stringify({
             width,

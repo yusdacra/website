@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     ];
   };
 
-  outputHash = "sha256-H4aW1XczTjlYwPfPYu0BUcJphSdlfNRZzyrI42shJcY=";
+  outputHash = "sha256-Q90zpjOn5X6B72g2rIlLhAtaJkLjvJ2yZjRRE4N9DeQ=";
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation {
 
   '';
   buildPhase = ''
-    HOME=$TMPDIR deno install --allow-scripts=npm:protobufjs@7.5.4 --frozen --seed 8008135
+    HOME=$TMPDIR deno install --allow-scripts=npm:protobufjs,npm:sharp,npm:skia-canvas --frozen --seed 8008135
   '';
   installPhase = ''
     cp -R node_modules $out

@@ -3,6 +3,7 @@
   stdenv,
   deno,
   nodejs,
+  skia,
   makeBinaryWrapper,
   eunomia-modules,
   PUBLIC_BASE_URL ? "http://localhost:5173",
@@ -50,6 +51,7 @@ stdenv.mkDerivation {
 
     makeBinaryWrapper ${deno}/bin/deno $out/bin/eunomia \
       --prefix PATH : ${lib.makeBinPath [ deno ]} \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [skia stdenv.cc.cc.lib]}" \
       --add-flags "run --allow-all --node-modules-dir=manual --cached-only $out/index.js"
 
     runHook postInstall
