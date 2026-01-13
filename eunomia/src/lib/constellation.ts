@@ -704,9 +704,10 @@ export const renderConstellation = async () => {
 
         console.log('generating OG image...');
         (async () => {
-            const resized_svg = await sharp(OUTPUT_FILE).resize({ height: 256 }).toBuffer();
+            const h = 630;
+            const resized_svg = await sharp(OUTPUT_FILE).resize({ height: h }).toBuffer();
             sharp(DUST_FILE)
-                .resize({ height: 256 })
+                .resize({ height: h })
                 .composite([{ input: resized_svg }])
                 .png()
                 .toFile(OG_IMAGE_FILE);

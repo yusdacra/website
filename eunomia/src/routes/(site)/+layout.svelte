@@ -61,12 +61,15 @@
 
 <svelte:head>
 	<title>{title}</title>
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://gaze.systems/_api/background/og.png" />
 	<meta property="og:site_name" content="gaze.systems" />
 	<meta property="og:url" content="https://gaze.systems/" />
-	<meta property="og:image" content="https://gaze.systems/_api/background/og-image.png" />
+	<meta property="og:image" content="https://gaze.systems/_api/background/og.png" />
 	<meta property="og:image:type" content="image/png" />
-	<meta property="og:image:width" content="455" />
-	<meta property="og:image:height" content="256" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="theme-color" content="#ff3eb7" />
 </svelte:head>
 
 <img
