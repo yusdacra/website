@@ -4,11 +4,13 @@ import { writeFile, readFile, stat, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { env } from '$env/dynamic/private';
 import type { Canvas } from 'skia-canvas';
+import sharp from 'sharp';
 
 const DATA_DIR = join(env.WEBSITE_DATA_DIR ?? '', 'constellation');
 const GRAPH_FILE = join(DATA_DIR, 'graph_processed.json');
 const OUTPUT_FILE = join(DATA_DIR, 'background.svg');
 const DUST_FILE = join(DATA_DIR, 'background_dust.webp');
+const OG_IMAGE_FILE = join(DATA_DIR, 'og_image.png');
 const STARS_FILE = join(DATA_DIR, 'stars.json');
 const GRAPH_URL = 'https://eightyeightthirty.one/graph.json';
 
@@ -699,6 +701,16 @@ export const renderConstellation = async () => {
                 angleX
             }
         }));
+
+        console.log('generating OG image...');
+        (async () => {
+            const resized_svg = await sharp(OUTPUT_FILE).resize({ height: 256 }).toBuffer();
+            sharp(DUST_FILE)
+                .resize({ height: 256 })
+                .composite([{ input: resized_svg }])
+                .png()
+                .toFile(OG_IMAGE_FILE);
+        })();
 
         console.log(`rendered constellation in ${Date.now() - start}ms`);
     } catch (error) {
