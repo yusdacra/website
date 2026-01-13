@@ -80,7 +80,7 @@
 			{#if screenX > -50 && screenX < containerWidth + 50 && screenY > -50 && screenY < containerHeight + 50}
 				<a
 					href="https://{star.domain}"
-					class="absolute pointer-events-auto group cursor-pointer"
+					class="absolute pointer-events-auto group"
 					style="
                         left: {screenX - radius}px;
                         top: {screenY - radius}px;

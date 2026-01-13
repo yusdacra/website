@@ -292,7 +292,7 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
-		class="fixed inset-0 z-[1000] cursor-pointer"
+		class="fixed inset-0 z-[1000]"
 		onclick={() => {
 			isUIHidden = false;
 		}}
