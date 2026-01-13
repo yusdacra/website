@@ -116,6 +116,11 @@
 	let { data }: Props = $props();
 </script>
 
+<svelte:head>
+	<meta property="og:description" content="90008's data endpoint" />
+	<meta property="og:type" content="website" />
+</svelte:head>
+
 <div class="flex flex-col-reverse md:flex-row gap-2 md:gap-4 md:h-full h-card">
 	<div class="flex flex-col gap-2 md:gap-6 md:ml-auto place-items-end">
 		<Window title="status" iconUri="/icons/msn.webp" removePadding>
@@ -129,9 +134,7 @@
 						<a href="/entries">last log was…</a>
 						published {renderRelativeDate(data.lastNote.published)}!
 					</p>
-					<div
-						class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[60ch]"
-					>
+					<div class="mt-0 p-1.5 border-4 border-double bg-ralsei-black min-w-full max-w-[60ch]">
 						<Note rootNote={data.lastNote} onlyContent />
 					</div>
 				</div>
@@ -152,16 +155,12 @@
 						{#each data.lastActivity as activity, index (index)}
 							<div
 								class="text-ralsei-green-light text-ellipsis text-nowrap overflow-hidden max-w-[60ch]"
-								style="opacity: {1.0 -
-									(index * 1.0) / data.lastActivity.length +
-									index * 0.03};"
+								style="opacity: {1.0 - (index * 1.0) / data.lastActivity.length + index * 0.03};"
 							>
 								<span title={renderDate(activity.date)} class="text-[#f87c32]"
 									>[{activity.source}]</span
 								>
-								<a href={activity.link} title={activity.description}
-									>{activity.description}</a
-								>
+								<a href={activity.link} title={activity.description}>{activity.description}</a>
 							</div>
 						{/each}
 					</div>
@@ -174,9 +173,8 @@
 				<div class="flex flex-row gap-0.5 m-1.5 border-4 border-double bg-ralsei-black">
 					<!-- svelte-ignore a11y_missing_attribute -->
 					<img
-						class="border-4 {showAlbum
-							? 'w-[5.75rem] h-[5.75rem]'
-							: 'w-[4.5rem] h-[4.5rem]'} {data.lastTrack.image
+						class="border-4 {showAlbum ? 'w-[5.75rem] h-[5.75rem]' : 'w-[4.5rem] h-[4.5rem]'} {data
+							.lastTrack.image
 							? 'object-cover'
 							: 'p-2'}"
 						style="border-style: none double none none; {data.lastTrack.image
@@ -190,16 +188,13 @@
 							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[45ch]"
 						>
 							<span class="text-sm text-shadow-white text-ralsei-white"
-								>{data.lastTrack.status === 'playing'
-									? 'listening to'
-									: 'listened to'}</span
+								>{data.lastTrack.status === 'playing' ? 'listening to' : 'listened to'}</span
 							>
 							<a
 								title={data.lastTrack.name}
 								href={data.lastTrack.link ??
 									'https://tealfm-slice.wisp.place/profile/ptr.pet/scrobbles'}
-								class="hover:underline motion-safe:hover:animate-squiggle"
-								>{data.lastTrack.name}</a
+								class="hover:underline motion-safe:hover:animate-squiggle">{data.lastTrack.name}</a
 							>
 						</p>
 						{#if showAlbum}
@@ -241,10 +236,8 @@
 							<span class="text-sm text-shadow-white text-ralsei-white"
 								>{data.lastGame.playing ? 'playing' : 'played'}</span
 							>
-							<a
-								title={data.lastGame.name}
-								class="hover:underline"
-								href={data.lastGame.link}>{data.lastGame.name}</a
+							<a title={data.lastGame.name} class="hover:underline" href={data.lastGame.link}
+								>{data.lastGame.name}</a
 							>
 						</p>
 						<p
@@ -427,9 +420,7 @@
 					<li>discord: 90.008</li>
 					<li>
 						e-mail:
-						<a class="u-email" href="mailto:90008@gaze.systems" rel="me"
-							>90008@gaze.systems</a
-						>
+						<a class="u-email" href="mailto:90008@gaze.systems" rel="me">90008@gaze.systems</a>
 					</li>
 					<li>
 						bluesky:
@@ -449,10 +440,8 @@
 						</li>
 						<li>
 							tangled:
-							<a
-								class="u-url"
-								href="https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae"
-								rel="me">@ptr.pet</a
+							<a class="u-url" href="https://tangled.org/did:plc:dfl62fgb7wtjj3fcbb72naae" rel="me"
+								>@ptr.pet</a
 							>
 						</li>
 						<li>
@@ -468,16 +457,13 @@
 							<li>
 								<span
 									>{coin}:
-									<a href="/copy?text={wallets[coin]}">{trimStr(wallets[coin])}</a
-									></span
+									<a href="/copy?text={wallets[coin]}">{trimStr(wallets[coin])}</a></span
 								>
 							</li>
 						{/each}
 						<li>
 							<span>
-								<a href="https://github.com/sponsors/90-008" rel="me"
-									>github sponsors</a
-								></span
+								<a href="https://github.com/sponsors/90-008" rel="me">github sponsors</a></span
 							>
 						</li>
 					</ul>
@@ -485,21 +471,13 @@
 				<details open>
 					<summary>88x31</summary>
 					<div class="mt-2 flex flex-row flex-wrap gap-1 prose-img:m-0">
-						<img
-							src="/88x31.gif"
-							alt="88x31 banner"
-							title="midnight AND sunrise! woaw"
-						/>
+						<img src="/88x31.gif" alt="88x31 banner" title="midnight AND sunrise! woaw" />
 						<img
 							src="/88x31_midnight.gif"
 							alt="88x31 banner (midnight only)"
 							title="it's midnight!"
 						/>
-						<img
-							src="/88x31_sunrise.gif"
-							alt="88x31 banner (sunrise only)"
-							title="it's sunrise!"
-						/>
+						<img src="/88x31_sunrise.gif" alt="88x31 banner (sunrise only)" title="it's sunrise!" />
 					</div>
 				</details>
 			</div>

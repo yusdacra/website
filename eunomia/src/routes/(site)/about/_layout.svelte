@@ -14,6 +14,11 @@
 	let { title, children }: Props = $props();
 </script>
 
+<svelte:head>
+	<meta property="og:description" content="information about entity with ID 90008" />
+	<meta property="og:type" content="article" />
+</svelte:head>
+
 <div class="flex flex-wrap md:flex-nowrap gap-4 md:gap-8">
 	<Window {title} style="ml-auto">
 		<div class="prose prose-ralsei leading-6 prose-ul:leading-5 max-w-[80ch]">

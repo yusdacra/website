@@ -64,6 +64,7 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:image" content="https://gaze.systems/_api/background/og.png" />
 	<meta property="og:site_name" content="gaze.systems" />
+	<meta property="og:title" content={title} />
 	<meta property="og:url" content="https://gaze.systems/" />
 	<meta property="og:image" content="https://gaze.systems/_api/background/og.png" />
 	<meta property="og:image:type" content="image/png" />

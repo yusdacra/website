@@ -14,6 +14,11 @@
 	let { data }: Props = $props();
 </script>
 
+<svelte:head>
+	<meta property="og:description" content="entries on this endpoint" />
+	<meta property="og:type" content="website" />
+</svelte:head>
+
 <div class="mx-auto md:max-w-fit flex flex-col-reverse md:flex-row gap-y-4 gap-x-16">
 	<div class="flex flex-col gap-y-4">
 		{#each data.posts as post (post.path)}
