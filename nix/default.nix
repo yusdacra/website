@@ -1,28 +1,28 @@
 {
   lib,
   stdenv,
-  bun,
+  deno,
+  nodejs,
   skia,
+  jemalloc,
   makeBinaryWrapper,
   eunomia-modules,
   PUBLIC_BASE_URL ? "http://localhost:5173",
 }:
-let
-  ldLibraries = lib.makeLibraryPath [skia stdenv.cc.cc.lib];
-in
 stdenv.mkDerivation {
   name = "eunomia";
 
   src = lib.fileset.toSource {
     root = ../.;
     fileset = lib.fileset.unions [
-      ../eunomia/bun.lock
+      ../deno.lock
+      ../deno.json
       ../eunomia
     ];
   };
 
-  nativeBuildInputs = [makeBinaryWrapper bun];
-  buildInputs = [stdenv.cc.cc.lib];
+  nativeBuildInputs = [makeBinaryWrapper];
+  buildInputs = [deno];
 
   inherit PUBLIC_BASE_URL;
 
@@ -30,33 +30,33 @@ stdenv.mkDerivation {
 
   configurePhase = ''
     runHook preConfigure
-    cp -R --no-preserve=ownership ${eunomia-modules} eunomia/node_modules
-    find eunomia/node_modules -type d -exec chmod 755 {} \;
-    substituteInPlace eunomia/node_modules/.bin/vite \
-      --replace-fail "/usr/bin/env node" "${bun}/bin/bun"
+    cp -R --no-preserve=ownership ${eunomia-modules} node_modules
+    find node_modules -type d -exec chmod 755 {} \;
+    substituteInPlace node_modules/.bin/vite \
+      --replace-fail "/usr/bin/env node" "${nodejs}/bin/node"
     runHook postConfigure
   '';
-
   buildPhase = ''
     runHook preBuild
     pushd eunomia
-    LD_LIBRARY_PATH="${ldLibraries}" bun run build
+    HOME=$TMPDIR ../node_modules/.bin/vite build
     popd
     runHook postBuild
   '';
-
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
-    cp -R ./eunomia/build $out/build
-    cp -R ./eunomia/node_modules $out/node_modules
-    cp ./eunomia/package.json $out/package.json
+    cp -R ./eunomia/build/* $out
+    cp -R ./node_modules $out
 
-    makeBinaryWrapper ${bun}/bin/bun $out/bin/eunomia \
-      --prefix PATH : ${lib.makeBinPath [bun]} \
-      --prefix LD_LIBRARY_PATH : "${ldLibraries}" \
-      --add-flags "run -b $out/build/index.js"
+    makeBinaryWrapper ${deno}/bin/deno $out/bin/eunomia \
+      --prefix PATH : ${lib.makeBinPath [ deno ]} \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [skia stdenv.cc.cc.lib]}" \
+      --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so.2" \
+      --set MALLOC_ARENA_MAX 2 \
+      --set VIPS_CONCURRENY 1 \
+      --add-flags "run --allow-all --node-modules-dir=manual --cached-only $out/index.js"
 
     runHook postInstall
   '';

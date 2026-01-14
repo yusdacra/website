@@ -1,5 +1,4 @@
 import { env } from '$env/dynamic/private';
-import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { get, writable } from 'svelte/store';
 
 const DID = 'did:plc:dfl62fgb7wtjj3fcbb72naae';
@@ -21,7 +20,7 @@ const lastTrack = writable<LastTrack | null>(null);
 // Ensure cache directory exists
 const ensureCacheDir = async () => {
 	try {
-		await mkdir(COVER_ART_CACHE_DIR, { recursive: true });
+		await Deno.mkdir(COVER_ART_CACHE_DIR, { recursive: true });
 	} catch (err) {
 		// Directory might already exist, ignore error
 	}
@@ -33,7 +32,7 @@ const fetchAndCacheCoverArt = async (releaseMbId: string): Promise<string | null
 
 	// Check if already cached
 	try {
-		await stat(cacheFile);
+		await Deno.stat(cacheFile);
 		return `/cover_art/${releaseMbId}.jpg`;
 	} catch {
 		// Not cached, try to fetch
@@ -48,7 +47,7 @@ const fetchAndCacheCoverArt = async (releaseMbId: string): Promise<string | null
 		}
 
 		const imageData = await response.arrayBuffer();
-		await writeFile(cacheFile, new Uint8Array(imageData));
+		await Deno.writeFile(cacheFile, new Uint8Array(imageData));
 
 		return `/cover_art/${releaseMbId}.jpg`;
 	} catch (err) {
@@ -71,7 +70,7 @@ const getYouTubeThumbnail = (originUrl: string | null | undefined): string | nul
 		if (videoId) {
 			return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
 		}
-	} catch { }
+	} catch {}
 
 	return null;
 };
@@ -93,7 +92,7 @@ const getCoverArt = async (
 
 export const getLastTrack = async () => {
 	try {
-		const data = await readFile(LAST_TRACK_FILE, 'utf-8');
+		const data = await Deno.readTextFile(LAST_TRACK_FILE);
 		lastTrack.set(JSON.parse(data));
 	} catch (why) {
 		console.log('could not read last track: ', why);
@@ -150,7 +149,7 @@ export const updateNowPlayingTrack = async () => {
 		};
 
 		lastTrack.set(data);
-		await writeFile(LAST_TRACK_FILE, JSON.stringify(data));
+		await Deno.writeTextFile(LAST_TRACK_FILE, JSON.stringify(data));
 	} catch (why) {
 		console.log('could not fetch teal fm: ', why);
 	}

@@ -1,5 +1,4 @@
 import { env } from '$env/dynamic/private';
-import { readFile, writeFile } from 'node:fs/promises';
 import SGDB from 'steamgriddb';
 import { get, writable } from 'svelte/store';
 
@@ -21,7 +20,7 @@ const lastGame = writable<LastGame | null>(null);
 
 export const steamReadLastGame = async () => {
 	try {
-		const data = await readFile(LAST_GAME_FILE, 'utf-8');
+		const data = await Deno.readTextFile(LAST_GAME_FILE);
 		lastGame.set(JSON.parse(data));
 	} catch (why) {
 		console.log('could not read last game: ', why);
@@ -32,7 +31,7 @@ export const steamReadLastGame = async () => {
 export const steamUpdateNowPlaying = async () => {
 	let griddbClient = get(steamgriddbClient);
 	if (griddbClient === null) {
-		griddbClient = new SGDB(env.STEAMGRIDDB_API_KEY as string);
+		griddbClient = new SGDB(env.STEAMGRIDDB_API_KEY);
 		steamgriddbClient.set(griddbClient);
 	}
 	try {
@@ -57,7 +56,7 @@ export const steamUpdateNowPlaying = async () => {
 			playing: true
 		};
 		lastGame.set(game);
-		await writeFile(LAST_GAME_FILE, JSON.stringify(game));
+		await Deno.writeTextFile(LAST_GAME_FILE, JSON.stringify(game));
 	} catch (why) {
 		console.log('could not fetch steam: ', why);
 		lastGame.update((t) => {

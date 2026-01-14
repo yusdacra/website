@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  bun,
+  deno,
 }:
 stdenv.mkDerivation {
   name = "eunomia-modules";
@@ -10,30 +10,30 @@ stdenv.mkDerivation {
     root = ../.;
     fileset = lib.fileset.unions [
       ../eunomia/package.json
-      ../eunomia/bun.lock
+      ../deno.json
+      ../deno.lock
     ];
   };
 
-  outputHash = "sha256-5c5J7+PMjy7Ed6ciIc2NhVHUcOt4qnK6RTUTjM0cstQ=";
+  outputHash = "sha256-Q90zpjOn5X6B72g2rIlLhAtaJkLjvJ2yZjRRE4N9DeQ=";
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
 
-  nativeBuildInputs = [bun];
+  nativeBuildInputs = [deno];
 
   dontConfigure = true;
   dontCheck = true;
   dontFixup = true;
   dontPatchShebangs = true;
 
-  buildPhase = ''
-    export BUN_INSTALL_CACHE_DIR="$TMPDIR/bun-cache"
-    export BUN_INSTALL_GLOBAL_DIR="$TMPDIR/bun"
-    
-    cd eunomia
-    bun install --frozen-lockfile --no-progress
-  '';
+  postUnpack = ''
 
+  '';
+  buildPhase = ''
+    HOME=$TMPDIR deno install --allow-scripts=npm:protobufjs,npm:sharp,npm:skia-canvas --frozen --seed 8008135
+  '';
   installPhase = ''
     cp -R node_modules $out
+    ls -la $out
   '';
 }

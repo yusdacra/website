@@ -8,9 +8,12 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
+		"@sveltejs/adapter-node": "^5.4.0",
+		"@sveltejs/kit": "^2.49.4",
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
 		"@tailwindcss/forms": "^0.5.11",
 		"@tailwindcss/typography": "^0.5.19",
+		"@types/deno": "^2.5.0",
 		"@types/eslint": "^9.6.1",
 		"@types/node": "^25.0.6",
 		"autoprefixer": "^10.4.23",
@@ -23,7 +26,6 @@
 		"prettier": "^3.7.4",
 		"prettier-plugin-svelte": "^3.4.1",
 		"svelte": "^5.46.1",
-		"svelte-adapter-bun": "^1.0.1",
 		"svelte-check": "^4.3.5",
 		"sveltekit-rate-limiter": "^0.7.0",
 		"tailwindcss": "^3.4.19",
@@ -36,24 +38,26 @@
 	"type": "module",
 	"dependencies": {
 		"@darkvisitors/sdk": "^1.6.0",
-		"@iarna/toml": "^2.2.5",
 		"@neodrag/svelte": "^2.3.3",
 		"@rowanmanning/feed-parser": "^2.1.1",
 		"@skyware/bot": "^0.4.0",
+		"@std/toml": "npm:@jsr/std__toml@1.0.11",
 		"@types/node-schedule": "^2.1.8",
-		"konva": "^10.0.12",
 		"nanoid": "^5.1.6",
 		"node-fetch": "^3.3.2",
 		"prometheus-remote-write": "^0.5.1",
 		"robots-parser": "^3.0.1",
 		"sharp": "^0.34.5",
-		"skia-canvas": "^3.0.8",
 		"steamgriddb": "^2.2.1",
-		"toad-scheduler": "^3.1.0"
+		"toad-scheduler": "^3.1.0",
+		"konva": "^10.0.12",
+		"skia-canvas": "^3.0.8"
 	},
 	"trustedDependencies": [
+		"@sveltejs/kit",
 		"esbuild",
+		"protobufjs",
 		"sharp",
-		"skia-canvas"
+		"svelte-preprocess"
 	]
 }

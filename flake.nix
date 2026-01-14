@@ -21,7 +21,7 @@
         devShells.default = pkgs.mkShell {
           name = "eunomia-devshell";
           packages = with pkgs; [
-            nodejs-slim_latest bun skia
+            nodejs-slim_latest deno skia
             nodePackages.svelte-language-server
             nodePackages.typescript-language-server
             rustc rust-analyzer cargo wasm-pack wasm-bindgen-cli lld rustfmt binaryen
