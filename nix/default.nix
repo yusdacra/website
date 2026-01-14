@@ -53,7 +53,7 @@ stdenv.mkDerivation {
     makeBinaryWrapper ${deno}/bin/deno $out/bin/eunomia \
       --prefix PATH : ${lib.makeBinPath [ deno ]} \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [skia stdenv.cc.cc.lib]}" \
-      --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so" \
+      --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so.2" \
       --set MALLOC_ARENA_MAX 2 \
       --set VIPS_CONCURRENY 1 \
       --add-flags "run --allow-all --node-modules-dir=manual --cached-only $out/index.js"
