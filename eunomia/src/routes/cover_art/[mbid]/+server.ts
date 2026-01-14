@@ -1,5 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { error } from '@sveltejs/kit';
+import { readFile } from 'node:fs/promises';
 
 export const GET = async ({ params }) => {
 	const mbid = params.mbid?.replace('.jpg', '');
@@ -12,7 +13,7 @@ export const GET = async ({ params }) => {
 	const filePath = `${cacheDir}/${mbid}.jpg`;
 
 	try {
-		const file = await Deno.readFile(filePath);
+		const file = await readFile(filePath);
 		return new Response(file, {
 			headers: {
 				'Content-Type': 'image/jpeg',

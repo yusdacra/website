@@ -1,9 +1,9 @@
-import adapter from '@sveltejs/adapter-node';
+import adapter from 'svelte-adapter-bun';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 import { mdsvex } from 'mdsvex';
 
-import * as toml from '@std/toml';
+import toml from '@iarna/toml';
 import { resolve } from 'node:path';
 
 /** @type {import('@sveltejs/kit').Config} */
