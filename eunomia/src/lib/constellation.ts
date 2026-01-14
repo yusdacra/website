@@ -606,6 +606,10 @@ export const renderConstellation = async () => {
 		const sharpImg = await (stage.toCanvas() as unknown as Canvas).toSharp();
 		const buffer = await sharpImg.webp({ effort: 6, quality: 30, smartDeblock: true }).toBuffer();
 		await writeFile(DUST_FILE, buffer);
+		sharpImg.destroy();
+
+		stage.destroyChildren();
+		stage.destroy();
 
 		const projected: Record<string, ProjectedTrans> = {};
 
@@ -749,12 +753,15 @@ export const renderConstellation = async () => {
 		console.log('generating OG image...');
 		(async () => {
 			const h = 630;
-			const resized_svg = await sharp(OUTPUT_FILE).resize({ height: h }).toBuffer();
-			sharp(DUST_FILE)
+			const s = sharp(OUTPUT_FILE).resize({ height: h })
+			const resized_svg = await s.toBuffer();
+			const og = sharp(DUST_FILE)
 				.resize({ height: h })
 				.composite([{ input: resized_svg }])
-				.png()
-				.toFile(OG_IMAGE_FILE);
+				.png();
+			await og.toFile(OG_IMAGE_FILE);
+			s.destroy();
+			og.destroy();
 		})();
 
 		console.log(`rendered constellation in ${Date.now() - start}ms`);
