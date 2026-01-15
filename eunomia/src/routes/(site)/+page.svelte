@@ -345,7 +345,7 @@
 								<span class="p-category">indie game dev</span>
 							</li>
 							<li class="[list-style-type:'->']">
-								for resume, click <a href="/resume.pdf">here</a>
+								looking for work, resume <a href="/resume.pdf">here</a>
 							</li>
 							<li class="[list-style-type:'->']">
 								in <span class="p-country-name">turkey</span>
