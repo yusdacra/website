@@ -36,15 +36,15 @@ export default {
 			},
 			colors: {
 				ralsei: {
-					pink: {
-						regular: '#fe96e0',
-						neon: '#ff3eb7'
-					},
 					white: '#fff9fe',
 					black: '#000801',
 					green: {
-						light: '#4dcc8e',
-						dark: '#162d26'
+						light: 'hsla(180, 90%, 42.5%, 1.00)',
+						dark: 'hsla(240, 45%, 8%, 1.00)'
+					},
+					pink: {
+						regular: 'hsla(260, 90%, 65%, 1.0)',
+						neon: 'hsla(270, 95%, 68%, 1.0)'
 					}
 				}
 			}
