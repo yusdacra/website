@@ -1201,7 +1201,7 @@ export const renderConstellation = async () => {
 
 		const projected: Record<string, ProjectedTrans> = {};
 
-		const fmt = (n: number) => n.toFixed(2); // Round to 2 decimal places
+		const fmt = (n: number) => n.toFixed(1); // round to 1 decimal place, so we save more space
 
 		// 0. Universe Noise / Heatmap (Background Nebulae)
 		let nebulaIndex = 0;
@@ -1334,7 +1334,7 @@ export const renderConstellation = async () => {
 			}
 
 			const delay = rng.float(0, 10);
-			const style = animClass ? `style="animation-duration: ${duration.toFixed(2)}s; animation-delay: -${delay.toFixed(2)}s"` : '';
+			const style = animClass ? `style="animation-duration: ${fmt(duration)}s; animation-delay: -${fmt(delay)}s"` : '';
 			const cls = animClass ? `class="${animClass}"` : '';
 
 			svgBody += `<rect ${cls} ${style} x="${fmt(p.x - radius / 2)}" y="${fmt(p.y - radius / 2)}" width="${fmt(radius)}" height="${fmt(radius)}" fill="#EEEEEE" fill-opacity="${fmt(opacity)}" stroke="#FFFFFF" stroke-opacity="${fmt(haloOpacity)}" stroke-width="${fmt(strokeWidth)}" paint-order="stroke fill" />`;
