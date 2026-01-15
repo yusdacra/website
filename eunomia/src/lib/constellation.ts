@@ -252,7 +252,7 @@ export const generateConstellationData = (
 		// mode-specific parameters (angles in radians)
 		const modeConfig = {
 			linear: { minAngle: 0, angleRange: Math.PI / 3, branchChance: 0.05, curlBackChance: 0.0, snapThreshold: 0.7 },
-			zigzag: { minAngle: Math.PI / 2.5, angleRange: (2 * Math.PI) / 3, branchChance: 0.10, curlBackChance: 0.0, snapThreshold: 0.6 },
+			zigzag: { minAngle: Math.PI / 4, angleRange: (2 * Math.PI) / 3, branchChance: 0.10, curlBackChance: 0.0, snapThreshold: 0.6 },
 			looped: { minAngle: 0, angleRange: Math.PI / 2, branchChance: 0.05, curlBackChance: 0.50, snapThreshold: 0.3 },
 			branching: { minAngle: 0, angleRange: Math.PI / 2, branchChance: 0.40, curlBackChance: 0.0, snapThreshold: 0.6 }
 		}[shapeMode];
@@ -823,15 +823,8 @@ export const generateConstellationData = (
 		for (let i = 0; i < domainPool.length; i++) {
 			const candidate = domainPool[i];
 			if (usedDomains.has(candidate.domain)) continue;
+			if (candidate.potential < neededTotal * 0.8) continue;
 
-			if (candidate.potential < neededTotal) {
-				// Since list is sorted, no subsequent domain will have enough potential (roughly)
-				// We can break early? No, potential is just a heuristic, graph topology differs.
-				// But generally yes. Let's start with loose check.
-				if (candidate.potential < neededTotal * 0.8) continue;
-			}
-
-			// Check Limits Dynamic (root counts)
 			const r = getRootDomain(candidate.domain);
 			const ratio = getLimitRatio(r);
 			if (ratio !== null) {
@@ -839,15 +832,10 @@ export const generateConstellationData = (
 				if (c >= MAX_STARS * ratio) continue;
 			}
 
-			// Perform Test Mapping
 			const tempMapping = new Map<number, string>();
 			tempMapping.set(startNode.id, candidate.domain);
 			const tempUsed = new Set<string>(usedDomains); // localized used set
 			tempUsed.add(candidate.domain);
-
-			const tempRootCounts = new Map(rootCounts); // localization is expensive? 
-			// Actually we only need to track changes if we commit or just check constraints on fly
-			// We can just check constraints.
 
 			const stack = [{ shapeNodeId: startNode.id, domain: candidate.domain }];
 			const visitedShapeNodes = new Set<number>([startNode.id]);
@@ -871,8 +859,6 @@ export const generateConstellationData = (
 				})).sort((a, b) => b.needed - a.needed);
 
 				// Get potentials of links
-				// Optimization: We can't re-run huge BFS here. Use neighbor count (degree) as proxy or local cache.
-				// Or just re-run getDomainPotential with small limit
 				const linkPotentials = links.map(d => ({
 					d,
 					p: (data.linksTo[d] || []).length // Fast degree check
@@ -957,7 +943,7 @@ export const generateConstellationData = (
 	const stars = finalStars;
 	console.log(`Final stars generated: ${stars.length}`);
 
-	// 5. Generate Nebulae (Density-based) - SAME AS BEFORE
+	// 5. Generate ebulae (Density-based)
 	const PROBE_COUNT = 300;
 	const SEARCH_RADIUS = 400;
 	const DENSITY_THRESHOLD = 4;
