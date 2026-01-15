@@ -178,8 +178,8 @@
 							? 'object-cover'
 							: 'p-2'}"
 						style="border-style: none double none none; {data.lastTrack.image
-							? ''
-							: 'image-rendering: pixelated;'}"
+							? 'image-rendering: smooth !important;'
+							: 'image-rendering: pixelated !important;'}"
 						src={data.lastTrack.image ?? '/icons/cd_audio.webp'}
 						title={data.lastTrack.album}
 					/>

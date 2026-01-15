@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private';
+import sharp from 'sharp';
 import { get, writable } from 'svelte/store';
 
 const DID = 'did:plc:dfl62fgb7wtjj3fcbb72naae';
@@ -26,38 +27,48 @@ const ensureCacheDir = async () => {
 	}
 };
 
-// Fetch and cache MusicBrainz cover art
-const fetchAndCacheCoverArt = async (releaseMbId: string): Promise<string | null> => {
-	const cacheFile = `${COVER_ART_CACHE_DIR}/${releaseMbId}.jpg`;
+// Helper to fetch, optimize, and cache an image
+const fetchAndCacheImage = async (url: string, id: string): Promise<string | null> => {
+	const cacheFile = `${COVER_ART_CACHE_DIR}/${id}.webp`;
 
 	// Check if already cached
 	try {
 		await Deno.stat(cacheFile);
-		return `/cover_art/${releaseMbId}.jpg`;
+		return `/cover_art/${id}.webp`;
 	} catch {
 		// Not cached, try to fetch
 	}
 
 	try {
-		const mbUrl = `https://coverartarchive.org/release/${releaseMbId}/front-250`;
-		const response = await fetch(mbUrl);
+		const response = await fetch(url);
 
 		if (!response.ok) {
 			return null;
 		}
 
 		const imageData = await response.arrayBuffer();
-		await Deno.writeFile(cacheFile, new Uint8Array(imageData));
 
-		return `/cover_art/${releaseMbId}.jpg`;
+		const sharpImg = sharp(imageData).resize({ width: 92 }).webp({ quality: 80 });
+		const optimizedImage = await sharpImg.toBuffer();
+		sharpImg.destroy();
+
+		await Deno.writeFile(cacheFile, new Uint8Array(optimizedImage));
+
+		return `/cover_art/${id}.webp`;
 	} catch (err) {
-		console.log(`Failed to fetch MusicBrainz cover art for ${releaseMbId}:`, err);
+		console.log(`Failed to fetch/cache image for ${id}:`, err);
 		return null;
 	}
 };
 
-// Get YouTube thumbnail URL
-const getYouTubeThumbnail = (originUrl: string | null | undefined): string | null => {
+// Fetch and cache MusicBrainz cover art
+const fetchAndCacheCoverArt = async (releaseMbId: string): Promise<string | null> => {
+	const mbUrl = `https://coverartarchive.org/release/${releaseMbId}/front-250`;
+	return fetchAndCacheImage(mbUrl, releaseMbId);
+};
+
+// Fetch and cache YouTube thumbnail
+const fetchAndCacheYouTubeThumbnail = async (originUrl: string | null | undefined): Promise<string | null> => {
 	if (!originUrl) return null;
 
 	try {
@@ -68,9 +79,10 @@ const getYouTubeThumbnail = (originUrl: string | null | undefined): string | nul
 			videoId = originUrl.split('youtu.be/')[1]?.split('?')[0];
 		}
 		if (videoId) {
-			return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+			const ytUrl = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+			return fetchAndCacheImage(ytUrl, videoId);
 		}
-	} catch {}
+	} catch { }
 
 	return null;
 };
@@ -86,8 +98,8 @@ const getCoverArt = async (
 		if (mbImage) return mbImage;
 	}
 
-	// Fall back to YouTube thumbnail
-	return getYouTubeThumbnail(originUrl);
+	// Fall back to YouTube thumbnail (with caching)
+	return fetchAndCacheYouTubeThumbnail(originUrl);
 };
 
 export const getLastTrack = async () => {
