@@ -16,6 +16,7 @@
 			timestamp: string;
 			angleY: number;
 			angleX: number;
+			seed?: number;
 		};
 	}
 
@@ -28,6 +29,24 @@
 
 	let containerWidth = $state(0);
 	let containerHeight = $state(0);
+
+	let tauShift = $derived.by(() => {
+		if (stars?.meta?.seed === undefined) return 'UNKNOWN';
+		const main = Math.abs(stars.meta.seed % 360);
+		const sub = Math.abs((stars.meta.seed % 10000) / 10000);
+		return (main + sub).toFixed(4);
+	});
+
+	let lambdaLock = $derived.by(() => {
+		if (stars?.meta?.seed === undefined) return 'UNKNOWN';
+		return ((stars.meta.seed * 1.618) % 100).toFixed(4);
+	});
+	let manifoldId = $derived.by(() => {
+		if (stars?.meta?.seed === undefined) return 'UNKNOWN';
+		const hex = stars.meta.seed.toString(16).toUpperCase();
+		const chunks = hex.match(/.{1,5}/g)?.join('-') ?? hex;
+		return chunks;
+	});
 
 	let scale = $derived.by(() => {
 		if (!stars || containerWidth === 0 || containerHeight === 0) return 0;
@@ -58,16 +77,25 @@
 {#if stars && scale > 0}
 	<div class="fixed inset-0 pointer-events-none {isUIHidden ? 'z-[2000]' : 'z-0'} overflow-hidden">
 		{#if stars.meta}
-			<div class="absolute top-4 left-4 origin-top-left meta-text">
-				<div>DATE: {stars.meta.timestamp}</div>
-				<div>ASCENSION: {(stars.meta.angleY * (180 / Math.PI)).toFixed(4)}°</div>
-				<div>DECLINATION: {(stars.meta.angleX * (180 / Math.PI)).toFixed(4)}°</div>
+			<div class="absolute font-mono top-4 left-4 origin-top-left meta-text">
+				<div>//DATE/{stars.meta.timestamp}</div>
+				<div>&nbsp;/ASCENSION/{(stars.meta.angleY * (180 / Math.PI)).toFixed(4)}°</div>
+				<div>&nbsp;/DECLINATION/{(stars.meta.angleX * (180 / Math.PI)).toFixed(4)}°/</div>
 			</div>
-			<div class="absolute top-4 right-4 origin-top-right meta-text">
-				<!-- encode meta data in dollcode -->
+			<div
+				class="absolute font-mono top-4 left-1/2 -translate-x-1/2 origin-top meta-text text-center"
+			>
 				{genDollcode(
-					new Date(stars.meta.timestamp).getTime() + stars.meta.angleY + stars.meta.angleX
+					new Date(stars.meta.timestamp).getTime() +
+						stars.meta.angleY +
+						stars.meta.angleX +
+						(stars.meta.seed ?? 0)
 				)}
+			</div>
+			<div class="absolute top-4 right-4 origin-top-right meta-text text-right">
+				<div>//TAU SHIFT/{tauShift}°</div>
+				<div>&nbsp;/LAMBDA LOCK/{lambdaLock}Gpc</div>
+				<div>&nbsp;/MANIFOLD/{manifoldId}/</div>
 			</div>
 		{/if}
 		{#each stars.stars as star}
@@ -75,7 +103,7 @@
 			{@const screenY = star.y * scale + offsetY}
 			{@const radius = star.r * scale}
 
-			<!-- Only render if potentially visible -->
+			<!-- only render if potentially visible -->
 			{#if screenX > -50 && screenX < containerWidth + 50 && screenY > -50 && screenY < containerHeight + 50}
 				<a
 					href="https://{star.domain}"

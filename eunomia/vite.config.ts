@@ -6,6 +6,11 @@ export default defineConfig({
 	server: {
 		fs: {
 			allow: ['../']
+		},
+		watch: {
+			usePolling: true,
+			useFsEvents: false,
+			interval: 100,
 		}
 	}
 });

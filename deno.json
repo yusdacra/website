@@ -1,4 +1,5 @@
 {
   "workspace": ["./eunomia"],
-  "nodeModulesDir": "auto"
+  "nodeModulesDir": "auto",
+  "allowScripts": ["npm:esbuild@0.27.2", "npm:protobufjs@7.5.4", "npm:sharp@0.34.5", "npm:skia-canvas@3.0.8"]
 }
