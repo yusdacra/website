@@ -38,6 +38,11 @@
 			url: 'https://girlboss.ceo',
 			image: 'https://x86.pet/~strawberry/june_88x31.png'
 		},
+		{
+			name: 'meow_d',
+			url: 'https://meow-d.github.io/',
+			image: '/others/meowd.webp'
+		},
 		{ name: 'dd', url: 'https://dd86k.space/about/', image: '/others/dd86k.gif' },
 		{ name: 'drew', url: 'https://drewsh.com/', image: '/others/drewsh.gif' },
 		{
@@ -65,11 +70,6 @@
 			name: "31A05B9C's random site",
 			url: 'https://www.31a05b.net/',
 			image: 'https://www.31a05b.net/a/8831/31a05b.png'
-		},
-		{
-			name: 'indieweb',
-			url: 'https://indieweb.org/',
-			image: 'https://indieweb.org/images/9/91/indieweb88x31-retro-gif.gif'
 		},
 		{
 			name: 'nixos',
