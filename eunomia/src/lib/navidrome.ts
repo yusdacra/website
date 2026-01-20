@@ -1,5 +1,5 @@
 import { env } from '$env/dynamic/private';
-import { createHash } from 'crypto';
+import { createHash } from 'node:crypto';
 
 const ndUrl = env.NAVIDROME_URL;
 const ndUser = env.NAVIDROME_USERNAME;
