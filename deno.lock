@@ -4,6 +4,7 @@
     "npm:@darkvisitors/sdk@^1.6.0": "1.6.0",
     "npm:@jsr/std__toml@1.0.11": "1.0.11",
     "npm:@neodrag/svelte@^2.3.3": "2.3.3_svelte@5.46.1__acorn@8.15.0",
+    "npm:@rowanmanning/feed-parser@*": "2.1.1",
     "npm:@rowanmanning/feed-parser@^2.1.1": "2.1.1",
     "npm:@skyware/bot@0.4": "0.4.0",
     "npm:@sveltejs/adapter-node@^5.4.0": "5.4.0_@sveltejs+kit@2.49.4__@sveltejs+vite-plugin-svelte@6.2.4___svelte@5.46.1____acorn@8.15.0___vite@7.3.1____@types+node@25.0.6____picomatch@4.0.3___@types+node@25.0.6__svelte@5.46.1___acorn@8.15.0__typescript@5.9.3__vite@7.3.1___@types+node@25.0.6___picomatch@4.0.3__acorn@8.15.0__@types+node@25.0.6_rollup@4.53.3_@sveltejs+vite-plugin-svelte@6.2.4__svelte@5.46.1___acorn@8.15.0__vite@7.3.1___@types+node@25.0.6___picomatch@4.0.3__@types+node@25.0.6_svelte@5.46.1__acorn@8.15.0_typescript@5.9.3_vite@7.3.1__@types+node@25.0.6__picomatch@4.0.3_@types+node@25.0.6",

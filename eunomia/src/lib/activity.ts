@@ -107,11 +107,45 @@ const parseFeedToActivity = async (url: string) => {
 			continue;
 		// dont show activity that is just chore
 		if (item.content?.includes('chore')) continue;
-		const desc = description.split('</a>').at(1) || description.split('</a>').pop() || '';
+
+		let repoName = '';
+		let message = '';
+		let link = item.url;
+
+		if (source === 'github') {
+			// try to extract repo from url
+			// url format: https://github.com/user/repo/...
+			try {
+				const url = new URL(item.url || '');
+				const parts = url.pathname.split('/').filter(Boolean);
+				if (parts.length >= 2) {
+					repoName = parts[1]; // just the repo name, e.g. "eunomia"
+				}
+			} catch {
+				/* empty */
+			}
+
+			// try to extract commit message from content blockquote
+			if (item.content) {
+				const match = item.content.match(/<blockquote>(.*?)<\/blockquote>/s);
+				if (match && match[1]) {
+					message = match[1].trim();
+				}
+			}
+		}
+
+		// fallback or original logic for non-github or failed parsing
+		if (!message || !repoName) {
+			const desc = description.split('</a>').at(1) || description.split('</a>').pop() || '';
+			if (!message) message = desc.replace(/^90-008 /, '');
+			// If we couldn't get a clean repo name, we might leave it empty or try to parse from description if needed
+			// But for now let's stick to what we found or the original description cleanup
+		}
+
 		results.push({
 			source,
-			description: desc.replace(/^90-008 /, ''),
-			link: item.url,
+			description: repoName && message ? `${repoName}: ${message}` : message,
+			link,
 			date: item.published || item.updated
 		});
 	}
