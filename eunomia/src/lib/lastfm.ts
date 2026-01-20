@@ -1,6 +1,7 @@
 import { env } from '$env/dynamic/private';
 import sharp from 'sharp';
 import { get, writable } from 'svelte/store';
+import * as Navidrome from './navidrome';
 
 const DID = 'did:plc:dfl62fgb7wtjj3fcbb72naae';
 const PDS = 'https://zwsp.xyz';
@@ -14,6 +15,8 @@ type LastTrack = {
 	image: string | null; // Single image URL
 	link: string | null;
 	when: number;
+	shareUrl?: string;
+	shareId?: string;
 	status: 'playing' | 'played';
 };
 const lastTrack = writable<LastTrack | null>(null);
@@ -146,6 +149,39 @@ export const updateNowPlayingTrack = async () => {
 
 		if (!track) return;
 
+		// Check if track changed to handle share links
+		const currentData = get(lastTrack);
+		const isNewTrack = !currentData || currentData.name !== track.trackName || currentData.artist !== (joinArtists(track.artists) ?? 'Unknown Artist');
+		let shareId = currentData?.shareId;
+		let link = track.originUrl ?? (track.recordingMbId ? `https://musicbrainz.org/recording/${track.recordingMbId}` : null);
+
+		let shareUrl = undefined;
+		if (isNewTrack) {
+			// Try to create new share link (no need to delete old one, they expire)
+			try {
+				const songId = await Navidrome.findSong(track.trackName, joinArtists(track.artists) ?? '');
+				if (songId) {
+					const newShareId = await Navidrome.createShareLink(songId, `${track.trackName}`);
+					if (newShareId) {
+						shareId = newShareId;
+						shareUrl = Navidrome.getShareUrl(newShareId);
+					} else {
+						shareId = undefined;
+					}
+				} else {
+					shareId = undefined;
+				}
+			} catch (err) {
+				console.error('Failed to handle Navidrome share:', err);
+				shareId = undefined;
+			}
+		} else {
+			// Keep existing Navidrome link if we have one and track hasn't changed
+			if (shareId) {
+				shareUrl = Navidrome.getShareUrl(shareId);
+			}
+		}
+
 		const coverArt = await getCoverArt(track.releaseMbId, track.originUrl);
 
 		const data: LastTrack = {
@@ -153,10 +189,10 @@ export const updateNowPlayingTrack = async () => {
 			artist: joinArtists(track.artists) ?? 'Unknown Artist',
 			album: track.releaseName ?? 'Unknown Album',
 			image: coverArt,
-			link:
-				track.originUrl ??
-				(track.recordingMbId ? `https://musicbrainz.org/recording/${track.recordingMbId}` : null),
+			link: link,
 			when: when,
+			shareUrl: shareUrl,
+			shareId: shareId,
 			status: status
 		};
 

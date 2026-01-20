@@ -185,17 +185,26 @@
 					/>
 					<div class="flex flex-col max-w-[60ch] p-2 text-ellipsis overflow-hidden">
 						<p
-							class="text-shadow-green text-ralsei-green-light text-sm text-ellipsis text-nowrap overflow-hidden max-w-[45ch]"
+							class="max-w-[45ch] flex flex-row gap-[0.8ch] items-baseline overflow-hidden text-shadow-green text-ralsei-green-light text-sm"
 						>
-							<span class="text-sm text-shadow-white text-ralsei-white"
+							<span class="shrink-0 text-shadow-white text-ralsei-white"
 								>{data.lastTrack.status === 'playing' ? 'listening to' : 'listened to'}</span
 							>
 							<a
 								title={data.lastTrack.name}
 								href={data.lastTrack.link ??
 									'https://tealfm-slice.wisp.place/profile/ptr.pet/scrobbles'}
-								class="hover:underline motion-safe:hover:animate-squiggle">{data.lastTrack.name}</a
+								class="truncate min-w-0 hover:underline motion-safe:hover:animate-squiggle"
+								>{data.lastTrack.name}</a
 							>
+							{#if data.lastTrack.shareUrl}
+								<a
+									href={data.lastTrack.shareUrl}
+									title="listen on tunes.ptr.pet"
+									class="text-ralsei-pink-neon text-shadow-none shrink-0 hover:underline motion-safe:hover:animate-squiggle"
+									>[listen]</a
+								>
+							{/if}
 						</p>
 						{#if showAlbum}
 							<p
