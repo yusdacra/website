@@ -100,9 +100,16 @@ const parseFeedToActivity = async (url: string) => {
 		// TODO: probably can implement a deduplication algorithm
 		if (
 			source === 'github' &&
-			['90-008/ark', '90-008/website', 'ark', 'website', 'trill', 'faunu', 'nucleus'].some((repo) =>
-				description.includes(repo)
-			)
+			[
+				'90-008/ark',
+				'90-008/website',
+				'ark',
+				'website',
+				'trill',
+				'faunu',
+				'nucleus',
+				'hydrant'
+			].some((repo) => description.includes(repo))
 		)
 			continue;
 		// dont show activity that is just chore
