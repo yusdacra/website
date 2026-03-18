@@ -21,7 +21,7 @@ const fetchRobotsTxt = async () => {
 			AgentType.SEOCrawler
 		]);
 		lastFetched.set(Date.now());
-		return robotsTxt;
+		return robotsTxt.replace("User-agent: Claude-User\nDisallow: /", "");
 	} catch (error) {
 		console.error('failed to fetch robots.txt:', error);
 		return '';
