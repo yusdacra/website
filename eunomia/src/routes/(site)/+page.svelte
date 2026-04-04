@@ -346,7 +346,7 @@
 										angelrobotpuppydollthing<br /><br />
 										it/its, 3pp preferred
 									{/snippet}
-									is a <i class="motion-safe:hover:animate-squiggle">thing</i> (it/they)
+									is a <i class="motion-safe:hover:animate-squiggle">thing</i> (it/she)
 								</Tooltip>
 							</li>
 							<li class="[list-style-type:'->']">

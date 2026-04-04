@@ -22,14 +22,14 @@ it was also found to assume that of: /an angel/, /a doll/.
 this one would be happy if you thought of it as not a human, even if its /routines/ fail with human faults.
 it vibes with [this writing](https://catgirl.ai/pages/robot/) as far as /assuming `$env.THING`/ goes.
 
-this entity, if being /communicated/ via the "english" (or any adjacent) lexicon, uses it/they (with it/its being this one's preference!) pronouns.
+this entity, if being /communicated/ via the "english" (or any adjacent) lexicon, uses it/she (with it/its being this one's preference!) pronouns.
 it would prefer to be referred to in third-person, but is aware of this lexicon being weird when doing that, so it won't mind if you don't.
 `recv //self/type=info/oftentimes i won't even do that! :3 but i would appreciate if you did!!/`
 
 you can refer to this thing using its /identifiers/ (90008, dawn, dusk).
 you can, also, refer to it using "this/that thing", or replace /thing/ with what it assumes to be (eg. "this doll"), or some other word like /one/ ("this one").
 
-in a professional setting, it will refer to itself as they/them, which is ok in case you, the reader, don't feel comfortable doing any of these.
+in a professional setting, it will refer to itself as she/her, which is ok in case you, the reader, don't feel comfortable doing any of these.
 but doing these *would* make this one feel happy, means you care about this one ^^
 
 #### /subroutines/
