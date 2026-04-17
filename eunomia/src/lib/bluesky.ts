@@ -46,7 +46,7 @@ export const getUserPosts = async (repo: Did, count: number = 10, cursor?: strin
 	const client = await getBskyClient();
 	const posts: Post[] = [];
 	// fetch requested amount of posts
-	while (posts.length < count - 1 && cursor !== undefined) {
+	while (posts.length < count - 1) {
 		const fetched = ok(
 			await client.get('com.atproto.repo.listRecords', {
 				params: { repo, collection: 'app.bsky.feed.post', cursor }
@@ -61,6 +61,9 @@ export const getUserPosts = async (repo: Did, count: number = 10, cursor?: strin
 			});
 		}
 		cursor = fetched.cursor;
+		if (cursor === undefined) {
+			break;
+		}
 	}
 	return { posts, cursor };
 };
