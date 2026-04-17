@@ -72,7 +72,7 @@ export const getUserPosts = async (
 			break;
 		}
 	}
-	return { posts, cursor };
+	return { posts: posts.slice(0, count), cursor };
 };
 
 const lastPosts = writable<Post[]>([]);
