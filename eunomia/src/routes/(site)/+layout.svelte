@@ -114,7 +114,14 @@
 			<feComposite in="SourceGraphic" in2="a" operator="in" />
 			<feMorphology operator="dilate" radius="5" />
 		</filter>
-		<filter id="dither" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+		<filter
+			id="dither"
+			color-interpolation-filters="sRGB"
+			x="0"
+			y="0"
+			width="100%"
+			height="100%"
+		>
 			<feImage
 				width="4"
 				height="4"
@@ -213,7 +220,12 @@
 					/>
 				{/if}
 				{#if isResumePage && menuIdx === 2}
-					<NavButton highlight name="resume" href="/resume.pdf" iconUri="/icons/about.webp" />
+					<NavButton
+						highlight
+						name="resume"
+						href="/resume.pdf"
+						iconUri="/icons/about.webp"
+					/>
 				{/if}
 			{/each}
 			<div class="hidden md:block grow"></div>
@@ -230,7 +242,9 @@
 					class="hover:underline"
 					href="https://stellophiliac.github.io/roboring/gazesys/previous">⮜</a
 				>
-				<a class="hover:underline" href="https://stellophiliac.github.io/roboring">roboring</a>
+				<a class="hover:underline" href="https://stellophiliac.github.io/roboring"
+					>roboring</a
+				>
 				<a
 					title="next site"
 					class="hover:underline"
@@ -238,7 +252,11 @@
 				>
 			</div>
 			<div class="navbox">
-				<a title="previous site" class="hover:underline" href="https://xn--sr8hvo.ws/previous">⮜</a>
+				<a
+					title="previous site"
+					class="hover:underline"
+					href="https://xn--sr8hvo.ws/previous">⮜</a
+				>
 				<a class="hover:underline" href="https://xn--sr8hvo.ws">indieweb</a>
 				<a title="next site" class="hover:underline" href="https://xn--sr8hvo.ws/next">⮞</a>
 			</div>
@@ -265,7 +283,8 @@
 						using <span
 							class={data.ipv6
 								? 'text-ralsei-green-light text-shadow-green'
-								: 'text-red-500 text-shadow-red'}>{data.ipv6 ? 'ipv6' : 'ipv4'}</span
+								: 'text-red-500 text-shadow-red'}
+							>{data.ipv6 ? 'ipv6' : 'ipv4'}</span
 						>
 					</p>
 				</div>
@@ -294,8 +313,9 @@
 				{/snippet}
 				<div class="navbox">
 					<p>
-						<span class="text-ralsei-green-light text-shadow-green">{data.recentVisitCount}</span> recent
-						clicks
+						<span class="text-ralsei-green-light text-shadow-green"
+							>{data.recentVisitCount}</span
+						> recent clicks
 					</p>
 				</div>
 			</Tooltip>

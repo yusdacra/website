@@ -1,16 +1,34 @@
 import { env } from '$env/dynamic/private';
-import { Bot, type Post } from '@skyware/bot';
+import { AppBskyFeedPost } from '@atcute/bluesky';
+
+import { Client, CredentialManager, ok, simpleFetchHandler } from '@atcute/client';
+import { parse, type CanonicalResourceUri, type Did } from '@atcute/lexicons';
 import { get, writable } from 'svelte/store';
 
-const bskyClient = writable<null | Bot>(null);
+export const PDS_URL = 'https://gaze.systems';
+export const IDENTIFIER = 'did:web:guestbook.gaze.systems';
+
+const constellationClient = new Client({
+	handler: simpleFetchHandler({ service: 'https://constellation.microcosm.blue' })
+});
+const bskyClient = writable<null | Client>(null);
+
+export type Post = {
+	record: AppBskyFeedPost.Main;
+	uri: CanonicalResourceUri;
+};
 
 export const getBskyClient = async () => {
-	let client = get(bskyClient);
-	if (client === null) {
-		client = await loginToBsky();
-		bskyClient.set(client);
+	try {
+		let client = get(bskyClient);
+		if (client === null) {
+			client = await loginToBsky();
+			bskyClient.set(client);
+		}
+		return client;
+	} catch (e) {
+		throw `cant login to bsky: ${e}`;
 	}
-	return client;
 };
 
 const loginToBsky = async () => {
@@ -18,30 +36,33 @@ const loginToBsky = async () => {
 	if (password === null) {
 		throw new Error('no password provided');
 	}
-	const bot = new Bot({ service: 'https://gaze.systems' });
-	await bot.login({ identifier: 'guestbook.gaze.systems', password });
-	return bot;
+	const handler = new CredentialManager({ service: PDS_URL });
+	const rpc = new Client({ handler });
+	await handler.login({ identifier: IDENTIFIER, password });
+	return rpc;
 };
 
-export const getUserPosts = async (
-	did: string,
-	count: number = 10,
-	cursor: string | null = null
-) => {
+export const getUserPosts = async (repo: Did, count: number = 10, cursor?: string) => {
 	const client = await getBskyClient();
-	let feedCursor: string | null | undefined = cursor;
 	const posts: Post[] = [];
 	// fetch requested amount of posts
-	while (posts.length < count - 1 && (typeof feedCursor === 'string' || feedCursor === null)) {
-		const feedData = await client.getUserPosts(did, {
-			limit: count,
-			filter: 'posts_no_replies',
-			cursor: feedCursor === null ? undefined : feedCursor
-		});
-		posts.push(...feedData.posts.filter((post) => post.author.did === did));
-		feedCursor = feedData.cursor;
+	while (posts.length < count - 1 && cursor !== undefined) {
+		const fetched = ok(
+			await client.get('com.atproto.repo.listRecords', {
+				params: { repo, collection: 'app.bsky.feed.post', cursor }
+			})
+		);
+		for (const record of fetched.records) {
+			const post = parse(AppBskyFeedPost.mainSchema, record.value);
+			if (post.reply) continue;
+			posts.push({
+				record: post,
+				uri: record.uri as CanonicalResourceUri
+			});
+		}
+		cursor = fetched.cursor;
 	}
-	return { posts, cursor: feedCursor === null ? undefined : feedCursor };
+	return { posts, cursor };
 };
 
 const lastPosts = writable<Post[]>([]);
@@ -57,4 +78,29 @@ export const updateLastPosts = async () => {
 
 export const getLastPosts = () => {
 	return get(lastPosts);
+};
+
+export const getReplies = async (postUri: CanonicalResourceUri, forDid?: Did) => {
+	const client = await getBskyClient();
+	// todo: do cursor stuff here later if it matters
+	const backlinks = ok(
+		await constellationClient.get('blue.microcosm.links.getBacklinks', {
+			params: {
+				did: forDid ? [forDid] : [],
+				subject: postUri,
+				source: 'app.bsky.feed.post:reply.parent.uri'
+			}
+		})
+	);
+	const replies: Post[] = [];
+	for (const record of backlinks.records) {
+		const fetched = ok(
+			await client.get('com.atproto.repo.getRecord', {
+				params: { repo: record.did, collection: record.collection, rkey: record.rkey }
+			})
+		);
+		const post = parse(AppBskyFeedPost.mainSchema, fetched.value);
+		replies.push({ record: post, uri: fetched.uri as CanonicalResourceUri });
+	}
+	return replies;
 };

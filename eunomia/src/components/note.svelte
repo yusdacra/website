@@ -1,5 +1,5 @@
 <script module lang="ts">
-	import type { Post } from '@skyware/bot';
+	import type { Post } from '$lib/bluesky';
 
 	export interface OutgoingLink {
 		name: string;
@@ -28,15 +28,20 @@
 		return flattened;
 	};
 
-	export const noteFromBskyPost = (post: Post): NoteData => {
+	export const noteFromBskyPost = ({ record: post, uri }: Post): NoteData => {
 		return {
 			content: post.text,
-			published: post.createdAt.getTime(),
-			outgoingLinks: [{ name: 'bsky', link: post.uri }],
+			published: new Date(post.createdAt).getTime(),
+			outgoingLinks: [{ name: 'bsky', link: uri }],
 			hasMedia:
-				(post.embed?.isImages() || post.embed?.isVideo() || post.embed?.isRecordWithMedia()) ??
+				(post.embed?.$type === 'app.bsky.embed.images' ||
+					post.embed?.$type === 'app.bsky.embed.video' ||
+					post.embed?.$type === 'app.bsky.embed.recordWithMedia') ??
 				false,
-			hasQuote: (post.embed?.isRecord() || post.embed?.isRecordWithMedia()) ?? false
+			hasQuote:
+				(post.embed?.$type === 'app.bsky.embed.record' ||
+					post.embed?.$type === 'app.bsky.embed.recordWithMedia') ??
+				false
 		};
 	};
 </script>

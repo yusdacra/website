@@ -2,13 +2,16 @@ import { redirect, type Cookies, type RequestEvent } from '@sveltejs/kit';
 import { scopeCookies as _scopeCookies, fancyText } from '$lib';
 import { RetryAfterRateLimiter } from 'sveltekit-rate-limiter/server';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getBskyClient, getUserPosts } from '$lib/bluesky.js';
+import { getBskyClient, getReplies, getUserPosts, IDENTIFIER } from '$lib/bluesky.js';
 import { getVisitorId } from '$lib/visits';
 import { nanoid } from 'nanoid';
 import { noteFromBskyPost, type NoteData } from '$components/note.svelte';
 import { get, writable } from 'svelte/store';
-import type { Post } from '@skyware/bot';
+import type { Post } from '$lib/bluesky.js';
 import { useToken as checkApiToken, newToken } from '$lib/apiToken.js';
+import type { AppBskyFeedPost, AppBskyFeedThreadgate } from '@atcute/bluesky';
+import { now } from '@atcute/tid';
+import { ok } from '@atcute/client';
 
 export const prerender = false;
 
@@ -28,10 +31,10 @@ const entries = writable<NoteData[]>([]);
 
 export const _fetchEntries = async () => {
 	const newEntries: NoteData[] = [];
-	const { posts } = await getUserPosts('did:web:guestbook.gaze.systems', 14);
+	const { posts } = await getUserPosts(IDENTIFIER, 14);
 	const fetchPostReplies = async (post: Post) => {
-		if ((post.replyCount ?? 0) === 0) return { post, replies: [] };
-		return { post, replies: await post.fetchChildren({ depth: 1, force: true }) };
+		const replies = await getReplies(post.uri, 'did:plc:dfl62fgb7wtjj3fcbb72naae');
+		return { post, replies };
 	};
 	const postsWithReplies = await Promise.all(posts.map(fetchPostReplies));
 	for (const { post, replies } of postsWithReplies) {
@@ -120,12 +123,38 @@ export async function load({ cookies }) {
 			}
 			// post to guestbook account
 			const client = await getBskyClient();
-			await client.post(
-				{
-					text: content,
-					threadgate: { allowMentioned: false, allowFollowing: true }
-				},
-				{ resolveFacets: false }
+			const post: AppBskyFeedPost.Main = {
+				$type: 'app.bsky.feed.post',
+				createdAt: new Date().toUTCString(),
+				text: content
+			};
+			const postRkey = now();
+			const threadgate: AppBskyFeedThreadgate.Main = {
+				$type: 'app.bsky.feed.threadgate',
+				createdAt: new Date().toUTCString(),
+				post: `at://${IDENTIFIER}/${post.$type}/${postRkey}`,
+				allow: [{ $type: 'app.bsky.feed.threadgate#followingRule' }]
+			};
+			// use applyWrites to make a post record and a threadgate record
+			await ok(
+				client.post('com.atproto.repo.applyWrites', {
+					input: {
+						repo: IDENTIFIER,
+						writes: [
+							{
+								$type: 'com.atproto.repo.applyWrites#create',
+								collection: post.$type,
+								value: post,
+								rkey: postRkey
+							},
+							{
+								$type: 'com.atproto.repo.applyWrites#create',
+								collection: 'app.bsky.feed.threadgate',
+								value: threadgate
+							}
+						]
+					}
+				})
 			);
 			try {
 				data.entries = await _fetchEntries();
