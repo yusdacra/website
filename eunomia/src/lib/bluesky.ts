@@ -11,19 +11,22 @@ export const IDENTIFIER = 'did:web:guestbook.gaze.systems';
 const constellationClient = new Client({
 	handler: simpleFetchHandler({ service: 'https://constellation.microcosm.blue' })
 });
-const bskyClient = writable<null | Client>(null);
+const userClient = new Client({
+	handler: simpleFetchHandler({ service: 'https://zwsp.xyz' })
+});
+const guestbookClient = writable<null | Client>(null);
 
 export type Post = {
 	record: AppBskyFeedPost.Main;
 	uri: CanonicalResourceUri;
 };
 
-export const getBskyClient = async () => {
+export const getGuestbookClient = async () => {
 	try {
-		let client = get(bskyClient);
+		let client = get(guestbookClient);
 		if (client === null) {
 			client = await loginToBsky();
-			bskyClient.set(client);
+			guestbookClient.set(client);
 		}
 		return client;
 	} catch (e) {
@@ -42,14 +45,18 @@ const loginToBsky = async () => {
 	return rpc;
 };
 
-export const getUserPosts = async (repo: Did, count: number = 10, cursor?: string) => {
-	const client = await getBskyClient();
+export const getUserPosts = async (
+	client: Client,
+	repo: Did,
+	count: number = 10,
+	cursor?: string
+) => {
 	const posts: Post[] = [];
 	// fetch requested amount of posts
 	while (posts.length < count - 1) {
 		const fetched = ok(
 			await client.get('com.atproto.repo.listRecords', {
-				params: { repo, collection: 'app.bsky.feed.post', cursor }
+				params: { repo, collection: 'app.bsky.feed.post', cursor, limit: count }
 			})
 		);
 		for (const record of fetched.records) {
@@ -72,7 +79,7 @@ const lastPosts = writable<Post[]>([]);
 
 export const updateLastPosts = async () => {
 	try {
-		const { posts } = await getUserPosts('did:plc:dfl62fgb7wtjj3fcbb72naae', 10);
+		const { posts } = await getUserPosts(userClient, 'did:plc:dfl62fgb7wtjj3fcbb72naae', 10);
 		lastPosts.set(posts);
 	} catch (err) {
 		console.log(`can't update last posts ${err}`);
@@ -83,8 +90,7 @@ export const getLastPosts = () => {
 	return get(lastPosts);
 };
 
-export const getReplies = async (postUri: CanonicalResourceUri, forDid?: Did) => {
-	const client = await getBskyClient();
+export const getReplies = async (client: Client, postUri: CanonicalResourceUri, forDid?: Did) => {
 	// todo: do cursor stuff here later if it matters
 	const backlinks = ok(
 		await constellationClient.get('blue.microcosm.links.getBacklinks', {

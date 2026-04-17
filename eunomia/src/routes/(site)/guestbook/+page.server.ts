@@ -2,7 +2,7 @@ import { redirect, type Cookies, type RequestEvent } from '@sveltejs/kit';
 import { scopeCookies as _scopeCookies, fancyText } from '$lib';
 import { RetryAfterRateLimiter } from 'sveltekit-rate-limiter/server';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getBskyClient, getReplies, getUserPosts, IDENTIFIER } from '$lib/bluesky.js';
+import { getGuestbookClient, getReplies, getUserPosts, IDENTIFIER } from '$lib/bluesky.js';
 import { getVisitorId } from '$lib/visits';
 import { nanoid } from 'nanoid';
 import { noteFromBskyPost, type NoteData } from '$components/note.svelte';
@@ -31,9 +31,13 @@ const entries = writable<NoteData[]>([]);
 
 export const _fetchEntries = async () => {
 	const newEntries: NoteData[] = [];
-	const { posts } = await getUserPosts(IDENTIFIER, 14);
+	const { posts } = await getUserPosts(await getGuestbookClient(), IDENTIFIER, 14);
 	const fetchPostReplies = async (post: Post) => {
-		const replies = await getReplies(post.uri, 'did:plc:dfl62fgb7wtjj3fcbb72naae');
+		const replies = await getReplies(
+			await getGuestbookClient(),
+			post.uri,
+			'did:plc:dfl62fgb7wtjj3fcbb72naae'
+		);
 		return { post, replies };
 	};
 	const postsWithReplies = await Promise.all(posts.map(fetchPostReplies));
@@ -122,7 +126,7 @@ export async function load({ cookies }) {
 				redirect(303, callbackUrl);
 			}
 			// post to guestbook account
-			const client = await getBskyClient();
+			const client = await getGuestbookClient();
 			const post: AppBskyFeedPost.Main = {
 				$type: 'app.bsky.feed.post',
 				createdAt: new Date().toUTCString(),
