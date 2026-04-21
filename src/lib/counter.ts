@@ -1,4 +1,5 @@
 import { get, writable } from 'svelte/store';
+import { readFile, writeFile } from 'node:fs/promises';
 
 /**
  * Creates a persistent counter that is stored in a file
@@ -9,7 +10,7 @@ import { get, writable } from 'svelte/store';
 export const createFileCounter = async (filePath: string, initialValue: number = 0) => {
 	let countRaw: string | null = null;
 	try {
-		countRaw = await Deno.readTextFile(filePath);
+		countRaw = await readFile(filePath, 'utf8');
 	} catch {
 		// we use initial value if not found
 	}
@@ -17,7 +18,7 @@ export const createFileCounter = async (filePath: string, initialValue: number =
 	const counter = writable(parseInt(countRaw ?? initialValue.toString()));
 
 	const saveToFile = async (value: number) => {
-		await Deno.writeTextFile(filePath, value.toString());
+		await writeFile(filePath, value.toString(), 'utf8');
 		return value;
 	};
 

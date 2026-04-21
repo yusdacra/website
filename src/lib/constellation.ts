@@ -3,7 +3,6 @@ import 'konva/skia-backend';
 import { writeFile, readFile, stat, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { env } from '$env/dynamic/private';
-// const env = Deno.env.toObject();
 import type { Canvas } from 'skia-canvas';
 import sharp from 'sharp';
 import random from 'random';

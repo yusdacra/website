@@ -126,7 +126,7 @@ const parseFeedToActivity = async (url: string) => {
 				const url = new URL(item.url || '');
 				const parts = url.pathname.split('/').filter(Boolean);
 				if (parts.length >= 2) {
-					repoName = parts[1]; // just the repo name, e.g. "eunomia"
+					repoName = parts[1]; // just the repo name, e.g. "endpoint"
 				}
 			} catch {
 				/* empty */

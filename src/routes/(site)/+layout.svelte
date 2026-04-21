@@ -56,7 +56,7 @@
 		eyePositions = data.eyePositions;
 	}
 
-	let bgTimestamp = $derived(new Date(data.stars?.meta?.timestamp || 0).getTime());
+let bgTimestamp = $derived(new Date(data.stars?.meta?.timestamp || 0).getTime());
 </script>
 
 <svelte:head>
@@ -95,7 +95,7 @@
 	image-rendering="optimizeSpeed"
 >
 	<defs>
-		{#each svgSquiggles as [scale], index (index)}
+			{#each svgSquiggles as [scale], index (index)}
 			<filter id="squiggly-{index}">
 				<feTurbulence
 					id="turbulence"
@@ -168,7 +168,7 @@
 </svg>
 
 {#if !isResumePage && !isUIHidden}
-	{#each data.lastVisitors as [id, visitor], index (id)}
+		{#each data.lastVisitors as [id, visitor], index (id)}
 		{@const pos = eyePositions.at(index)}
 		{#if pos !== undefined}
 			<Eye visits={visitor.visits} {id} top={pos[0]} left={pos[1]} />

@@ -16,9 +16,9 @@
         ...
       }: {
         devShells.default = pkgs.mkShell {
-          name = "eunomia-devshell";
+          name = "endpoint-devshell";
           packages = with pkgs; [
-            nodejs-slim_latest deno skia
+            bun skia
             svelte-language-server
             typescript-language-server
           ];
@@ -27,11 +27,11 @@
             export LD_LIBRARY_PATH="${lib.makeLibraryPath [pkgs.skia pkgs.stdenv.cc.cc.lib]}"
           '';
         };
-        packages.eunomia-modules = pkgs.callPackage ./nix/modules.nix {};
-        packages.eunomia = pkgs.callPackage ./nix {
-          inherit (config.packages) eunomia-modules;
+        packages.endpoint-modules = pkgs.callPackage ./nix/modules.nix {};
+        packages.endpoint = pkgs.callPackage ./nix {
+          inherit (config.packages) endpoint-modules;
         };
-        packages.default = config.packages.eunomia;
+        packages.default = config.packages.endpoint;
     };
   };
 }

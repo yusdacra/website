@@ -1,5 +1,6 @@
 import { env } from '$env/dynamic/private';
 import sharp from 'sharp';
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { get, writable } from 'svelte/store';
 import * as Navidrome from './navidrome';
 
@@ -24,7 +25,7 @@ const lastTrack = writable<LastTrack | null>(null);
 // Ensure cache directory exists
 const ensureCacheDir = async () => {
 	try {
-		await Deno.mkdir(COVER_ART_CACHE_DIR, { recursive: true });
+		await mkdir(COVER_ART_CACHE_DIR, { recursive: true });
 	} catch (err) {
 		// Directory might already exist, ignore error
 	}
@@ -36,7 +37,7 @@ const fetchAndCacheImage = async (url: string, id: string): Promise<string | nul
 
 	// Check if already cached
 	try {
-		await Deno.stat(cacheFile);
+		await stat(cacheFile);
 		return `/cover_art/${id}.webp`;
 	} catch {
 		// Not cached, try to fetch
@@ -55,7 +56,7 @@ const fetchAndCacheImage = async (url: string, id: string): Promise<string | nul
 		const optimizedImage = await sharpImg.toBuffer();
 		sharpImg.destroy();
 
-		await Deno.writeFile(cacheFile, new Uint8Array(optimizedImage));
+		await writeFile(cacheFile, optimizedImage);
 
 		return `/cover_art/${id}.webp`;
 	} catch (err) {
@@ -107,7 +108,7 @@ const getCoverArt = async (
 
 export const getLastTrack = async () => {
 	try {
-		const data = await Deno.readTextFile(LAST_TRACK_FILE);
+		const data = await readFile(LAST_TRACK_FILE, 'utf8');
 		lastTrack.set(JSON.parse(data));
 	} catch (why) {
 		console.log('could not read last track: ', why);
@@ -197,7 +198,7 @@ export const updateNowPlayingTrack = async () => {
 		};
 
 		lastTrack.set(data);
-		await Deno.writeTextFile(LAST_TRACK_FILE, JSON.stringify(data));
+		await writeFile(LAST_TRACK_FILE, JSON.stringify(data), 'utf8');
 	} catch (why) {
 		console.log('could not fetch teal fm: ', why);
 	}

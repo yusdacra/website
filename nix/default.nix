@@ -1,28 +1,36 @@
 {
   lib,
   stdenv,
-  deno,
-  nodejs,
+  bun,
   skia,
   jemalloc,
   makeBinaryWrapper,
-  eunomia-modules,
+  endpoint-modules,
   PUBLIC_BASE_URL ? "http://localhost:5173",
 }:
 stdenv.mkDerivation {
-  name = "eunomia";
+  name = "endpoint";
 
   src = lib.fileset.toSource {
     root = ../.;
     fileset = lib.fileset.unions [
-      ../deno.lock
-      ../deno.json
-      ../eunomia
+      ../package.json
+      ../bun.lock
+      ../vite.config.ts
+      ../svelte.config.js
+      ../tsconfig.json
+      ../tailwind.config.js
+      ../postcss.config.js
+      ../eslint.config.js
+      ../.prettierrc
+      ../.prettierignore
+      ../src
+      ../static
     ];
   };
 
   nativeBuildInputs = [makeBinaryWrapper];
-  buildInputs = [deno];
+  buildInputs = [bun];
 
   inherit PUBLIC_BASE_URL;
 
@@ -30,33 +38,29 @@ stdenv.mkDerivation {
 
   configurePhase = ''
     runHook preConfigure
-    cp -R --no-preserve=ownership ${eunomia-modules} node_modules
+    cp -R --no-preserve=ownership ${endpoint-modules} node_modules
     find node_modules -type d -exec chmod 755 {} \;
-    substituteInPlace node_modules/.bin/vite \
-      --replace-fail "/usr/bin/env node" "${nodejs}/bin/node"
     runHook postConfigure
   '';
   buildPhase = ''
     runHook preBuild
-    pushd eunomia
-    HOME=$TMPDIR ../node_modules/.bin/vite build
-    popd
+    HOME=$TMPDIR ${bun}/bin/bun run build
     runHook postBuild
   '';
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
-    cp -R ./eunomia/build/* $out
+    cp -R ./build/* $out
     cp -R ./node_modules $out
 
-    makeBinaryWrapper ${deno}/bin/deno $out/bin/eunomia \
-      --prefix PATH : ${lib.makeBinPath [ deno ]} \
+    makeBinaryWrapper ${bun}/bin/bun $out/bin/endpoint \
+      --prefix PATH : ${lib.makeBinPath [ bun ]} \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [skia stdenv.cc.cc.lib]}" \
       --set LD_PRELOAD "${jemalloc}/lib/libjemalloc.so.2" \
       --set MALLOC_ARENA_MAX 2 \
       --set VIPS_CONCURRENY 1 \
-      --add-flags "run --allow-all --node-modules-dir=manual --cached-only $out/index.js"
+      --add-flags "$out/index.js"
 
     runHook postInstall
   '';
