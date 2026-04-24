@@ -1,6 +1,8 @@
 import { get, writable } from 'svelte/store';
 import { parseFeed } from '@rowanmanning/feed-parser';
 
+export const ACTIVITY_PREVIEW_LIMIT = 7;
+
 const lastCommits = writable<Activity[]>([]);
 
 export const updateCommits = async () => {
@@ -8,10 +10,7 @@ export const updateCommits = async () => {
 		const githubFeed = await parseFeedToActivity('https://github.com/90-008.atom');
 		const codebergFeed = await parseFeedToActivity('https://codeberg.org/90-008.atom');
 		const tangledFeed = await fetchTangledActivity();
-		const mergedFeed = sortActivities(githubFeed.concat(codebergFeed).concat(tangledFeed)).slice(
-			0,
-			7
-		);
+		const mergedFeed = sortActivities(githubFeed.concat(codebergFeed).concat(tangledFeed));
 		lastCommits.set(mergedFeed);
 	} catch (why) {
 		console.log('could not fetch git activity: ', why);
@@ -19,15 +18,34 @@ export const updateCommits = async () => {
 };
 
 export const getLastActivity = () => {
+	return get(lastCommits).slice(0, ACTIVITY_PREVIEW_LIMIT);
+};
+
+export const getCurrentActivity = () => {
 	return get(lastCommits);
 };
 
-type Activity = {
+export const activityToJson = (activity: Activity): ActivityJson => {
+	return {
+		...activity,
+		date: activity.date?.toISOString() ?? null
+	};
+};
+
+export const currentActivityToJson = (activities: Activity[]) => {
+	return activities.map(activityToJson);
+};
+
+export type Activity = {
 	source: string;
 	description: string;
 	link: string | null;
 	date: Date | null;
 	id?: string;
+};
+
+export type ActivityJson = Omit<Activity, 'date'> & {
+	date: string | null;
 };
 
 const toHex = (bytes: number[]): string => {
