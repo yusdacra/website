@@ -14,18 +14,18 @@ stdenv.mkDerivation {
     ];
   };
 
-  nativeBuildInputs = [ bun ];
+  nativeBuildInputs = [bun];
+
+  outputHash = "sha256-fwpwLHGy3OB9exGCXCg0XjKBb6PuhMYpjIR77kob9ns=";
+  outputHashAlgo = "sha256";
+  outputHashMode = "recursive";
 
   dontConfigure = true;
   dontCheck = true;
   dontFixup = true;
-  dontPatchShebangs = true;
 
-  postUnpack = ''
-
-  '';
   buildPhase = ''
-    HOME=$TMPDIR bun install --frozen-lockfile
+    HOME=$TMPDIR bun install --no-cache --no-progress --frozen-lockfile
   '';
   installPhase = ''
     cp -R node_modules $out

@@ -64,6 +64,7 @@
 		"esbuild",
 		"protobufjs",
 		"sharp",
-		"svelte-preprocess"
+		"svelte-preprocess",
+		"skia-canvas"
 	]
 }
