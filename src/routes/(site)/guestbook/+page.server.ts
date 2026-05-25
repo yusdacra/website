@@ -129,13 +129,13 @@ export async function load({ cookies }) {
 			const client = await getGuestbookClient();
 			const post: AppBskyFeedPost.Main = {
 				$type: 'app.bsky.feed.post',
-				createdAt: new Date().toUTCString(),
+				createdAt: new Date().toISOString(),
 				text: content
 			};
 			const postRkey = now();
 			const threadgate: AppBskyFeedThreadgate.Main = {
 				$type: 'app.bsky.feed.threadgate',
-				createdAt: new Date().toUTCString(),
+				createdAt: new Date().toISOString(),
 				post: `at://${IDENTIFIER}/${post.$type}/${postRkey}`,
 				allow: [{ $type: 'app.bsky.feed.threadgate#followingRule' }]
 			};
