@@ -354,7 +354,7 @@
 								<span class="p-category">indie game dev</span>
 							</li>
 							<li class="[list-style-type:'->']">
-								looking for work, resume <a href="/resume.pdf">here</a>
+								working at tangled.org, resume <a href="/resume.pdf">here</a>
 							</li>
 							<li class="[list-style-type:'->']">
 								in <span class="p-country-name">turkey</span>
